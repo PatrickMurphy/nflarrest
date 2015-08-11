@@ -1,0 +1,89 @@
+*{
+	margin: 0px;
+	padding: 0px;
+	font-family: sans-serif;
+	color:#151414;
+}
+
+.clear {
+	clear: both;
+}
+
+#wrap {
+	width:85%;
+	margin-left: 7.5%;
+	background-color: #D1DBBD;
+	border-bottom-left-radius: 7px;
+	border-bottom-right-radius: 7px;
+	box-shadow: 0px 3px 5px #bbb;
+}
+
+body, html {
+	background-color: #FCFFF5;
+}
+
+header {
+	width:100%;
+	background-color:#91AA9D;
+	height:115px;
+}
+
+header h1 {
+	float:left;
+	color: #193441;
+	margin:15px;
+}
+
+header h1 span {
+	font-size: 14px !important;
+	color:#3E606F;
+}
+
+.dateRangeControl {
+	float:right;
+	margin-right: 3vw;
+}
+.dateRangeControl input, .dateRangeControl button  {
+	display:block;
+	padding:3px;
+	margin: 4px;
+	border-radius: 3px;
+	border:1px solid #888;
+}
+
+.dateRangeControl button {
+	background-color:#3E606F;
+	border:none;
+	color:rgba(255, 255, 255, 0.5);
+}
+
+.dateRangeControl button:hover {
+	color: #fff;
+	cursor: pointer;
+	background-color:#486d7e;
+}
+
+.dateRangeControl .title {
+	font-weight: bold;
+}
+
+section {
+	min-height: 35vh;
+}
+li {
+	margin-left: 1.75em;
+}
+ol {
+	display: block;
+}
+aside {
+	float:right;
+	margin-right: 4vw;
+}
+.playerHeadshot {
+	border-radius: 50%;
+}
+
+footer {
+
+}
