@@ -70,6 +70,9 @@ header h1 span {
 section {
 	min-height: 35vh;
 }
+#chart {
+	width:70%;
+}
 li {
 	margin-left: 1.75em;
 }
