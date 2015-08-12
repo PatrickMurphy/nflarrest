@@ -21,29 +21,12 @@ function changeDateRange(){
 	console.log(end);
 }
 
-function handleTeam(team_num, response, data, groups){
-	var count = response.length;
+function handleTeam(response){
+	var return_list = {};
 	$.each(response, function(crime_num, value){
-		// for each dist list add respective crime
-		if(data.hasOwnProperty(value.Category)){
-			// already has this category add value
-			data[value.Category].push(value.arrest_count);
-		}else{
-			// new category
-			groups.push(value.Category);
-			// first value should be the category name
-			var temp_array = [value.Category];
-			for(var i = 0; i < team_num-1; i++){
-				temp_array.push(0);
-			}
-			temp_array.push(value.arrest_count);
-			data[value.Category] = temp_array;
-		}
-		if(--count == 0){
-			// after all teams loaded
-			return adjustCrimes(data, team_num);
-		}
+		return_list[value.Category] = value.arrest_count;
 	});
+	return return_list;
 };
 
 function adjustCrimes(data, team_num){
@@ -71,8 +54,36 @@ function getOverallChartData(){
 			var teamdata = {};
 			team_array.push(value['Team']);
 			// for each team look up distribution of crimes
-			$.getJSON('api/team/topCrimes.php?limit=5&id='+value['Team'], function(crime_response){
-				var TeamData = handleTeam(team_num, crime_response, teamdata, groups);
+			$.getJSON('api/team/topCrimes.php?id='+value['Team'], function(crime_response){
+				var TeamData = handleTeam(crime_response);
+				var crimeName, crimeName2;
+				// add missing to team
+				for(crimeName in data){
+					if(!TeamData.hasOwnProperty(crimeName)){
+						TeamData[crimeName] = 0;
+					}
+				}
+				for(crimeName2 in TeamData){
+					if(data.hasOwnProperty(crimeName2)){
+						// add existing to data
+						//console.log('update crime '+ crimeName2);
+						data[crimeName2].push(TeamData[crimeName2]);
+					}else{
+						// add missing to data
+						//console.log('new crime ' + crimeName2);
+						var tempArray = [crimeName2];
+						var i;
+						// add zeros for prev teams
+						for(i = 0; i <= team_num-1; i++){
+							tempArray.push(0);
+						}
+						// this teams
+						tempArray.push(TeamData[crimeName2]);
+						data[crimeName2] = tempArray;
+					}
+				}
+
+				console.log($.extend(true,{},data));
 			});
 		});
 	});
