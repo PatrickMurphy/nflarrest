@@ -7,76 +7,56 @@
   <title>NFL Arrest Info</title>
   <meta name="description" content="NFL Players Arrest Stats and more">
   <meta name="author" content="Patrick Murphy">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+	<link rel="stylesheet" href="css/vendor/normalize.css">
+	<link rel="stylesheet" href="css/vendor/skeleton.css">
   <link rel="stylesheet" href="css/styles.css?v=1.0">
 	<link rel="stylesheet" href="css/vendor/c3.min.css">
 
-  <!--[if lt IE 9]>
-  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
+	<!--  <link rel="icon" type="image/png" href="images/favicon.png"> -->
 </head>
 
 <body>
-	<div id="wrap">
+	<div class="container">
 		<header>
 			<h1>
 				NFL Arrest
 				<span>A Statistical Analysis</span>
 			</h1>
 			<div class="dateRangeControl">
-				<span class="title">Date Range:</span>
-				<input type="date" id="dateRange_start" value="01/01/2000" />
-				<input type="date" id="dateRange_end" value="01/01/2015" />
-				<button id="changeDateRange">Change Date Range</button>
+				<span class="title">Date Range:</span> <a href="#" id="changeDateRangeLink">01/01/2000 - 01/01/2015</a>
 			</div>
 		</header>
 		<br class="clear" />
 		<section>
-			<div id="chart"></div>
+			<div class="tweleve columns" id="chart"></div>
+			<br class="clear" />
 			<aside>
-				<h3>Common Crimes</h3>
-				<ol>
-					<li><a href="/crimes/dui">DUI</a></li>
-					<li><a href="/crimes/domestic_violence">Domestic Violence</a></li>
-					<li><a href="/crimes/dui">DUI</a></li>
-					<li><a href="/crimes/domestic_violence">Domestic Violence</a></li>
-					<li><a href="/crimes/dui">DUI</a></li>
-					<li><a href="/crimes/domestic_violence">Domestic Violence</a></li>
-					<li><a href="/crimes/dui">DUI</a></li>
-					<li><a href="/crimes/domestic_violence">Domestic Violence</a></li>
-					<li><a href="/crimes/dui">DUI</a></li>
-					<li><a href="/crimes/domestic_violence">Domestic Violence</a></li>
-				</ol>
-				<h3>Common Players</h3>
-				<ol>
-					<li><a href="/player/aldon_smith">Aldon Smith</a></li>
-					<li><a href="/player/aldon_smith">Aldon Smith</a></li>
-					<li><a href="/player/aldon_smith">Aldon Smith</a></li>
-					<li><a href="/player/aldon_smith">Aldon Smith</a></li>
-					<li><a href="/player/aldon_smith">Aldon Smith</a></li>
-					<li><a href="/player/aldon_smith">Aldon Smith</a></li>
-					<li><a href="/player/aldon_smith">Aldon Smith</a></li>
-					<li><a href="/player/aldon_smith">Aldon Smith</a></li>
-					<li><a href="/player/aldon_smith">Aldon Smith</a></li>
-					<li><a href="/player/aldon_smith">Aldon Smith</a></li>
-				</ol>
-				<h3>Common Positions</h3>
-				<ol>
-					<li><a href="/position/wr">Wide Reciever</a></li>
-					<li><a href="/position/qb">Quarter Back</a></li>
-					<li><a href="/position/wr">Wide Reciever</a></li>
-					<li><a href="/position/qb">Quarter Back</a></li>
-					<li><a href="/position/wr">Wide Reciever</a></li>
-					<li><a href="/position/qb">Quarter Back</a></li>
-					<li><a href="/position/wr">Wide Reciever</a></li>
-					<li><a href="/position/qb">Quarter Back</a></li>
-					<li><a href="/position/wr">Wide Reciever</a></li>
-					<li><a href="/position/qb">Quarter Back</a></li>
-				</ol>
+				<div class="four columns top-list">
+					<h3>Top Crimes</h3>
+					<span class="list-heading">Crime:<span># Arrests</span></span>
+					<ol id="top_crimes_list">
+					</ol>
+				</div>
+				<div class="four columns top-list">
+					<h3>Top Players</h3>
+					<span class="list-heading">Name:<span># Arrests</span></span>
+					<ol id="top_players_list">
+					</ol>
+				</div>
+				<div class="four columns top-list">
+					<h3>Top Positions</h3>
+					<span class="list-heading">Position:<span># Arrests</span></span>
+					<ol id="top_positions_list">
+					</ol>
+				</div>
 			</aside>
 		</section>
-
-		<footer>&copy; 2015 <a href="http://resume.patrickmurphyphoto.com">Patrick Murphy</a></footer>
+		<br class="clear" />
+		<footer>&copy; 2015 <a href="http://resume.patrickmurphyphoto.com">Patrick Murphy</a> | <a href="http://www.usatoday.com/sports/nfl/arrests/">Data Source</a> </footer>
 	</div>
 
 	<!-- Include Javascript Logic -->

@@ -7,11 +7,12 @@
 
 .clear {
 	clear: both;
+	display:block;
+	height: 0px;
+	line-height: 0px;
 }
 
-#wrap {
-	width:85%;
-	margin-left: 7.5%;
+.container {
 	background-color: #D1DBBD;
 	border-bottom-left-radius: 7px;
 	border-bottom-right-radius: 7px;
@@ -23,15 +24,22 @@ body, html {
 }
 
 header {
-	width:100%;
 	background-color:#91AA9D;
-	height:115px;
+	height:90px;
 }
 
 header h1 {
 	float:left;
 	color: #193441;
-	margin:15px;
+	padding:15px;
+}
+
+h1, h2, h3, h4 {
+	margin-bottom: 5px;
+}
+
+h3 {
+	font-size: 2.8rem;
 }
 
 header h1 span {
@@ -41,7 +49,9 @@ header h1 span {
 
 .dateRangeControl {
 	float:right;
-	margin-right: 3vw;
+	background-color:#e1e6d7;
+	padding: 0 1.5vw;
+	border-bottom-left-radius: 4px;
 }
 .dateRangeControl input, .dateRangeControl button  {
 	display:block;
@@ -70,23 +80,42 @@ header h1 span {
 section {
 	min-height: 35vh;
 }
-#chart {
-	width:70%;
+#chart{
+	background: rgba(255, 255, 255, 0.3);
 }
 li {
 	margin-left: 1.75em;
+}
+.list-heading span, .top-list li span {
+	float:right;
+	margin-right:10%;
+	font-weight: bold;
+}
+.top-list {
+	border-right:1px solid rgba(0, 0, 0, 0.33);
+}
+.top-list:last-child {
+	border-right:0px;
 }
 ol {
 	display: block;
 }
 aside {
-	float:right;
-	margin-right: 4vw;
+	padding-left: 2vw;
+	margin-top: 4vh;
+	border-top:1px solid rgba(0, 0, 0, 0.35);
 }
 .playerHeadshot {
 	border-radius: 50%;
 }
 
 footer {
+ background: rgba(62, 96, 111, 0.2);
+	text-align: center;
+	font-weight: 600;
+	color:rgba(255, 255, 255, 0.7);
+}
 
+footer a {
+	text-decoration: none;
 }
