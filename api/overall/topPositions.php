@@ -5,7 +5,11 @@ $limit = '';
 $date_range = '';
 
 if(isset($_GET['limit'])){
-	$limit = ' LIMIT ' . $_GET['limit'];
+	$limit = ' LIMIT ';
+	if(isset($_GET['start_pos'])){
+		$limit .= $_GET['start_pos'] . ', ';
+	}
+	$limit .= $_GET['limit'];
 }
 
 if(isset($_GET['start_date']) || isset($_GET['end_date'])){
