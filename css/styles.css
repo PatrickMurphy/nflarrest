@@ -27,7 +27,9 @@ header {
 	background-color:#91AA9D;
 	height:90px;
 }
-
+a {
+    color:#193441;
+}
 header h1 {
 	float:left;
 	color: #193441;
@@ -40,6 +42,7 @@ h1, h2, h3, h4 {
 
 h3 {
 	font-size: 2.8rem;
+    text-align: center;
 }
 
 header h1 span {
@@ -79,25 +82,60 @@ header h1 span {
 
 section {
 	min-height: 35vh;
+    text-align: center;
 }
 #chart{
 	background: rgba(255, 255, 255, 0.3);
 }
-li {
-	margin-left: 1.75em;
+.expanded {
+    height: 80vh !important;
+    max-height: none !important;
 }
 .list-heading span, .top-list li span {
 	float:right;
 	margin-right:10%;
+    display: inline-block;
 	font-weight: bold;
+}
+.list-heading {
+    display:block;
+    border-bottom: 2px solid #777;
+}
+.top-list li span {
+    background-color: rgba(255, 255, 255, 0.75);
+    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.58);
+    padding:1px 8px;
+    border-radius: 10px;
+    line-height: 24px;
+    margin-top: 4px;
+}
+.top-list li {
+    padding-left: 10%;
+    padding-top:0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    height: 34px;
+    line-height: 34px;
+    border-radius: 3px;
+}
+.top-list li:hover {
+    cursor:pointer;
+    background-color:rgba(0, 0, 0, 0.15) !important;
+}
+.top-list li:nth-child(even) {
+    background-color:rgba(0, 0, 0, 0.08);
 }
 .top-list {
 	border-right:1px solid rgba(0, 0, 0, 0.33);
+    margin-left: 2% !important;
+    padding-right: 2%;
+    text-align: left !important;
 }
 .top-list:last-child {
 	border-right:0px;
 }
-ol {
+.top-list ol {
+    margin-top:4px;
 	display: block;
 }
 aside {
@@ -110,12 +148,15 @@ aside {
 }
 
 footer {
- background: rgba(62, 96, 111, 0.2);
+    background: rgba(62, 96, 111, 0.2);
 	text-align: center;
 	font-weight: 600;
 	color:rgba(255, 255, 255, 0.7);
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
 }
 
 footer a {
 	text-decoration: none;
+    border-bottom: 1px dotted rgba(25, 52, 65, 0.44);
 }

@@ -1,6 +1,17 @@
+var thechart,
+    dataStore;
 $( document ).ready(function() {
 	//setupDateRange();
-	setupChart();
+    load_top_lists();
+    $('#changeDateRangeLink').click(function(){
+        alert('You will soon beable to edit the date range');
+    });
+    $('#details_summary_btn').click(function(){
+        $('#chart').toggleClass('expanded');
+        generateChart();
+        console.log('click');
+    });
+	setTimeout(setupChart, 300);
 });
 
 function setupDateRange(){
@@ -42,20 +53,25 @@ function adjustCrimes(data, team_num){
 	return data;
 }
 
-function getOverallChartData(){
+function getOverallChartData(callback){
 	var team_array = ['x'];
 	var data = {};
-	var tempdata = ['Arrests'];
-	var groups = ['Arrests'];
+	var groups = [];
 	// load list of teams
-	$.getJSON('api/overall/topTeams.php?limit=5', function(response){
-		var count = response.length;
+	$.getJSON('api/overall/topTeams.php', function(response){
+		var count = response.length,
+            newData = {columns: [], groups: {}};
+
 		$.each(response, function(team_num, value){
 			var teamdata = {};
 			team_array.push(value['Team']);
 			// for each team look up distribution of crimes
-			$.getJSON('api/team/topCrimes.php?id='+value['Team'], function(crime_response){
-				var TeamData = handleTeam(crime_response);
+            $.ajax({
+              url: 'api/team/topCrimes.php?summary=true&id='+value['Team'],
+              dataType: 'json',
+              async: false,
+              success: function(crime_response){
+                var TeamData = handleTeam(crime_response);
 				var crimeName, crimeName2;
 				// add missing to team
 				for(crimeName in data){
@@ -77,46 +93,56 @@ function getOverallChartData(){
 						for(i = 0; i <= team_num-1; i++){
 							tempArray.push(0);
 						}
+                        groups.push(crimeName2);
 						// this teams
 						tempArray.push(TeamData[crimeName2]);
 						data[crimeName2] = tempArray;
 					}
 				}
+                if(--count == 0){
+                    var crimeName3;
+                    newData = {
+                        columns: [team_array],
+                        groups: groups
+                    };
+                    for(crimeName3 in data){
+                        newData.columns.push(data[crimeName3]);
+                    }
+                    callback(newData);
+                }
 
 				console.log($.extend(true,{},data));
-			});
+			}
+            });
 		});
+
 	});
-
-	console.log(tempdata);
-	console.log(team_array);
-	console.log(groups);
-
-	var newData = {
-		columns: [team_array,tempdata],
-		groups: groups
-	};
-	return newData;
 }
 
 function setupChart(){
-	var newData = getOverallChartData();
-	var chart = c3.generate({
-		bindto: '#chart',
-    data: {
-        x : 'x',
-        columns: newData.columns,
-        groups: [
-            newData.groups
-        ],
-        type: 'bar'
-    },
-    axis: {
-        x: {
-            type: 'category' // this needed to load string x value
+	getOverallChartData(function(newData){
+       dataStore = newData;
+	   generateChart();
+    });
+}
+
+function generateChart(){
+    thechart = c3.generate({
+        bindto: '#chart',
+        data: {
+            x : 'x',
+            columns: dataStore.columns,
+            groups: [
+                dataStore.groups
+            ],
+            type: 'bar'
+        },
+        axis: {
+            x: {
+                type: 'category' // this needed to load string x value
+            }
         }
-    }
-});
+    });
 }
 
 function load_top_list(url, prefix, list, values){
@@ -145,5 +171,3 @@ function load_top_lists(){
 	load_top_players_list();
 	load_top_positions_list();
 }
-
-load_top_lists();

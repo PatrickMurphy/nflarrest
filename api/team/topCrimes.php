@@ -20,6 +20,12 @@ if(isset($_GET['start_date']) || isset($_GET['end_date'])){
 	$date_range = " && Date BETWEEN '" . $start . "' AND '" . $end . "' ";
 }
 
-$result = $db->query('SELECT Category, count(arrest_stats_id) AS arrest_count FROM `arrest_stats` WHERE Team = \''. $id .'\''. $date_range .' GROUP BY Category ORDER BY arrest_count DESC' . $limit);
+if(isset($_GET['summary'])){
+    $query = 'SELECT b.Category, count(a.arrest_stats_id) AS arrest_count FROM `arrest_stats` AS a, `general_category` AS b WHERE a.general_category_id = b.general_category_id && a.Team = \''. $id .'\''. $date_range .' GROUP BY b.Category ORDER BY arrest_count DESC' . $limit;
+}else{
+    $query = 'SELECT Category, count(arrest_stats_id) AS arrest_count FROM `arrest_stats` WHERE Team = \''. $id .'\''. $date_range .' GROUP BY Category ORDER BY arrest_count DESC' . $limit;
+}
+
+$result = $db->query($query);
 
 print json_encode(gather_results($result));

@@ -62,3 +62,13 @@ SELECT * FROM `arrest_stats` WHERE name = 'Aldon Smith' ORDER BY Date Desc
 SELECT category, COUNT(Category) FROM `arrest_stats` WHERE name = 'Aldon Smith' GROUP BY Category ORDER BY Date Desc
 
 -- rank, picture, info, news stories
+
+
+
+
+-- util
+SELECT `arrest_stats_id`, `Category`, `general_category_id`, `Description` FROM `arrest_stats` WHERE `general_category_id` = 27
+
+SELECT count(`arrest_stats_id`), `Category` FROM `arrest_stats` WHERE `general_category_id` = 27 GROUP BY Category ORDER BY count(`arrest_stats_id`) DESC
+
+UPDATE `arrest_stats` SET `general_category_id`= 4 WHERE Category = 'Battery'
