@@ -1,5 +1,6 @@
 var thechart,
-    dataStore;
+    dataStore,
+    expand_status = false;
 $( document ).ready(function() {
 	//setupDateRange();
     load_top_lists();
@@ -8,10 +9,16 @@ $( document ).ready(function() {
     });
     $('#details_summary_btn').click(function(){
         $('#chart').toggleClass('expanded');
+        expand_status = !expand_status;
+        if(expand_status){
+            $('#details_summary_btn').html('Collapse');
+        }else{
+            $('#details_summary_btn').html('Expand');
+        }
         generateChart();
         console.log('click');
     });
-	setTimeout(setupChart, 300);
+	setupChart();
 });
 
 function setupDateRange(){
@@ -54,69 +61,7 @@ function adjustCrimes(data, team_num){
 }
 
 function getOverallChartData(callback){
-	var team_array = ['x'];
-	var data = {};
-	var groups = [];
-	// load list of teams
-	$.getJSON('api/overall/topTeams.php', function(response){
-		var count = response.length,
-            newData = {columns: [], groups: {}};
-
-		$.each(response, function(team_num, value){
-			var teamdata = {};
-			team_array.push(value['Team']);
-			// for each team look up distribution of crimes
-            $.ajax({
-              url: 'api/team/topCrimes.php?summary=true&id='+value['Team'],
-              dataType: 'json',
-              async: false,
-              success: function(crime_response){
-                var TeamData = handleTeam(crime_response);
-				var crimeName, crimeName2;
-				// add missing to team
-				for(crimeName in data){
-					if(!TeamData.hasOwnProperty(crimeName)){
-						TeamData[crimeName] = 0;
-					}
-				}
-				for(crimeName2 in TeamData){
-					if(data.hasOwnProperty(crimeName2)){
-						// add existing to data
-						//console.log('update crime '+ crimeName2);
-						data[crimeName2].push(TeamData[crimeName2]);
-					}else{
-						// add missing to data
-						//console.log('new crime ' + crimeName2);
-						var tempArray = [crimeName2];
-						var i;
-						// add zeros for prev teams
-						for(i = 0; i <= team_num-1; i++){
-							tempArray.push(0);
-						}
-                        groups.push(crimeName2);
-						// this teams
-						tempArray.push(TeamData[crimeName2]);
-						data[crimeName2] = tempArray;
-					}
-				}
-                if(--count == 0){
-                    var crimeName3;
-                    newData = {
-                        columns: [team_array],
-                        groups: groups
-                    };
-                    for(crimeName3 in data){
-                        newData.columns.push(data[crimeName3]);
-                    }
-                    callback(newData);
-                }
-
-				console.log($.extend(true,{},data));
-			}
-            });
-		});
-
-	});
+	$.getJSON('api/overall/topTeams.php?graph=true', callback);
 }
 
 function setupChart(){
