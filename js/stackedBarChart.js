@@ -33,7 +33,11 @@ var stackedBarChart = {
             groups: [
                 stackedBarChart.options.data.groups
             ],
-            type: 'bar'
+            type: 'bar',
+						onclick: function (d, i) {
+							// redirect to
+							window.location.href = "team.html#"+stackedBarChart.options.data.columns[0][d['index']+1];
+						}
         },
         axis: {
             x: {

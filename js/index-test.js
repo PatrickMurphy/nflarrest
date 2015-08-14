@@ -23,8 +23,12 @@ $( document ).ready(function() {
 
 function setupArrestOMeter(){
 	$.getJSON('api/overall/daysSinceArrest.php', function(data){
-		var daysSince = data.pop()['daysSinceArrest'];
-		console.log('daysSince');
+		var daysSince = data.pop()['daysSinceArrest'],
+				percent = parseInt(daysSince) / 64;
+		console.log(daysSince);
+		console.log(percent);
+		$('#arrest_meter_text').html('It has been <b>'+ daysSince +'</b> Days since the last arrest.</p>');
+		$('.meter-fg').width((percent*100) + '%');
 	});
 }
 

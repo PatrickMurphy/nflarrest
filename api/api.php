@@ -1,5 +1,4 @@
 <?php
-require_once('log.php');
 require_once('PHP-Multi-SQL/classes/MySQL.class.php');
 
 require_once('db_config.php');

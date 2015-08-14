@@ -31,7 +31,7 @@ $( document ).ready(function() {
 function update_hash(){
 	pageID = window.location.hash || '#ID Not Set';
 	pageID = pageID.replace('#', '');
-	$('#pageTitle').append(pageID);
+	$('#pageTitle').html('Team: ' + pageID);
 }
 
 function getDonutData(url, param, callback){
@@ -47,7 +47,7 @@ function getDonutData(url, param, callback){
 			}
 		}
 		theData.push(otherArray);
-		if(++callbackReturns == 4){
+		if(++callbackReturns == 3){
 			callbackReturns = 0;
 			$('#loading-bar').fadeOut();
 		}
@@ -56,15 +56,7 @@ function getDonutData(url, param, callback){
 }
 
 function setupCharts(){
-	getDonutData('api/crime/topTeams.php?id=' + pageID, 'Team', function(newData){
-		var newChart = donutChart.init({
-			data: newData,
-			targetElement: '#teamchart',
-			chartTitle: 'Teams'
-		});
- 		charts.push(newChart);
-  });
-	getDonutData('api/crime/topPlayers.php?id=' + pageID, 'Name', function(newData){
+	getDonutData('api/team/topPlayers.php?id=' + pageID, 'Name', function(newData){
 		var newChart = donutChart.init({
 			data: newData,
 			targetElement: '#playerchart',
@@ -72,26 +64,26 @@ function setupCharts(){
 		});
  		charts.push(newChart);
   });
-	getDonutData('api/crime/topPositions.php?id=' + pageID, 'Position', function(newData){
+	getDonutData('api/team/topCrimes.php?id=' + pageID, 'Category', function(newData){
 		var newChart = donutChart.init({
 			data: newData,
-			targetElement: '#poschart',
-			chartTitle: 'Positions'
+			targetElement: '#crimechart',
+			chartTitle: 'Crimes'
 		});
  		charts.push(newChart);
   });
 }
 
 function renderArrests(){
-	$.getJSON('api/crime/arrests.php?id=' + pageID +'&start_date='+dateRangeNFL.getStart()+'&end_date='+dateRangeNFL.getEnd(), function(data){
+	$.getJSON('api/team/arrests.php?id=' + pageID +'&start_date='+dateRangeNFL.getStart()+'&end_date='+dateRangeNFL.getEnd(), function(data){
 		var row,
-				items = ['<tr><th class="one column">Date:</th><th class="two columns">Name:</th><th class="one column">Team:</th><th class="four columns">Description:</th><th class="four columns">Outcome:</th></tr>'];
+				items = ['<tr><th class="one column">Date:</th><th class="two columns">Name:</th><th class="one column">Crime:</th><th class="four columns">Description:</th><th class="four columns">Outcome:</th></tr>'];
 		for(row in data){
 			row = data[row];
-				items.push('<tr><td class="one column">'+moment(row['Date'], "YYYY-MM-DD").fromNow() +'</td><td class="two columns"><a href="player.html#'+row['Name']+'">'+row['Name']+'</a></td><td class="one column"><a href="team.html#'+row['Team']+'">'+row['Team']+'</a></td><td class="four columns">'+row['Description']+'</td><td class="four columns">'+row['Outcome']+'</td></tr>');
+				items.push('<tr><td class="one column">'+moment(row['Date'], "YYYY-MM-DD").fromNow() +'</td><td class="two columns"><a href="player.html#'+row['Name']+'">'+row['Name']+'</a></td><td class="one column"><a href="crime.html#' + row['Category'] + '">'+row['Category']+'</a></td><td class="four columns">'+row['Description']+'</td><td class="four columns">'+row['Outcome']+'</td></tr>');
 		}
 		$('#arrest_table').html(items.join(""));
-		if(++callbackReturns == 4){
+		if(++callbackReturns == 3){
 			callbackReturns = 0;
 			$('#loading-bar').fadeOut();
 		}

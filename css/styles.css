@@ -2,7 +2,6 @@
 	margin: 0px;
 	padding: 0px;
 	font-family: sans-serif;
-	color:#151414;
 }
 
 .clear {
@@ -22,6 +21,7 @@
 body, html {
 	/*background-color: #FCFFF5;*/
 	background-color:#6f6f6b;
+	color:#151414;
 }
 
 header {
@@ -29,7 +29,7 @@ header {
 	height:60px;
 }
 a {
-    color:#193441;
+    color:#1d5976;
 }
 header a h1:hover {
 	text-decoration: underline;
@@ -229,4 +229,44 @@ footer a {
 }
 #arrest_table tr:nth-child(even){
 	background-color:rgba(0, 0, 0, 0.08);
+}
+
+#loading-bar {
+	position:absolute;
+	width:35vw;
+	text-align: center;
+	left:30.5vw;
+	top:20vh;
+	font-size: 3em;
+	background-color:rgba(34, 34, 34, 0.37);
+	padding:2vw;
+	border-radius: 30px;
+	color:#fff;
+}
+#arrest-o-meter {
+	width: 80%;
+	margin-left: 10%;
+}
+.meter-bg {
+	text-align: left;
+	width:94%;
+	margin-left: 3%;
+	background-color:#666;
+	border-radius: 6px;
+}
+.meter-fg {
+	border-radius: 6px;
+	background-color: darkred;
+	width:0px;
+	display: inline-block;
+}
+
+.twitter_Btn {
+	padding-top:21px;
+	margin-left:5px;
+}
+
+.fb_Btn {
+	top:-6px;
+	margin-left:5px;
 }
