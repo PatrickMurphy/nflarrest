@@ -12,10 +12,12 @@ ga('send', 'pageview', pagePath);
 var googleTracking = {
     tracker: undefined,
     initialize: function(track){
-        this.tracker = track;
+        googleTracking.tracker = track;
     },
-    sendEvent: function(category, action){
-        this.tracker('send', 'event', category, action);
+    sendTrackEvent: function sendTrackEvent(category, action){
+			console.log('attempt send event ' + category + ', ' + action);
+			console.log(googleTracking.tracker);
+        ga('send', 'event', category, action);
     }
 };
 googleTracking.initialize(ga);

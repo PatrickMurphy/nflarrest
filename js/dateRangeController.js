@@ -47,6 +47,7 @@ var dateRangeController = {
 	},
 
 	resetTime: function(softReset){
+		googleTracking.sendTrackEvent('DateRange','Reset');
 		softReset = softReset || false;
 		var today = new Date(),
 				month, day;
@@ -85,11 +86,11 @@ var dateRangeController = {
 			start = end;
 			end = temp;
 		}
-
 		dateRangeController.setDates(start, end);
 	},
 
 	setDates: function(start, end){
+		googleTracking.sendTrackEvent('DateRange','DateChanged');
 		dateRangeController.setCookie('start_date', start);
 		dateRangeController.setCookie('end_date', end);
 		dateRangeController.start_date = start;
@@ -105,6 +106,7 @@ var dateRangeController = {
 
 	openDialog: function(){
 		$('.dateRangeEditor').toggleClass('show');
+		googleTracking.sendTrackEvent('DateRange','OpenDialog');
 	},
 
 	closeDialog: function(){

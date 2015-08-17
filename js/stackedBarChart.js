@@ -25,6 +25,12 @@ var stackedBarChart = {
 	},
 
 	renderChart: function(){
+		if($( document ).width() < 800){
+			var bottomPadding = 20;
+		}else{
+			var bottomPadding = 6;
+		}
+
 		stackedBarChart.stackedChart = c3.generate({
         bindto: stackedBarChart.options.targetElement,
         data: {
@@ -36,10 +42,18 @@ var stackedBarChart = {
             type: 'bar',
             onclick: function (d, i) {
                 // redirect to
-                googleTracking.sendEvent('mainChart','teamLink');
+                googleTracking.sendTrackEvent('mainChart','teamLink');
+								setTimeout(function(){
 				window.location.href = "team.html#"+stackedBarChart.options.data.columns[0][d['index']+1];
+								}, 100);
             }
         },
+				zoom: {
+        	enabled: true
+    		},
+			  padding: {
+						bottom: bottomPadding
+				},
         axis: {
             x: {
                 type: 'category'
@@ -66,6 +80,7 @@ var stackedBarChart = {
 				stackedBarChart.options.$expandBtnElement.html('Expand');
 		}
 
+		googleTracking.sendTrackEvent('mainChart', 'expand toggle');
 		// re-render
 		stackedBarChart.renderChart();
 	}

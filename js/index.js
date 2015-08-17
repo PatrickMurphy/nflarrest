@@ -8,7 +8,7 @@ $( document ).ready(function() {
 	dateRangeController.init(function(newDateRange){
 		nflLoadingBar.init();
 		dateRangeNFL = newDateRange;
-		load_top_lists();
+		load_top_lists('first');
 		$('#loadMoreLists').click(load_top_lists);
 		setupChart();
         if ($(window).width() >= 800) {
@@ -102,7 +102,11 @@ function load_top_positions_list(replace){
 	load_top_list("api/overall/topPositions.php?limit=5&start_pos="+last_start_pos, '', 'top_pos_', '#top_positions_list', ['Position', 'arrest_count'], replace);
 }
 
-function load_top_lists(){
+function load_top_lists(first){
+	first = first || 'not first';
+	if(first != 'first'){
+		googleTracking.sendTrackEvent('TopLists','Load Next Page');
+	}
 	load_top_crimes_list();
 	load_top_players_list();
 	load_top_positions_list();

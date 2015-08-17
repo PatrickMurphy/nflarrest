@@ -38,7 +38,7 @@ function getOverallChartData(callback){
 
 function setupChart(){
 	getOverallChartData(function(newData){
- 		stackedBarChart.init({
+ 		timeSeriesChart.init({
 			data: newData,
 			targetElement: '#chart',
 			targetExpandBtn: '#details_summary_btn'
