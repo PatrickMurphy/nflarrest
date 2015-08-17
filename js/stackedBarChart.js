@@ -1,5 +1,5 @@
 var stackedBarChart = {
-	chart: undefined,
+	stackedChart: undefined,
 	options: {
 		targetElement: '#theElementSelector',
 		targetExpandBtn: '#btnSelector',
@@ -25,7 +25,7 @@ var stackedBarChart = {
 	},
 
 	renderChart: function(){
-		stackedBarChart.chart = c3.generate({
+		stackedBarChart.stackedChart = c3.generate({
         bindto: stackedBarChart.options.targetElement,
         data: {
             x : 'x',
@@ -34,10 +34,11 @@ var stackedBarChart = {
                 stackedBarChart.options.data.groups
             ],
             type: 'bar',
-						onclick: function (d, i) {
-							// redirect to
-							window.location.href = "team.html#"+stackedBarChart.options.data.columns[0][d['index']+1];
-						}
+            onclick: function (d, i) {
+                // redirect to
+                googleTracking.sendEvent('mainChart','teamLink');
+				window.location.href = "team.html#"+stackedBarChart.options.data.columns[0][d['index']+1];
+            }
         },
         axis: {
             x: {
@@ -48,6 +49,7 @@ var stackedBarChart = {
 					pattern: ['#1F77B4', '#FF7F0E', '#2CA02C', '#D62728', '#9467BD', '#8C564B', '#E377C2', '#7F7F7F', '#BCBD22', '#17BECF', '#154F78', '#B0580A', '#248224', '#7D1717']
 				}
     });
+
 	},
 
 	toggleExpand: function(thisChart){

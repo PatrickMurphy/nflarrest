@@ -1,10 +1,21 @@
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-66360026-1']);
-var hashervar = window.location.hash || '';
-  _gaq.push(['_trackPageview', window.location.pathname + hashervar]);
+var hashervar = window.location.hash || '',
+    pagePath =  window.location.pathname + hashervar;
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-66360026-1', 'auto');
+ga('send', 'pageview', pagePath);
+
+var googleTracking = {
+    tracker: undefined,
+    initialize: function(track){
+        this.tracker = track;
+    },
+    sendEvent: function(category, action){
+        this.tracker('send', 'event', category, action);
+    }
+};
+googleTracking.initialize(ga);

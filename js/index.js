@@ -11,13 +11,17 @@ $( document ).ready(function() {
 		load_top_lists();
 		$('#loadMoreLists').click(load_top_lists);
 		setupChart();
+        if ($(window).width() >= 800) {
+           $('#tooltip').fadeIn();
+        }
+        // on resize
+
 		$('.dateRangeEditor').on('dateRangeChanged', function (e){
 			nflLoadingBar.showLoading();
 			console.log('event caught');
 			reload_top_lists();
 			setupChart();
 		});
-		setupArrestOMeter();
 	});
 });
 
