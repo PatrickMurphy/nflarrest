@@ -115,7 +115,7 @@ var dateRangeController = {
 
 	setCookie: function setCookie(cname, cvalue, exdays) {
 		var d = new Date();
-		exdays = exdays || 30;
+		exdays = exdays || 0.5;
 
 		d.setTime(d.getTime() + (exdays*24*60*60*1000));
 		var expires = "expires="+d.toUTCString();

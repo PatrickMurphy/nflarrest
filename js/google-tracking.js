@@ -15,8 +15,6 @@ var googleTracking = {
         googleTracking.tracker = track;
     },
     sendTrackEvent: function sendTrackEvent(category, action){
-			console.log('attempt send event ' + category + ', ' + action);
-			console.log(googleTracking.tracker);
         ga('send', 'event', category, action);
     }
 };

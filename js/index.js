@@ -8,27 +8,53 @@ $( document ).ready(function() {
 	dateRangeController.init(function(newDateRange){
 		nflLoadingBar.init();
 		dateRangeNFL = newDateRange;
-		load_top_lists('first');
-		$('#loadMoreLists').click(load_top_lists);
 		setupChart();
-        if ($(window).width() >= 800) {
-           $('#tooltip').fadeIn();
-        }
-        // on resize
-
+		load_top_lists('first');
 		$('.dateRangeEditor').on('dateRangeChanged', function (e){
 			nflLoadingBar.showLoading();
-			console.log('event caught');
-			reload_top_lists();
 			setupChart();
+			reload_top_lists();
 		});
+		$('#loadMoreLists').click(load_top_lists);
+		if ($(window).width() >= 800) {
+			 $('#tooltip').fadeIn();
+		}
+		setupSearchBoxes();
+		 $( "#search-dialog" ).dialog({
+      autoOpen: false,
+      modal: true,
+      show: {
+        effect: "blind",
+        duration: 1000
+      },
+      hide: {
+        effect: "blind",
+        duration: 1000
+      }
+    });
 	});
 });
 
+function loadingFinished(){
+	setupArrestOMeter();
+	nflLoadingBar.hideLoading();
+	listsReturned = false;
+	mainChartReturned = false;
+};
+
 function setupArrestOMeter(){
+	var animate = true;
 	$.getJSON('api/overall/daysSinceArrest.php', function(data){
-		var daysSince = data.pop()['daysSinceArrest'];
-		console.log('daysSince');
+		var daysSince = data.pop()['daysSinceArrest'],
+				percent = parseInt(daysSince) / 64;
+		$('#arrest_meter_text').html('It has been <b>'+ daysSince +'</b> Days since the last arrest.</p>');
+		if(animate){
+			$('.meter-fg').animate({
+        width: (percent*100) + '%'
+    	}, 1750 );
+		}else{
+			$('.meter-fg').width((percent*100) + '%');
+		}
 	});
 }
 
@@ -45,9 +71,7 @@ function setupChart(){
 		});
 		mainChartReturned = true;
 		if(listsReturned){
-			nflLoadingBar.hideLoading();
-			listsReturned = false;
-			mainChartReturned = false;
+			loadingFinished();
 		}
   });
 }
@@ -81,9 +105,7 @@ function load_top_list(url, page, prefix, list, values, replace){
 			listsReturnCount = 0;
 			last_start_pos = last_start_pos + 5;
 			if(mainChartReturned === true){
-					nflLoadingBar.hideLoading();
-					listsReturned = false;
-					mainChartReturned = false;
+				loadingFinished();
 			}
 		}
 	});
@@ -115,4 +137,57 @@ function reload_top_lists(){
 	load_top_crimes_list(true);
 	load_top_players_list(true);
 	load_top_positions_list(true);
+}
+
+function setupSearchBoxes(){
+	$( "#playerSearch" ).autocomplete({
+      source: "api/player/search.php",
+      minLength: 2,
+      select: function( event, ui ) {
+				googleTracking.sendTrackEvent('PlayerSearch','Click AutoComplete Result');
+				window.location.href = '/player.html#' + ui.item.Name;
+      }
+    }).autocomplete( "instance" )._renderItem = function( ul, item ) {
+      return $( "<li>" )
+        .append( "<a>" + item.Name + "  " + item.Position + "</a>" )
+        .appendTo( ul );
+    };
+	$( "#teamSearch" ).autocomplete({
+      source: "api/team/search.php",
+      minLength: 2,
+      select: function( event, ui ) {
+				googleTracking.sendTrackEvent('TeamSearch','Click AutoComplete Result');
+				window.location.href = '/team.html#' + ui.item.team_code;
+      }
+    }).autocomplete( "instance" )._renderItem = function( ul, item ) {
+      return $( "<li>" )
+        .append( "<a>" + item.teams_full_name + " from " + item.city + "</a>" )
+        .appendTo( ul );
+    };
+
+	$('#playerSearchBtn').click(function(){
+		googleTracking.sendTrackEvent('PlayerSearch','Click Search Button');
+		var query = $('#playerSearch').val();
+		$.getJSON('api/player/search.php?term='+query, function(resp){
+			var items = ['<tr><th>Name</th><th>Position</th><td>Arrests</th></tr>'];
+			for(var index in resp){
+				items.push("<tr><td><a href=\"player.html#" + resp[index]['Name'] + "\">" + resp[index]['Name'] + "</a></td><td>" + resp[index]['Position'] + "</td><td>" + resp[index]['arrest_count'] + "</td></tr>");
+			}
+			$('#search-dialog table').html(items.join(""));
+			$("#search-dialog").dialog( "open" );
+		});
+	});
+
+	$('#teamSearchBtn').click(function(){
+		googleTracking.sendTrackEvent('TeamSearch','Click Search Button');
+		var query = $('#teamSearch').val();
+		$.getJSON('api/team/search.php?term='+query, function(resp){
+			var items = ['<tr><th>Name</th><th>City</th><td>Code</th></tr>'];
+			for(var index in resp){
+				items.push("<tr><td><a href=\"player.html#" + resp[index]['teams_full_name'] + "\">" + resp[index]['Name'] + "</a></td><td>" + resp[index]['city'] + "</td><td>" + resp[index]['team_code'] + "</td></tr>");
+			}
+			$('#search-dialog table').html(items.join(""));
+			$("#search-dialog").dialog( "open" );
+		});
+	});
 }
