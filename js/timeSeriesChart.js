@@ -4,7 +4,8 @@ var timeSeriesChart = {
 		targetElement: '#theElementSelector',
 		targetExpandBtn: '#btnSelector',
 		data: {},
-		isExpanded: false
+		isExpanded: false,
+		showAccumulation: true
 	},
 
 	init: function(options){
@@ -63,20 +64,50 @@ var timeSeriesChart = {
 
 	},
 	fillDates: function(dataRow){
-		console.log(dateRangeController.getStart());
 		var start = new Date(dateRangeController.getStart()),
-				end = new Date(dateRangeController.getEnd());
-		// handle first year
+				end = new Date(dateRangeController.getEnd()),
+				numMonths = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth()) + 1;
 
-		console.log(start.getMonth());
-		console.log(start.getMonth()+1);
-		console.log(end.getMonth()+1);
-			// handle month of start date
-			// handle next to december
-		// handle mid years
-		// handle last year
-			// handle january
-			// handle next to end month
+		var currentYear = start.getFullYear(),
+				currentMonth = start.getMonth() + 1;
+		var i,
+				newDataRow = [],
+				accumTotal = 0;
+
+		var nextDataPoint = dataRow.pop();
+		for(i = numMonths; i > 0; i--){
+			currentMonth++;
+			if(currentMonth > 12){
+				// next year
+				currentYear++;
+				currentMonth = currentMonth % 12;
+			}
+
+			if(nextDataPoint.Year == currentYear.toString()
+				&& nextDataPoint.Month == currentMonth.toString()){
+				var newVal;
+				if(timeSeriesChart.options.showAccumulation){
+					accumTotal = accumTotal + parseInt(nextDataPoint.arrest_count);
+					newVal = accumTotal;
+				}else{
+					newVal = parseInt(nextDataPoint.arrest_count);
+				}
+				newDataRow.push(newVal);
+				if(dataRow.length > 0){
+					nextDataPoint = dataRow.pop();
+				}
+			}else{
+				var defaultVal;
+				if(timeSeriesChart.options.showAccumulation){
+					accumTotal = accumTotal + parseInt(nextDataPoint.arrest_count);
+					defaultVal = accumTotal; // use total to not dip the line again
+				}else{
+					defaultVal = 0;
+				}
+				newDataRow.push();
+			}
+		}
+		console.log(newDataRow);
 	},
 
 	toggleExpand: function(thisChart){

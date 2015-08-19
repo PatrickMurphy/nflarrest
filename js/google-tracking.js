@@ -15,7 +15,9 @@ var googleTracking = {
         googleTracking.tracker = track;
     },
     sendTrackEvent: function sendTrackEvent(category, action){
-        ga('send', 'event', category, action);
+				if(arguments.length < 3){
+        	ga('send', 'event', category, action);
+				}
     }
 };
 googleTracking.initialize(ga);

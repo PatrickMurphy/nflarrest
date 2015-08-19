@@ -1,0 +1,14 @@
+<div id="chart"></div>
+<script src="js/dateRangeController.js"></script>
+<script src="js/timeSeriesChart.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="js/vendor/c3.js"></script>
+<script src="js/vendor/d3.min.js"></script>
+<script>
+	dateRangeController.init(function(newDateRange){
+		timeSeriesChart.init({
+			targetElement: '#chart'
+		});
+		timeSeriesChart.fillDates([{"Month":"4","Year":"2000","arrest_count":"1"},{"Month":"10","Year":"2001","arrest_count":"1"},{"Month":"11","Year":"2001","arrest_count":"1"},{"Month":"1","Year":"2002","arrest_count":"1"},{"Month":"6","Year":"2002","arrest_count":"1"},{"Month":"4","Year":"2003","arrest_count":"1"},{"Month":"3","Year":"2005","arrest_count":"1"},{"Month":"5","Year":"2005","arrest_count":"1"},{"Month":"6","Year":"2005","arrest_count":"2"},{"Month":"1","Year":"2006","arrest_count":"1"},{"Month":"5","Year":"2006","arrest_count":"1"},{"Month":"6","Year":"2006","arrest_count":"1"},{"Month":"1","Year":"2007","arrest_count":"1"},{"Month":"3","Year":"2007","arrest_count":"2"},{"Month":"6","Year":"2008","arrest_count":"1"},{"Month":"12","Year":"2008","arrest_count":"1"},{"Month":"2","Year":"2010","arrest_count":"1"},{"Month":"4","Year":"2010","arrest_count":"1"},{"Month":"5","Year":"2010","arrest_count":"1"},{"Month":"7","Year":"2010","arrest_count":"1"},{"Month":"3","Year":"2011","arrest_count":"3"},{"Month":"1","Year":"2013","arrest_count":"1"},{"Month":"2","Year":"2013","arrest_count":"1"},{"Month":"6","Year":"2013","arrest_count":"1"},{"Month":"10","Year":"2013","arrest_count":"1"},{"Month":"3","Year":"2014","arrest_count":"1"},{"Month":"1","Year":"2015","arrest_count":"1"},{"Month":"7","Year":"2015","arrest_count":"1"}].reverse());
+	});
+</script>

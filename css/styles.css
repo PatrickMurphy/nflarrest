@@ -124,8 +124,8 @@ section {
 #chart{
 	min-height: 300px;
 	background: #DFE6D1;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
 }
 .chart-options {
 	background:rgba(51, 51, 51, 0.27);
@@ -341,4 +341,28 @@ footer a {
 }
 #search-dialog table a {
 	color:#2d789d;
+}
+.customLegend {
+	background: #DFE6D1;
+}
+.customLegend-item {
+	padding: 3px;
+}
+.customLegend-item-color {
+	display: inline-block;
+	width:10px;
+	height:10px;
+	padding:2px;
+}
+.transparent {
+	/* IE 8 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  /* IE 5-7 */
+  filter: alpha(opacity=50);
+  /* Netscape */
+  -moz-opacity: 0.5;
+  /* Safari 1.x */
+  -khtml-opacity: 0.5;
+  /* Good browsers */
+  opacity: 0.5;
 }

@@ -57,7 +57,7 @@
 	<div id="fb-root"></div>
 	<div class="container">
 		<header>
-            <a href="http://nflarrest.com" class="logo"><img src="images/logo-transparent.png" alt="NFL Arrest Logo" height="30" /></a>
+    	<a href="http://nflarrest.com" class="logo"><img src="images/logo-transparent.png" alt="NFL Arrest Logo" height="30" /></a>
 			<a href="http://nflarrest.com"><h1>
                 NFL<span>Arrest</span>.com
 			</h1></a>
@@ -71,7 +71,9 @@
 			<div class="chart-container">
 				<div class="tweleve columns" id="chart"></div>
       	<div class="chart-options row">
-					<button id="details_summary_btn" class="button-primary">Expand</button>
+					<button id="details_summary_btn" class="button-primary" title="Increase chart size.">Expand</button>
+					<button id="hideAll_btn" class="button-primary" title="After you click this button you will be able to select individual categories from the legend above by clicking on them.">Hide All Categories</button>
+					<button id="showAll_btn" class="button-primary" title="Unhide any hidden categories.">Show All Categories</button>
 				</div>
 			</div>
 			<br class="clear" />
@@ -93,7 +95,7 @@
 							<span style="position:absolute; right:1%;">64</span>
 						</div>
 						<p id="arrest_meter_text">It has been <b>?</b> Days since the last arrest.</p>
-						<p>Average: 7 Days | Record W/O arrest: 64 Days</p>
+						<p>Average: <b>7</b> Days | Record W/O arrest: <b>64</b> Days</p>
 					</div>
 				</div>
 
@@ -125,7 +127,7 @@
 			</aside>
 		</section>
 		<br class="clear" />
-		<footer>Made By <a href="http://resume.patrickmurphyphoto.com" title="Resume">Patrick Murphy</a> | <a href="http://www.usatoday.com/sports/nfl/arrests/">Data Source</a> </footer>
+		<footer>Made By <a href="http://resume.patrickmurphyphoto.com" title="Want to see my Resume?">Patrick Murphy</a> | <a href="http://www.usatoday.com/sports/nfl/arrests/">Data Source</a> </footer>
 	</div>
     <div id="tooltip" style="display:none;">
         <span>Help</span>
@@ -143,7 +145,7 @@
 	<script src="js/stackedBarChart.js"></script>
 	<script src="js/dateRangeController.js"></script>
 	<script src="js/nflLoadingBar.js"></script>
-  <script src="js/index-test.js"></script>
+  <script src="js/index.js"></script>
 	<script src="js/common.js"></script>
 	<script src="js/vendor/jquery-ui.min.js"></script>
 </body>
