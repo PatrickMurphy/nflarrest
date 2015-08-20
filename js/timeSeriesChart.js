@@ -3,9 +3,11 @@ var timeSeriesChart = {
 	options: {
 		targetElement: '#theElementSelector',
 		targetExpandBtn: '#btnSelector',
+		initColumnID: '',
 		data: {},
 		isExpanded: false,
-		showAccumulation: true
+		showAccumulation: false,
+		ajaxURL: '/api/'
 	},
 
 	init: function(options){
@@ -36,11 +38,11 @@ var timeSeriesChart = {
         bindto: timeSeriesChart.options.targetElement,
         data: {
 						x: 'x',
-						xFormat: '%m/%Y',
+						//xFormat: '%m/%Y',
 						columns: [
-								['x', '01/2013', '02/2013', '03/2013', '05/2013', '06/2013', '07/2013'],
-								['SEA', 30, 200, 0, 400, 150, 250],
-								['DEN', 130, 340, 200, 500, 250, 350]
+							timeSeriesChart.getXDates(),
+							timeSeriesChart.fillDates(timeSeriesChart.options.initColumnID,timeSeriesChart.options.data)
+							//['x', '9/2014', '10/2014', '11/2014', '12/2014', '1/2015', '2/2015', '3/2015', '4/2015', '5/2015', '6/2015', '7/2015', '8/2015']
 						]
 				},
 				axis: {
@@ -51,9 +53,6 @@ var timeSeriesChart = {
 								}
 						}
 				},
-				zoom: {
-        	enabled: true
-    		},
 			  padding: {
 						bottom: bottomPadding
 				},
@@ -63,7 +62,41 @@ var timeSeriesChart = {
     });
 
 	},
-	fillDates: function(dataRow){
+
+	buildAjaxURL: function(dataID, param){
+		param = param || {};
+		var params = {
+			id: dataID,
+			start_date: dateRangeController.getStart(),
+			end_date: dateRangeController.getEnd()
+		}
+		$.extend(params, param);
+		var queryString = '?';
+		for(var index in params){
+			queryString += index+'='+params[index]+'&'
+		}
+		queryString = queryString.substring(0,queryString.length-1);
+		return timeSeriesChart.options.ajaxURL + queryString;
+	},
+
+	addColumn: function(id){
+		var url = timeSeriesChart.buildAjaxURL(id);
+		console.log(url);
+		$.getJSON(url, function(data){
+			console.log(data);
+			var formattedData = timeSeriesChart.fillDates(id, data),
+					keyXS = formattedData[0];
+			console.log(formattedData);
+			//timeSeriesChart.timeChart.xs({keyXS: 'x'});
+			timeSeriesChart.timeChart.load({
+        columns: [formattedData]
+			});
+		});
+	},
+	fillDates: function(id, dataRow){
+		id = id || '';
+		dataRow = dataRow || [];
+		dataRow = dataRow.reverse();
 		var start = new Date(dateRangeController.getStart()),
 				end = new Date(dateRangeController.getEnd()),
 				numMonths = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth()) + 1;
@@ -71,43 +104,79 @@ var timeSeriesChart = {
 		var currentYear = start.getFullYear(),
 				currentMonth = start.getMonth() + 1;
 		var i,
-				newDataRow = [],
+				newDataRow = [id.toString()],
 				accumTotal = 0;
 
 		var nextDataPoint = dataRow.pop();
+		console.log(numMonths);
 		for(i = numMonths; i > 0; i--){
+			if(nextDataPoint !== undefined){
+				console.log(nextDataPoint);
+				console.log('loop:' + (numMonths - i));
+
+				//  change month and years
+				currentMonth++;
+				if(currentMonth > 12){
+					// next year
+					currentYear++;
+					currentMonth = currentMonth % 12;
+				}
+
+				// if the date and the next data point match
+				if(nextDataPoint.Year == currentYear.toString()
+					&& nextDataPoint.Month == currentMonth.toString()){
+					var newVal;
+					if(timeSeriesChart.options.showAccumulation){
+						accumTotal = accumTotal + parseInt(nextDataPoint.arrest_count);
+						newVal = accumTotal;
+					}else{
+						newVal = parseInt(nextDataPoint.arrest_count);
+					}
+					newDataRow.push(newVal);
+					if(dataRow.length > 0){
+						nextDataPoint = dataRow.pop();
+						console.log(nextDataPoint);
+					}
+				}else{
+					var defaultVal;
+					if(timeSeriesChart.options.showAccumulation){
+						defaultVal = accumTotal; // use total to not dip the line again
+					}else{
+						defaultVal = 0;
+					}
+					newDataRow.push(defaultVal);
+				}
+			}else{
+				newDataRow.push(0);
+			}
+		}
+		return newDataRow;
+	},
+	getXDates: function(){
+		var xDates = ['x'];
+		var start = new Date(dateRangeController.getStart()),
+				end = new Date(dateRangeController.getEnd()),
+				numMonths = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth()) + 1;
+
+		var currentYear = start.getFullYear(),
+				currentMonth = start.getMonth() + 1;
+		var i;
+
+		for(i = numMonths-1; i > 0; i--){
 			currentMonth++;
 			if(currentMonth > 12){
 				// next year
 				currentYear++;
 				currentMonth = currentMonth % 12;
 			}
-
-			if(nextDataPoint.Year == currentYear.toString()
-				&& nextDataPoint.Month == currentMonth.toString()){
-				var newVal;
-				if(timeSeriesChart.options.showAccumulation){
-					accumTotal = accumTotal + parseInt(nextDataPoint.arrest_count);
-					newVal = accumTotal;
-				}else{
-					newVal = parseInt(nextDataPoint.arrest_count);
-				}
-				newDataRow.push(newVal);
-				if(dataRow.length > 0){
-					nextDataPoint = dataRow.pop();
-				}
+			if(currentMonth < 10){
+				var dispMonth = '0'+currentMonth;
 			}else{
-				var defaultVal;
-				if(timeSeriesChart.options.showAccumulation){
-					accumTotal = accumTotal + parseInt(nextDataPoint.arrest_count);
-					defaultVal = accumTotal; // use total to not dip the line again
-				}else{
-					defaultVal = 0;
-				}
-				newDataRow.push();
+				var dispMonth = currentMonth;
 			}
+			xDates.push(currentYear + '-' + dispMonth + '-01');
 		}
-		console.log(newDataRow);
+		return xDates;
 	},
 
 	toggleExpand: function(thisChart){

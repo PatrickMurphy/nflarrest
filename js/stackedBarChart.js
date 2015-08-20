@@ -92,7 +92,6 @@ var stackedBarChart = {
 				return 'customLegend-item customLegend-item-' + newID; })
 			.html(function (id) { return "<span class=\"customLegend-item-color\" style=\"background-color:"+ stackedBarChart.stackedChart.color(id) +";\"></span> " + id; })
 			.on('mouseover', function (id) {
-					if()
 					stackedBarChart.stackedChart.focus(id);
 					if(isFirstHover){
 						isFirstHover = false;
@@ -107,6 +106,7 @@ var stackedBarChart = {
 					var newID = id.replace('/', '');
 					newID = newID.split(' ').join('');
 					var legendItem = d3.select('.customLegend-item-'+newID);
+					console.log(legendItem);
 					legendItem.classed("transparent", !legendItem.classed("transparent"));
 					googleTracking.sendTrackEvent('mainChart', 'legendClick');
 			});
@@ -131,12 +131,10 @@ var stackedBarChart = {
 		stackedBarChart.renderChart();
 	},
 	hideAllCategories: function(){
-		googleTracking.sendTrackEvent('mainChart', 'hide all categories');
 		stackedBarChart.stackedChart.hide();
 		$('.customLegend-item').addClass('transparent');
 	},
 	showAllCategories: function(){
-		googleTracking.sendTrackEvent('mainChart', 'show all categories');
 		stackedBarChart.stackedChart.show();
 		$('.customLegend-item').removeClass('transparent');
 	}

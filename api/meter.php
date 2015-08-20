@@ -1,7 +1,11 @@
 <?php
 require_once('api.php');
-
-$result = $db->query('SELECT Date FROM `arrest_stats` ORDER BY Date ASC');
+if(isset($_GET['id'])){
+	$where = " WHERE Team = '".$_GET['id']."'";
+}else{
+	$where = '';
+}
+$result = $db->query('SELECT Date FROM `arrest_stats`'. $where .' ORDER BY Date ASC');
 
 $data = gather_results($result);
 $max_span = 0; // start with zero days
@@ -25,10 +29,10 @@ foreach($data as $row){
     }
     $last_date = $this_date;
 }
-
-print $max_span;
-print_r($max_dates);
-print '<br>';
 $avg_span = $span_total / $span_count;
-print $avg_span;
-
+$returnArray = array(
+	'record' => $max_span,
+	'average' => floor($avg_span),
+	'daysSince' => floor((abs(strtotime(date('Y-m-d')) - $last_date))/(60*60*24))
+);
+print json_encode($returnArray);
