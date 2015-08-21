@@ -55,9 +55,15 @@
 		<br class="clear" />
 		<h3 id="pageTitle">Crime: </h3>
 		<section>
-			<!--<div class="tweleve columns" id="chart"></div>
-            <button id="details_summary_btn" class="button-primary">Expand</button>
-			<br class="clear" />-->
+			<div class="chart-container">
+				<div class="tweleve columns" id="comparechart"></div>
+      	<div class="chart-options row">
+					<select id="chooseCrime"></select>
+					<button id="compare_to_btn" class="button-primary" title="Compare to another crime">Compare</button>
+					<button id="resetChartBtn" class="button-primary" title="Remove compare categories">Reset</button>
+				</div>
+			</div>
+			<br class="clear" />
 			<aside>
 				<div class="four columns top-list">
 					<h3>Top Teams</h3>
@@ -90,6 +96,7 @@
 	<script src="js/vendor/d3.min.js"></script>
 	<script src="js/vendor/c3.js"></script>
 	<script src="js/donutChart.js"></script>
+	<script src="js/timeSeriesChart.js"></script>
 	<script src="js/dateRangeController.js"></script>
   <script src="js/crime.js"></script>
 	<script src="js/common.js"></script>

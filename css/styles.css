@@ -126,7 +126,7 @@ section {
 	min-height: 35vh;
     text-align: center;
 }
-#chart{
+#chart, #comparechart{
 	min-height: 300px;
 	background: #DFE6D1;
 	border-top-left-radius: 6px;

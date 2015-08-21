@@ -20,6 +20,12 @@ if(isset($_GET['start_date']) || isset($_GET['end_date'])){
 	$date_range = " && Date BETWEEN '" . $start . "' AND '" . $end . "' ";
 }
 
-$result = $db->query('SELECT * FROM `arrest_stats` WHERE Category = \''. $id .'\''. $date_range .'ORDER BY Date DESC' . $limit);
+if(isset($_GET['simple'])){
+		$query = 'SELECT A.arrest_stats_id, A.Date, A.Team, A.Name, A.Position, A.Encounter, A.Category, A.Description, A.Outcome, A.general_category_id FROM `arrest_stats` AS A, `general_category` AS B WHERE A.general_category_id = B.general_category_id AND B.Category = \''. $id .'\' '. $date_range .' ORDER BY A.Date DESC' . $limit;
+}else{
+	$query = 'SELECT * FROM `arrest_stats` WHERE Category = \''. $id .'\''. $date_range .'ORDER BY Date DESC' . $limit;
+}
+
+$result = $db->query($query);
 
 print json_encode(gather_results($result));
