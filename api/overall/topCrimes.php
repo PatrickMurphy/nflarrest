@@ -1,6 +1,9 @@
 <?php
-require_once('../api.php');
-
+if(isset($restful)){
+	require_once('api.php');
+}else{
+	require_once('../api.php');
+}
 $limit = '';
 $date_range = false;
 

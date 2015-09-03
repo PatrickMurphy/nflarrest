@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>NFL Arrest API Documentation</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css" />
+<style>
+	html, body {
+		margin: 0px;
+		padding: 0px;
+	}
+	.container {
+		width:100%;
+	}
+	.menu {
+		border-bottom-left-radius: 7px;
+		border-bottom-right-radius: 8px;
+		min-height: 100vh;
+		background: #8d8d8d;
+		box-shadow: 0px 0px 2px rgba(11, 6, 0, 0.7);
+	}
+	.menu h4 {
+		background: rgba(255, 128, 0, 0.38);
+		color:rgba(26, 16, 0, 0.62);
+		padding: 5px 5px 0px 5px;
+		border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+	}
+	.menu ul {
+		padding: 0px 5px;
+		list-style-type: none;
+	}
+	.menu h5 {
+		padding: 0px;
+		margin: 0px;
+		margin-top: 4px;
+		border-bottom: 1px solid rgba(255, 205, 155, 0.22);
+	}
+	.menu li  {
+		margin:2px;
+	}
+	.menu li:nth-child(even) {
+		background: rgba(255, 230, 204, 0.14);
+		border-radius: 3px;
+	}
+	.titleLI {
+		background: none !important;
+	}
+	a {
+		color:rgba(235, 235, 235, 0.67);
+		text-decoration: none;
+	}
+	a:hover {
+		color:rgba(0, 0, 0, 0.6);
+	}
+	.docs span {
+		font-weight: bold;
+	}
+	.docs h4 {
+		margin: 0px;
+		padding: 0px;
+	}
+	.docs span i {
+		background: rgba(208, 96, 0, 0.61);
+		border-radius: 4px;
+		padding: 4px
+	}
+	.content h2 {
+		background: rgba(168, 103, 37, 0.1);
+		border-bottom: 2px solid rgba(255, 128, 0, 0.28);
+		border-top-left-radius: 8px;
+		border-top-right-radius: 8px;
+		padding-left: 15px;
+		color: rgba(0, 0, 0, 0.64);
+	}
+	.content a {
+		color:rgba(255, 128, 0, 0.65);
+	}
+</style>
+	<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-66360026-1', 'auto');
+ga('send', 'pageview', 'API Documentation');
+	</script>
+</head>
+<body>
+
+  <!-- Primary Page Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <div class="container">
+		<div class="row">
+			<div class="three columns menu">
+				<h4>NFLArrest API Quick Links:</h4>
+				<ul>
+					<li class="titleLI"><h5>Crime</h5></li>
+					<li><a href="#crime">Top Crimes</a></li>
+					<li><a href="#topPlayersCrime">Top Players for Crime</a></li>
+					<li><a href="#topTeamsCrime">Top Teams for Crime</a></li>
+					<li><a href="#topPositionsCrime">Top Positions for Crime</a></li>
+					<li><a href="#timelineCrime">Timeline by month/year</a></li>
+					<li><a href="#arrestsCrime">Arrest Details</a></li>
+					<li class="titleLI"><h5>Team</h5></li>
+					<li><a href="#team">Top Teams</a></li>
+					<li><a href="#topPlayersTeam">Top Players from Team</a></li>
+					<li><a href="#topCrimesTeam">Top Crimes from Team</a></li>
+					<li><a href="#searchTeam">Search Team</a></li>
+					<li><a href="#timelineTeam">Timeline by month/year</a></li>
+					<li><a href="#arrestsTeam">Arrest Details</a></li>
+					<li class="titleLI"><h5>Player</h5></li>
+					<li><a href="#player">Top Players</a></li>
+					<li><a href="#topCrimesPlayer">Top Crimes for player</a></li>
+					<li><a href="#searchPlayer">Search for player</a></li>
+					<li><a href="#arrestsPlayer">Arrest Details</a></li>
+					<li class="titleLI"><h5>Position</h5></li>
+					<li><a href="#position">Top Positions</a></li>
+					<li><a href="#topTeamsPosition">Top Teams by Position</a></li>
+					<li><a href="#topCrimesPosition">Top Crimes by Position</a></li>
+					<li><a href="#timelinePosition">Timeline by month/year</a></li>
+				</ul>
+			</div>
+			<div class="nine columns content">
+				<h1>API Documentation</h1>
+				<p>The NFLArrest.com public API is now live! All endpoints return data in JSON format. The base url for the first version of the api is <a href="http://nflarrest.com/api/v1/">http://nflarrest.com/api/v1/</a>, next you have the endpoints Crime, Team, Player, and Position. Each endpoint has a collection of read only methods to get more information about each collection. All requests should be made with HTTP GET requests, any additional parameters listed below should be appended to the querystring (?param=value&amp;param2=value2)</p>
+				<div>
+					<h2>Crime</h2>
+					<div class="row docs">
+						<a name="crime"></a>
+						<h4>Top Crimes</h4>
+						<span>NflArrest.com/api/v1/crime</span>
+						<p>
+							The Top Crimes endpoint returns the most popular crimes in the NFL.
+						</p>
+						<table>
+							<tr><th>Parameter</th><th>Format</th><th>Description</th></tr>
+							<tr><td>start_date</td><td>2000-01-31</td><td>Filter data by start date</td></tr>
+							<tr><td>end_date</td><td>2016-01-31</td><td>Filter data by end date</td></tr>
+							<tr><td>limit</td><td>integer</td><td>Limit results to a specific number</td></tr>
+							<tr><td>start_pos</td><td>integer</td><td>offset for limit, for pageination</td></tr>
+						</table>
+					</div>
+					<div class="row docs">
+						<a name="topPlayersCrime"></a>
+						<h4>Top Players for Crime</h4>
+						<span>NflArrest.com/api/v1/crime/topPlayers/<i>CrimeID</i></span>
+						<p>
+							The top players verb makes returns players who have commited the specified crime the most in the NFL.
+						</p>
+						<table>
+							<tr><th>Parameter</th><th>Format</th><th>Description</th></tr>
+							<tr><td>start_date</td><td>2000-01-31</td><td>Filter data by start date</td></tr>
+							<tr><td>end_date</td><td>2016-01-31</td><td>Filter data by end date</td></tr>
+							<tr><td>limit</td><td>integer</td><td>Limit results to a specific number</td></tr>
+						</table>
+					</div>
+
+					<div class="row docs">
+						<a name="topTeamsCrime"></a>
+						<h4>Top Teams for Crime</h4>
+						<span>NflArrest.com/api/v1/crime/topTeams/<i>CrimeID</i></span>
+						<p>
+							The Top Teams verb returns the teams with the most arrests in the NFL.
+						</p>
+						<table>
+							<tr><th>Parameter</th><th>Format</th><th>Description</th></tr>
+							<tr><td>start_date</td><td>2000-01-31</td><td>Filter data by start date</td></tr>
+							<tr><td>end_date</td><td>2016-01-31</td><td>Filter data by end date</td></tr>
+							<tr><td>limit</td><td>integer</td><td>Limit results to a specific number</td></tr>
+						</table>
+					</div>
+
+					<div class="row docs">
+						<a name="topPositionsCrime"></a>
+						<h4>Top Positions for Crime</h4>
+						<span>NflArrest.com/api/v1/crime/topPositions/<i>CrimeID</i></span>
+						<p>
+							The Top Teams verb returns the player positions with the most arrests in the NFL.
+						</p>
+						<table>
+							<tr><th>Parameter</th><th>Format</th><th>Description</th></tr>
+							<tr><td>start_date</td><td>2000-01-31</td><td>Filter data by start date</td></tr>
+							<tr><td>end_date</td><td>2016-01-31</td><td>Filter data by end date</td></tr>
+							<tr><td>limit</td><td>integer</td><td>Limit results to a specific number</td></tr>
+						</table>
+					</div>
+					<div class="row docs">
+						<a name="timelineCrime"></a>
+						<h4>Crime Timeline</h4>
+						<span>NflArrest.com/api/v1/crime/timeline/<i>CrimeID</i></span>
+						<p>
+							The Timeline verb returns a count of arrests in each month and year in the time period to be graphed overtime.
+						</p>
+						<table>
+							<tr><th>Parameter</th><th>Format</th><th>Description</th></tr>
+							<tr><td>start_date</td><td>2000-01-31</td><td>Filter data by start date</td></tr>
+							<tr><td>end_date</td><td>2016-01-31</td><td>Filter data by end date</td></tr>
+							<tr><td>limit</td><td>integer</td><td>Limit results to a specific number</td></tr>
+						</table>
+					</div>
+					<div class="row docs">
+						<a name="arrestsCrime"></a>
+						<h4>Arrest List for Crime</h4>
+						<span>NflArrest.com/api/v1/crime/arrests/<i>CrimeID</i></span>
+						<p>
+							The arrests verb returns a list of arrests with details for the crime in question.
+						</p>
+						<table>
+							<tr><th>Parameter</th><th>Format</th><th>Description</th></tr>
+							<tr><td>start_date</td><td>2000-01-31</td><td>Filter data by start date</td></tr>
+							<tr><td>end_date</td><td>2016-01-31</td><td>Filter data by end date</td></tr>
+							<tr><td>limit</td><td>integer</td><td>Limit results to a specific number</td></tr>
+							<tr><td>start_pos</td><td>integer</td><td>offset for limit, use for pages</td></tr>
+						</table>
+					</div>
+				</div>
+				<div>
+					<h2>Team</h2>
+					<div class="row docs">
+						<a name="team"></a>
+						<h4>Top Teams</h4>
+						<span>NflArrest.com/api/v1/team</span>
+						<p>
+							The Top teams endpoint returns the teams that have had the most arrests in the NFL.
+						</p>
+						<table>
+							<tr><th>Parameter</th><th>Format</th><th>Description</th></tr>
+							<tr><td>start_date</td><td>2000-01-31</td><td>Filter data by start date</td></tr>
+							<tr><td>end_date</td><td>2016-01-31</td><td>Filter data by end date</td></tr>
+							<tr><td>limit</td><td>integer</td><td>Limit results to a specific number</td></tr>
+							<tr><td>start_pos</td><td>integer</td><td>offset for limit, for pageination</td></tr>
+						</table>
+					</div>
+					<div class="row docs">
+						<a name="topPlayersTeam"></a>
+						<h4>Top Players from Team</h4>
+						<span>NflArrest.com/api/v1/team/topPlayers/<i>TeamID</i></span>
+						<p>
+							The top players verb makes returns players who have commited the most crimes from the specified team.
+						</p>
+						<table>
+							<tr><th>Parameter</th><th>Format</th><th>Description</th></tr>
+							<tr><td>start_date</td><td>2000-01-31</td><td>Filter data by start date</td></tr>
+							<tr><td>end_date</td><td>2016-01-31</td><td>Filter data by end date</td></tr>
+							<tr><td>limit</td><td>integer</td><td>Limit results to a specific number</td></tr>
+						</table>
+					</div>
+
+					<div class="row docs">
+						<a name="topCrimesTeam"></a>
+						<h4>Top Crimes by Team</h4>
+						<span>NflArrest.com/api/v1/team/topCrimes/<i>TeamID</i></span>
+						<p>
+							The Top Crimes verb returns the teams with the most arrests in the NFL.
+						</p>
+						<table>
+							<tr><th>Parameter</th><th>Format</th><th>Description</th></tr>
+							<tr><td>start_date</td><td>2000-01-31</td><td>Filter data by start date</td></tr>
+							<tr><td>end_date</td><td>2016-01-31</td><td>Filter data by end date</td></tr>
+							<tr><td>limit</td><td>integer</td><td>Limit results to a specific number</td></tr>
+						</table>
+					</div>
+
+					<div class="row docs">
+						<a name="searchTeam"></a>
+						<h4>Search for Team</h4>
+						<span>NflArrest.com/api/v1/team/search/</span>
+						<p>
+							The search teams verb returns search results for teams in the NFL, it searches by City (Seattle, Wa), short code (sea), and team name (Seahawks).
+						</p>
+						<table>
+							<tr><th>Parameter</th><th>Format</th><th>Description</th></tr>
+							<tr><td>term</td><td>string</td><td>Search Query</td></tr>
+							<tr><td>limit</td><td>integer</td><td>Limit results to a specific number</td></tr>
+							<tr><td>start_pos</td><td>integer</td><td>offset for limit, use for pages</td></tr>
+						</table>
+					</div>
+					<div class="row docs">
+						<a name="timelineTeam"></a>
+						<h4>Team Crime Timeline</h4>
+						<span>NflArrest.com/api/v1/team/timeline/<i>TeamID</i></span>
+						<p>
+							The Timeline verb returns a count of arrests in each month and year in the time period to be graphed overtime for the specified team.
+						</p>
+						<table>
+							<tr><th>Parameter</th><th>Format</th><th>Description</th></tr>
+							<tr><td>start_date</td><td>2000-01-31</td><td>Filter data by start date</td></tr>
+							<tr><td>end_date</td><td>2016-01-31</td><td>Filter data by end date</td></tr>
+							<tr><td>limit</td><td>integer</td><td>Limit results to a specific number</td></tr>
+						</table>
+					</div>
+					<div class="row docs">
+						<a name="arrestsTeam"></a>
+						<h4>Arrest Details List</h4>
+						<span>NflArrest.com/api/v1/team/arrests/<i>TeamID</i></span>
+						<p>
+							The arrests verb returns a list of arrests with details for the team in question.
+						</p>
+						<table>
+							<tr><th>Parameter</th><th>Format</th><th>Description</th></tr>
+							<tr><td>start_date</td><td>2000-01-31</td><td>Filter data by start date</td></tr>
+							<tr><td>end_date</td><td>2016-01-31</td><td>Filter data by end date</td></tr>
+							<tr><td>limit</td><td>integer</td><td>Limit results to a specific number</td></tr>
+						</table>
+					</div>
+				</div>
+				<div>
+					<h2>Player</h2>
+					<div class="row docs">
+						<a name="player"></a>
+						<h4>Top Players</h4>
+						<span>NflArrest.com/api/v1/player</span>
+						<p>
+							The Top Players endpoint returns the players that have had the most arrests in the NFL.
+						</p>
+						<table>
+							<tr><th>Parameter</th><th>Format</th><th>Description</th></tr>
+							<tr><td>start_date</td><td>2000-01-31</td><td>Filter data by start date</td></tr>
+							<tr><td>end_date</td><td>2016-01-31</td><td>Filter data by end date</td></tr>
+							<tr><td>limit</td><td>integer</td><td>Limit results to a specific number</td></tr>
+							<tr><td>start_pos</td><td>integer</td><td>offset for limit, for pageination</td></tr>
+						</table>
+					</div>
+					<div class="row docs">
+						<a name="topCrimesPlayer"></a>
+						<h4>Top Crimes by Player</h4>
+						<span>NflArrest.com/api/v1/player/topCrimes/<i>PlayerName</i></span>
+						<p>
+							The Top Crimes verb returns the teams with the most arrests in the NFL.
+						</p>
+						<table>
+							<tr><th>Parameter</th><th>Format</th><th>Description</th></tr>
+							<tr><td>start_date</td><td>2000-01-31</td><td>Filter data by start date</td></tr>
+							<tr><td>end_date</td><td>2016-01-31</td><td>Filter data by end date</td></tr>
+							<tr><td>limit</td><td>integer</td><td>Limit results to a specific number</td></tr>
+						</table>
+					</div>
+
+					<div class="row docs">
+						<a name="searchPlayer"></a>
+						<h4>Search for Player</h4>
+						<span>NflArrest.com/api/v1/player/search/</span>
+						<p>
+							The search players verb returns search results for players in the NFL, it searches by player name.
+						</p>
+						<table>
+							<tr><th>Parameter</th><th>Format</th><th>Description</th></tr>
+							<tr><td>term</td><td>string</td><td>Search Query</td></tr>
+							<tr><td>limit</td><td>integer</td><td>Limit results to a specific number</td></tr>
+							<tr><td>start_pos</td><td>integer</td><td>offset for limit, use for pages</td></tr>
+						</table>
+					</div>
+					<div class="row docs">
+						<a name="arrestsPlayer"></a>
+						<h4>Arrest Details List</h4>
+						<span>NflArrest.com/api/v1/player/arrests/<i>PlayerName</i></span>
+						<p>
+							The arrests verb returns a list of arrests with details for the player in question.
+						</p>
+						<table>
+							<tr><th>Parameter</th><th>Format</th><th>Description</th></tr>
+							<tr><td>start_date</td><td>2000-01-31</td><td>Filter data by start date</td></tr>
+							<tr><td>end_date</td><td>2016-01-31</td><td>Filter data by end date</td></tr>
+							<tr><td>limit</td><td>integer</td><td>Limit results to a specific number</td></tr>
+						</table>
+					</div>
+				</div>
+				<div>
+					<h2>Position</h2>
+					<div class="row docs">
+						<a name="position"></a>
+						<h4>Top Positions</h4>
+						<span>NflArrest.com/api/v1/position</span>
+						<p>
+							The Top positions endpoint returns the positions that have had the most arrests in the NFL.
+						</p>
+						<table>
+							<tr><th>Parameter</th><th>Format</th><th>Description</th></tr>
+							<tr><td>start_date</td><td>2000-01-31</td><td>Filter data by start date</td></tr>
+							<tr><td>end_date</td><td>2016-01-31</td><td>Filter data by end date</td></tr>
+							<tr><td>limit</td><td>integer</td><td>Limit results to a specific number</td></tr>
+							<tr><td>start_pos</td><td>integer</td><td>offset for limit, for pageination</td></tr>
+						</table>
+					</div>
+					<div class="row docs">
+						<a name="topTeamsPosition"></a>
+						<h4>Top Teams by Position</h4>
+						<span>NflArrest.com/api/v1/position/topTeams/<i>PositionID</i></span>
+						<p>
+							The top players verb makes returns players who have commited the most crimes from the specified team.
+						</p>
+						<table>
+							<tr><th>Parameter</th><th>Format</th><th>Description</th></tr>
+							<tr><td>start_date</td><td>2000-01-31</td><td>Filter data by start date</td></tr>
+							<tr><td>end_date</td><td>2016-01-31</td><td>Filter data by end date</td></tr>
+							<tr><td>limit</td><td>integer</td><td>Limit results to a specific number</td></tr>
+						</table>
+					</div>
+
+					<div class="row docs">
+						<a name="topCrimesPosition"></a>
+						<h4>Top Crimes by Position</h4>
+						<span>NflArrest.com/api/v1/position/topCrimes/<i>PositionID</i></span>
+						<p>
+							The Top Crimes verb returns the crimes with the most arrests committed by this position.
+						</p>
+						<table>
+							<tr><th>Parameter</th><th>Format</th><th>Description</th></tr>
+							<tr><td>start_date</td><td>2000-01-31</td><td>Filter data by start date</td></tr>
+							<tr><td>end_date</td><td>2016-01-31</td><td>Filter data by end date</td></tr>
+							<tr><td>limit</td><td>integer</td><td>Limit results to a specific number</td></tr>
+						</table>
+					</div>
+					<div class="row docs">
+						<a name="timelinePosition"></a>
+						<h4>Position Crime Timeline</h4>
+						<span>NflArrest.com/api/v1/position/timeline/<i>PositionID</i></span>
+						<p>
+							The Timeline verb returns a count of arrests in each month and year in the time period to be graphed overtime for the specified position.
+						</p>
+						<table>
+							<tr><th>Parameter</th><th>Format</th><th>Description</th></tr>
+							<tr><td>start_date</td><td>2000-01-31</td><td>Filter data by start date</td></tr>
+							<tr><td>end_date</td><td>2016-01-31</td><td>Filter data by end date</td></tr>
+							<tr><td>limit</td><td>integer</td><td>Limit results to a specific number</td></tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Document
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+</body>
+</html>

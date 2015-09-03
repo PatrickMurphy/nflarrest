@@ -5,8 +5,11 @@ if(!isset($_GET['id'])){
 	$id = $_GET['id'];
 }
 
-require_once('../api.php');
-
+if(isset($restful)){
+	require_once('api.php');
+}else{
+	require_once('../api.php');
+}
 $limit = '';
 $date_range = '';
 
