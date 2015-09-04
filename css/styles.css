@@ -12,29 +12,38 @@
 }
 
 .container {
-	background-color: #D1DBBD;
-	border-bottom-left-radius: 7px;
-	border-bottom-right-radius: 7px;
-	box-shadow: 0px 3px 5px #414141;
+	width:100%;
 }
 
 body, html {
 	/*background-color: #FCFFF5;*/
-	background-color:#6f6f6b;
+	background-color:#fff;
 	color:#151414;
 }
 
 header {
-	background-color:#91AA9D;
-	height:60px;
+	background-color:#f8f8f8;
+	height:80px;
+	border-bottom: 2px solid #d6d6d6;
+	padding-left: 15px;
+}
+header > span {
+	font-weight: bold;
+	font-size: 17px;
+	color:#9a9a9a;
+	float: right;
+	line-height: 80px;
+	text-transform: uppercase;
+	margin-right: 1em;
+	letter-spacing: -1px;
 }
 a {
-    color:#1d5976;
+    color:#23292c;
 }
 .logo {
     float:left;
     margin-left:15px;
-    margin-top:15px;
+    padding-top: 23px;
 }
 
 header a h1:hover {
@@ -43,10 +52,12 @@ header a h1:hover {
 }
 header h1 {
 	float:left;
-	color: #193441;
-	padding:15px;
+	color: #333333;
+	font-family: 'Raleway';
     padding-left:7px;
-	font-size:2.5rem;
+	font-size:3rem;
+	font-weight: 500;
+	line-height: 80px
 }
 
 h1, h2, h3, h4 {
@@ -59,16 +70,24 @@ h3 {
 }
 
 header h1 span {
-	/*font-size: 14px !important;*/
-	color:#618493;
+	color:rgb(255,118,0);
 }
 
 .dateRangeControl {
 	float:right;
-	background-color:#e1e6d7;
-	padding: 0 1.5vw;
-    display: inline-block;
+	background-color:#e2e2e2;
+	padding: calc(2px + 0.5vw);
+  display: inline-block;
 	border-radius: 4px;
+	color:#5a5a5a;
+	font-weight: bold;
+	margin-right: 15px;
+}
+.dateRangeControl a {
+	color:rgb(255,118,0);
+}
+.dateRangeControl a:hover {
+	color:rgba(255, 118, 0, 0.54);
 }
 .dateRangeControl input, .dateRangeControl button  {
 	display:block;
@@ -96,14 +115,17 @@ header h1 span {
 
 button {
 	margin-bottom: 0px;
+	background:#ebebeb !important;
+	border: 1px solid #adadad;
 }
 
 .button-primary {
 	/*background-color: rgba(0, 12, 25, 0.25) !important;*/
 	margin-top:4px;
 	margin-bottom: 3px;
-	background-color:#91AA9D !important;
-	border:1px solid rgba(100, 100, 100, 0.35) !important;
+	color:#fff;
+	background-color:rgb(255,118,0) !important;
+	border:1px solid rgb(198, 92, 0) !important;
 }
 
 .button-small {
@@ -115,7 +137,7 @@ button {
 }
 
 .button-primary:hover, .button-small:hover{
-	background-color:#a9c4b6 !important;
+	background-color:rgb(255, 142, 45) !important;
 }
 
 #teamSearch, #playerSearch {
@@ -126,20 +148,21 @@ section {
 	min-height: 35vh;
     text-align: center;
 }
+.dividedSection {
+  border-top: 1px solid rgba(219, 219, 219, 0.76);
+	padding-top: 15px;
+	margin-top: 15px;
+}
 #chart, #comparechart{
 	min-height: 300px;
-	background: #DFE6D1;
-	border-top-left-radius: 6px;
-	border-top-right-radius: 6px;
+	background: #fff;
 }
 .chart-options {
-	background:rgba(51, 51, 51, 0.10);
+
 }
 .chart-container{
-	border:1px solid rgba(0, 0, 0, 0.35);
 	width:99%;
 	margin-left: .5%;
-	border-radius: 5px;
 }
 
 .expanded {
@@ -161,13 +184,19 @@ section {
     display:block;
     border-bottom: 2px solid #777;
 }
+.top-list > h3 {
+	color:#6a6a6a;
+	font-weight: 600;
+	padding: 15px 0px 0px 0px;
+}
 .top-list .value-cell {
-    background-color: rgba(255, 255, 255, 0.75);
+    background-color: rgb(3, 143, 239);
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.58);
     padding:1px 8px;
     border-radius: 10px;
     line-height: 24px;
     margin-top: 4px;
+		color:#fff !important;
 }
 .top-list li span {
 	max-width: 65%;
@@ -214,17 +243,29 @@ aside {
 }
 
 footer {
-  background: rgba(62, 96, 111, 0.2);
 	text-align: center;
 	font-weight: 600;
-	color:rgba(255, 255, 255, 0.7);
+	color:rgba(80, 80, 80, 0.46);
   border-bottom-left-radius: 7px;
   border-bottom-right-radius: 7px;
+	padding: 20px 0px;
 }
 
 footer a {
+	color:rgb(255,118,0);
 	text-decoration: none;
     border-bottom: 1px dotted rgba(25, 52, 65, 0.44);
+}
+
+.new-super {
+vertical-align:super;
+	font-size:9px;
+	background:rgb(3, 143, 239);
+	border-radius:5px;
+	padding:2px;
+	margin-left:3px;
+	margin-top:2px;
+		color:rgba(255, 255, 255, 0.72);
 }
 
 .dateRangeEditor {
@@ -262,7 +303,7 @@ footer a {
 	width:35vw;
 	text-align: center;
 	left:30.5vw;
-	top:20vh;
+	top:30vh;
 	font-size: 3em;
 	background-color:rgba(34, 34, 34, 0.37);
 	padding:2vw;
@@ -270,35 +311,43 @@ footer a {
 	color:#fff;
 }
 #arrest-o-meter {
-	width: 80%;
 	margin-left: 10%;
 }
 #arrest-o-meter p {
 	margin-bottom: 2px;
+}
+#arrest-o-meter h5{
+	color:#6a6a6a;
+	font-weight: 600;
+
 }
 .meter-bg {
 	position: relative;
 	text-align: left;
 	width:94%;
 	margin-left: 3%;
-	background-color:#666;
-	border-radius: 6px;
-  line-height: 15px;
+	background-color:rgba(240, 240, 240, 1);
+	border: 1px solid rgba(119, 119, 119, 0.15);
+	border-radius: 8px;
+  line-height: 25px;
+	height: 25px;
 }
 .meter-bg span {
-	color:rgba(255, 255, 255, 0.66);
-	background-color: rgba(255, 255, 255, 0.2);
+	font-weight: bold;
+	color:rgba(255, 255, 255, 1);
+	background-color: rgba(75, 75, 75, 0.2);
 	border-radius: 10px;
-  padding: 2px;
-  top: -2px;
+  padding: 1px;
+  top: -1px;
 }
 .meter-fg {
 	overflow: visible !important;
-	border-radius: 6px;
-	background-color: darkred;
+	border-radius: 8px;
+	background-color: rgb(3, 143, 239);
 	width:0px;
 	display: inline-block;
-  line-height: 15px;
+  line-height: 25px;
+	height: 25px;
 }
 
 .twitter_Btn {
@@ -315,6 +364,7 @@ footer a {
     position: absolute;
     left:0.5%;
     top:175px;
+	  z-index: -5555;
     width:8%;
     padding:0.5%;
     background:rgba(255, 255, 255, 0.25);
@@ -348,7 +398,7 @@ footer a {
 	color:#2d789d;
 }
 .customLegend {
-	background: #DFE6D1;
+	background: #fff;
 }
 .customLegend-item {
 	padding: 3px;
@@ -374,4 +424,8 @@ footer a {
 
 .no-border {
     border:0px;
+}
+
+.share_buttons {
+	padding-top: 38px;
 }

@@ -21,7 +21,7 @@
 		<meta name="twitter:image" content="http://nflarrest.com/images/preview.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+    <link href="//fonts.googleapis.com/css?family=Raleway:400,300,500,600" rel="stylesheet" type="text/css">
 
 	<link rel="stylesheet" href="css/vendor/normalize.css">
 	<link rel="stylesheet" href="css/vendor/skeleton.css">
@@ -61,34 +61,13 @@
 			<a href="http://nflarrest.com"><h1>
                 NFL<span>Arrest</span>.com
 			</h1></a>
-			<a href="https://twitter.com/share" class="twitter-share-button twitter_Btn" data-url="http://nflarrest.com" data-text="Explore the arrest records of Football Players, find the most common crimes for your football team.">Tweet</a><div class="fb-share-button fb_Btn" data-href="http://NFLArrest.com" data-layout="button_count"></div>
-			<div class="dateRangeControl">
-				<span class="title">Date Range:</span> <a href="#" id="changeDateRangeLink">01/01/2000 - 01/01/2015</a>
-			</div>
+			<span>The Database of NFL Arrest Statistics</span>
 		</header>
 		<br class="clear" />
 		<section>
-			<div class="chart-container">
-				<div class="tweleve columns" id="chart"></div>
-      	<div class="chart-options row">
-					<button id="details_summary_btn" class="button-primary" title="Increase chart size.">Expand</button>
-					<button id="hideAll_btn" class="button-primary" title="After you click this button you will be able to select individual categories from the legend above by clicking on them.">Hide All Categories</button>
-					<button id="showAll_btn" class="button-primary" title="Unhide any hidden categories.">Show All Categories</button>
-				</div>
-			</div>
-			<br class="clear" />
-			<div class="search-row row">
-				<div class="four columns">
-					<h5>Search Teams:</h5>
-					<input type="search" class="seven columns" id="teamSearch" placeholder="Search..." /><button class="four columns search-button offset-by-one button-primary" autocomplete="off" id="teamSearchBtn">Search</button>
-				</div>
-				<div class="four columns">
-					<h5>Search Players:</h5>
-					<input type="search" class="seven columns" id="playerSearch" placeholder="Search..." /><button class="four columns search-button offset-by-one button-primary" autocomplete="off" id="playerSearchBtn">Search</button>
-				</div>
-				<div class="four columns">
-					<div id="arrest-o-meter">
-						<h5>Arrest-o-meter:</h5>
+			<div class="row">
+				<div id="arrest-o-meter" class="seven columns">
+						<h5>The Arrest-O-Meter:</h5>
 						<div class="row meter-bg">
 							<div class="meter-fg">&nbsp;</div>
 							<span style="position:absolute; left:10.9%;">7</span>
@@ -96,10 +75,27 @@
 						</div>
 						<p id="arrest_meter_text">It has been <b>?</b> Days since the last arrest.</p>
 						<p>Average: <b>7</b> Days | Record W/O arrest: <b>64</b> Days</p>
-					</div>
 				</div>
-
+				<div class="two columns share_buttons">
+					<div class="fb-share-button fb_Btn"
+        data-href="http://www.nflarrest.com/"
+        data-layout="box_count">
+				</div>
+					<a href="https://twitter.com/share" class="twitter-share-button twitter_Btn" data-url="http://nflarrest.com" data-text="Explore the arrest records of Football Players, find the most common crimes for your football team." data-count="vertical">Tweet</a>
+				</div>
+				</div>
+			<div class="row dividedSection"><div class="dateRangeControl">
+				<span class="title">Date Range:</span> <a href="#" id="changeDateRangeLink">01/01/2000 - 01/01/2015</a>
+			</div></div>
+			<div class="chart-container">
+				<div class="tweleve columns" id="chart"></div>
+      	<div class="chart-options row">
+					<button id="details_summary_btn" class="button-primary" title="Increase chart size.">Expand</button>
+					<button id="hideAll_btn" class="button" title="After you click this button you will be able to select individual categories from the legend above by clicking on them.">Hide All Categories</button>
+					<button id="showAll_btn" class="button" title="Unhide any hidden categories.">Show All Categories</button>
+				</div>
 			</div>
+			<br class="clear" />
 			<aside>
 				<div class="four columns top-list">
 					<h3>Top Crimes</h3>
@@ -127,7 +123,7 @@
 			</aside>
 		</section>
 		<br class="clear" />
-		<footer>Made By <a href="http://resume.patrickmurphyphoto.com" title="Want to see my Resume?">Patrick Murphy</a> | <a href="http://nflarrest.com/api/">Open API</a><span style="vertical-align:super;font-size:9px;background:rgba(0, 221, 187, 0.42);border-radius:5px;padding:2px;margin-left:3px;margin-top:2px">New!</span> </footer>
+		<footer>Made By <a href="http://resume.patrickmurphyphoto.com" title="Want to see my Resume?">Patrick Murphy</a> | <a href="http://nflarrest.com/api/">Open API</a><span class="new-super">New!</span> </footer>
 	</div>
     <div id="tooltip" style="display:none;">
         <span>Help</span>
