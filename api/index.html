@@ -133,6 +133,7 @@ ga('send', 'pageview', 'API Documentation');
 					<li><a href="#topTeamsPosition">Top Teams by Position</a></li>
 					<li><a href="#topCrimesPosition">Top Crimes by Position</a></li>
 					<li><a href="#timelinePosition">Timeline by month/year</a></li>
+					<li><a href="#arrestsPosition">Arrest Details</a></li>
 				</ul>
 			</div>
 			<div class="nine columns content">
@@ -432,6 +433,20 @@ ga('send', 'pageview', 'API Documentation');
 						<span>NflArrest.com/api/v1/position/timeline/<i>PositionID</i></span>
 						<p>
 							The Timeline verb returns a count of arrests in each month and year in the time period to be graphed overtime for the specified position.
+						</p>
+						<table>
+							<tr><th>Parameter</th><th>Format</th><th>Description</th></tr>
+							<tr><td>start_date</td><td>2000-01-31</td><td>Filter data by start date</td></tr>
+							<tr><td>end_date</td><td>2016-01-31</td><td>Filter data by end date</td></tr>
+							<tr><td>limit</td><td>integer</td><td>Limit results to a specific number</td></tr>
+						</table>
+					</div>
+					<div class="row docs">
+						<a name="arrestsPosition"></a>
+						<h4>Position Arrests </h4>
+						<span>NflArrest.com/api/v1/position/arrests/<i>PositionID</i></span>
+						<p>
+							The Arrests verb returns a list of arrests for players playing the particular position.
 						</p>
 						<table>
 							<tr><th>Parameter</th><th>Format</th><th>Description</th></tr>
