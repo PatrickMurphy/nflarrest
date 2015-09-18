@@ -124,7 +124,7 @@ function load_top_players_list(replace){
 }
 function load_top_positions_list(replace){
 	replace = replace || false;
-	load_top_list("api/overall/topPositions.php?limit=5&start_pos="+last_start_pos, '', 'top_pos_', '#top_positions_list', ['Position', 'arrest_count'], replace);
+	load_top_list("api/overall/topPositions.php?limit=5&start_pos="+last_start_pos, 'position', 'top_pos_', '#top_positions_list', ['Position', 'arrest_count'], replace);
 }
 
 function load_top_lists(first){
