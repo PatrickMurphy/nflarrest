@@ -13,6 +13,9 @@
 
 .container {
 	width:100%;
+	max-width: 1300px;
+	border-right:1px solid #aaaaaa;
+	border-left:1px solid #aaaaaa;
 }
 
 body, html {
@@ -129,7 +132,7 @@ button {
 }
 
 .button-small {
-	border:0px;
+	border-color:rgba(173, 173, 173, 0.5);
 	font-size: .9rem;
 	height: 24px;
 	line-height: 24px;
