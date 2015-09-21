@@ -20,11 +20,15 @@ $id = $_GET['id'];
 }
 
 // check endpoint
-$endpoints = ['crime', 'player', 'team', 'position'];
+$endpoints = ['crime', 'player', 'team', 'position', 'meter'];
 if(in_array($endpoint, $endpoints)){
 	// check verb
 	if($verb == false){
-		include('overall/top' . ucfirst($endpoint) . 's.php');
+		if($endpoint == 'meter'){
+			include('meter.php');
+		}else{
+			include('overall/top' . ucfirst($endpoint) . 's.php');
+		}
 	}else{
 		include($endpoint . '/' . $verb . '.php');
 	}
