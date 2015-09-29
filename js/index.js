@@ -19,19 +19,6 @@ $( document ).ready(function() {
 		if ($(window).width() >= 800) {
 			 $('#tooltip').fadeIn();
 		}
-		setupSearchBoxes();
-		 $( "#search-dialog" ).dialog({
-      autoOpen: false,
-      modal: true,
-      show: {
-        effect: "blind",
-        duration: 1000
-      },
-      hide: {
-        effect: "blind",
-        duration: 1000
-      }
-    });
 		//$( document ).tooltip();
 	});
 });
@@ -89,7 +76,7 @@ function load_top_list(url, page, prefix, list, values, replace){
 	$.getJSON(url, function( data ) {
 		var items = [];
 		$.each( data, function( key, val ) {
-			var link = "<a href=\""+page+".html#"+val[values[0]]+"\">";
+			var link = "<a href=\""+page+".html#!"+val[values[0]]+"\">";
 			var link_end = '</a>';
 			if(page == ''){
 				link = '';
@@ -141,75 +128,4 @@ function reload_top_lists(){
 	load_top_crimes_list(true);
 	load_top_players_list(true);
 	load_top_positions_list(true);
-}
-
-function setupSearchBoxes(){
-	$( "#playerSearch" ).autocomplete({
-      source: "api/player/search.php",
-      minLength: 2,
-      select: function( event, ui ) {
-				googleTracking.sendTrackEvent('PlayerSearch','Click AutoComplete Result');
-				window.location.href = '/player.html#' + ui.item.Name;
-      }
-    }).autocomplete( "instance" )._renderItem = function( ul, item ) {
-      return $( "<li>" )
-        .append( "<a>" + item.Name + "  " + item.Position + "</a>" )
-        .appendTo( ul );
-    };
-	$( "#teamSearch" ).autocomplete({
-      source: "api/team/search.php",
-      minLength: 2,
-      select: function( event, ui ) {
-				googleTracking.sendTrackEvent('TeamSearch','Click AutoComplete Result');
-				window.location.href = '/team.html#' + ui.item.team_code;
-      }
-    }).autocomplete( "instance" )._renderItem = function( ul, item ) {
-      return $( "<li>" )
-        .append( "<a>" + item.teams_full_name + " from " + item.city + "</a>" )
-        .appendTo( ul );
-    };
-
-	$('#playerSearchBtn').click(function(){
-		googleTracking.sendTrackEvent('PlayerSearch','Click Search Button');
-		var query = $('#playerSearch').val();
-		$.getJSON('api/player/search.php?term='+query, function(resp){
-            console.log(resp);
-            if(resp.length > 0){
-                var items = ['<tr><th>Name</th><th>Position</th><td>Arrests</th></tr>'];
-                for(var index in resp){
-                    items.push("<tr><td><a href=\"player.html#" + resp[index]['Name'] + "\">" + resp[index]['Name'] + "</a></td><td>" + resp[index]['Position'] + "</td><td>" + resp[index]['arrest_count'] + "</td></tr>");
-                }
-            }else{
-                var items = ['<tr><th>Could not find any results, we only display players with arrest records, you may want to check your spelling.</th></tr>'];
-            }
-			$('#search-dialog table').html(items.join(""));
-			$("#search-dialog").dialog( "open" );
-		});
-    });
-	$('#teamSearchBtn').click(function(){
-		googleTracking.sendTrackEvent('TeamSearch','Click Search Button');
-		var query = $('#teamSearch').val();
-		$.getJSON('api/team/search.php?term='+query, function(resp){
-			var items = ['<tr><th>Name</th><th>City</th><td>Code</th></tr>'];
-			for(var index in resp){
-                if(resp.length > 0){
-				    items.push("<tr><td><a href=\"player.html#" + resp[index]['teams_full_name'] + "\">" + resp[index]['Name'] + "</a></td><td>" + resp[index]['city'] + "</td><td>" + resp[index]['team_code'] + "</td></tr>");
-                }else{
-                    items = ['<tr><th>Could not find any results, you may also want to check your spelling.</th></tr>'];
-                }
-            }
-			$('#search-dialog table').html(items.join(""));
-			$("#search-dialog").dialog( "open" );
-		});
-	});
-    $("#playerSearch").keyup(function(event){
-        if(event.keyCode == 13){
-            $("#playerSearchBtn").click();
-        }
-    });
-    $("#teamSearch").keyup(function(event){
-        if(event.keyCode == 13){
-            $("#teamSearchBtn").click();
-        }
-    });
 }

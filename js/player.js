@@ -25,8 +25,8 @@ $( document ).ready(function() {
 });
 
 function update_hash(){
-	pageID = window.location.hash || '#ID Not Set';
-	pageID = pageID.replace('#', '');
+	pageID = window.location.hash || '#!ID Not Set';
+	pageID = pageID.replace('#!', '');
 	$('#pageTitle').append(pageID);
 }
 
@@ -66,7 +66,7 @@ function renderArrests(){
 				items = ['<tr><th class="one column">Date:</th><th class="two columns">Name:</th><th class="one column">Crime:</th><th class="one column">Team:</th><th class="four columns">Description:</th><th class="three columns">Outcome:</th></tr>'];
 		for(row in data){
 			row = data[row];
-				items.push('<tr><td class="one column">'+moment(row['Date'], "YYYY-MM-DD").fromNow() +'</td><td class="two columns">'+row['Name']+'</td><td class="one columns"><a href="crime.html#'+row['Category']+'">'+row['Category']+'</a></td><td class="one column"><a href="team.html#'+row['Team']+'">'+row['Team']+'</a></td><td class="four columns">'+row['Description']+'</td><td class="three columns">'+row['Outcome']+'</td></tr>');
+				items.push('<tr><td class="one column">'+moment(row['Date'], "YYYY-MM-DD").fromNow() +'</td><td class="two columns">'+row['Name']+'</td><td class="one columns"><a href="crime.html#!'+row['Category']+'">'+row['Category']+'</a></td><td class="one column"><a href="team.html#!'+row['Team']+'">'+row['Team']+'</a></td><td class="four columns">'+row['Description']+'</td><td class="three columns">'+row['Outcome']+'</td></tr>');
 		}
 		$('#arrest_table').html(items.join(""));
 	});
