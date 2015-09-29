@@ -30,12 +30,6 @@ $( document ).ready(function() {
 	});
 });
 
-function update_hash(){
-	pageID = window.location.hash || '#!ID Not Set';
-	pageID = pageID.replace('#!', '');
-	$('#pageTitle').append(pageID);
-}
-
 function getDonutData(url, param, callback){
 	var andSimple = '';
 	if(useSimple){

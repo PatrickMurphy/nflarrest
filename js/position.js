@@ -28,12 +28,6 @@ $( document ).ready(function() {
 	});
 });
 
-function update_hash(){
-	pageID = window.location.hash || '#ID Not Set';
-	pageID = pageID.replace('#!', '');
-	$('#pageTitle').html('Team: ' + pageID);
-}
-
 function getDonutData(url, param, callback){
 	$.getJSON(url+'&start_date='+dateRangeNFL.getStart()+'&end_date='+dateRangeNFL.getEnd(), function(data){
 		var theData = [];
