@@ -6,8 +6,22 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
   <title>NFL Arrest API Documentation</title>
-  <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="author" content="Patrick Murphy">
+	<meta property="og:url" content="http://NFLArrest.com/api" />
+	<meta property="og:title" content="NFL Arrest Statistics Open API" />
+	<meta property="og:description" content="Explore the data behind arrest records of NFL Players. This REST JSON API is perfect for the data loving sports geeks of the world. Access is free!" />
+	<meta property="og:type" content="website" />
+	<meta property="og:site_name" content="NFL Arrest Open API"/>
+	<meta property="og:image" content="http://nflarrest.com/images/preview.png?cache=710" />
+	<meta name="description" content="Explore the data behind arrest records of the NFL's Players. This REST JSON API is perfect for the data loving sports geeks of the world. Access is free!">
+	<meta name="author" content="Patrick Murphy">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@nfl_arrest">
+	<meta name="twitter:creator" content="@patrickmurphoto">
+	<meta name="twitter:title" content="NFL Arrest Statistics API">
+	<meta name="twitter:description" content="Explore the data behind arrest records of NFL Players. This REST JSON API is perfect for the data loving sports geeks of the world. Access is free!">
+	<meta name="twitter:image" content="http://nflarrest.com/images/preview.png">
+
 
   <!-- Mobile Specific Metas
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -138,7 +152,7 @@ ga('send', 'pageview', 'API Documentation');
 			</div>
 			<div class="nine columns content">
 				<h1>API Documentation</h1>
-				<p>The <a href="http://nflarrest.com">NFLArrest.com</a> public API is now live! All endpoints return data in JSON format. The base url for the first version of the api is <a href="http://nflarrest.com/api/v1/">http://nflarrest.com/api/v1/</a>, next you have the endpoints Crime, Team, Player, and Position. Each endpoint has a collection of read only methods to get more information about each collection. All requests should be made with HTTP GET requests, any additional parameters listed below should be appended to the querystring (?param=value&amp;param2=value2)</p>
+				<p>The <a href="http://nflarrest.com">NFLArrest.com</a> public API is now live! All endpoints return NFL Arrest data in JSON format. The base url for the first version of the api is <a href="http://nflarrest.com/api/v1/">http://nflarrest.com/api/v1/</a>, next you have the endpoints Crime, Team, Player, and Position. Each endpoint has a collection of read only methods to get more information about each collection. All requests should be made with HTTP GET requests, any additional parameters listed below should be appended to the querystring (?param=value&amp;param2=value2)</p>
 				<div>
 					<h2>Crime</h2>
 					<div class="row docs">
@@ -259,7 +273,7 @@ ga('send', 'pageview', 'API Documentation');
 						<h4>Top Players from Team</h4>
 						<span>NflArrest.com/api/v1/team/topPlayers/<i>TeamID</i></span>
 						<p>
-							The top players verb makes returns players who have commited the most crimes from the specified team.
+							The top players verb makes returns players who have been arrested for the most crimes from the specified team and the number of arrests for each player.
 						</p>
 						<a href="v1/team/topPlayers/sea" class="example-link">Example</a>
 						<table>
@@ -275,7 +289,7 @@ ga('send', 'pageview', 'API Documentation');
 						<h4>Top Crimes by Team</h4>
 						<span>NflArrest.com/api/v1/team/topCrimes/<i>TeamID</i></span>
 						<p>
-							The Top Crimes verb returns the teams with the most arrests in the NFL.
+							The Top Crimes verb returns the teams with the most arrests in the NFL. For example it shows crimes like DUI, Domestic Violence and Drugs as being among the top for many teams, and for each crime the number of arrests.
 						</p>
 						<a href="v1/team/topCrimes/sea" class="example-link">Example</a>
 						<table>
@@ -355,7 +369,7 @@ ga('send', 'pageview', 'API Documentation');
 						<h4>Top Crimes by Player</h4>
 						<span>NflArrest.com/api/v1/player/topCrimes/<i>PlayerName</i></span>
 						<p>
-							The Top Crimes verb returns the teams with the most arrests in the NFL.
+							The Top Crimes verb returns the crimes the NFL Player is most often charged with.
 						</p>
 						<a href="v1/player/topCrimes/Aldon%20Smith" class="example-link">Example</a>
 						<table>

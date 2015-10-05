@@ -20,6 +20,16 @@ if(isset($_GET['id'])){
 	$where = $date_range;
 }
 
+if(isset($_GET['daysSince'])){
+	$daysSince = $_GET['daysSince'];
+}else{
+	// determine how many days since last
+	$lastResult = $db->query('SELECT Date FROM `arrest_stats`' . $where . ' ORDER BY Date DESC LIMIT 1');
+	$lastArrest = $lastResult->fetch_assoc();
+	$daysSince = floor((abs(strtotime(date('Y-m-d')) - strtotime($lastArrest['Date'])))/(60*60*24));
+}
+
+// get avg and max and last time it was days since
 $result = $db->query('SELECT Date FROM `arrest_stats`'. $where .' ORDER BY Date ASC');
 $data = gather_results($result);
 $max_span = 0; // start with zero days
@@ -37,9 +47,16 @@ foreach($data as $row){
     $span_count++;
     $span_total += $this_span;
     //print $this_span . '<br/>';
+	if($this_span >= $daysSince){
+		$lastCurrentRecordDate = strtotime(date('Y-m-d', $last_date) . ' + ' . $daysSince . ' days');
+		$broken = date("m-d-Y",$this_date);
+		print $broken;
+		$thatRecord = $this_span;
+		$that_lastDate = date("m-d-Y",$last_date);
+	}
     if($this_span > $max_span){
-        $max_span = $this_span;
-        $max_dates = [date("m/d/Y h:i:s A T",$last_date),date("m/d/Y h:i:s A T",$this_date)];
+      $max_span = $this_span;
+      $max_dates = [date("m-d-Y",$last_date),date("m-d-Y",$this_date)];
     }
     $last_date = $this_date;
 }
@@ -47,6 +64,10 @@ $avg_span = $span_total / $span_count;
 $returnArray = array(
 	'record' => $max_span,
 	'average' => floor($avg_span),
-	'daysSince' => floor((abs(strtotime(date('Y-m-d')) - $last_date))/(60*60*24))
+	'daysSince' => $daysSince,
+	'lastRecord' => date('m-d-Y', $lastCurrentRecordDate),
+	'broken' => $broken,
+	'thatRecord' => $thatRecord,
+	'thatLast' => $that_lastDate
 );
 print json_encode($returnArray);
