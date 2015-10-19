@@ -5,4 +5,9 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^api/v1/([^/]*)/([^/]*)/([^/]*)$ api/router.php?endpoint=$1&verb=$2&id=$3 [QSA,NC,L]
 RewriteRule ^api/v1/([^/]*)/([^/]*)$ api/router.php?endpoint=$1&verb=$2 [QSA,NC,L]
 RewriteRule ^api/v1/([^/]*)$ api/router.php?endpoint=$1 [QSA,NC,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^sitemap\.xml$ sitemap.php [L]
+RewriteRule ^sitemap$ sitemap.php [L]
 </IfModule>

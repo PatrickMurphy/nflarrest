@@ -38,6 +38,7 @@ $avg_span = 0;
 $span_count = 0;
 $span_total = 0;
 $last_date = strtotime('2000-01-01');
+$record_history = array();
 foreach($data as $row){
     $this_date = strtotime($row['Date']);
     //print $this_date . '<br/>';
@@ -50,8 +51,11 @@ foreach($data as $row){
 	if($this_span >= $daysSince){
 		$lastCurrentRecordDate = strtotime(date('Y-m-d', $last_date) . ' + ' . $daysSince . ' days');
 		$broken = date("m-d-Y",$this_date);
-		print $broken;
 		$thatRecord = $this_span;
+		$record_history[] = array(
+			'date' => $broken,
+			'record' => $thatRecord
+		);
 		$that_lastDate = date("m-d-Y",$last_date);
 	}
     if($this_span > $max_span){
@@ -62,12 +66,19 @@ foreach($data as $row){
 }
 $avg_span = $span_total / $span_count;
 $returnArray = array(
-	'record' => $max_span,
-	'average' => floor($avg_span),
-	'daysSince' => $daysSince,
-	'lastRecord' => date('m-d-Y', $lastCurrentRecordDate),
-	'broken' => $broken,
-	'thatRecord' => $thatRecord,
-	'thatLast' => $that_lastDate
+	'alltime' => array(
+		'record' => $max_span,
+		'average' => floor($avg_span)
+	),
+	'current' => array(
+		'daysSince' => $daysSince
+	),
+	'lastRecord' => array(
+		'date' => date('m-d-Y', $lastCurrentRecordDate), // last time it was daysSince days
+		'broken' => $broken, // when the next arrest occured
+		'thatRecord' => $thatRecord, // what was the total span
+		'thatLast' => $that_lastDate
+	),
+	'history' => array_reverse($record_history)
 );
 print json_encode($returnArray);
