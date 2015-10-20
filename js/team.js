@@ -3,7 +3,7 @@ var dateRangeNFL,
 		pageID = undefined,
 		callbackReturns = 0;
 
-$( document ).ready(function() {
+$( window ).load(function() {
 		$('body').append('<div id="loading-bar">Loading...</div>');
 		$('#loading-bar').fadeIn();
 		update_hash();
@@ -44,6 +44,8 @@ function getDonutData(url, param, callback){
 		if(++callbackReturns == 3){
 			callbackReturns = 0;
 			$('#loading-bar').fadeOut();
+			setupFacebook();
+			setupTwitter();
 		}
 		callback(theData);
 	});
@@ -80,6 +82,8 @@ function renderArrests(){
 		if(++callbackReturns == 3){
 			callbackReturns = 0;
 			$('#loading-bar').fadeOut();
+			setupFacebook();
+			setupTwitter();
 		}
 	});
 }

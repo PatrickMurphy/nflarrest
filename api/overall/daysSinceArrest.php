@@ -1,4 +1,20 @@
 <?php
+$tsstring = gmdate('D, d M Y H:i:s ', time() - ((24 * 60) * 60)) . 'GMT';
+$if_modified_since = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? $_SERVER['HTTP_IF_MODIFIED_SINCE'] : false;
+
+$timeTolerance = ($if_modified_since && ((strtotime($if_modified_since) - strtotime($tsstring)) < (12*60*60)));
+
+if ($timeTolerance)
+{
+    header('HTTP/1.1 304 Not Modified');
+    exit();
+}
+else
+{
+		header('Content-Type: application/json');
+    header("Last-Modified: $tsstring");
+}
+
 if(isset($restful)){
 	require_once('api.php');
 }else{

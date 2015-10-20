@@ -4,7 +4,7 @@ var last_start_pos = 0,
 		listsReturnCount = 0,
 		listsReturned = false;
 
-$( document ).ready(function() {
+$( window ).load(function() {
 	dateRangeController.init(function(newDateRange){
 		nflLoadingBar.init();
 		dateRangeNFL = newDateRange;
@@ -16,9 +16,9 @@ $( document ).ready(function() {
 			reload_top_lists();
 		});
 		$('#loadMoreLists').click(load_top_lists);
-		if ($(window).width() >= 800) {
-			 $('#tooltip').fadeIn();
-		}
+		//if ($(window).width() >= 800) {
+		//	 $('#tooltip').fadeIn();
+		//}
 		//$( document ).tooltip();
 	});
 });
@@ -28,6 +28,8 @@ function loadingFinished(){
 	nflLoadingBar.hideLoading();
 	listsReturned = false;
 	mainChartReturned = false;
+	setupFacebook();
+	setupTwitter();
 };
 
 function setupArrestOMeter(){
@@ -66,14 +68,11 @@ function setupChart(){
   });
 }
 
-function load_top_list(url, page, prefix, list, values, replace){
+function load_top_list(data, page, prefix, list, values, replace){
 	replace = replace || false;
 	if(replace){
 		last_start_pos = 0;
 	}
-	// add date
-	url = url + '&start_date='+dateRangeNFL.getStart()+'&end_date='+dateRangeNFL.getEnd();
-	$.getJSON(url, function( data ) {
 		var items = [];
 		$.each( data, function( key, val ) {
 			var link = "<a href=\""+page+".html#!"+val[values[0]]+"\">";
@@ -90,15 +89,6 @@ function load_top_list(url, page, prefix, list, values, replace){
 		}else{
 			$(list).append(items.join(""));
 		}
-		if(++listsReturnCount == 3){
-			listsReturned = true;
-			listsReturnCount = 0;
-			last_start_pos = last_start_pos + 5;
-			if(mainChartReturned === true){
-				loadingFinished();
-			}
-		}
-	});
 }
 
 function load_top_crimes_list(replace){
@@ -114,18 +104,37 @@ function load_top_positions_list(replace){
 	load_top_list("api/overall/topPositions.php?limit=5&start_pos="+last_start_pos, 'position', 'top_pos_', '#top_positions_list', ['Position', 'arrest_count'], replace);
 }
 
-function load_top_lists(first){
+function load_top_lists(first, replace){
 	first = first || 'not first';
+	replace = replace || false;
+
 	if(first != 'first'){
 		googleTracking.sendTrackEvent('TopLists','Load Next Page');
 	}
-	load_top_crimes_list();
-	load_top_players_list();
-	load_top_positions_list();
+	var url = 'api/overall/topLists.php?limit=5&start_pos='+last_start_pos+'&start_date='+dateRangeNFL.getStart()+'&end_date='+dateRangeNFL.getEnd();
+	$.getJSON(url, function( data ) {
+		var crimes_list = data[0],
+				players_list = data[1],
+				positions_list = data[2];
+
+		load_top_list(crimes_list, 'crime', 'top_crime_', '#top_crimes_list', ['Category', 'arrest_count'], replace);
+		load_top_list(players_list, 'player', 'top_player_', '#top_players_list', ['Name', 'arrest_count'], replace);
+		load_top_list(positions_list, 'position', 'top_pos_', '#top_positions_list', ['Position', 'arrest_count'], replace);
+
+		// set returns
+			listsReturned = true;
+			listsReturnCount = 0;
+			last_start_pos = last_start_pos + 5;
+			if(mainChartReturned === true){
+				loadingFinished();
+			}
+	});
 }
 function reload_top_lists(){
 	last_start_pos = 0;
-	load_top_crimes_list(true);
-	load_top_players_list(true);
-	load_top_positions_list(true);
+	load_top_lists('not first', true);
+	//load_top_crimes_list(true);
+	//load_top_players_list(true);
+	//load_top_positions_list(true);
+
 }

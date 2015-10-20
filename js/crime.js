@@ -5,7 +5,7 @@ var dateRangeNFL,
 		removedCategories = [],
 		useSimple = false;
 
-$( document ).ready(function() {
+$( window ).load(function() {
 		$('body').append('<div id="loading-bar">Loading...</div>');
 		$('#loading-bar').fadeIn();
 		update_hash();
@@ -30,6 +30,13 @@ $( document ).ready(function() {
 	});
 });
 
+function loadingFinished(){
+	setupFacebook();
+	setupTwitter();
+	callbackReturns = 0;
+	$('#loading-bar').fadeOut();
+}
+
 function getDonutData(url, param, callback){
 	var andSimple = '';
 	if(useSimple){
@@ -48,8 +55,7 @@ function getDonutData(url, param, callback){
 		}
 		theData.push(otherArray);
 		if(++callbackReturns == 4){
-			callbackReturns = 0;
-			$('#loading-bar').fadeOut();
+			loadingFinished();
 		}
 		callback(theData);
 	});
@@ -160,8 +166,7 @@ function renderArrests(){
 		}
 		$('#arrest_table').html(items.join(""));
 		if(++callbackReturns == 4){
-			callbackReturns = 0;
-			$('#loading-bar').fadeOut();
+			loadingFinished();
 		}
 	});
 }
