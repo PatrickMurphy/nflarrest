@@ -11,3 +11,14 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^sitemap\.xml$ sitemap.php [L]
 RewriteRule ^sitemap$ sitemap.php [L]
 </IfModule>
+
+#Create filter to match files you want to cache 
+<Files *.js>
+Header add "Cache-Control" "max-age=604800"
+</Files>
+<Files *.css>
+Header add "Cache-Control" "max-age=604800"
+</Files>
+<Files *.png>
+Header add "Cache-Control" "max-age=604800"
+</Files>
