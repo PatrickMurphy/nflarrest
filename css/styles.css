@@ -313,9 +313,6 @@ vertical-align:super;
 	border-radius: 30px;
 	color:#fff;
 }
-#arrest-o-meter {
-	margin-left: 10%;
-}
 #arrest-o-meter p {
 	margin-bottom: 2px;
 }
@@ -430,5 +427,6 @@ vertical-align:super;
 }
 
 .share_buttons {
-	padding-top: 38px;
+	padding-top: 30px;
+	padding-right: 7px;
 }

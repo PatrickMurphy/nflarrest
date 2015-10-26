@@ -15,6 +15,7 @@ $( window ).load(function() {
 			setupChart();
 			reload_top_lists();
 		});
+
 		$('#loadMoreLists').click(load_top_lists);
 		//if ($(window).width() >= 800) {
 		//	 $('#tooltip').fadeIn();
@@ -30,6 +31,19 @@ function loadingFinished(){
 	mainChartReturned = false;
 	setupFacebook();
 	setupTwitter();
+	$('#newsletterForm').submit(function(e){
+    e.preventDefault();
+    $.ajax({
+        url:'http://patrickmurphywebdesign.com/Projects/emails/emailList.php',
+        type:'POST',
+        data:{'email':$('input[name=email]').val()}
+    });
+		$('#newsletterForm').html('<p>Thanks for Subscribing! Expect Emails when Players are arrested or when records are broken!</p>');
+		googleTracking.sendTrackEvent('Email List','Subscribe');
+});
+		$('#newsletterForm input[name=email]').focus(function(){
+			googleTracking.sendTrackEvent('Email List','Focus');
+		});
 };
 
 function setupArrestOMeter(){
