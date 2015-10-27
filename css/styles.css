@@ -319,7 +319,20 @@ vertical-align:super;
 #arrest-o-meter h5{
 	color:#6a6a6a;
 	font-weight: 600;
-
+	margin-bottom: 3px;
+}
+#arrest-o-meter ul {
+	list-style: none;
+	padding: 0px, 10px;
+	margin:0px;
+}
+#arrest-o-meter ul li {
+	padding:2px;
+}
+#arrest-o-meter ul li span {
+	font-weight: bold;
+	float:right;
+	padding-right: 3px;
 }
 .meter-bg {
 	position: relative;

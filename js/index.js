@@ -48,10 +48,13 @@ function loadingFinished(){
 
 function setupArrestOMeter(){
 	var animate = true;
-	$.getJSON('api/overall/daysSinceArrest.php', function(data){
-		var daysSince = data.pop()['daysSinceArrest'],
-				percent = parseInt(daysSince) / 64;
+	$.getJSON('api/meter.php?limit=0', function(data){
+		var daysSince = data['current']['daysSince'],
+				recordAlltime = data['alltime']['record'],
+				recordAvg = data['alltime']['average'],
+				percent = parseInt(daysSince) / recordAlltime;
 		$('#arrest_meter_text').html('It has been <b>'+ daysSince +'</b> Days since the last arrest.</p>');
+		$('#arrest_meter_subtext').html('Average: <b>'+recordAvg+'</b> Days | Record W/O arrest: <b>'+recordAlltime+'</b> Days');
 		if(animate){
 			$('.meter-fg').animate({
         width: (percent*100) + '%'
@@ -59,6 +62,10 @@ function setupArrestOMeter(){
 		}else{
 			$('.meter-fg').width((percent*100) + '%');
 		}
+		//$('#arrest-o-meter').append('<ul id="record_history_list"></ul>');
+		//for(var record in data['history']){
+		//	$('#record_history_list').append('<li>'+data['history'][record]['date']+'<span>'+data['history'][record]['record']+'</span></li>');
+		//}
 	});
 }
 

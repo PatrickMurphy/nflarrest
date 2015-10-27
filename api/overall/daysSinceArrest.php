@@ -1,8 +1,8 @@
 <?php
-$tsstring = gmdate('D, d M Y H:i:s ', time() - ((24 * 60) * 60)) . 'GMT';
+$tsstring = gmdate('D, d M Y H:i:s ', time()) . 'GMT';
 $if_modified_since = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? $_SERVER['HTTP_IF_MODIFIED_SINCE'] : false;
 
-$timeTolerance = ($if_modified_since && ((strtotime($if_modified_since) - strtotime($tsstring)) < (4*60*60)));
+$timeTolerance = ($if_modified_since && ((strtotime($tsstring) - strtotime($if_modified_since)) < (4*60*60)));
 
 if ($timeTolerance)
 {

@@ -1,4 +1,19 @@
 <?php
+$tsstring = gmdate('D, d M Y H:i:s ', time()) . 'GMT';
+$if_modified_since = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? $_SERVER['HTTP_IF_MODIFIED_SINCE'] : false;
+
+$timeTolerance = ($if_modified_since && ((strtotime($tsstring) - strtotime($if_modified_since)) < (4*60*60)));
+
+if ($timeTolerance)
+{
+    header('HTTP/1.1 304 Not Modified');
+    exit();
+}
+else
+{
+		header('Content-Type: application/json');
+    header("Last-Modified: $tsstring");
+}
 require_once('api.php');
 
 $date_range = '';
@@ -65,6 +80,13 @@ foreach($data as $row){
     $last_date = $this_date;
 }
 $avg_span = $span_total / $span_count;
+
+$record_history = array_reverse($record_history);
+// if limit is set
+if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
+	$record_history = array_slice($record_history, 0, $_GET['limit']);
+}
+
 $returnArray = array(
 	'alltime' => array(
 		'record' => $max_span,
@@ -79,6 +101,6 @@ $returnArray = array(
 		'thatRecord' => $thatRecord, // what was the total span
 		'thatLast' => $that_lastDate
 	),
-	'history' => array_reverse($record_history)
+	'history' => $record_history
 );
 print json_encode($returnArray);
