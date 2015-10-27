@@ -350,6 +350,10 @@ vertical-align:super;
 	height: 25px;
 }
 
+.share_buttons {
+	padding-right: 7px;
+}
+
 .twitter_Btn {
 	padding-top:21px;
 	margin-left:5px;
@@ -424,9 +428,4 @@ vertical-align:super;
 
 .no-border {
     border:0px;
-}
-
-.share_buttons {
-	padding-top: 30px;
-	padding-right: 7px;
 }
