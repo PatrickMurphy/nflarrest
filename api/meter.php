@@ -92,9 +92,15 @@ foreach($data as $row){
 		$lastCurrentRecordDate = strtotime(date('Y-m-d', $last_date) . ' + ' . $daysSince . ' days');
 		$broken = date("m-d-Y",$this_date);
 		$thatRecord = $this_span;
+		//P(T > 43) = e-43/7 = approx. 0.21%
+		$curr_avg = 7.16;// static avg
+		//$curr_avg = ($span_total / $span_count);
+		$probability = exp(((($thatRecord-$daysSince)+1)*(0-1))/$curr_avg);
 		$record_history[] = array(
 			'date' => $broken,
-			'record' => $thatRecord
+			'record' => $thatRecord,
+			//'curr_avg' => $curr_avg,
+			'probability' => $probability
 		);
 		$that_lastDate = date("m-d-Y",$last_date);
 	}else if($this_span > (($daysSince/2.2)+5)){
@@ -125,7 +131,8 @@ if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
 $returnArray = array(
 	'alltime' => array(
 		'record' => $max_span,
-		'average' => floor($avg_span)
+		'average' => floor($avg_span),
+		'raw_average' => $avg_span
 	),
 	'current' => array(
 		'daysSince' => $daysSince

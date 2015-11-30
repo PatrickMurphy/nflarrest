@@ -30,6 +30,18 @@ function setupArrestOMeter(){
 				percent = parseInt(daysSince) / recordAlltime;
 		$('#arrest_meter_text').html('It has been <b>'+ daysSince +'</b> Days since the last arrest.</p>');
 		$('#arrest_meter_subtext').html('Average: <b>'+recordAvg+'</b> Days <br/>Record W/O arrest: <b>'+recordAlltime+'</b> Days');
+		for(var brokenKey in data['broken']){
+			var brokenObj = data['broken'][brokenKey];
+			var brokenOutput;
+			var dateParts = brokenObj.date.split("-");
+			var tempDate = new Date(dateParts[2]+"-"+dateParts[0]+"-"+dateParts[1]);
+			var timeDiff = tempDate.getTime() - (brokenObj.record * 24 * 60 * 60 * 1000);
+			tempDate = new Date(timeDiff);
+			var month = (tempDate.getMonth()+1) > 9 ? (tempDate.getMonth()+1) : "0"+(tempDate.getMonth()+1);
+			var day = tempDate.getDay() > 9 ? tempDate.getDay() : "0"+tempDate.getDay();
+			brokenOutput = "<b>"+brokenObj.record + "</b> Days&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+month+"-"+day+"-"+tempDate.getFullYear() + " to " + brokenObj.date;
+			$('#arrest_meter_upcoming').append("<li style=\"text-decoration:strike-through;\"><STRIKE>"+brokenOutput+"</STRIKE></li>");
+		}
 		for(var historyKey in data['history']){
 			var historyObj = data['history'][historyKey];
 			var historyOutput;
@@ -39,7 +51,7 @@ function setupArrestOMeter(){
 			tempDate = new Date(timeDiff);
 			var month = (tempDate.getMonth()+1) > 9 ? (tempDate.getMonth()+1) : "0"+(tempDate.getMonth()+1);
 			var day = tempDate.getDay() > 9 ? tempDate.getDay() : "0"+tempDate.getDay();
-			historyOutput = "<b>"+historyObj.record + "</b> Days&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+month+"-"+day+"-"+tempDate.getFullYear() + " to " + historyObj.date;
+			historyOutput = "<b>"+historyObj.record + "</b> Days&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+month+"-"+day+"-"+tempDate.getFullYear() + " to " + historyObj.date + " Odds: " + parseFloat(Math.round((historyObj.probability*100) * 100) / 100).toFixed(2)+"%";
 			$('#arrest_meter_upcoming').append("<li>"+historyOutput+"</li>");
 		}
 		if(animate){
