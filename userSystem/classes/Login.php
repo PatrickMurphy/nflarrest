@@ -86,6 +86,7 @@ class Login
                         $_SESSION['user_name'] = $result_row->user_name;
                         $_SESSION['user_email'] = $result_row->user_email;
                         $_SESSION['user_login_status'] = 1;
+												$_SESSION['user_id'] = $result_row->user_id;
 												$_SESSION['user_group'] = $result_row->user_group;
 												$_SESSION['balance'] = $result_row->balance;
 
