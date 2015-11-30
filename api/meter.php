@@ -115,13 +115,13 @@ foreach($data as $row){
 $avg_span = $span_total / $span_count;
 
 $record_history = array_reverse($record_history);
+$broken_records = array_msort($broken_records, array('record'=>SORT_ASC));
 // if limit is set
 if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
 	$record_history = array_slice($record_history, 0, $_GET['limit']);
+	$broken_records = array_slice($broken_records, count($broken_recrods) - $_GET['limit'], count($broken_records));
 }
 
-$broken_records = array_msort($broken_records, array('record'=>SORT_ASC));
-$broken_records = array_slice($broken_records, count($broken_recrods) - 3, count($broken_records));
 $returnArray = array(
 	'alltime' => array(
 		'record' => $max_span,
