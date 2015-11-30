@@ -1,4 +1,28 @@
 <?php
+function array_msort($array, $cols)
+{
+    $colarr = array();
+    foreach ($cols as $col => $order) {
+        $colarr[$col] = array();
+        foreach ($array as $k => $row) { $colarr[$col]['_'.$k] = strtolower($row[$col]); }
+    }
+    $eval = 'array_multisort(';
+    foreach ($cols as $col => $order) {
+        $eval .= '$colarr[\''.$col.'\'],'.$order.',';
+    }
+    $eval = substr($eval,0,-1).');';
+    eval($eval);
+    $ret = array();
+    foreach ($colarr as $col => $arr) {
+        foreach ($arr as $k => $v) {
+            $k = substr($k,1);
+            if (!isset($ret[$k])) $ret[$k] = $array[$k];
+            $ret[$k][$col] = $array[$k][$col];
+        }
+    }
+    return $ret;
+
+}
 $tsstring = gmdate('D, d M Y H:i:s ', time()) . 'GMT';
 $if_modified_since = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? $_SERVER['HTTP_IF_MODIFIED_SINCE'] : false;
 
@@ -54,6 +78,7 @@ $span_count = 0;
 $span_total = 0;
 $last_date = strtotime('2000-01-01');
 $record_history = array();
+$broken_records = array();
 foreach($data as $row){
     $this_date = strtotime($row['Date']);
     //print $this_date . '<br/>';
@@ -72,6 +97,14 @@ foreach($data as $row){
 			'record' => $thatRecord
 		);
 		$that_lastDate = date("m-d-Y",$last_date);
+	}else if($this_span > (($daysSince/2.2)+5)){
+		$lastCurrentRecordDate = strtotime(date('Y-m-d', $last_date) . ' + ' . $daysSince . ' days');
+		$broken = date("m-d-Y",$this_date);
+		$thatRecord = $this_span;
+		$broken_records[] = array(
+			'date' => $broken,
+			'record' => $thatRecord
+		);
 	}
     if($this_span > $max_span){
       $max_span = $this_span;
@@ -87,6 +120,8 @@ if(isset($_GET['limit']) && is_numeric($_GET['limit'])){
 	$record_history = array_slice($record_history, 0, $_GET['limit']);
 }
 
+$broken_records = array_msort($broken_records, array('record'=>SORT_ASC));
+$broken_records = array_slice($broken_records, count($broken_recrods) - 3, count($broken_records));
 $returnArray = array(
 	'alltime' => array(
 		'record' => $max_span,
@@ -101,6 +136,7 @@ $returnArray = array(
 		'thatRecord' => $thatRecord, // what was the total span
 		'thatLast' => $that_lastDate
 	),
+	'broken' => $broken_records,
 	'history' => $record_history
 );
 print json_encode($returnArray);
