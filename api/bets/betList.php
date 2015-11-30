@@ -10,11 +10,10 @@
 		require_once($mod."../userSystem/config/db.php");
 		require_once($mod."../userSystem/classes/Login.php");
 
-// create a login object. when this object is created, it will do all login/logout stuff automatically
-// so this single line handles the entire login process. in consequence, you can simply ...
 $login = new Login();
 
 if ($login->isUserLoggedIn() == true) {
+
 	$limit = '';
 	if(isset($_GET['limit'])){
 		$limit = ' LIMIT ';
@@ -24,7 +23,13 @@ if ($login->isUserLoggedIn() == true) {
 		$limit .= $_GET['limit'];
 	}
 
-	$query = "SELECT user_id, user_name, balance, created FROM users ORDER BY balance DESC" . $limit;
+	if(isset($_GET['showAll']) && $_SESSION['user_group']>=2){
+		// show all
+		$query = "SELECT * FROM bets WHERE active=1" . $limit;
+	}else{
+		// show personal
+		$query = "SELECT * FROM bets WHERE userid=".$_SESSION['user_id']." ORDER BY date_placed DESC" . $limit;
+	}
 
 	$result = $db->query($query);
 
