@@ -20,7 +20,7 @@ $id = $_GET['id'];
 }
 
 // check endpoint
-$endpoints = ['crime', 'player', 'team', 'position', 'meter'];
+$endpoints = ['crime', 'player', 'team', 'position', 'meter', 'bets'];
 if(in_array($endpoint, $endpoints)){
 	// check verb
 	if($verb == false){
