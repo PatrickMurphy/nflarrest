@@ -100,7 +100,8 @@ foreach($data as $row){
 			'date' => $broken,
 			'record' => $thatRecord,
 			//'curr_avg' => $curr_avg,
-			'probability' => $probability
+			'probability' => $probability,
+			'odds' => '1 : ' . floor(1/$probability)
 		);
 		$that_lastDate = date("m-d-Y",$last_date);
 	}else if($this_span > (($daysSince/2.2)+5)){
@@ -135,7 +136,9 @@ $returnArray = array(
 		'raw_average' => $avg_span
 	),
 	'current' => array(
-		'daysSince' => $daysSince
+		'daysSince' => $daysSince,
+		'probability' => exp((($daysSince)*(0-1))/$avg_span),
+		'odds' => '1 : ' . floor(1/exp((($daysSince)*(0-1))/$avg_span))
 	),
 	'lastRecord' => array(
 		'date' => date('m-d-Y', $lastCurrentRecordDate), // last time it was daysSince days
