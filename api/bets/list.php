@@ -22,23 +22,13 @@ if ($login->isUserLoggedIn() == true) {
 		}
 		$limit .= $_GET['limit'];
 	}
-	$active = 1;
-	if(isset($_GET['active'])){
-		if($_GET['active'] == 0 || $_GET['active'] == 1){
-			$active = $_GET['active'];
-		}
-	}
 
-	if((isset($_GET['showAll']) || isset($_GET['userid'])) && $_SESSION['user_group']>=2){
+	if(isset($_GET['showAll']) && $_SESSION['user_group']>=2){
 		// show all
-		if(isset($_GET['userid'])){
-			$query = "SELECT * FROM bets WHERE userid=".$_GET['userid']." AND active=". $active . $limit;
-		}else{
-			$query = "SELECT * FROM bets WHERE active=". $active . $limit;
-		}
+		$query = "SELECT * FROM bets WHERE active=1" . $limit;
 	}else{
 		// show personal
-		$query = "SELECT * FROM bets WHERE userid=".$_SESSION['user_id']." AND active=".$active." ORDER BY date_placed DESC" . $limit;
+		$query = "SELECT * FROM bets WHERE userid=".$_SESSION['user_id']." ORDER BY date_placed DESC" . $limit;
 	}
 
 	$result = $db->query($query);
