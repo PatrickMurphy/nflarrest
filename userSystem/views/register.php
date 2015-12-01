@@ -15,7 +15,6 @@ if (isset($registration)) {
 ?>
 
 <!-- register form -->
-<h2>Register</h2>
 <form method="post" action="register.php" name="registerform">
 
     <!-- the user name input field uses a HTML5 pattern check -->

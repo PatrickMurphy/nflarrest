@@ -16,6 +16,21 @@ if (version_compare(PHP_VERSION, '5.3.7', '<')) {
 // include the configs / constants for the database connection
 require_once("config/db.php");
 
+if(isset($_GET['register'])){
+	require_once("classes/Registration.php");
+
+	// create the registration object. when this object is created, it will do all registration stuff automatically
+	// so this single line handles the entire registration process.
+	$registration = new Registration();
+}else{
+	// load the login class
+	require_once("classes/Login.php");
+
+	// create a login object. when this object is created, it will do all login/logout stuff automatically
+	// so this single line handles the entire login process. in consequence, you can simply ...
+	$login = new Login();
+}
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -46,23 +61,11 @@ require_once("config/db.php");
 	<body>
 		<div class="container">
 <?php
+
 if(isset($_GET['register'])){
-	require_once("classes/Registration.php");
-
-	// create the registration object. when this object is created, it will do all registration stuff automatically
-	// so this single line handles the entire registration process.
-	$registration = new Registration();
-
-	// show the register view (with the registration form, and messages/errors)
-	include("views/register.php");
+    // show the register view (with the registration form, and messages/errors)
+    include("views/register.php");
 }else{
-	// load the login class
-	require_once("classes/Login.php");
-
-	// create a login object. when this object is created, it will do all login/logout stuff automatically
-	// so this single line handles the entire login process. in consequence, you can simply ...
-	$login = new Login();
-
 	// ... ask if we are logged in here:
 	if ($login->isUserLoggedIn() == true) {
 			// the user is logged in. you can do whatever you want here.
