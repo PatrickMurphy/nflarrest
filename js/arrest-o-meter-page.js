@@ -28,7 +28,7 @@ function setupArrestOMeter(){
 				recordAlltime = data['alltime']['record'],
 				recordAvg = data['alltime']['average'],
 				percent = parseInt(daysSince) / recordAlltime;
-	        $('#arrest_meter_odds').html('The odds of reaching '+ daysSince + ' days without arrest are <b>' + data['current']['odds']+'</b>');
+	        $('#arrest_meter_odds').html('The odds of reaching '+ daysSince + ' days without arrest are <b>' + data['current']['odds']+' : 1</b>');
 		$('#arrest_meter_text').html('It has been <b>'+ daysSince +'</b> Days since the last arrest.</p>');
 		$('#arrest_meter_subtext').html('Average: <b>'+recordAvg+'</b> Days <br/>Record W/O arrest: <b>'+recordAlltime+'</b> Days');
 		for(var brokenKey in data['broken']){
@@ -52,7 +52,7 @@ function setupArrestOMeter(){
 			tempDate = new Date(timeDiff);
 			var month = (tempDate.getMonth()+1) > 9 ? (tempDate.getMonth()+1) : "0"+(tempDate.getMonth()+1);
 			var day = tempDate.getDay() > 9 ? tempDate.getDay() : "0"+tempDate.getDay();
-			historyOutput = "<b>"+historyObj.record + "</b> Days&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+month+"-"+day+"-"+tempDate.getFullYear() + " to " + historyObj.date + " Odds: <b>" + historyObj['odds']+"</b>";
+			historyOutput = "<b>"+historyObj.record + "</b> Days&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+month+"-"+day+"-"+tempDate.getFullYear() + " to " + historyObj.date + " Odds: <b>" + historyObj['odds']+" : 1</b>";
 			$('#arrest_meter_upcoming').append("<li>"+historyOutput+"</li>");
 		}
 		if(animate){

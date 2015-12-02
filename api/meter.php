@@ -47,11 +47,12 @@ if(isset($_GET['start_date']) || isset($_GET['end_date'])){
 	$date_range = " Date BETWEEN '" . $start . "' AND '" . $end . "' ";
 }
 
-if(isset($_GET['id'])){
+if(isset($_GET['id']) || isset($_GET['team'])){
 	if($date_range != ''){
 		$date_range = ' && ' . $date_range;
 	}
-	$where = " WHERE Team = '".$_GET['id']."'".$date_range;
+	$idValue = isset($_GET['id']) ? $_GET['id'] : $_GET['team'];
+	$where = " WHERE Team = '".$idValue."'".$date_range;
 }else{
 	if($date_range != ''){
 		$date_range = ' WHERE ' . $date_range;
@@ -101,7 +102,7 @@ foreach($data as $row){
 			'record' => $thatRecord,
 			//'curr_avg' => $curr_avg,
 			'probability' => $probability,
-			'odds' => '1 : ' . floor(1/$probability)
+			'odds' => floor(1/$probability)
 		);
 		$that_lastDate = date("m-d-Y",$last_date);
 	}else if($this_span > (($daysSince/2.2)+5)){
@@ -138,7 +139,7 @@ $returnArray = array(
 	'current' => array(
 		'daysSince' => $daysSince,
 		'probability' => exp((($daysSince)*(0-1))/$avg_span),
-		'odds' => '1 : ' . floor(1/exp((($daysSince)*(0-1))/$avg_span))
+		'odds' => floor(1/exp((($daysSince)*(0-1))/$avg_span))
 	),
 	'lastRecord' => array(
 		'date' => date('m-d-Y', $lastCurrentRecordDate), // last time it was daysSince days
