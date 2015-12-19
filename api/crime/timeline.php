@@ -7,7 +7,11 @@ if(!isset($_GET['id'])){
 	$id = $_GET['id'];
 }
 
-require_once('../api.php');
+if(isset($restful)){
+	require_once('api.php');
+}else{
+	require_once('../api.php');
+}
 
 $limit = '';
 $date_range = '';
@@ -22,6 +26,13 @@ if(isset($_GET['start_date']) || isset($_GET['end_date'])){
 	$date_range = " && Date BETWEEN '" . $start . "' AND '" . $end . "' ";
 }
 
-$result = $db->query('SELECT MONTH(Date) AS Month, YEAR(Date) AS Year, COUNT(Category) AS arrest_count FROM `arrest_stats` WHERE Category = \''. $id .'\''. $date_range .' GROUP BY YEAR(Date), MONTH(Date) ORDER BY Date ASC' . $limit);
+if(isset($_GET['simple'])){
+		$query = 'SELECT MONTH(Date) AS Month, YEAR(Date) AS Year, COUNT(Category) AS arrest_count FROM `arrest_stats` WHERE general_category_id = (SELECT general_category_id FROM `general_category` WHERE Category = \''. $id .'\') '. $date_range .' GROUP BY YEAR(Date), MONTH(Date) ORDER BY Date ASC' . $limit;
+}else{
+	$query = 'SELECT MONTH(Date) AS Month, YEAR(Date) AS Year, COUNT(Category) AS arrest_count FROM `arrest_stats` WHERE Category = \''. $id .'\''. $date_range .' GROUP BY YEAR(Date), MONTH(Date) ORDER BY Date ASC' . $limit;
+}
+
+
+$result = $db->query($query);
 
 print json_encode(gather_results($result));

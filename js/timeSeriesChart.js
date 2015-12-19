@@ -2,7 +2,7 @@ var timeSeriesChart = {
 	timeChart: undefined,
 	options: {
 		targetElement: '#theElementSelector',
-		targetExpandBtn: '#btnSelector',
+		compareToBtn: '#btnSelector',
 		initColumnID: '',
 		data: {},
 		isExpanded: false,
@@ -71,7 +71,11 @@ var timeSeriesChart = {
 			end_date: dateRangeController.getEnd()
 		}
 		$.extend(params, param);
-		var queryString = '?';
+		if(timeSeriesChart.options.ajaxURL.indexOf('?') < 0){
+			var queryString = '?';
+		}else{
+			var queryString = '&';
+		}
 		for(var index in params){
 			queryString += index+'='+params[index]+'&'
 		}
@@ -80,13 +84,11 @@ var timeSeriesChart = {
 	},
 
 	addColumn: function(id){
+		googleTracking.sendTrackEvent('TimeChart', 'addCompare ' + id);
 		var url = timeSeriesChart.buildAjaxURL(id);
-		console.log(url);
 		$.getJSON(url, function(data){
-			console.log(data);
 			var formattedData = timeSeriesChart.fillDates(id, data),
 					keyXS = formattedData[0];
-			console.log(formattedData);
 			//timeSeriesChart.timeChart.xs({keyXS: 'x'});
 			timeSeriesChart.timeChart.load({
         columns: [formattedData]
@@ -108,11 +110,8 @@ var timeSeriesChart = {
 				accumTotal = 0;
 
 		var nextDataPoint = dataRow.pop();
-		console.log(numMonths);
 		for(i = numMonths; i > 0; i--){
 			if(nextDataPoint !== undefined){
-				console.log(nextDataPoint);
-				console.log('loop:' + (numMonths - i));
 
 				//  change month and years
 				currentMonth++;
@@ -135,7 +134,6 @@ var timeSeriesChart = {
 					newDataRow.push(newVal);
 					if(dataRow.length > 0){
 						nextDataPoint = dataRow.pop();
-						console.log(nextDataPoint);
 					}
 				}else{
 					var defaultVal;

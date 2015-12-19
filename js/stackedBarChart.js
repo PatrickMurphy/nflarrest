@@ -46,6 +46,7 @@ var stackedBarChart = {
             groups: [
                 stackedBarChart.options.data.groups
             ],
+						order: 'asc',
             type: 'bar',
             onclick: function (d, i) {
                 // redirect to

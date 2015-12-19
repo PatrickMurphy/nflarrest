@@ -3,7 +3,7 @@ var dateRangeNFL,
 		pageID = undefined,
 		callbackReturns = 0;
 
-$( document ).ready(function() {
+$( window ).load(function() {
 		$('body').append('<div id="loading-bar">Loading...</div>');
 		$('#loading-bar').fadeIn();
 		update_hash();
@@ -28,12 +28,6 @@ $( document ).ready(function() {
 	});
 });
 
-function update_hash(){
-	pageID = window.location.hash || '#ID Not Set';
-	pageID = pageID.replace('#', '');
-	$('#pageTitle').html('Team: ' + pageID);
-}
-
 function getDonutData(url, param, callback){
 	$.getJSON(url+'&start_date='+dateRangeNFL.getStart()+'&end_date='+dateRangeNFL.getEnd(), function(data){
 		var theData = [];
@@ -50,6 +44,8 @@ function getDonutData(url, param, callback){
 		if(++callbackReturns == 3){
 			callbackReturns = 0;
 			$('#loading-bar').fadeOut();
+			setupFacebook();
+			setupTwitter();
 		}
 		callback(theData);
 	});
@@ -80,12 +76,14 @@ function renderArrests(){
 				items = ['<tr><th class="one column">Date:</th><th class="two columns">Name:</th><th class="one column">Crime:</th><th class="four columns">Description:</th><th class="four columns">Outcome:</th></tr>'];
 		for(row in data){
 			row = data[row];
-				items.push('<tr><td class="one column">'+moment(row['Date'], "YYYY-MM-DD").fromNow() +'</td><td class="two columns"><a href="player.html#'+row['Name']+'">'+row['Name']+'</a></td><td class="one column"><a href="crime.html#' + row['Category'] + '">'+row['Category']+'</a></td><td class="four columns">'+row['Description']+'</td><td class="four columns">'+row['Outcome']+'</td></tr>');
+				items.push('<tr><td class="one column">'+moment(row['Date'], "YYYY-MM-DD").fromNow() +'</td><td class="two columns"><a href="player.html#!'+row['Name']+'">'+row['Name']+'</a></td><td class="one column"><a href="crime.html#!' + row['Category'] + '">'+row['Category']+'</a></td><td class="four columns">'+row['Description']+'</td><td class="four columns">'+row['Outcome']+'</td></tr>');
 		}
 		$('#arrest_table').html(items.join(""));
 		if(++callbackReturns == 3){
 			callbackReturns = 0;
 			$('#loading-bar').fadeOut();
+			setupFacebook();
+			setupTwitter();
 		}
 	});
 }

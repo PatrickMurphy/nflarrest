@@ -4,7 +4,11 @@ if(isset($_GET['term'])){
 }else{
 	die('team name must be set');
 }
-require_once('../api.php');
+if(isset($restful)){
+	require_once('api.php');
+}else{
+	require_once('../api.php');
+}
 
 $limit = '';
 $date_range = '';

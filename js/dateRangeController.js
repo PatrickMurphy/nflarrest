@@ -4,15 +4,16 @@ var dateRangeController = {
 
 	init: function(callback){
 		if(typeof pageID !== 'undefined'){
-			var hash = pageID || '#';
+			var hash = pageID || '';
+			hash = '#!' + hash;
 		}else{
-			var hash = '#';
+			var hash = '#!';
 		}
 		$('.container').append('<div class="dateRangeEditor four columns offset-by-eight"><form class="dateRangeForm"><span class="row"><label class="six columns">Start Date:</label>'+
 					'<input class="six columns" type="date" id="dateRange_start" /></span><span class="row"><label class="six columns">End Date:</label><input class="six columns" type="date" id="dateRange_end" />' +
 				'</span><span class="row"><button class="four columns" id="dateRangeCancelBtn">Cancel</button><button class="four columns" id="resetDateRangeBtn">Reset</button>'+
 					'<button class="four columns button-primary" id="dateRangeSaveBtn">Save</button></span></form></div>');
-		$('#changeDateRangeLink').attr('href', "#" + hash);
+		$('#changeDateRangeLink').attr('href', hash);
 		$('#changeDateRangeLink').click(this.openDialog);
 		$('#resetDateRangeBtn').click(this.resetTime);
 
