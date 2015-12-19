@@ -32,7 +32,7 @@ $end = isset($_GET['end_date']) ? $_GET['end_date'] : date('Y-m-d');
 		if (file_exists($filename)) {
 			$modTime = filemtime($filename);
 			$cacheAge = time() - $modTime;
-			$cacheExpired = $cacheAge > (60*60)*23; // greater than 23 hours old
+			$cacheExpired = $cacheAge > 60;//(60*60)*23; // greater than 12 hours old
 		}
 		if(!isset($_GET['cache'])){
 			if($cacheExpired){

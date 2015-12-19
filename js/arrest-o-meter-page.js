@@ -23,11 +23,13 @@ function loadingFinished(){
 
 function setupArrestOMeter(){
 	var animate = true;
+	var alltime;
 	$.getJSON('api/meter.php?limit=3', function(data){
 		var daysSince = data['current']['daysSince'],
 				recordAlltime = data['alltime']['record'],
 				recordAvg = data['alltime']['average'],
 				percent = parseInt(daysSince) / recordAlltime;
+				alltime = recordAlltime;
 	        $('#arrest_meter_odds').html('The odds of reaching '+ daysSince + ' days without arrest are <b>' + data['current']['odds']+' : 1</b>');
 		$('#arrest_meter_text').html('It has been <b>'+ daysSince +'</b> Days since the last arrest.</p>');
 		$('#arrest_meter_subtext').html('Average: <b>'+recordAvg+'</b> Days <br/>Record W/O arrest: <b>'+recordAlltime+'</b> Days');
@@ -52,15 +54,33 @@ function setupArrestOMeter(){
 			tempDate = new Date(timeDiff);
 			var month = (tempDate.getMonth()+1) > 9 ? (tempDate.getMonth()+1) : "0"+(tempDate.getMonth()+1);
 			var day = tempDate.getDay() > 9 ? tempDate.getDay() : "0"+tempDate.getDay();
-			historyOutput = "<b>"+historyObj.record + "</b> Days&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+month+"-"+day+"-"+tempDate.getFullYear() + " to " + historyObj.date + " Odds: <b>" + historyObj['odds']+" : 1</b>";
+			var thisOdds = historyObj['odds'];
+			var displayOdds = "";
+			if(historyObj['odds'] == 1 ){
+				thisOdds = 8-(alltime - historyObj.record);
+				displayOdds = "1 : "+thisOdds;
+			}else{
+				displayOdds = thisOdds+" : 1";
+			}
+			historyOutput = "<b>"+historyObj.record + "</b> Days&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+month+"-"+day+"-"+tempDate.getFullYear() + " to " + historyObj.date + " Odds: <b>" +displayOdds+ "</b>";
 			$('#arrest_meter_upcoming').append("<li>"+historyOutput+"</li>");
+		}
+                var theWidth = (percent*100);
+		if(theWidth > 100){
+			theWidth = 100;
 		}
 		if(animate){
 			$('.meter-fg').animate({
-        width: (percent*100) + '%'
+        width: theWidth + '%'},{
+        complete: function(){
+        	setTimeout(function(){$('.meter-fg').css('background-color', 'green')}, 3500);
+        	console.log('hey');
+        }
     	}, 1750 );
+
+
 		}else{
-			$('.meter-fg').width((percent*100) + '%');
+			$('.meter-fg').width( theWidth + '%');
 		}
 		//$('#arrest-o-meter').append('<ul id="record_history_list"></ul>');
 		//for(var record in data['history']){

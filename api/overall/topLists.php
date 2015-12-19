@@ -25,6 +25,21 @@ else
     header("Last-Modified: $tsstring");
     header("ETag: \"{$etag}\"");
 }
+if($_GET['debug'] == '1'){
+	print $if_none_match;
+	$debug_options = array(
+		'timeTol' => $timeTolerance,
+		'etagEqual' => $etagMatches,
+		'if_modified' => $if_modified_since,
+		'if_none' => $if_none_match,
+		'etag' => $etag,
+		'tsstring' => $tsstring,
+		'timeDiff' => ((strtotime($if_modified_since) - strtotime($tsstring)) < (12*60*60)),
+		'1string' => is_string($etag),
+		'2string' => is_string($if_none_match)
+	);
+	print_r ($debug_options);
+}
 
 $megaresult = [];
 if(isset($restful)){

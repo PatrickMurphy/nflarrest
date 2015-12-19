@@ -6,6 +6,10 @@ RewriteRule ^api/v1/([^/]*)/([^/]*)/([^/]*)$ api/router.php?endpoint=$1&verb=$2&
 RewriteRule ^api/v1/([^/]*)/([^/]*)$ api/router.php?endpoint=$1&verb=$2 [QSA,NC,L]
 RewriteRule ^api/v1/([^/]*)$ api/router.php?endpoint=$1 [QSA,NC,L]
 
+RewriteCond %{THE_REQUEST} \s/+(sidebar)\.php[\s?] [NC]
+RewriteRule ^ /%1 [R=301,L,NE]
+RewriteRule ^(sidebar).png?$ $1.php [L,NC]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^sitemap\.xml$ sitemap.php [L]
@@ -17,8 +21,5 @@ RewriteRule ^sitemap$ sitemap.php [L]
 Header add "Cache-Control" "max-age=604800"
 </Files>
 <Files *.css>
-Header add "Cache-Control" "max-age=604800"
-</Files>
-<Files *.png>
 Header add "Cache-Control" "max-age=604800"
 </Files>
