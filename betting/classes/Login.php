@@ -39,6 +39,33 @@ class Login
         }
     }
 
+    private function updateLastLogin($lastLogin = false, $now = false){
+    	if($lastLogin == false){
+    		$lastLogin = $_SESSION['user_last_login'];
+    	}else if($lastLogin == 'init'){
+    		return false;
+    	}
+    	if($now == false){
+    		$now = (new DateTime())->getTimestamp();
+    	}
+    	$diff = $now - $lastLogin;
+    	//print $diff;
+    	//print $_SESSION['user_last_login'];
+    	if($diff >= (24 * 60 * 60)){
+    	//print'beat the diff';
+    		$_SESSION['user_last_login'] = $now;
+    		// create a database connection, using the constants from config/db.php (which we loaded in index.php)
+            $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
+            	$_SESSION['balance'] = $_SESSION['balance']+5;
+            	$query = 'UPDATE `users` SET `last_login` = '.$now.', `balance`='.$_SESSION['balance'].' WHERE user_id='.$_SESSION['user_id'];
+            	//print $query;
+            	$this->db_connection->query($query);
+
+            	return true;
+    	}
+    }
+
     /**
      * log in with post data
      */
@@ -67,7 +94,7 @@ class Login
 
                 // database query, getting all the info of the selected user (allows login via email address in the
                 // username field)
-                $sql = "SELECT user_id, user_name, user_email, user_password_hash, balance, user_group
+                $sql = "SELECT user_id, user_name, user_email, user_password_hash, balance, user_group, last_login
                         FROM users
                         WHERE user_name = '" . $user_name . "' OR user_email = '" . $user_name . "';";
                 $result_of_login_check = $this->db_connection->query($sql);
@@ -82,14 +109,20 @@ class Login
                     // the hash of that user's password
                     if (password_verify($_POST['user_password'], $result_row->user_password_hash)) {
 
+
+
                         // write user data into PHP SESSION (a file on your server)
                         $_SESSION['user_name'] = $result_row->user_name;
                         $_SESSION['user_email'] = $result_row->user_email;
                         $_SESSION['user_login_status'] = 1;
+                       $_SESSION['user_last_login'] = 'init';
 												$_SESSION['user_id'] = $result_row->user_id;
 												$_SESSION['user_group'] = $result_row->user_group;
 												$_SESSION['balance'] = $result_row->balance;
-
+															// if last login greater than 24 hrs ago, set it to now
+			$this->updateLastLogin($result_row->last_login);
+			 $_SESSION['user_last_login'] = $_SESSION['user_last_login'];
+												header('location: index.php');
                     } else {
                         $this->errors[] = "Wrong password. Try again.";
                     }
@@ -122,6 +155,9 @@ class Login
     public function isUserLoggedIn()
     {
         if (isset($_SESSION['user_login_status']) AND $_SESSION['user_login_status'] == 1) {
+            if($_SESSION['user_last_login'] != 'init'){
+            	$this->updateLastLogin();
+            }
             return true;
         }
         // default return

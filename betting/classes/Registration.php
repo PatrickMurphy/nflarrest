@@ -25,6 +25,7 @@ class Registration
      */
     public function __construct()
     {
+    	session_start();
         if (isset($_POST["register"])) {
             $this->registerNewUser();
         }
@@ -65,6 +66,10 @@ class Registration
             && !empty($_POST['user_password_repeat'])
             && ($_POST['user_password_new'] === $_POST['user_password_repeat'])
         ) {
+            $newsLetterFlag = 0;
+            if(isset($_POST['newsletter'])){
+            	$newsLetterFlag = 1;
+            }
             // create a database connection
             $this->db_connection = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
@@ -95,13 +100,21 @@ class Registration
                     $this->errors[] = "Sorry, that username / email address is already taken.";
                 } else {
                     // write new user's data into database
-                    $sql = "INSERT INTO users (user_name, user_password_hash, user_email)
-                            VALUES('" . $user_name . "', '" . $user_password_hash . "', '" . $user_email . "');";
+                    $sql = "INSERT INTO users (user_name, user_password_hash, user_email, newsletter)
+                            VALUES('" . $user_name . "', '" . $user_password_hash . "', '" . $user_email . "', '" . $newsLetterFlag . "');";
                     $query_new_user_insert = $this->db_connection->query($sql);
 
                     // if user has been added successfully
                     if ($query_new_user_insert) {
                         $this->messages[] = "Your account has been created successfully. You can now log in.";
+                        $_SESSION['user_name'] = $user_name;
+                        $_SESSION['user_email'] = $user_email;
+                        $_SESSION['user_login_status'] = 1;
+                        $_SESSION['user_last_login'] = 0;
+			$_SESSION['user_id'] = $this->db_connection->insert_id;
+			$_SESSION['user_group'] = 1;
+			$_SESSION['balance'] = 100;
+                        header('location: index.php?message='.urlencode("Your account has been created successfully. You can now log in."));
                     } else {
                         $this->errors[] = "Sorry, your registration failed. Please go back and try again.";
                     }
