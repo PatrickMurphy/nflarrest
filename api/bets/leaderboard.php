@@ -7,8 +7,8 @@
 	}
 
 		require_once($mod.'api.php');
-		require_once($mod."../userSystem/config/db.php");
-		require_once($mod."../userSystem/classes/Login.php");
+		require_once($mod."../betting/config/db.php");
+		require_once($mod."../betting/classes/Login.php");
 
 // create a login object. when this object is created, it will do all login/logout stuff automatically
 // so this single line handles the entire login process. in consequence, you can simply ...

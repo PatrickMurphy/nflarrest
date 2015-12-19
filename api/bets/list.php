@@ -7,8 +7,8 @@
 	}
 
 		require_once($mod.'api.php');
-		require_once($mod."../userSystem/config/db.php");
-		require_once($mod."../userSystem/classes/Login.php");
+		require_once($mod."../betting/config/db.php");
+		require_once($mod."../betting/classes/Login.php");
 
 $login = new Login();
 
