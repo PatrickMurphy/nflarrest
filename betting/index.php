@@ -177,8 +177,11 @@ function gather_results($result){
 		$pos_options .= '<option value="'.$posit['position_tag'].'">'.$posit['position_title'].'</option>';
 	}
 
-
+		if(isset($_GET['user'])){
+			include("views/userProfile.php");
+		}else{
 			include("views/logged_in.php");
+		}
 
 	} else {
 			// the user is not logged in. you can do whatever you want here.
