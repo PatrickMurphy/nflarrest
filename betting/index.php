@@ -177,7 +177,8 @@ function gather_results($result){
 		$pos_options .= '<option value="'.$posit['position_tag'].'">'.$posit['position_title'].'</option>';
 	}
 
-		if(isset($_GET['user'])){
+		if(isset($_GET['user']) && is_numeric($_GET['user'])){
+			$userDetails = gather_results($db->query('SELECT user_id, user_name, user_email, balance, created, last_login, user_group FROM users WHERE user_id = '.$_GET['user']))[0];
 			include("views/userProfile.php");
 		}else{
 			include("views/logged_in.php");

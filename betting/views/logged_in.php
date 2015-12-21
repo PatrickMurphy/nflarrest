@@ -1,24 +1,10 @@
-<div class="row">
-	<p>
-		Welcome, <b><?php echo $_SESSION['user_name']; ?></b> you have <span style="color:green;font-weight:bold;"><?php echo $_SESSION['balance']; ?></span> coins.
-	</p>
-</div>
-<div class="row">
-	<aside class="three columns">
-		<h4>Menu</h4>
-		<ul>
-			<li><a href="javascript:showPlaceBet()" class="button primary-button button-primary">Place a New Bet!</a></li>
-			<br/>
-			<li><a href="http://nflarrest.com">NFL Arrest Home</a></li>
-			<li><a href="index.php?logout">Logout</a></li>
-		</ul>
-	</aside>
+<?php include('views/components/logged_in_menu_header.php')?>
 	<div class="five columns" style="height:70vh;">
 		<h4>Your Bets</h4>
 		<ul id="betList">
 		</ul>
 	</div>
-	<div style="four columns">
+	<div class="four columns" style="margin-left:2vw;">
 		<h4>Leaderboard</h4>
 		<ol id="leaderboard">
 		</ol>
@@ -184,7 +170,7 @@ $('#switchBetButton').click(function(){
 		$.getJSON('http://nflarrest.com/api/v1/bets/leaderboard?limit=10', function(data){
 			for(var key in data){
 				var leader = data[key];
-				$('#leaderboard').append("<li><!--<a href=\"user.php?userid="+leader.user_id+"\">--><b>"+leader.user_name+"</b><!-- </a> -->&nbsp;&nbsp;&nbsp;&nbsp;$"+leader.balance+"</li>");
+				$('#leaderboard').append("<li><a href=\"index.php?user="+leader.user_id+"\"><b>"+leader.user_name+"</b></a>&nbsp;&nbsp;&nbsp;&nbsp;$"+leader.balance+"</li>");
 			}
 		});
 	}
