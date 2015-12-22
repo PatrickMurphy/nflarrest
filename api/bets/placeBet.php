@@ -9,10 +9,89 @@ $error = false;
 	}
 
 		require_once($mod.'api.php');
-		require_once($mod."../userSystem/config/db.php");
-		require_once($mod."../userSystem/classes/Login.php");
+		require_once($mod."../betting/config/db.php");
+		require_once($mod."../betting/classes/Login.php");
 
 $login = new Login();
+
+function guessBet($inputArray){
+    // takes in post
+    // returns new bet odds, additional columns and values
+    $additionalColumns = "";
+	$additionalValues = "";
+	$crime_set = false;
+	$player_set = false;
+	$team_set = false;
+	$pos_set = false;
+	$tempOdds = 1;
+
+	if(isset($inputArray['crime']) && $inputArray['crime'] != 'no-choice'){
+		$tempOdds = (14/1 + 1);
+		$crime_set = true;
+		$newBet['crime'] = $inputArray['crime'];
+		$additionalColumns = ",crime";
+		$additionalValues = ",".$newBet['crime'];
+	}
+
+	if(isset($inputArray['player']) && $inputArray['player'] != 'no-choice'){
+		$player_set = true;
+		$newBet['player'] = $inputArray['player'];
+		$additionalColumns .= ",player";
+		$additionalValues .= ",".$newBet['player'];
+		$tempOdds *= (1700/1 + 1);
+	}
+
+	if(isset($inputArray['team']) && $inputArray['team'] != 'no-choice'){
+		if(!$player_set){// can't guess team if you know the player
+			$team_set = true;
+			$newBet['team'] = $inputArray['team'];
+			$additionalColumns .= ",team";
+			$additionalValues .= ",'".$newBet['team']."'";
+			$tempOdds *= (32/1 + 1);
+		}
+	}
+
+    if(isset($inputArray['position']) && $inputArray['position'] != 'no-choice'){
+		if(!$player_set){ // can't guess position if you know the player
+			$pos_set = true;
+			$newBet['position'] = $inputArray['position'];
+			$additionalColumns .= ",position";
+			$additionalValues .= ",'".$newBet['position']."'";
+			$tempOdds *= (23/1 + 1);
+		}
+	}
+
+	$tempOdds = floor($tempOdds);
+
+    return array('cols'=>$additionalColumns, 'vals'=>$additionalValues, 'odds'=>$tempOdds);
+}
+
+function recordBet($inputData){
+    $additionalColumns = "";
+	$additionalValues = "";
+    $tempOdds = 1;
+
+    if(isset($inputData['recordDays'])){
+        // how many days between now and date
+        $days = $inputData['recordDays'];
+        $recordDate = date_add(new DateTime(), date_interval_create_from_date_string($days.' days'));
+
+         if ($days > 7){
+            $prob = exp((($days)*(0-1))/7.16);
+            $tempOdds = floor(1/$prob);
+         }else{
+            $tempOdds = 8-$days; // 1 day = 1-7 odds, 7 days out = 1-1 odds
+            $tempOdds = 0 - $tempOdds; // make negative for database storage
+         }
+
+        $additionalColumns = ',recordDate';
+        $additionalValues = ", "."'".$recordDate->getTimestamp()."'";
+
+        return array('cols'=>$additionalColumns, 'vals'=>$additionalValues, 'odds'=>$tempOdds);
+    }else{
+        die('error');
+    }
+}
 
 if ($login->isUserLoggedIn() == true) {
 	//{"userid":,"amount":"10","odds":"0.03125","crime":"-1","player":"no-choice","team":"min","position":"no-choice","active":"1","date_placed":"2015-11-30 20:23:43"}
@@ -36,51 +115,26 @@ if ($login->isUserLoggedIn() == true) {
 		$error = 'The amount must be set as an integer, You might not have enough funds to place that bet.';
 		die($error);
 	}
-	$additionalColumns = "";
-	$additionalValues = "";
-	$crime_set = false;
-	$player_set = false;
-	$team_set = false;
-	$pos_set = false;
-	$newBet['odds'] = 1;
-	if(isset($_POST['crime'])){
-		$newBet['odds'] = (14/1 + 1);
-		$crime_set = true;
-		$newBet['crime'] = $_POST['crime'];
-		$additionalColumns = ",crime";
-		$additionalValues = ",".$newBet['crime'];
-	}
-	if(isset($_POST['player'])){
-		$player_set = true;
-		$newBet['player'] = $_POST['player'];
-		$additionalColumns .= ",player";
-		$additionalValues .= ",".$newBet['player'];
-		$newBet['odds'] *= (1700/1 + 1);
-	}else if(isset($_POST['team'])){
-		if(!$player_set){// can't guess team if you know the player
-			$team_set = true;
-			$newBet['team'] = $_POST['team'];
-			$additionalColumns .= ",team";
-		$additionalValues .= ",'".$newBet['team']."'";
-		$newBet['odds'] *= (32/1 + 1);
-		}
-	}else if(isset($_POST['position'])){
-		if(!$player_set){ // can't guess position if you know the player
-			$pos_set = true;
-			$newBet['position'] = $_POST['position'];
-			$additionalColumns .= ",position";
-			$additionalValues .= ",".$newBet['position'];
-			$newBet['odds'] *= (25/1 + 1);
-		}
-	}
-	$newBet['odds'] = floor($newBet['odds']);
 
-$query2 = 'INSERT INTO bets (userid,amount,odds'.$additionalColumns.') VALUES ('.$newBet['userid'].','. $newBet['amount'].','. $newBet['odds'] . $additionalValues.')';
+    if(isset($_POST['recordDays'])){
+        $returnValues = recordBet($_POST);
+    }else{
+        $returnValues = guessBet($_POST);
+    }
+
+    $addColumns = $returnValues['cols'];
+    $addValues = $returnValues['vals'];
+    $newBet['odds'] = $returnValues['odds'];
+$query2 = 'INSERT INTO bets (userid,amount,odds'.$addColumns.') VALUES ('.$newBet['userid'].','. $newBet['amount'].','. $newBet['odds'] . $addValues.')';
 		$_SESSION['balance'] -= $_POST['amount'];
-	print $query2;
 		$result = $db->query($query2);
-		$balResult = $db->query('UPDATE users SET balance='. $_SESSION['balance'] .' WHERE user_id='. $newBet['userid']);
-		print '{"submit":true}';
+		if($result > 0 && $result != false){
+			$balResult = $db->query('UPDATE users SET balance='. $_SESSION['balance'] .' WHERE user_id='. $newBet['userid']);
+			print '{"submit":true}';
+		}else{
+			print '{"submit":false, error:"undefined error, could not process query"}';
+		}
+
 }else{
 	$error = 'not authorized';
 	print '{"submit":false,"error":"'.$error.'"}';

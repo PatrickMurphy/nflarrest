@@ -79,3 +79,12 @@ FROM `arrest_stats`
 INNER JOIN `position`
 ON arrest_stats.Position=position.position_tag
 ORDER BY Position
+
+SELECT Count(*) as count, team FROM `bets` WHERE team != 'no-choice' GROUP BY team ORDER BY count desc
+SELECT Count(*) as count, teams.teams_full_name FROM `bets` INNER JOIN teams ON team = teams.team_code WHERE team != 'no-choice' GROUP BY team ORDER BY count desc
+
+SELECT Count(*) as count, crime FROM `bets` WHERE crime > 0 GROUP BY crime ORDER BY count desc
+
+SELECT Count(*) as count, general_category.Category FROM `bets` INNER JOIN general_category ON crime = general_category.general_category_id WHERE crime > 0 GROUP BY crime ORDER BY count desc
+
+SELECT Count(*) as count, position.position_title FROM `bets` INNER JOIN position ON position = position.position_tag WHERE position != 'no-choice' GROUP BY position ORDER BY count desc
