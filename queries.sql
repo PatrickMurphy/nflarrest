@@ -72,3 +72,10 @@ SELECT `arrest_stats_id`, `Category`, `general_category_id`, `Description` FROM 
 SELECT count(`arrest_stats_id`), `Category` FROM `arrest_stats` WHERE `general_category_id` = 27 GROUP BY Category ORDER BY count(`arrest_stats_id`) DESC
 
 UPDATE `arrest_stats` SET `general_category_id`= 4 WHERE Category = 'Battery'
+
+-- grab all the positions right
+SELECT `arrest_stats_id`, `Name`, `Category`, position.position_title, Position, position.position_tag
+FROM `arrest_stats`
+INNER JOIN `position`
+ON arrest_stats.Position=position.position_tag
+ORDER BY Position
