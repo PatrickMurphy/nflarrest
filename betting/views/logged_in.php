@@ -92,6 +92,7 @@ var currBetType = true; // true == guess, false == record
 
 $('#switchBetButton').click(function(){
 	currBetType = !currBetType;
+    ga('send', 'event', 'betting', 'viewPlaceBetForm', 'switchType');
 	if(currBetType){
 		$('#guessBetForm').show();
 		$('#recordBetForm').hide();
@@ -112,6 +113,7 @@ $('#switchBetButton').click(function(){
 	function showPlaceBet(){
 		//loadBetRecordDates();
 		$('#place_bet_window').show();
+        ga('send', 'event', 'betting', 'viewPlaceBetForm', 'showWindow');
 	}
 
 	function hidePlaceBet(){
@@ -245,6 +247,7 @@ $('#switchBetButton').click(function(){
 					currCash -= $('#amount').val();
 					hidePlaceBet();
 					loadBetList();
+                    ga('send', 'event', 'betting', 'placeBet', $('#amount').val());
 				}else{
 					alert('Bet could not be placed. Error: ' + resp.error);
 				}

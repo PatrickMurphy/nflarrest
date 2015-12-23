@@ -2,7 +2,7 @@
 	require('views/components/logged_in_menu_header.php');
 
 ?>
-<div class="five columns" style="height:70vh;">
+<div class="five columns">
 
 	<h4>Bets</h4>
 	<ul id="betList">
@@ -40,7 +40,9 @@ switch($userDetails['user_group']){
 	<h4><?php print $userDetails['user_name']; ?></h4>
 	<p><?php print $userType . '<br/>Balance: $' .$userDetails['balance'].'<br />User Since: '.$userDetails['created']; ?></p>
 </div>
+<div class="seven columns offset-by-one" id="comments"></div>
 <?php require('views/components/logged_in_footer.php'); ?>
+<script src="js/comments.js" defer></script>
 <script>
 var crimeNames = <?php echo $crime_json; ?>;
 var crimeOdds = <?php echo $crime_odds_json; ?>;

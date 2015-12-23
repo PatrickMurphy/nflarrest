@@ -39,7 +39,7 @@ if(isset($_GET['register'])){
 <html lang="en">
 	<head>
 		<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-		<script src="http://nflarrest.com/js/google-tracking.js"></script>
+		<script src="js/google-tracking.js"></script>
 		<meta charset="utf-8">
 		<title><?php echo $pageTitle; ?></title>
 		<link rel="stylesheet" type="text/css" href="http://nflarrest.com/css/styles.min.css" />

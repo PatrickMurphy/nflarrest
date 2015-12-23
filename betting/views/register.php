@@ -53,10 +53,11 @@ input {
 var on_submit_function = function(evt){
     evt.preventDefault(); //The form wouln't be submitted Yet.
     function doSubmit(){
+            ga('send', 'event', 'betting', 'register', $('input[name=user_name]').val());
 	    	$('#registerForm').off('submit', on_submit_function); //It will remove this handle and will submit the form again if it's all ok.
-	    	$('#registerForm').submit();
+            $('#registerForm').submit();
     }
-    if($("input[name=newsletter]").is(':checked'){
+    if($("input[name=newsletter]").is(':checked')){
 	    $.ajax({
 	        url:'http://patrickmurphywebdesign.com/Projects/emails/emailList.php',
 	        type:'POST',
