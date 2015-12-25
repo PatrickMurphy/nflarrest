@@ -1,8 +1,44 @@
 <?php include('views/components/logged_in_menu_header.php')?>
+	<style>
+		.value-cell{
+		    background-color: #038fef;
+			box-shadow: 0 1px 1px rgba(0,0,0,.58);
+			padding: 1px 8px;
+			border-radius: 10px;
+			line-height: 24px;
+			margin-top: 4px;
+			float:right;
+			color: #fff!important;
+		}
+		li:nth-child(even) {
+			background-color: rgba(0,0,0,.055);
+			border-radius:5px;
+		}
+	</style>
 	<div class="five columns" style="height:70vh;">
-		<h4>Your Bets</h4>
-		<ul id="betList">
-		</ul>
+		<div id="yourBetsDiv">
+			<div class="row">
+				<h4 class="seven columns">Your Bets</h4>
+				<a href="#" id="viewPopularButton" class="five columns button">View Popular</a>
+			</div>
+			<ul id="betList"></ul>
+		</div>
+		<div id="popularDiv" style="display:none;">
+			<div class="row">
+				<h4 class="seven columns">Popular Bets</h4>
+				<a href="#" id="yourBetsButton" class="five columns button">Your Bets</a>
+			</div>
+			<div class="row">
+				<ol id="popTeams" class="six columns" start="0"><li style="list-style:none;font-weight:bold;">Teams:</li></ol>
+				<ol id="popCrime" class="six columns" start="0"><li style="list-style:none;font-weight:bold;">Crimes:</li></ol>
+			</div>
+			<div class="row">
+				<ol id="popPosition" class="six columns" start="0">
+					<li style="list-style:none;font-weight:bold;">Postions:</li>
+				</ol>
+				<span id="popTime" class="six columns"></span>
+			</div>
+		</div>
 	</div>
 	<div class="four columns" style="margin-left:2vw;">
 		<h4>Leaderboard</h4>
@@ -83,32 +119,32 @@
 	</form>
 </div>
 <script>
-var crimeNames = <?php echo $crime_json; ?>;
-var crimeOdds = <?php echo $crime_odds_json; ?>;
-var teamNames = <?php echo $team_json; ?>;
-var currCash = <?php echo $_SESSION['balance'];?>;
+	var crimeNames = <?php echo $crime_json; ?>;
+	var crimeOdds = <?php echo $crime_odds_json; ?>;
+	var teamNames = <?php echo $team_json; ?>;
+	var currCash = <?php echo $_SESSION['balance'];?>;
 
-var currBetType = true; // true == guess, false == record
+	var currBetType = true; // true == guess, false == record
 
-$('#switchBetButton').click(function(){
-	currBetType = !currBetType;
-    ga('send', 'event', 'betting', 'viewPlaceBetForm', 'switchType');
-	if(currBetType){
-		$('#guessBetForm').show();
-		$('#recordBetForm').hide();
-		// de select the record options
+	$('#switchBetButton').click(function(){
+		currBetType = !currBetType;
+		ga('send', 'event', 'betting', 'viewPlaceBetForm', 'switchType');
+		if(currBetType){
+			$('#guessBetForm').show();
+			$('#recordBetForm').hide();
+			// de select the record options
 
-		$('#recordDays').val(0);
-	}else{
-		$('#guessBetForm').hide();
-		$('#recordBetForm').show();
-		$('#crime_select').val('no-choice');
-		$('#team_select').val('no-choice');
-		$('#pos_select').val('no-choice');
-	}
-	$('#place_bet_odds').html('??');
-	$('#pot_winning').html('$'+($('#amount').val()));
-});
+			$('#recordDays').val(0);
+		}else{
+			$('#guessBetForm').hide();
+			$('#recordBetForm').show();
+			$('#crime_select').val('no-choice');
+			$('#team_select').val('no-choice');
+			$('#pos_select').val('no-choice');
+		}
+		$('#place_bet_odds').html('??');
+		$('#pot_winning').html('$'+($('#amount').val()));
+	});
 
 	function showPlaceBet(){
 		//loadBetRecordDates();
@@ -167,6 +203,30 @@ $('#switchBetButton').click(function(){
 		}
 
 
+	}
+
+	function loadPopular(){
+		$('#popCrime').html('<li style="list-style:none;font-weight:bold;">Crimes:</li>');
+		$('#popTeams').html('<li style="list-style:none;font-weight:bold;">Teams:</li>');
+		$('#popPosition').html('<li style="list-style:none;font-weight:bold;">Positions:</li>');
+		$.getJSON('http://nflarrest.com/api/v1/bets/popular?limit=5', function(data){
+			for(var teamid in data['team']){
+				var team = data['team'][teamid];
+				$('#popTeams').append("<li>"+team.teams_full_name+'<span class="value-cell">'+team.count+'</span></li>');
+			}
+			for(var crimeid in data['crime']){
+				var crime = data['crime'][crimeid];
+				$('#popCrime').append("<li>"+crime.Category+'<span class="value-cell">'+crime.count+'</span></li>');
+			}
+			for(var positionid in data['position']){
+				var position = data['position'][positionid];
+				$('#popPosition').append("<li>"+position.position_title+'<span class="value-cell">'+position.count+'</span></li>');
+			}
+			console.log(new Date(data['time'][0]['avg_date']*1000));
+			console.log(data['time'][0]['avg_date']);
+			var theDate = new Date(data['time'][0]['avg_date']*1000);
+			$('#popTime').html('<b>Arrest Streak:</b><br />Average bet date: <b>'+(theDate.getMonth()+1)+'/'+theDate.getDate()+'/'+theDate.getFullYear()+'</b><br /><br /><b>Stats:</b><br />A total of <b>$'+data['betStats'][0]['total_amount']+'</b> has been bet by <b>' + data['betStats'][0]['total_users'] + '</b> Users.');
+		});
 	}
 	function loadLeaders(){
 		$.getJSON('http://nflarrest.com/api/v1/bets/leaderboard?limit=10', function(data){
@@ -247,6 +307,7 @@ $('#switchBetButton').click(function(){
 					currCash -= $('#amount').val();
 					hidePlaceBet();
 					loadBetList();
+					loadPopular();
                     ga('send', 'event', 'betting', 'placeBet', $('#amount').val());
 				}else{
 					alert('Bet could not be placed. Error: ' + resp.error);
@@ -262,7 +323,19 @@ $('#switchBetButton').click(function(){
 				alert('You did not wager any money!');
 			}
 		});
+
+		$('#yourBetsButton').click(function(){
+			$('#popularDiv').hide();
+			$('#yourBetsDiv').show();
+		});
+
+		$('#viewPopularButton').click(function(){
+			$('#yourBetsDiv').hide();
+			$('#popularDiv').show();
+		});
+
 		loadBetList();
 		loadLeaders();
+		loadPopular();
 	});
 </script>
