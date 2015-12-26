@@ -34,6 +34,78 @@ if(isset($_GET['register'])){
 	$login = new Login();
 }
 
+function getDBData(){
+	require_once('../api/PHP-Multi-SQL/classes/MySQL.class.php');
+
+	require_once('../api/db_config.php');
+
+	$db = new MySQL($db_info['host'], $db_info['user'], $db_info['password'], $db_info['db_name']);
+
+	if($db == false){
+		die('DB connection error.');
+	}
+
+	function gather_results($result){
+		$return_array = [];
+		for($i = 0; $i < $result->num_rows; $i++){
+			$return_array[] = $result->fetch_assoc();
+		}
+		return $return_array;
+	}
+	global $crime_odds_json, $crime_json, $crime_options, $team_json, $team_options, $pos_options;
+
+	$results4 = gather_results($db->query('SELECT gen_cat.`Category`, gen_cat.`general_category_id`, count(`arrest_stats_id`) AS `Count` FROM `arrest_stats` as ArrStat INNER JOIN `general_category` AS gen_cat ON ArrStat.general_category_id = gen_cat.general_category_id GROUP BY general_category_id ORDER BY count(`arrest_stats_id`) DESC'));
+	$crime_odds_json = '{';
+	$crime_options = '';
+	$crime_json = '{';
+	foreach($results4 as $crime){
+		$crime_details = '{"category": "'.$crime['Category'].'","category_id": '.$crime['general_category_id'].',"arrest_count": '.$crime['Count'].'}';
+		$crime_odds_json .= $crime['general_category_id'].': '.$crime_details.',';
+		$crime_options .= '<option value="'.$crime['general_category_id'].'">'.$crime['Category'].'</option>';
+		$crime_json .= $crime['general_category_id'].':"'.$crime['Category'].'",';
+	}
+	$crime_odds_json = rtrim($crime_odds_json, ",");
+	$crime_odds_json .= '}';
+	$crime_json = rtrim($crime_json, ",");
+	$crime_json .= '}';
+
+	$results2 = gather_results($db->query('SELECT `team_code`,`teams_full_name`,`city` FROM `teams` WHERE `teams_id` < 36 ORDER BY `team_code`'));
+	$team_options = '';
+	$team_json = '{';
+	foreach($results2 as $team){
+		$team_options .= '<option value="'.$team['team_code'].'" title="'.$team['team_code'].'" >'.$team['team_code'].' - '.$team['teams_full_name'].'</option>';
+		$team_json .= $team['team_code'].':"'.$team['teams_full_name'].'",';
+	}
+	$team_json = rtrim($team_json, ",");
+	$team_json .= '}';
+	$result3 = gather_results($db->query('SELECT `position_tag`, `position_title`, `position_type` FROM `position` ORDER BY `position_type`, `position_title`'));
+	$pos_options = '';
+	$this_type='none';
+	foreach($result3 as $posit){
+		if($this_type != $posit['position_type']){
+			if($this_type != 'none'){
+				$pos_options .= '</optgroup>';
+			}
+			$this_type = $posit['position_type'];
+			switch($this_type){
+				case 'D':
+					$title = 'Defense';
+				break;
+				case 'O':
+					$title = 'Offense';
+				break;
+				case 'S':
+					$title = 'Special Teams';
+				break;
+				default:
+					$title = 'Other';
+			}
+			$pos_options .= '<optgroup label="'.$title.'">';
+		}
+		$pos_options .= '<option value="'.$posit['position_tag'].'">'.$posit['position_title'].'</option>';
+	}
+}
+
 ?>
 <!doctype html>
 <html lang="en">
@@ -104,78 +176,11 @@ if(isset($_GET['register'])){
     // show the register view (with the registration form, and messages/errors)
     include("views/register.php");
 }else{
+	getDBData(); // load full names and options of stuff
 	// ... ask if we are logged in here:
 	if ($login->isUserLoggedIn() == true) {
 			// the user is logged in. you can do whatever you want here.
 			// for demonstration purposes, we simply show the "you are logged in" view.
-
-require_once('../api/PHP-Multi-SQL/classes/MySQL.class.php');
-
-require_once('../api/db_config.php');
-
-$db = new MySQL($db_info['host'], $db_info['user'], $db_info['password'], $db_info['db_name']);
-
-if($db == false){
-	die('DB connection error.');
-}
-
-function gather_results($result){
-	$return_array = [];
-	for($i = 0; $i < $result->num_rows; $i++){
-		$return_array[] = $result->fetch_assoc();
-	}
-	return $return_array;
-}
-	$results4 = gather_results($db->query('SELECT gen_cat.`Category`, gen_cat.`general_category_id`, count(`arrest_stats_id`) AS `Count` FROM `arrest_stats` as ArrStat INNER JOIN `general_category` AS gen_cat ON ArrStat.general_category_id = gen_cat.general_category_id GROUP BY general_category_id ORDER BY count(`arrest_stats_id`) DESC'));
-	$crime_odds_json = '{';
-	$crime_options = '';
-	$crime_json = '{';
-	foreach($results4 as $crime){
-		$crime_details = '{"category": "'.$crime['Category'].'","category_id": '.$crime['general_category_id'].',"arrest_count": '.$crime['Count'].'}';
-		$crime_odds_json .= $crime['general_category_id'].': '.$crime_details.',';
-		$crime_options .= '<option value="'.$crime['general_category_id'].'">'.$crime['Category'].'</option>';
-		$crime_json .= $crime['general_category_id'].':"'.$crime['Category'].'",';
-	}
-	$crime_odds_json = rtrim($crime_odds_json, ",");
-	$crime_odds_json .= '}';
-	$crime_json = rtrim($crime_json, ",");
-	$crime_json .= '}';
-
-	$results2 = gather_results($db->query('SELECT `team_code`,`teams_full_name`,`city` FROM `teams` WHERE `teams_id` < 36 ORDER BY `team_code`'));
-	$team_options = '';
-	$team_json = '{';
-	foreach($results2 as $team){
-		$team_options .= '<option value="'.$team['team_code'].'" title="'.$team['team_code'].'" >'.$team['team_code'].' - '.$team['teams_full_name'].'</option>';
-		$team_json .= $team['team_code'].':"'.$team['teams_full_name'].'",';
-	}
-	$team_json = rtrim($team_json, ",");
-	$team_json .= '}';
-	$result3 = gather_results($db->query('SELECT `position_tag`, `position_title`, `position_type` FROM `position` ORDER BY `position_type`, `position_title`'));
-	$pos_options = '';
-	$this_type='none';
-	foreach($result3 as $posit){
-		if($this_type != $posit['position_type']){
-			if($this_type != 'none'){
-				$pos_options .= '</optgroup>';
-			}
-			$this_type = $posit['position_type'];
-			switch($this_type){
-				case 'D':
-					$title = 'Defense';
-				break;
-				case 'O':
-					$title = 'Offense';
-				break;
-				case 'S':
-					$title = 'Special Teams';
-				break;
-				default:
-					$title = 'Other';
-			}
-			$pos_options .= '<optgroup label="'.$title.'">';
-		}
-		$pos_options .= '<option value="'.$posit['position_tag'].'">'.$posit['position_title'].'</option>';
-	}
 
 		if(isset($_GET['user']) && is_numeric($_GET['user'])){
 			$userDetails = gather_results($db->query('SELECT user_id, user_name, user_email, balance, created, last_login, user_group FROM users WHERE user_id = '.$_GET['user']))[0];
@@ -187,7 +192,12 @@ function gather_results($result){
 	} else {
 			// the user is not logged in. you can do whatever you want here.
 			// for demonstration purposes, we simply show the "you are not logged in" view.
-			include("views/not_logged_in.php");
+			if(isset($_GET['splittest']))
+			{
+				include("views/not_logged_in.php");
+			}else{
+				include("views/not_logged_in2.php");
+			}
 	}
 }
 ?></section>

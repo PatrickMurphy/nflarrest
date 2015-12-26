@@ -16,3 +16,4 @@ function gather_results($result){
 	}
 	return $return_array;
 }
+ header("Access-Control-Allow-Origin: *");

@@ -18,28 +18,28 @@ input {
 	width:100%;
 }
 </style>
-<div class="row">
+<div class="row" style="margin-top:5px;">
 <!-- register form -->
-<form method="post" action="index.php?register" name="registerform" id="registerForm" class="four columns">
+<form method="post" action="index.php?register" name="registerform" id="registerForm" style="padding:6px;background:rgba(204, 135, 40, 0.22);border-radius:8px;" class="four columns">
 <h2>Register</h2>
     <!-- the user name input field uses a HTML5 pattern check -->
-    <label for="login_input_username">Username (only letters and numbers, 2 to 64 characters)</label>
+    <label for="login_input_username">Username <sup>(only letters and numbers, 2 to 64 characters)</sup></label>
     <input id="login_input_username" class="login_input" type="text" pattern="[a-zA-Z0-9]{2,64}" name="user_name" required />
 <br/>
     <!-- the email input field uses a HTML5 email type check -->
     <label for="login_input_email">User's email</label>
     <input id="login_input_email" class="login_input" type="email" name="user_email" required />
 		<br/>
-		<label for="login_newsletter">Sign up for the NFL Arrest Newsletter and Learn of NFL arrests first!</label>
+		<label for="login_newsletter">Sign up for NFL Arrest Newsletter, Learn of NFL arrests first!</label>
 		<input type="checkbox" name="newsletter" class="login_input" checked />
 <br/>
-    <label for="login_input_password_new">Password (min. 6 characters)</label>
+    <label for="login_input_password_new">Password <sup>(min. 6 characters)</sup></label>
     <input id="login_input_password_new" class="login_input" type="password" name="user_password_new" pattern=".{6,}" required autocomplete="off" />
 		<br/>
     <label for="login_input_password_repeat">Repeat password</label>
     <input id="login_input_password_repeat" class="login_input" type="password" name="user_password_repeat" pattern=".{6,}" required autocomplete="off" />
     <br/>
-	<input type="submit"  name="register" value="Register" />
+	<input type="submit"  name="register" value="Register" class="button button-primary" />
 
 </form>
 <div class="five columns">
