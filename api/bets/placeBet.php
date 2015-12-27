@@ -11,10 +11,11 @@ $error = false;
 		require_once($mod.'api.php');
 		require_once($mod."../betting/config/db.php");
 		require_once($mod."../betting/classes/Login.php");
-
+global $db;
 $login = new Login();
 
 function guessBet($inputArray){
+	global $db;
     // takes in post
     // returns new bet odds, additional columns and values
     $additionalColumns = "";
@@ -26,7 +27,10 @@ function guessBet($inputArray){
 	$tempOdds = 1;
 
 	if(isset($inputArray['crime']) && $inputArray['crime'] != 'no-choice'){
-		$tempOdds = (14/1 + 1);
+		$countResult = $db->query('SELECT COUNT(arrest_stats_id) AS `total`, (SELECT COUNT(arrest_stats_id) FROM `arrest_stats` WHERE general_category_id = '.$inputArray['crime'].') as `cat_total` FROM `arrest_stats`');
+		$countResult = $countResult->fetch_assoc();
+		$newOdds = 1/($countResult['cat_total']/$countResult['total']);
+		$tempOdds = ($newOdds/1 + 1);
 		$crime_set = true;
 		$newBet['crime'] = $inputArray['crime'];
 		$additionalColumns = ",crime";

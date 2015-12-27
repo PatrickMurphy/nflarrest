@@ -38,7 +38,7 @@ function getDBData(){
 	require_once('../api/PHP-Multi-SQL/classes/MySQL.class.php');
 
 	require_once('../api/db_config.php');
-
+	global $db;
 	$db = new MySQL($db_info['host'], $db_info['user'], $db_info['password'], $db_info['db_name']);
 
 	if($db == false){
@@ -158,7 +158,26 @@ function getDBData(){
     <meta name="msapplication-TileImage" content="http://nflarrest.com/images/favicon/mstile-144x144.png">
     <meta name="msapplication-config" content="http://nflarrest.com/images/favicon/browserconfig.xml">
     <meta name="theme-color" content="#e7b736">
-
+		<style>
+			a.button[href='javascript:showPlaceBet()'] {
+				background-color:#888888;
+                background-image:  url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACcElEQVRIS7WW4VUUQRCEqyJQI9CLQIlAjUCJAIxALwIxAiECJQIhAiUCjwjECNQI2veNPUvvsHfgD/q9e+92Z6arp6p6Zq0dERFPJL2S9ELSM0k8E1eSNpK+STq3zfNieOltRDyU9FHSYRm/yMS8Auh5GfssaW3795jvBkBEvJb0SRIgU9iezY2IGJKR/I3ts9m6+hARVEzyG3EHgL4GEHbUYqoqK/+yQxJ4rhr0/0tL9vtOGkCK+V3Sn+T9aOCYaZcpLP8R/OmQGY3eSYKiB5L2EL8DsKWDfIk7AKXix7iEhaNTsqjjdNmV7VWuA5xiT20fOif+SLshMMlZ+DZFm/iMCCqUbcZbRAS7fS/pxHYbjwjsi8tWAPASSx7bXi8BlkTsEu5JAM/NlhEBLfTLip2WAtcA9EHmspCgsdrkTNDdBV2NwiyoAwAKC3U9c84BYMEo2KVtuBxpOLL9Yck2W/JsABgbhvVNoAIAGNXhDqqGzhnQwMRUw50AkiY6G1A0w10cDVXsSvUMoNux7nxje28LFejztbouC1imumyNJqM66MCiVWTeY0WSICi/qVuL805yDjuDziZyt2lbUCaf2d7P6kjY6QEEsbtjlmxKP3HsNJt2i03CFh/TwVTV3UQxdO10Ym5ptOu+yAr7UfGSygoow0xG0NmlknNo0Nb9pcm6Rv+OiuIQEvzKhK3lh4Ca3mToNPVJmQf3AD5CJzr9f47rn2lP8nGyjs1Z65kf14Xj+7twCghbRBNsdt0wt1+Z7S7ZeWUWEJzFMczp2QNbdqEZR8wep3ln3H7p16rTKeyof7ZwRBDo0T9b6Jetny1/AQx4VidHdx4LAAAAAElFTkSuQmCC');
+				background-position:5px center;
+				background-repeat:no-repeat;
+				padding-left:34px !important;
+				padding-right:7.5px !important;
+			}
+			#viewPopularButton {
+				background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACEUlEQVRIS7VWzXHaQBT+3s54BnEJJeAKYo6IC64gSQWGCgIV2K7ApAJDBYEKTA6Io3EFcQnmIjHDjL7MriyitaRdcfCeNKv33vd+v7cCx+G21QXlG4AhKF0Irow4sYPwFcAawpX0D/q78kjVrTGcqlsIRi4HTv+IOVR6XwVUAmDU/g7iEYJOI+O5EPEGwVjCeFnUswC4bY1A9XiW4Y/Cko6lf5jn1ycA4znw222cv7L/8tPjxI88EgPwnvNnT1r2COIuDq0OqP46AXS6VNrTNckAorYO6cbj1ULC2BT9HHnJWtHjkclKepl3CbetIaievLXSOoyCCSAPntz/kTAZFmW4ae8g+OrRmwo3wRJihik75AqQna14XMrgaN2ZKFJlgQK8+mhLyp5wKmEy84ZfIVDKBrETRm2WZTmTMJmeA1I3QzUAhm/mMojHTUBcA1qRIquUawmTaxcIo2BWO3jES7nItrW9hHEtJ3lbnFy521QLDBJNIbXH2a6al9xe2B3FzYXZB8WWdaZID5pz9HnsaWN8RgdJcAvI5H1YZgiSe+nhzUGShlr+kx2VHqQvxVxIGOsIR0jVQ4kIM0KbSP+wqGh1Q4zaATddZ0vEvXiqZWy6PrHEZy6cE0i2eDR9W+lqMHB7ACPnyixEoin8rsGOyFUWkPSu0dK35jh7tuhHwBAwz5aMnokXgK9Q1At+7Xq2/APM7A1BxGqP8QAAAABJRU5ErkJggg==');
+				background-position:6% center;
+				background-repeat:no-repeat;
+			}
+			#yourBetsButton {
+				background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABwUlEQVRIS7WV3VHbUBCFzyoEJoMl0gHXFQQqwFQQUkHMIxIz2BXEHTg8WLyaDnAFuASnAi8dKJZmMiQMh5EcYflPvmKwHqWj8+3u3bsrsHhML2kCvBLBUSonMASkr37tdtPvUiYwXX7GbnKfGy9qSfbx121rW6J1PuWAXnwngq9lQaQQDbzzygBzEzeEuN9UgqxkglO9cIertGszMBbR54YEb9X3mpUA9XASAXJglQGo6nv1ioCYNua5Zuy7K6uxtkT1cOsA+xKBfBgHnqlUoq0f8tbbNE3XJgsSAw3cs8oXLQOko2IvGQrwZZUBgV94rDXePCpeIbtJR4TN2b3gb1J+auB2NrXyyjY14eQMcA7wuD8oRmd6yRGcD5FefNKicaZ/BvXSGywClwAmnPQF8n06lqmg802D2mhdpHN6YqSBe1zUzgFML+6I4EdRQDKCOK3F2Z9lI+wK0JjX41oDt5W/ewWYmz9G+DQuH80YQRAtmi7vCTnOs54BwjjtlpNNh2bzPd146runqTYDVLlUNoDijpgCKsx+a8D/HSE2tbc1XToL2amLCZOWgN23mpQ3hZxPM3j+N4TI4btCyAc6Hxsv437PvsxCjhQAAAAASUVORK5CYII=');
+				background-position:6% center;
+				background-repeat:no-repeat;
+			}
+		</style>
 	</head>
 	<body>
 		<div class="container">
@@ -184,7 +203,7 @@ if(isset($_GET['register'])){
 
 		if(isset($_GET['user']) && is_numeric($_GET['user'])){
 			$userDetails = gather_results($db->query('SELECT user_id, user_name, user_email, balance, created, last_login, user_group FROM users WHERE user_id = '.$_GET['user']))[0];
-			include("views/userProfile.php");
+			require("views/userProfile.php");
 		}else{
 			include("views/logged_in.php");
 		}
@@ -199,6 +218,7 @@ if(isset($_GET['register'])){
 				include("views/not_logged_in2.php");
 			}
 	}
+	$db->disconnect();
 }
 ?></section>
 		</div>

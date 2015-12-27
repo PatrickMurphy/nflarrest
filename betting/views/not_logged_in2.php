@@ -236,7 +236,7 @@
 		$.getJSON('http://nflarrest.com/api/v1/bets/leaderboard?limit=10', function(data){
 			for(var key in data){
 				var leader = data[key];
-				$('#leaderboard').append("<li><a href=\"index.php?user="+leader.user_id+"\"><b>"+leader.user_name+"</b></a>&nbsp;&nbsp;&nbsp;&nbsp;$"+leader.balance+"</li>");
+				$('#leaderboard').append("<li><b>"+leader.user_name+"</b>&nbsp;&nbsp;&nbsp;&nbsp;$"+leader.balance+"</li>");
 			}
 		});
 	}

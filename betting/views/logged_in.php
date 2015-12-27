@@ -44,6 +44,7 @@
 		<h4>Leaderboard</h4>
 		<ol id="leaderboard">
 		</ol>
+		<a href="javascript:leaderBoardPrev();" class="button" id="leaderPrevButton" style="display:none;">Previous</a><a href="javascript:leaderBoardNext();" id="leaderNextButton" class="button" style="float:right;">Next</a>
 	</div>
 </div>
 <div id="place_bet_window" style="position:absolute;width:46%;left:25%;padding:2%;padding-top:0px; top:10%; border-radius:5px;background:#bfbfbf;display:none;"><h4 style="border-radius:3px;width:100%; height:25px; line-height:25px; background:#4b4b4b; color:#fff;">Place Bet</h4>
@@ -125,6 +126,13 @@
 	var currCash = <?php echo $_SESSION['balance'];?>;
 
 	var currBetType = true; // true == guess, false == record
+	var leaderBoardPos = 0;
+	var totalArrests = 0;
+	for(var idx in crimeOdds){
+		var ele = crimeOdds[idx];
+		totalArrests += ele.arrest_count;
+	}
+	console.log('Total Arrests ' + totalArrests);
 
 	$('#switchBetButton').click(function(){
 		currBetType = !currBetType;
@@ -151,7 +159,6 @@
 		$('#place_bet_window').show();
         ga('send', 'event', 'betting', 'viewPlaceBetForm', 'showWindow');
 	}
-
 	function hidePlaceBet(){
 		$('#place_bet_window').hide();
 	}
@@ -165,9 +172,14 @@
 		}
 		if(currBetType){
 			var odds = 1;
+			//if($('#crime_select').val() !== 'no-choice'){
+			//	odds *= (14/1 + 1);
+			//}
 			if($('#crime_select').val() !== 'no-choice'){
-				odds *= (14/1 + 1);
+				var tempOdds = 1/(crimeOdds[$('#crime_select').val()]['arrest_count']/totalArrests);
+				odds *= (tempOdds/1 + 1);
 			}
+
 			if($('#team_select').val() !== 'no-choice'){
 				odds *= (32/1 + 1);
 			}
@@ -177,6 +189,7 @@
             if(odds == 1){
                 odds = 0;
             }
+			odds = Math.floor(odds);
 			$('#place_bet_odds').html(odds + ' : 1');
 			$('#pot_winning').html('$'+(odds * $('#amount').val()).toFixed(2));
 		}else{
@@ -228,11 +241,41 @@
 			$('#popTime').html('<b>Arrest Streak:</b><br />Average bet date: <b>'+(theDate.getMonth()+1)+'/'+theDate.getDate()+'/'+theDate.getFullYear()+'</b><br /><br /><b>Stats:</b><br />A total of <b>$'+data['betStats'][0]['total_amount']+'</b> has been bet by <b>' + data['betStats'][0]['total_users'] + '</b> Users.');
 		});
 	}
-	function loadLeaders(){
-		$.getJSON('http://nflarrest.com/api/v1/bets/leaderboard?limit=10', function(data){
-			for(var key in data){
-				var leader = data[key];
-				$('#leaderboard').append("<li><a href=\"index.php?user="+leader.user_id+"\"><b>"+leader.user_name+"</b></a>&nbsp;&nbsp;&nbsp;&nbsp;$"+leader.balance+"</li>");
+	function handleNewLeaders(newPos){
+			if(leaderBoardPos > 0){
+				$('#leaderPrevButton').show();
+				$('#leaderboard').attr('start', leaderBoardPos+1);
+			}else{
+				$('#leaderPrevButton').hide();
+				$('#leaderNextButton').show();
+				$('#leaderboard').attr('start', 1);
+			}
+		}
+	function leaderBoardNext(){
+		leaderBoardPos += 10;
+		loadLeaders(leaderBoardPos, handleNewLeaders);
+	}
+	function leaderBoardPrev(){
+		leaderBoardPos -= 10;
+		loadLeaders(leaderBoardPos, handleNewLeaders);
+	}
+	function loadLeaders(param, callback){
+		param = param || leaderBoardPos;
+		callback = callback || function(){};
+		$.getJSON('http://nflarrest.com/api/v1/bets/leaderboard?limit=10&start_pos='+param, function(data){
+			if(data.length > 0){
+				$('#leaderboard').html('');
+				for(var key in data){
+					var leader = data[key];
+					$('#leaderboard').append("<li><a href=\"index.php?user="+leader.user_id+"\"><b>"+leader.user_name+"</b></a>&nbsp;&nbsp;&nbsp;&nbsp;$"+leader.balance+"</li>");
+				}
+				if(data.length < 10){
+					$('#leaderNextButton').hide();
+				}
+				callback(leaderBoardPos);
+			}else{
+				leaderBoardPos -= 10;
+				callback(leaderBoardPos);
 			}
 		});
 	}
@@ -289,6 +332,7 @@
 			}
 		});
 	}
+
 	$(document).ready(function(){
 		$('#amount').change(calculateOdds);
 		$('#crime_select').change(calculateOdds);

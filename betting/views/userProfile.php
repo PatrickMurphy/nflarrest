@@ -9,21 +9,6 @@
 	</ul>
 </div>
 <div class="four columns" style="margin-left:2vw;">
-		<!-- Array
-(
-    [0] => Array
-        (
-            [user_id] => 1
-            [user_name] => PatrickMurphyPhoto
-            [user_email] => turnerp@cwu.edu
-            [balance] => 25.50
-            [created] => 2015-11-30 14:17:53
-            [last_login] => 1450556252
-            [user_group] => 3
-        )
-
-)
- -->
 	<?php
 switch($userDetails['user_group']){
 	case 1:
