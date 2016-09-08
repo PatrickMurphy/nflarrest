@@ -84,7 +84,8 @@
 				</div>
 				</div>
 			<div class="row dividedSection"><div class="dateRangeControl">
-				<span class="title">Date Range:</span> <a href="#!" id="changeDateRangeLink">01/01/2000 - 01/01/2015</a>
+				<!--<span class="title">Date Range:</span> <a href="#!" id="changeDateRangeLink">01/01/2000 - 01/01/2015</a>-->
+                <span class="title">Date Range:</span> <input id="dateRangeJquery" name="dateRangeJquery">
 			</div></div>
 			<div class="chart-container">
 				<div class="tweleve columns" id="chart"></div>
@@ -140,23 +141,26 @@
 					s.parentNode.insertBefore(g, s);
 			}(document, 'LINK'));
 		}
-		loadCSS('css/styles.min.css');
+		loadCSS('css/styles.css');
 		loadCSS('//fonts.googleapis.com/css?family=Raleway:400,300,500,600');
 		loadCSS('css/vendor/normalize.min.css');
 		loadCSS('css/vendor/skeleton.min.css');
 		loadCSS('css/vendor/c3.css');
 		loadCSS('css/vendor/jquery-ui.min.css');
+        loadCSS('css/vendor/jquery.comiseo.daterangepicker.css');
 	</script>
 	<!-- Include Javascript Logic -->
 	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="js/google-tracking.js" async></script>
 	<script src="js/vendor/d3.min.js" async></script>
 	<script src="js/vendor/c3.min.js" async></script>
+    <script src="js/vendor/jquery-ui.min.js" async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js" async></script>
+    <script src="js/vendor/jquery.comiseo.daterangepicker.min.js" async></script>
 	<script src="js/stackedBarChart.js" async></script>
 	<script src="js/dateRangeController.js" async></script>
 	<script src="js/nflLoadingBar.js" async></script>
   	<script src="js/index.js" defer></script>
 	<script src="js/common.js" async></script>
-	<script src="js/vendor/jquery-ui.min.js" async></script>
 </body>
 </html>

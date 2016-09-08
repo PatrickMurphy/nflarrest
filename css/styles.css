@@ -83,42 +83,29 @@ header h1 span {
 .dateRangeControl {
 	float:right;
 	background-color:#e2e2e2;
-	padding: calc(2px + 0.5vw);
+	padding: calc(1px + 0.3vw);
   display: inline-block;
 	border-radius: 4px;
-	color:#5a5a5a;
+	color:#525252;
 	font-weight: bold;
 	margin-right: 15px;
 }
-.dateRangeControl a {
-	color:rgb(255,118,0);
-}
-.dateRangeControl a:hover {
+.dateRangeControl button:hover {
 	color:rgba(255, 118, 0, 0.54);
-}
-.dateRangeControl input, .dateRangeControl button  {
-	display:block;
-	padding:3px;
-	margin: 4px;
-	border-radius: 3px;
-	border:1px solid #888;
 }
 
 .dateRangeControl button {
-	background-color:#3E606F;
-	border:none;
-	color:rgba(255, 255, 255, 0.5);
+	color:rgb(255,118,0);
+    background: #f5f5f5 !important;
+    font-size: .95em;
+    padding: 0px;
+    padding-left:4px;
+    min-width:0px !important;
 }
-
-.dateRangeControl button:hover {
-	color: #fff;
-	cursor: pointer;
-	background-color:#486d7e;
-}
-
 .dateRangeControl .title {
 	font-weight: bold;
 }
+
 
 button {
 	margin-bottom: 0px;

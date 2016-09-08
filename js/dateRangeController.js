@@ -1,136 +1,159 @@
 var dateRangeController = {
-	start_date: '2000-01-01',
-	end_date: '',
+    start_date: '2000-01-01',
+    end_date: '',
 
-	init: function(callback){
-		if(typeof pageID !== 'undefined'){
-			var hash = pageID || '';
-			hash = '#!' + hash;
-		}else{
-			var hash = '#!';
-		}
-		$('.container').append('<div class="dateRangeEditor four columns offset-by-eight"><form class="dateRangeForm"><span class="row"><label class="six columns">Start Date:</label>'+
-					'<input class="six columns" type="date" id="dateRange_start" /></span><span class="row"><label class="six columns">End Date:</label><input class="six columns" type="date" id="dateRange_end" />' +
-				'</span><span class="row"><button class="four columns" id="dateRangeCancelBtn">Cancel</button><button class="four columns" id="resetDateRangeBtn">Reset</button>'+
-					'<button class="four columns button-primary" id="dateRangeSaveBtn">Save</button></span></form></div>');
-		$('#changeDateRangeLink').attr('href', hash);
-		$('#changeDateRangeLink').click(this.openDialog);
-		$('#resetDateRangeBtn').click(this.resetTime);
+    init: function (callback) {
+        if (typeof pageID !== 'undefined') {
+            var hash = pageID || '';
+            hash = '#!' + hash;
+        } else {
+            var hash = '#!';
+        }
 
-		var today = new Date(),
-				month, day;
-		if(today.getMonth() < 9){
-			month = '0' + (today.getMonth()+1);
-		}else{
-			month = today.getMonth()+1;
-		}
+        $("#dateRangeJquery").daterangepicker({
+            presetRanges: [{
+                text: 'Last 3 Months',
+                dateStart: function () {
+                    return moment().subtract('months', 3)
+                },
+                dateEnd: function () {
+                    return moment()
+                }
+     },
+                           {
+                text: 'Last 6 Months',
+                dateStart: function () {
+                    return moment().subtract('months', 6)
+                },
+                dateEnd: function () {
+                    return moment()
+                }
+     },{
+                text: 'Last Year',
+                dateStart: function () {
+                    return moment().subtract('years', 1);
+                },
+                dateEnd: function () {
+                    return moment()
+                }
+     }, {
+                text: 'Last 5 Years',
+                dateStart: function () {
+                    return moment().subtract('years', 5);
+                },
+                dateEnd: function () {
+                    return moment()
+                }
+     }, {
+                text: 'All Records',
+                dateStart: function () {
+                    return moment('2000-01-01')
+                },
+                dateEnd: function () {
+                    return moment()
+                }
+     }],
+            datepickerOptions: {
+                minDate: new Date('2000-01-01'),
+                maxDate: 0
+            }
+        });
+        var todayDate = moment().format('YYYY-MM-DD');
 
-		if(today.getDate() < 10){
-			day = '0' + today.getDate();
-		}else{
-			day = today.getDate();
-		}
+        this.start_date = this.getCookie('start_date') || '2000-01-01';
+        this.end_date = this.getCookie('end_date') || todayDate;
 
-		var	todayDate = today.getFullYear() + '-' + month + '-' + day;
 
-		this.start_date = this.getCookie('start_date') || '2000-01-01';
-		this.end_date = this.getCookie('end_date') || todayDate;
+        $("#dateRangeJquery").daterangepicker("setRange", {
+            start: moment(this.start_date).toDate(),
+            end: moment(this.end_date).toDate()
+        });
 
-		$('#changeDateRangeLink').html(this.start_date + ' - ' + this.end_date);
+        $('#dateRangeJquery').on('change', this.changeDateRange);
+        $("#dateRangeJquery").on('open', function () {
+            googleTracking.sendTrackEvent('DateRange', 'OpenDialog');
+        });
 
-		$('#dateRange_start').val(this.start_date);
-		$('#dateRange_end').val(this.end_date);
+        callback(this);
+    },
 
-		$('#dateRangeCancelBtn').click(this.closeDialog);
-		$('#dateRangeSaveBtn').click(this.changeDateRange);
+    resetTime: function (softReset) {
+        googleTracking.sendTrackEvent('DateRange', 'Reset');
+        softReset = softReset || false;
+        var today = new Date(),
+            month, day;
+        if (today.getMonth() < 9) {
+            month = '0' + (today.getMonth() + 1);
+        } else {
+            month = today.getMonth() + 1;
+        }
 
-		callback(this);
-	},
+        if (today.getDate() < 10) {
+            day = '0' + today.getDate();
+        } else {
+            day = today.getDate();
+        }
+        var start = '2000-01-01',
+            end = today.getFullYear() + '-' + month + '-' + day;
 
-	resetTime: function(softReset){
-		googleTracking.sendTrackEvent('DateRange','Reset');
-		softReset = softReset || false;
-		var today = new Date(),
-				month, day;
-		if(today.getMonth() < 9){
-			month = '0' + (today.getMonth()+1);
-		}else{
-			month = today.getMonth()+1;
-		}
+        dateRangeController.setDates(start, end);
+    },
 
-		if(today.getDate() < 10){
-			day = '0' + today.getDate();
-		}else{
-			day = today.getDate();
-		}
-		var start = '2000-01-01',
-				end = today.getFullYear() + '-' + month + '-' + day;
+    getStart: function () {
+        return this.start_date;
+    },
 
-		dateRangeController.setDates(start, end);
-	},
+    getEnd: function () {
+        return this.end_date;
+    },
 
-	getStart: function(){
-		return this.start_date;
-	},
+    changeDateRange: function () {
+        var data = JSON.parse($('#dateRangeJquery').val());
+        console.log(data);
+        //console.log(data.start);
+        //var start = $('#dateRange_start').val(),
+        //end = $('#dateRange_end').val();
+        var start = data.start,
+            end = data.end;
+        // swap dates if in wrong order
+        if (new Date(start) > new Date(end)) {
+            var temp = start;
+            start = end;
+            end = temp;
+        }
+        dateRangeController.setDates(start, end);
+    },
 
-	getEnd: function(){
-		return this.end_date;
-	},
+    setDates: function (start, end) {
+        dateRangeController.setCookie('start_date', start);
+        dateRangeController.setCookie('end_date', end);
+        dateRangeController.start_date = start;
+        dateRangeController.end_date = end;
 
-	changeDateRange: function(){
-		var start = $('#dateRange_start').val(),
-		end = $('#dateRange_end').val();
+        if (window.CustomEvent) {
+            var event = new Event('dateRangeChanged');
+            $('#dateRangeJquery').trigger('dateRangeChanged');
+            googleTracking.sendTrackEvent('DateRange', 'DateChanged');
+        }
+    },
 
-		// switch dates if in wrong order
-		if(new Date(start) > new Date(end)){
-			var temp = start;
-			start = end;
-			end = temp;
-		}
-		dateRangeController.setDates(start, end);
-	},
+    setCookie: function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        exdays = exdays || 0.5;
 
-	setDates: function(start, end){
-		googleTracking.sendTrackEvent('DateRange','DateChanged');
-		dateRangeController.setCookie('start_date', start);
-		dateRangeController.setCookie('end_date', end);
-		dateRangeController.start_date = start;
-		dateRangeController.end_date = end;
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + "; " + expires;
+    },
 
-		$('#changeDateRangeLink').html(dateRangeController.start_date + ' - ' + dateRangeController.end_date);
-		if(window.CustomEvent){
-			var event = new Event('dateRangeChanged');
-			dateRangeController.closeDialog();
-			$('.dateRangeEditor').trigger('dateRangeChanged');
-		}
-	},
-
-	openDialog: function(){
-		$('.dateRangeEditor').toggleClass('show');
-		googleTracking.sendTrackEvent('DateRange','OpenDialog');
-	},
-
-	closeDialog: function(){
-		$('.dateRangeEditor').removeClass('show');
-	},
-
-	setCookie: function setCookie(cname, cvalue, exdays) {
-		var d = new Date();
-		exdays = exdays || 0.5;
-
-		d.setTime(d.getTime() + (exdays*24*60*60*1000));
-		var expires = "expires="+d.toUTCString();
-		document.cookie = cname + "=" + cvalue + "; " + expires;
-	},
-
-	getCookie: function getCookie(cname) {
-		var name = cname + "=";
-		var ca = document.cookie.split(';');
-		for(var i=0; i<ca.length; i++) {
-				var c = ca[i];
-				while (c.charAt(0)==' ') c = c.substring(1);
-				if (c.indexOf(name) == 0) return c.substring(name.length,c.length);
-		}
-		return "";
-	}
+    getCookie: function getCookie(cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1);
+            if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+        }
+        return "";
+    }
 }

@@ -15,6 +15,8 @@
 	<link rel="stylesheet" href="css/vendor/skeleton.css">
   <link rel="stylesheet" href="css/styles.css?v=1.0">
 	<link rel="stylesheet" href="css/vendor/c3.min.css">
+        <link rel="stylesheet" href="css/vendor/jquery-ui.min.css">
+    <link rel="stylesheet" href="css/vendor/jquery.comiseo.daterangepicker.css">
     <link rel="apple-touch-icon" sizes="57x57" href="/images/favicon/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/images/favicon/apple-touch-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="/images/favicon/apple-touch-icon-72x72.png">
@@ -47,7 +49,7 @@
                 NFL<span>Arrest</span>.com
 			</h1></a><a href="https://twitter.com/share" class="twitter-share-button twitter_Btn" data-url="http://nflarrest.com" data-text="Explore the arrest records of Football Players, find the most common crimes for your football team.">Tweet</a><div class="fb-share-button fb_Btn" data-href="http://NFLArrest.com" data-layout="button_count"></div>
 			<div class="dateRangeControl">
-				<span class="title">Date Range:</span> <a href="#" id="changeDateRangeLink">01/01/2000 - 01/01/2015</a>
+				<span class="title">Date Range:</span> <input id="dateRangeJquery" name="dateRangeJquery">
 			</div>
 		</header>
 		<br class="clear" />
@@ -77,7 +79,7 @@
 			</div>
 		</section>
 		<br class="clear" />
-		<footer>&copy; 2015 <a href="http://resume.patrickmurphyphoto.com">Patrick Murphy</a> | <a href="http://www.usatoday.com/sports/nfl/arrests/">Data Source</a> </footer>
+		<footer>&copy; 2016 <a href="http://resume.patrickmurphyphoto.com">Patrick Murphy</a> | <a href="http://www.usatoday.com/sports/nfl/arrests/">Data Source</a> </footer>
 	</div>
 
 	<!-- Include Javascript Logic -->
@@ -86,6 +88,9 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
 	<script src="js/vendor/d3.min.js"></script>
 	<script src="js/vendor/c3.js"></script>
+    <script src="js/vendor/jquery-ui.min.js" async></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js" async></script>
+    <script src="js/vendor/jquery.comiseo.daterangepicker.min.js" async></script>
 	<script src="js/donutChart.js"></script>
 	<script src="js/dateRangeController.js"></script>
   <script src="js/position.js"></script>

@@ -16,7 +16,7 @@ $( window ).load(function() {
 		setupCharts();
 		renderArrests();
 		console.log('init');
-		$('.dateRangeEditor').on('dateRangeChanged', function (e){
+		$('#dateRangeJquery').on('dateRangeChanged', function (e){
 			console.log('event caught');
 			setupCharts();
 			renderArrests();

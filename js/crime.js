@@ -21,7 +21,7 @@ $( window ).load(function() {
 		setupCharts();
 		renderArrests();
 		console.log('init');
-		$('.dateRangeEditor').on('dateRangeChanged', function (e){
+		$('#dateRangeJquery').on('dateRangeChanged', function (e){
 			console.log('event caught');
 			$('#loading-bar').fadeIn();
 			setupCharts();
@@ -146,7 +146,6 @@ function setupCharts(){
 		var newChart = donutChart.init({
 			data: newData,
 			targetElement: '#poschart',
-			chartTitle: 'Positions'
 		});
  		charts.push(newChart);
   });
