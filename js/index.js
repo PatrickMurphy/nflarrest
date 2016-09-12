@@ -11,6 +11,7 @@ $( window ).load(function() {
 		dateRangeNFL = newDateRange;
 		setupChart();
 		load_top_lists('first');
+
 		$('#dateRangeJquery').on('dateRangeChanged', function (e){
 			nflLoadingBar.showLoading();
 			setupChart();
@@ -21,9 +22,20 @@ $( window ).load(function() {
 
         $.getJSON('http://nflarrest.com/api/v1/team', function(data){
             $.each(data,function(key,val){
-                $('#bottomTeamLinks').append('<a href="team.html?from=front_page_bot_link#'+val.Team+'">'+val.Team_city +' '+val.Team_name+'</a> ');
+                $('#bottomTeamLinks').append('<a href="team.html?utm_source=onsite&utm_medium=teambotlinks&utm_term='+val.Team+'&utm_campaign=TeamBotLinkAddition#'+val.Team+'">'+val.Team_city +' '+val.Team_name+'</a> ');
             });
         });
+        $('#mainChartByTeamBtn').click(function(){
+            ytdChart = false;
+            changeTopChart();
+            googleTracking.sendTrackEvent('mainChart','switchToByTeam');
+        });
+        $('#mainChartByYearBtn').click(function(){
+            ytdChart = true;
+            changeTopChart();
+            googleTracking.sendTrackEvent('mainChart','switchToByYear');
+        });
+        $('#mainChartByTeamBtn').addClass('button-primary');
 		//if ($(window).width() >= 800) {
 		//	 $('#tooltip').fadeIn();
 		//}
@@ -78,9 +90,15 @@ function setupArrestOMeter(){
 	});
 }
 
-function toggleTopChart(){
-    ytdChart = !ytdChart;
+function changeTopChart(){
     setupChart();
+    if(ytdChart){
+        $('#mainChartByTeamBtn').removeClass('button-primary');
+        $('#mainChartByYearBtn').addClass('button-primary');
+    }else{
+        $('#mainChartByTeamBtn').addClass('button-primary');
+        $('#mainChartByYearBtn').removeClass('button-primary');
+    }
 }
 
 function getOverallChartData(callback){

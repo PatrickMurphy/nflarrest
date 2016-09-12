@@ -52,10 +52,14 @@ var stackedBarChart = {
             type: 'bar',
             onclick: function (d, i) {
                 // redirect to
-                googleTracking.sendTrackEvent('mainChart','teamLink');
-								setTimeout(function(){
-				window.location.href = "team.html#"+stackedBarChart.options.data.columns[0][d['index']+1];
-								}, 100);
+                if(typeof ytdChart != "undefined"){
+                    if(!ytdChart){
+                        googleTracking.sendTrackEvent('mainChart','teamLink');
+                                        setTimeout(function(){
+                        window.location.href = "team.html#"+stackedBarChart.options.data.columns[0][d['index']+1];
+                                        }, 100);
+                    }
+                }
             }
         },
 				zoom: {

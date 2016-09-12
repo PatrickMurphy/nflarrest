@@ -87,7 +87,6 @@ function setupCharts(){
     "FREE": "Free Agents",
     "SF": "FourtyNiners"
 };
-    document.title = "NFL Arrest | " + pageID +" "+temp[pageID]+" | Team Details"
 	getDonutData('api/team/topPlayers.php?id=' + pageID, 'Name', function(newData){
 		var newChart = donutChart.init({
 			data: newData,
@@ -110,6 +109,8 @@ function renderArrests(){
 	$.getJSON('api/team/arrests.php?id=' + pageID +'&start_date='+dateRangeNFL.getStart()+'&end_date='+dateRangeNFL.getEnd(), function(data){
 		var row,
 				items = ['<tr><th class="one column">Date:</th><th class="two columns">Name:</th><th class="one column">Crime:</th><th class="four columns">Description:</th><th class="four columns">Outcome:</th></tr>'];
+        document.title = "NFL Arrest | "+ data[0]['Team_city'] + " " + data[0]['Team_name']+" | List of Player Arrests";
+        $('#pageTitle').html("Team: " + data[0]['Team_city'] + " " + data[0]['Team_name']);
 		for(row in data){
 			row = data[row];
 				items.push('<tr><td class="one column">'+moment(row['Date'], "YYYY-MM-DD").fromNow() +'</td><td class="two columns"><a href="player.html#!'+row['Name']+'">'+row['Name']+'</a></td><td class="one column"><a href="crime.html#!' + row['Category'] + '">'+row['Category']+'</a></td><td class="four columns">'+row['Description']+'</td><td class="four columns">'+row['Outcome']+'</td></tr>');
