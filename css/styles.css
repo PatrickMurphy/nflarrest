@@ -354,6 +354,31 @@ vertical-align:super;
 	height: 25px;
 }
 
+#bottomTeamLinks {
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+#bottomTeamLinks h4 {
+    color: #6a6a6a;
+    font-weight: 600;
+    padding: 15px 0 0;
+}
+#bottomTeamLinks a {
+    text-decoration: none;
+    color: #333;
+    font-size: 1.051em;
+    padding: 2.5px 3.5px 2.5px 3.5px;
+    border-radius: 3px;
+    background: rgb(255, 235, 218);
+    margin-top: 6px;
+    display: inline-block;
+}
+
+#bottomTeamLinks a:hover {
+    background:rgb(255, 215, 182);
+    cursor: pointer;
+}
+
 .share_buttons {
 	padding-right: 7px;
 }

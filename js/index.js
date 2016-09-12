@@ -1,8 +1,9 @@
 var dateRangeNFL,
-		mainChartReturned = false;
+    mainChartReturned = false;
 var last_start_pos = 0,
-		listsReturnCount = 0,
-		listsReturned = false;
+    listsReturnCount = 0,
+    listsReturned = false,
+    ytdChart = false;
 
 $( window ).load(function() {
 	dateRangeController.init(function(newDateRange){
@@ -17,6 +18,12 @@ $( window ).load(function() {
 		});
 
 		$('#loadMoreLists').click(load_top_lists);
+
+        $.getJSON('http://nflarrest.com/api/v1/team', function(data){
+            $.each(data,function(key,val){
+                $('#bottomTeamLinks').append('<a href="team.html?from=front_page_bot_link#'+val.Team+'">'+val.Team_city +' '+val.Team_name+'</a> ');
+            });
+        });
 		//if ($(window).width() >= 800) {
 		//	 $('#tooltip').fadeIn();
 		//}
@@ -55,6 +62,8 @@ function setupArrestOMeter(){
 				percent = parseInt(daysSince) / recordAlltime;
 		$('#arrest_meter_text').html('It has been <b>'+ daysSince +'</b> Days since the last arrest.</p>');
 		$('#arrest_meter_subtext').html('Average: <b>'+recordAvg+'</b> Days | Record W/O arrest: <b>'+recordAlltime+'</b> Days');
+        $('.recordHolder').html(recordAlltime);
+        $('.avgRecord').html(recordAvg);
 		if(animate){
 			$('.meter-fg').animate({
         width: (percent*100) + '%'
@@ -69,12 +78,22 @@ function setupArrestOMeter(){
 	});
 }
 
+function toggleTopChart(){
+    ytdChart = !ytdChart;
+    setupChart();
+}
+
 function getOverallChartData(callback){
-	$.getJSON('http://nflarrest.com/api/overall/topTeams.php?graph=true&start_date='+dateRangeNFL.getStart()+'&end_date='+dateRangeNFL.getEnd(), callback);
-    //$.getJSON('http://nflarrest.com/api/overall/arrestsYTD.php?start_date='+dateRangeNFL.getStart()+'&end_date='+dateRangeNFL.getEnd(), callback);
+	if(!ytdChart){
+        $.getJSON('http://nflarrest.com/api/overall/topTeams.php?graph=true&start_date='+dateRangeNFL.getStart()+'&end_date='+dateRangeNFL.getEnd(), callback);
+    }else{
+        $.getJSON('http://nflarrest.com/api/overall/arrestsYTD.php?start_date='+dateRangeNFL.getStart()+'&end_date='+dateRangeNFL.getEnd(), callback);
+    }
 }
 
 function setupChart(){
+    if (typeof(stackedBarChart.stackedChart) != "undefined")
+        stackedBarChart.stackedChart.destroy();
 	getOverallChartData(function(newData){
  		stackedBarChart.init({
 			data: newData,
@@ -96,6 +115,7 @@ function load_top_list(data, page, prefix, list, values, replace){
 		last_start_pos = 0;
 	}
 		var items = [];
+    if(data.length > 0){
             $.each( data, function( key, val ) {
                 var link = "<a href=\""+page+".html#!"+val[values[0]]+"\">";
                 var link_end = '</a>';
@@ -105,6 +125,11 @@ function load_top_list(data, page, prefix, list, values, replace){
                 }
                 items.push( "<li id='" + prefix + key + "'>"+link+"<span>"+ val[values[0]] +"</span><span class='value-cell'>"+ val[values[1]] +"</span>"+link_end+"</li>" );
             });
+    }else{
+        if(replace){
+            items.push('<li class="list-no-data-msg-item">No Data Available for this Date Range</li>');
+        }
+    }
 
 
 		if(replace){
@@ -131,6 +156,8 @@ function load_top_lists(first, replace){
 	first = first || 'not first';
 	replace = replace || false;
 
+    $('.list-no-data-msg-item').remove();
+
 	if(first != 'first'){
 		googleTracking.sendTrackEvent('TopLists','Load Next Page');
 	}
@@ -142,6 +169,7 @@ function load_top_lists(first, replace){
 
         if((crimes_list.length + players_list.length + positions_list.length) <= 0 && last_start_pos == 0){
             console.log('no data returned');
+
             // create error
         }
 
