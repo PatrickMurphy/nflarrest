@@ -52,6 +52,42 @@ function getDonutData(url, param, callback){
 }
 
 function setupCharts(){
+    var temp = {
+    "CIN": "Bengals",
+    "DEN": "Broncos",
+    "MIN": "Vikings",
+    "TB": "Buccaneers",
+    "TEN": "Titans",
+    "JAC": "Jaguars",
+    "IND": "Colts",
+    "CHI": "Bears",
+    "KC": "Chiefs",
+    "MIA": "Dolphins",
+    "CLE": "Browns",
+    "SD": "Chargers",
+    "BAL": "Ravens",
+    "PIT": "Steelers",
+    "NO": "Saints",
+    "SEA": "Seahawks",
+    "GB": "Packers",
+    "OAK": "Raiders",
+    "WAS": "Redskins",
+    "ATL": "Falcons",
+    "ARI": "Cardinals",
+    "CAR": "Panthers",
+    "NE": "Patriots",
+    "BUF": "Buffalo Bills",
+    "DET": "Lions",
+    "DAL": "Cowboys",
+    "NYJ": "Jets",
+    "PHI": "Eagles",
+    "NYG": "NY Giants",
+    "HOU": "Texans",
+    "LA": "Rams",
+    "FREE": "Free Agents",
+    "SF": "FourtyNiners"
+};
+    document.title = "NFL Arrest | " + pageID +" "+temp[pageID]+" | Team Details"
 	getDonutData('api/team/topPlayers.php?id=' + pageID, 'Name', function(newData){
 		var newChart = donutChart.init({
 			data: newData,

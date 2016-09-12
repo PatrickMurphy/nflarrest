@@ -13,6 +13,7 @@ var stackedBarChart = {
 	},
 
 	init: function(options){
+        this.options.data = {};
 		$.extend(true, this.options, options);
 
 		var thisChart = this;
@@ -41,6 +42,7 @@ var stackedBarChart = {
 		stackedBarChart.stackedChart = c3.generate({
         bindto: stackedBarChart.options.targetElement,
         data: {
+            empty: { label: { text: "No Data Available for this Date Range" }   },
             x : 'x',
             columns: stackedBarChart.options.data.columns,
             groups: [
@@ -72,7 +74,9 @@ var stackedBarChart = {
         },
 			  color: {
 					pattern: ['#1F77B4', '#FF7F0E', '#2CA02C', '#D62728', '#9467BD', '#8C564B', '#E377C2', '#7F7F7F', '#BCBD22', '#17BECF', '#154F78', '#B0580A', '#248224', '#7D1717']
-				}
+                  // DUI Drugs Domestic Violence Assault / Battery Gun License / Traffic Alcohol Disorderly conduct Resisting Theft / Burglary Sex Animal Abuse Murder / Manslaughter Other
+				//pattern: ["#57b9c5", "#75ed85","#cd7b66", "#7f2b04", "#1d413b", "#3f862d", "#b4d170", "#f8cac2", "#f2c029", "#304f9b","#e84675", "#8cabea","#e13219", "#5d1a79"]
+              }
     });
 		if(stackedBarChart.options.customLegend){
 			stackedBarChart.renderCustomLegend();
@@ -133,10 +137,12 @@ var stackedBarChart = {
 	},
 	hideAllCategories: function(){
 		stackedBarChart.stackedChart.hide();
+        googleTracking.sendTrackEvent('mainChart','hideAll');
 		$('.customLegend-item').addClass('transparent');
 	},
 	showAllCategories: function(){
 		stackedBarChart.stackedChart.show();
+        googleTracking.sendTrackEvent('mainChart','showAll');
 		$('.customLegend-item').removeClass('transparent');
 	}
 };

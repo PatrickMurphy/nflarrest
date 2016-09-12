@@ -4,21 +4,21 @@
 <head>
     <meta charset="utf-8">
 
-    <title>NFL Arrest Statistics</title>
+    <title>NFL Arrest - Football Arrest Record Database &amp; Statistics</title>
     <meta property="og:url" content="http://NFLArrest.com" />
     <meta property="og:title" content="NFL Arrest Statistics" />
-    <meta property="og:description" content="Explore the arrest records of NFL Players, find the most common crimes for your rival football team. Find out what players have the most arrests and read the details of each incident! Checkout our Arrest-o-Meter and findout how many days it's been since the last NFL Arrest." />
+    <meta property="og:description" content="Explore every NFL Players arrest record since 2000, find the most common crimes for your rival football team. Find out what players have the most arrests and read the details of each incident! Checkout our Arrest-o-Meter and findout how many days it's been since the last NFL Arrest." />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="NFL Arrest"/>
     <meta property="og:image" content="http://nflarrest.com/images/preview.png?cache=710" />
-    <meta name="description" content="Explore the arrest records of NFL Players, find the most common crimes for your rival football team. Find out what players have the most arrests and read the details of each incident! Checkout our Arrest-o-Meter and findout how many days it's been since the last NFL Arrest.">
+    <meta name="description" content="Explore every NFL Players arrest record since 2000, find the most common crimes for your rival football team. Find out what players have the most arrests and read the details of each incident! Checkout our Arrest-o-Meter and findout how many days it's been since the last NFL Arrest.">
     <meta name="author" content="Patrick Murphy">
-		<meta name="twitter:card" content="summary_large_image">
-		<meta name="twitter:site" content="@nfl_arrest">
-		<meta name="twitter:creator" content="@patrickmurphoto">
-		<meta name="twitter:title" content="NFL Arrest Statistics">
-		<meta name="twitter:description" content="Explore the arrest records of NFL Players, find the most common crimes for your rival football team. Find out what players have the most arrests and read the details of each incident!">
-		<meta name="twitter:image" content="http://nflarrest.com/images/preview.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@nfl_arrest">
+    <meta name="twitter:creator" content="@patrickmurphoto">
+    <meta name="twitter:title" content="NFL Arrest Statistics">
+    <meta name="twitter:description" content="Explore the arrest records of NFL Players, find the most common crimes for your rival football team. Find out what players have the most arrests and read the details of each incident!">
+    <meta name="twitter:image" content="http://nflarrest.com/images/preview.png">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="image_src" href="http://nflarrest.com/images/preview.png" />
@@ -59,13 +59,13 @@
 		<br class="clear" />
 		<section>
 			<div class="row">
-				<div class="four columns"><p style="padding-left:3px;">NFL Arrest provides an interactive visualized breakdown of fifteen years of National Football League player Arrest data.  Learn about your rival team's history with the law, break down arrests by Player, Position, Crime and Team. Keep in mind there are 1700 NFL Players and their arrest rates are <a href="https://www.reddit.com/r/dataisbeautiful/comments/3gi77d/how_many_nfl_players_on_each_team_were_arrested/ctydd3i">lower than the USA arrest rate</a>.</p></div>
+				<div class="four columns"><p style="padding-left:3px;">NFL Arrest provides an interactive visualized database of fifteen years of National Football League player Arrests &amp; Charges.  Learn about your rival team's history with the law, break down arrests by Player, Position, Crime and Team.  Keep in mind there are 1700 NFL Players and their arrest rates are <a href="https://www.reddit.com/r/dataisbeautiful/comments/3gi77d/how_many_nfl_players_on_each_team_were_arrested/ctydd3i">lower than the USA arrest rate</a>.</p></div>
 				<div id="arrest-o-meter" class="four columns">
 						<h5>The Arrest-O-Meter:</h5>
 						<div class="row meter-bg">
 							<div class="meter-fg">&nbsp;</div>
-							<span style="position:absolute; left:10.9%;">7</span>
-							<span style="position:absolute; right:1%;">64</span>
+							<span style="position:absolute; left:10.9%;" class="avgRecord">7</span>
+							<span style="position:absolute; right:1%;" class="recordHolder">71</span>
 						</div>
 						<p id="arrest_meter_text">It has been <b>?</b> Days since the last arrest.</p>
 						<p id="arrest_meter_subtext">Average: <b>7</b> Days | Record W/O arrest: <b>64</b> Days</p>
@@ -81,6 +81,7 @@
         data-layout="box_count">
 				</div>
 					<a href="https://twitter.com/share" class="twitter-share-button twitter_Btn" data-url="http://nflarrest.com" data-text="Explore the arrest records of Football Players, find the most common crimes for your football team." data-count="vertical">Tweet</a>
+                    <script type="text/javascript" src="//www.redditstatic.com/button/button1.js"></script>
 				</div>
 				</div>
 			<div class="row dividedSection"><div class="dateRangeControl">
@@ -121,6 +122,7 @@
 				</div>
 				<br />
 			</aside>
+            <div id="bottomTeamLinks"><span>View Team Details: </span></div>
 		</section>
 		<br class="clear" />
 		<footer>Made By <a href="http://resume.patrickmurphyphoto.com" title="Want to see my Resume?">Patrick Murphy</a> | <a href="http://nflarrest.com/api/">Open API</a><span class="new-super">New!</span> </footer>
@@ -131,25 +133,8 @@
     </div>
 		<table></table>
 </div>
-	<script>
-		function loadCSS(url){
-			(function(d, t) {
-					var g = d.createElement(t),
-							s = d.getElementsByTagName(t)[0];
-					g.href = url;
-					g.rel = 'stylesheet';
-					s.parentNode.insertBefore(g, s);
-			}(document, 'LINK'));
-		}
-		loadCSS('css/styles.min.css');
-		loadCSS('//fonts.googleapis.com/css?family=Raleway:400,300,500,600');
-		loadCSS('css/vendor/normalize.min.css');
-		loadCSS('css/vendor/skeleton.min.css');
-		loadCSS('css/vendor/c3.css');
-		loadCSS('css/vendor/jquery-ui.min.css');
-        loadCSS('css/vendor/jquery.comiseo.daterangepicker.css');
-	</script>
 	<!-- Include Javascript Logic -->
+    <script src="js/loadCSS.js"></script>
 	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script src="js/vendor/jquery-ui.min.js" ></script>
 	<script src="js/google-tracking.js" async></script>

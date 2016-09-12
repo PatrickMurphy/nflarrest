@@ -36,6 +36,7 @@ function getDonutData(url, param, callback){
 }
 
 function setupCharts(){
+    document.title = "NFL Arrest | " + pageID + " | Player Details";
 	getDonutData('api/v1/player/topCrimes/' + pageID, 'category', function(newData){
 		var newChart = donutChart.init({
 			data: newData,

@@ -52,6 +52,7 @@ function getDonutData(url, param, callback){
 }
 
 function setupCharts(){
+    document.title = "NFL Arrest | "+pageID+" | Position Details";
 	getDonutData('api/position/topTeams.php?id=' + pageID, 'Team', function(newData){
 		var newChart = donutChart.init({
 			data: newData,

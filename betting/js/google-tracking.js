@@ -1,16 +1,4 @@
-var getQueryString = function ( field, url ) {
-    var href = url ? url : window.location.href;
-    var reg = new RegExp( '[?&]' + field + '=([^&#]*)', 'i' );
-    var string = reg.exec(href);
-    return string ? string[1] : null;
-};
-console.log(getQueryString('register'));
-console.log(getQueryString('login'));
-console.log(getQueryString('user'));
-console.log(getQueryString('register'));
-
-var hashervar = window.location.hash || '',
-    pagePath =  window.location.pathname + hashervar;
+var pagePath =  window.location.pathname + window.location.search;
 
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

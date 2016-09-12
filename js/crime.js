@@ -125,7 +125,7 @@ function setupTimeline(){
 
 function setupCharts(){
 	setupTimeline();
-
+    document.title = "NFL Arrest | "+pageID+" | Crime Details"
 	getDonutData('api/crime/topTeams.php?id=' + pageID, 'Team', function(newData){
 		var newChart = donutChart.init({
 			data: newData,
