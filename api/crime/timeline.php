@@ -1,5 +1,5 @@
 <?php
-// SELECT MONTH(Date) AS Month, YEAR(Date) AS Year, COUNT(Category) AS arrest_count FROM `arrest_stats` WHERE Category = 'DUI' GROUP BY YEAR(Date), MONTH(Date) ORDER BY Date ASC
+// SELECT MONTH(Date) AS Month, YEAR(Date) AS Year, COUNT(Category) AS arrest_count FROM '.$DB_MAIN_TABLE.' WHERE Category = 'DUI' GROUP BY YEAR(Date), MONTH(Date) ORDER BY Date ASC
 
 if(!isset($_GET['id'])){
 	die('must select crime');
@@ -27,9 +27,9 @@ if(isset($_GET['start_date']) || isset($_GET['end_date'])){
 }
 
 if(isset($_GET['simple'])){
-		$query = 'SELECT MONTH(Date) AS Month, YEAR(Date) AS Year, COUNT(Category) AS arrest_count FROM `arrest_stats` WHERE general_category_id = (SELECT general_category_id FROM `general_category` WHERE Category = \''. $id .'\') '. $date_range .' GROUP BY YEAR(Date), MONTH(Date) ORDER BY Date ASC' . $limit;
+		$query = 'SELECT MONTH(Date) AS Month, YEAR(Date) AS Year, COUNT(Category) AS arrest_count FROM '.$DB_MAIN_TABLE.' WHERE general_category_id = (SELECT general_category_id FROM `general_category` WHERE Category = \''. $id .'\') '. $date_range .' GROUP BY YEAR(Date), MONTH(Date) ORDER BY Date ASC' . $limit;
 }else{
-	$query = 'SELECT MONTH(Date) AS Month, YEAR(Date) AS Year, COUNT(Category) AS arrest_count FROM `arrest_stats` WHERE Category = \''. $id .'\''. $date_range .' GROUP BY YEAR(Date), MONTH(Date) ORDER BY Date ASC' . $limit;
+	$query = 'SELECT MONTH(Date) AS Month, YEAR(Date) AS Year, COUNT(Category) AS arrest_count FROM '.$DB_MAIN_TABLE.' WHERE Category = \''. $id .'\''. $date_range .' GROUP BY YEAR(Date), MONTH(Date) ORDER BY Date ASC' . $limit;
 }
 
 

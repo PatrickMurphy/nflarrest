@@ -67,9 +67,9 @@ if(isset($_GET['start_date']) || isset($_GET['end_date'])){
 }
 
 if(isset($_GET['graph'])){
-    $query = 'SELECT Team, b.Category, count(a.arrest_stats_id) AS arrest_count FROM `arrest_stats` AS a, `general_category` AS b WHERE (Date BETWEEN \'' . $start . "' AND '" . $end . '\') AND a.general_category_id = b.general_category_id GROUP BY a.Team, b.Category ORDER BY Team, b.Category DESC';
+    $query = 'SELECT Team, b.Category, count(a.arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' AS a, `general_category` AS b WHERE (Date BETWEEN \'' . $start . "' AND '" . $end . '\') AND a.general_category_id = b.general_category_id GROUP BY a.Team, b.Category ORDER BY Team, b.Category DESC';
 }else{
-    $query = 'SELECT Team, count(arrest_stats_id) AS arrest_count FROM `arrest_stats` '. $date_range .'GROUP BY Team ORDER BY arrest_count DESC' . $limit;
+    $query = 'SELECT Team, Team_name, Team_city, count(arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. $date_range .'GROUP BY Team, Team_name, Team_city ORDER BY arrest_count DESC' . $limit;
 }
 $result = $db->query($query);
 
@@ -81,7 +81,7 @@ if(isset($_GET['graph'])){
 			$team_stats[$row['Team']][$row['Category']] = $row['arrest_count'];
 	}
 
-	$result3 = $db->query('SELECT b.Category, count(a.arrest_stats_id) AS arrest_count FROM `arrest_stats` AS a, `general_category` AS b WHERE (Date BETWEEN \'' . $start . "' AND '" . $end . '\') AND a.general_category_id = b.general_category_id GROUP BY b.Category ORDER BY arrest_count DESC');
+	$result3 = $db->query('SELECT b.Category, count(a.arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' AS a, `general_category` AS b WHERE (Date BETWEEN \'' . $start . "' AND '" . $end . '\') AND a.general_category_id = b.general_category_id GROUP BY b.Category ORDER BY arrest_count DESC');
 	$addOther = false;
 	foreach($result3 as $row3){
 		if(!in_array($row3['Category'], $categories)){
@@ -97,7 +97,7 @@ if(isset($_GET['graph'])){
 	}
 
     // get teams
-    $result2 = $db->query('SELECT Team, count(arrest_stats_id) AS arrest_count FROM `arrest_stats` '. $date_range .'GROUP BY Team ORDER BY arrest_count DESC' . $limit);
+    $result2 = $db->query('SELECT Team, count(arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. $date_range .'GROUP BY Team ORDER BY arrest_count DESC' . $limit);
 
     $teams = [];
     $new_result['columns'][0][0] = 'x';

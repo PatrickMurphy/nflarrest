@@ -1,5 +1,5 @@
 <?php
-// SELECT MONTH(Date) AS Month, YEAR(Date) AS Year, COUNT(Category) AS arrest_count FROM `arrest_stats` WHERE Category = 'DUI' GROUP BY YEAR(Date), MONTH(Date) ORDER BY Date ASC
+// SELECT MONTH(Date) AS Month, YEAR(Date) AS Year, COUNT(Category) AS arrest_count FROM '.$DB_MAIN_TABLE.' WHERE Category = 'DUI' GROUP BY YEAR(Date), MONTH(Date) ORDER BY Date ASC
 
 if(!isset($_GET['id'])){
 	die('must select crime');
@@ -26,6 +26,6 @@ if(isset($_GET['start_date']) || isset($_GET['end_date'])){
 	$date_range = " && Date BETWEEN '" . $start . "' AND '" . $end . "' ";
 }
 
-$result = $db->query('SELECT MONTH(Date) AS Month, YEAR(Date) AS Year, COUNT(Position) AS arrest_count FROM `arrest_stats` WHERE Position = \''. $id .'\''. $date_range .' GROUP BY YEAR(Date), MONTH(Date) ORDER BY Date ASC' . $limit);
+$result = $db->query('SELECT MONTH(Date) AS Month, YEAR(Date) AS Year, COUNT(Position) AS arrest_count FROM '.$DB_MAIN_TABLE.' WHERE Position = \''. $id .'\''. $date_range .' GROUP BY YEAR(Date), MONTH(Date) ORDER BY Date ASC' . $limit);
 
 print json_encode(gather_results($result));

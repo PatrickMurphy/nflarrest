@@ -1,5 +1,5 @@
 <?php
-//SELECT * FROM `arrest_stats` WHERE name = 'Aldon Smith' ORDER BY Date Desc
+//SELECT * FROM '.$DB_MAIN_TABLE.' WHERE name = 'Aldon Smith' ORDER BY Date Desc
 if(isset($_GET['id'])){
 	$id = $_GET['id'];
 }else{
@@ -24,6 +24,6 @@ if(isset($_GET['start_date']) || isset($_GET['end_date'])){
 	$date_range = " && Date BETWEEN '" . $start . "' AND '" . $end . "' ";
 }
 
-$result = $db->query('SELECT * FROM `arrest_stats` WHERE Position = \''. $id .'\''. $date_range .'ORDER BY Date DESC' . $limit);
+$result = $db->query('SELECT * FROM '.$DB_MAIN_TABLE.' WHERE Position = \''. $id .'\''. $date_range .'ORDER BY Date DESC' . $limit);
 
 print json_encode(gather_results($result));

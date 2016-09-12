@@ -56,16 +56,16 @@ $query = 'SELECT * FROM `ArrestsByYearView` '. $date_range . $limit;
 
 $result = $db->query($query);
 
-	$year_stats = array('columns'=>array('x'=>array(),'Year to Date'=>array(),'Total'=>array()));
+	$year_stats2 = array('columns'=>array('x'=>array('x'),'Year to Date'=>array('Year to Date'),'Total'=>array('Total')));
 
 	foreach($result as $row){
        // print_r( $row);
-        array_push($year_stats['columns']['x'], $row['Year']);
-        array_push($year_stats['columns']['Year to Date'], $row['ArrestsYTD']);
-        array_push($year_stats['columns']['Total'], $row['ArrestsDiff']);
+        array_push($year_stats2['columns']['x'], $row['Year']);
+        array_push($year_stats2['columns']['Year to Date'], $row['ArrestsYTD']);
+        array_push($year_stats2['columns']['Total'], $row['ArrestsDiff']);
 			//$year_stats[$row['Team']][$row['Category']] = $row['arrest_count'];
     }
 
-    //$['columns'] = array_values($year_stats['columns']);
+    $year_stats['columns'] = array_values($year_stats2['columns']);
     $year_stats['groups'] = ['Total', 'Year to Date'];
     print json_encode($year_stats);

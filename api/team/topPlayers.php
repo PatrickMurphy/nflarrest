@@ -24,6 +24,6 @@ if(isset($_GET['start_date']) || isset($_GET['end_date'])){
 	$date_range = " && Date BETWEEN '" . $start . "' AND '" . $end . "' ";
 }
 
-$result = $db->query('SELECT Name, count(arrest_stats_id) AS arrest_count FROM `arrest_stats` WHERE Team = \''. $id .'\''. $date_range .' GROUP BY Name ORDER BY arrest_count DESC' . $limit);
+$result = $db->query('SELECT Name, count(arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' WHERE Team = \''. $id .'\''. $date_range .' GROUP BY Name ORDER BY arrest_count DESC' . $limit);
 
 print json_encode(gather_results($result));

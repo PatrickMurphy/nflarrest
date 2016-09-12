@@ -1,5 +1,5 @@
 <?php
-//SELECT category, COUNT(Category) FROM `arrest_stats` WHERE name = 'Aldon Smith' GROUP BY Category ORDER BY Date Desc
+//SELECT category, COUNT(Category) FROM '.$DB_MAIN_TABLE.' WHERE name = 'Aldon Smith' GROUP BY Category ORDER BY Date Desc
 if(!isset($_GET['id'])){
 	die('must select player name');
 }else{
@@ -25,6 +25,6 @@ if(isset($_GET['start_date']) || isset($_GET['end_date'])){
 	$date_range = " && Date BETWEEN '" . $start . "' AND '" . $end . "' ";
 }
 
-$result = $db->query('SELECT category, COUNT(Category) AS arrest_count FROM `arrest_stats` WHERE Name = \''. $id .'\''. $date_range .' GROUP BY Category ORDER BY Date DESC' . $limit);
+$result = $db->query('SELECT category, COUNT(Category) AS arrest_count FROM '.$DB_MAIN_TABLE.' WHERE Name = \''. $id .'\''. $date_range .' GROUP BY Category ORDER BY Date DESC' . $limit);
 
 print json_encode(gather_results($result));

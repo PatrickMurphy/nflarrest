@@ -27,7 +27,7 @@ function guessBet($inputArray){
 	$tempOdds = 1;
 
 	if(isset($inputArray['crime']) && $inputArray['crime'] != 'no-choice'){
-		$countResult = $db->query('SELECT COUNT(arrest_stats_id) AS `total`, (SELECT COUNT(arrest_stats_id) FROM `arrest_stats` WHERE general_category_id = '.$inputArray['crime'].') as `cat_total` FROM `arrest_stats`');
+		$countResult = $db->query('SELECT COUNT(arrest_stats_id) AS `total`, (SELECT COUNT(arrest_stats_id) FROM '.$DB_MAIN_TABLE.' WHERE general_category_id = '.$inputArray['crime'].') as `cat_total` FROM '.$DB_MAIN_TABLE.'');
 		$countResult = $countResult->fetch_assoc();
 		$newOdds = 1/($countResult['cat_total']/$countResult['total']);
 		$tempOdds = ($newOdds/1 + 1);

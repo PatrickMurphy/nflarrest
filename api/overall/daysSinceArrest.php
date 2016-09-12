@@ -22,6 +22,6 @@ if(isset($restful)){
 }
 
 // get days since last arrest
-$result = $db->query('SELECT DATEDIFF(NOW(),Date) AS daysSinceArrest FROM `arrest_stats` ORDER BY Date DESC LIMIT 1 ');
+$result = $db->query('SELECT DATEDIFF(NOW(),Date) AS daysSinceArrest FROM '.$DB_MAIN_TABLE.' ORDER BY Date DESC LIMIT 1 ');
 
 print json_encode(gather_results($result));

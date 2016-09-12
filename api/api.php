@@ -17,3 +17,6 @@ function gather_results($result){
 	return $return_array;
 }
  header("Access-Control-Allow-Origin: *");
+
+//sets the table that standard queries pull from
+$DB_MAIN_TABLE = 'ArrestsDateView';

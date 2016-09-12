@@ -64,13 +64,13 @@ if(isset($_GET['daysSince'])){
 	$daysSince = $_GET['daysSince'];
 }else{
 	// determine how many days since last
-	$lastResult = $db->query('SELECT Date FROM `arrest_stats`' . $where . ' ORDER BY Date DESC LIMIT 1');
+	$lastResult = $db->query('SELECT Date FROM '.$DB_MAIN_TABLE.'' . $where . ' ORDER BY Date DESC LIMIT 1');
 	$lastArrest = $lastResult->fetch_assoc();
 	$daysSince = floor((abs(strtotime(date('Y-m-d')) - strtotime($lastArrest['Date'])))/(60*60*24));
 }
 
 // get avg and max and last time it was days since
-$result = $db->query('SELECT Date FROM `arrest_stats`'. $where .' ORDER BY Date ASC');
+$result = $db->query('SELECT Date FROM '.$DB_MAIN_TABLE.''. $where .' ORDER BY Date ASC');
 $data = gather_results($result);
 $max_span = 0; // start with zero days
 $max_dates = [];
