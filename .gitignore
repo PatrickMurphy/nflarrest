@@ -6,3 +6,5 @@
 /api/db_config.php
 /node/node_modules/
 /london/
+/css/vendor/jquery-ui.structure.min.css
+/css/vendor/jquery-ui.theme.min.css
