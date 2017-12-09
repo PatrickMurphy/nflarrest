@@ -61,7 +61,7 @@ class Login
             	$query = 'UPDATE `users` SET `last_login` = '.$now.', `balance`='.$_SESSION['balance'].' WHERE user_id='.$_SESSION['user_id'];
             	//print $query;
             	$this->db_connection->query($query);
-
+            	
             	return true;
     	}
     }
@@ -109,8 +109,8 @@ class Login
                     // the hash of that user's password
                     if (password_verify($_POST['user_password'], $result_row->user_password_hash)) {
 
-
-
+			
+			
                         // write user data into PHP SESSION (a file on your server)
                         $_SESSION['user_name'] = $result_row->user_name;
                         $_SESSION['user_email'] = $result_row->user_email;
@@ -158,7 +158,7 @@ class Login
             if($_SESSION['user_last_login'] != 'init'){
             	$this->updateLastLogin();
             }
-            return true;
+            return true; 
         }
         // default return
         return false;

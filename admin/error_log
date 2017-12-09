@@ -1,0 +1,5 @@
+[31-Jul-2017 13:30:27 America/Chicago] PHP Parse error:  syntax error, unexpected '<' in /home3/pmphotog/public_html/PatrickMurphyWebdesign.com/Projects/nflarrest/admin/loggedIn.php on line 99
+[27-Aug-2017 15:50:56 America/Chicago] PHP Warning:  session_start(): open(/tmp/sess_c9589d8a2d7a044c975d28518c85937a, O_RDWR) failed: Permission denied (13) in /home3/pmphotog/public_html/PatrickMurphyWebdesign.com/Projects/nflarrest/admin/index.php on line 2
+[27-Aug-2017 15:50:56 America/Chicago] PHP Warning:  session_start(): Cannot send session cache limiter - headers already sent (output started at /home3/pmphotog/public_html/PatrickMurphyWebdesign.com/Projects/nflarrest/admin/index.php:2) in /home3/pmphotog/public_html/PatrickMurphyWebdesign.com/Projects/nflarrest/admin/index.php on line 2
+[27-Aug-2017 15:50:56 America/Chicago] PHP Warning:  Unknown: open(/tmp/sess_c9589d8a2d7a044c975d28518c85937a, O_RDWR) failed: Permission denied (13) in Unknown on line 0
+[27-Aug-2017 15:50:56 America/Chicago] PHP Warning:  Unknown: Failed to write session data (files). Please verify that the current setting of session.save_path is correct (/tmp) in Unknown on line 0

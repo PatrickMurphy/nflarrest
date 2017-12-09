@@ -20,12 +20,16 @@ $id = $_GET['id'];
 }
 
 // check endpoint
-$endpoints = ['crime', 'player', 'team', 'position', 'meter', 'bets'];
+$endpoints = ['crime', 'player', 'team', 'position', 'meter','lastarrestbyteam','arrestsseasonstate', 'bets'];
 if(in_array($endpoint, $endpoints)){
 	// check verb
 	if($verb == false){
 		if($endpoint == 'meter'){
-			include('meter.php');
+			include('NewMeter.php');
+		}else if($endpoint == 'lastarrestbyteam'){
+			include('overall/lastArrestByTeam.php');
+		}else if($endpoint == 'arrestsseasonstate'){
+			include('overall/arrestsSeasonState.php');
 		}else{
 			include('overall/top' . ucfirst($endpoint) . 's.php');
 		}

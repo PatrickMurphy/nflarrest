@@ -8,7 +8,7 @@ function loadCSS(url) {
     }(document, 'LINK'));
 }
 loadCSS('css/styles.min.css');
-loadCSS('http://fonts.googleapis.com/css?family=Raleway:400,300,500,600');
+loadCSS('//fonts.googleapis.com/css?family=Raleway:400,300,500,600');
 loadCSS('css/vendor/normalize.min.css');
 loadCSS('css/vendor/skeleton.min.css');
 loadCSS('css/vendor/c3.css');

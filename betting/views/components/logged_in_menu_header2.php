@@ -8,7 +8,12 @@
 	<aside class="three columns">
 		<h4>Menu</h4>
 		<ul>
-			<li style="list-style:none;"><a href="javascript:$('#login_window').show();" class="button">Login!</a></li>
+			<li style="list-style:none;"><a href="javascript:showLoginWindow();" class="button">Login!</a></li>
 			<li style="list-style:none;background-color:transparent !important;"><a href="http://nflarrest.com/betting/index.php?register" class="button primary-button button-primary" >Register!</a></li><li style="list-style:none;"><a href="javascript:showPlaceBet()" class="button">Place A Bet!</a></li>
 		</ul>
 	</aside>
+<script>
+  function showLoginWindow(){
+  	$('#login_window').show();
+  }
+</script>

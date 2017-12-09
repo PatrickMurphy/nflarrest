@@ -161,7 +161,7 @@ function getDBData(){
 		<style>
 			a.button[href='javascript:showPlaceBet()'] {
 				background-color:#888888;
-                background-image:  url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACcElEQVRIS7WW4VUUQRCEqyJQI9CLQIlAjUCJAIxALwIxAiECJQIhAiUCjwjECNQI2veNPUvvsHfgD/q9e+92Z6arp6p6Zq0dERFPJL2S9ELSM0k8E1eSNpK+STq3zfNieOltRDyU9FHSYRm/yMS8Auh5GfssaW3795jvBkBEvJb0SRIgU9iezY2IGJKR/I3ts9m6+hARVEzyG3EHgL4GEHbUYqoqK/+yQxJ4rhr0/0tL9vtOGkCK+V3Sn+T9aOCYaZcpLP8R/OmQGY3eSYKiB5L2EL8DsKWDfIk7AKXix7iEhaNTsqjjdNmV7VWuA5xiT20fOif+SLshMMlZ+DZFm/iMCCqUbcZbRAS7fS/pxHYbjwjsi8tWAPASSx7bXi8BlkTsEu5JAM/NlhEBLfTLip2WAtcA9EHmspCgsdrkTNDdBV2NwiyoAwAKC3U9c84BYMEo2KVtuBxpOLL9Yck2W/JsABgbhvVNoAIAGNXhDqqGzhnQwMRUw50AkiY6G1A0w10cDVXsSvUMoNux7nxje28LFejztbouC1imumyNJqM66MCiVWTeY0WSICi/qVuL805yDjuDziZyt2lbUCaf2d7P6kjY6QEEsbtjlmxKP3HsNJt2i03CFh/TwVTV3UQxdO10Ym5ptOu+yAr7UfGSygoow0xG0NmlknNo0Nb9pcm6Rv+OiuIQEvzKhK3lh4Ca3mToNPVJmQf3AD5CJzr9f47rn2lP8nGyjs1Z65kf14Xj+7twCghbRBNsdt0wt1+Z7S7ZeWUWEJzFMczp2QNbdqEZR8wep3ln3H7p16rTKeyof7ZwRBDo0T9b6Jetny1/AQx4VidHdx4LAAAAAElFTkSuQmCC');
+                background-image:  url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAACcElEQVRIS7WW4VUUQRCEqyJQI9CLQIlAjUCJAIxALwIxAiECJQIhAiUCjwjECNQI2veNPUvvsHfgD/q9e+92Z6arp6p6Zq0dERFPJL2S9ELSM0k8E1eSNpK+STq3zfNieOltRDyU9FHSYRm/yMS8Auh5GfssaW3795jvBkBEvJb0SRIgU9iezY2IGJKR/I3ts9m6+hARVEzyG3EHgL4GEHbUYqoqK/+yQxJ4rhr0/0tL9vtOGkCK+V3Sn+T9aOCYaZcpLP8R/OmQGY3eSYKiB5L2EL8DsKWDfIk7AKXix7iEhaNTsqjjdNmV7VWuA5xiT20fOif+SLshMMlZ+DZFm/iMCCqUbcZbRAS7fS/pxHYbjwjsi8tWAPASSx7bXi8BlkTsEu5JAM/NlhEBLfTLip2WAtcA9EHmspCgsdrkTNDdBV2NwiyoAwAKC3U9c84BYMEo2KVtuBxpOLL9Yck2W/JsABgbhvVNoAIAGNXhDqqGzhnQwMRUw50AkiY6G1A0w10cDVXsSvUMoNux7nxje28LFejztbouC1imumyNJqM66MCiVWTeY0WSICi/qVuL805yDjuDziZyt2lbUCaf2d7P6kjY6QEEsbtjlmxKP3HsNJt2i03CFh/TwVTV3UQxdO10Ym5ptOu+yAr7UfGSygoow0xG0NmlknNo0Nb9pcm6Rv+OiuIQEvzKhK3lh4Ca3mToNPVJmQf3AD5CJzr9f47rn2lP8nGyjs1Z65kf14Xj+7twCghbRBNsdt0wt1+Z7S7ZeWUWEJzFMczp2QNbdqEZR8wep3ln3H7p16rTKeyof7ZwRBDo0T9b6Jetny1/AQx4VidHdx4LAAAAAElFTkSuQmCC');     
 				background-position:5px center;
 				background-repeat:no-repeat;
 				padding-left:34px !important;
@@ -188,7 +188,7 @@ function getDBData(){
 			</h1></a>
 			<span>Make fantasy bets on NFL Arrests</span>
 		</header>
-			<section style="text-align:left !important;">
+			<section style="text-align:left !important;clear:both;">
 <?php
 
 if(isset($_GET['register'])){

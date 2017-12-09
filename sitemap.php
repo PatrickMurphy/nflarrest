@@ -18,14 +18,14 @@ function print_results($result, $url){
 	$return_array = [];
 	for($i = 0; $i < $result->num_rows; $i++){
 		$temp = $result->fetch_assoc();
-		print '<url><loc>http://nflarrest.com/'.$url.urlencode($temp['id']).'</loc></url>';
+		print '<url><loc>http://nflarrest.com/'.$url.urlencode($temp['id']).'/</loc></url>';
 	}
 	return $return_array;
 }
 
 
 print'<?xml version="1.0" encoding="utf-8"?>';
-print'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+print'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">';
 print'<url>
@@ -37,8 +37,8 @@ print'<url>
   <lastmod>2015-10-05T22:43:23+00:00</lastmod>
 </url>';
 
-print_results($teams, 'team.html#!');
-print_results($crimes, 'crime.html#!');
-print_results($pos, 'position.html#!');
+print_results($teams, 'team/');
+print_results($crimes, 'crime/');
+print_results($pos, 'position/');
 
 print  '</urlset>';

@@ -13,7 +13,7 @@ var dateLondonRangeController = {
 		}else{
 			var hash = '#!';
 		}
-
+		
 		function createInput(id){
 			id = id + '';
 			id.toLowerCase();
@@ -33,7 +33,7 @@ var dateLondonRangeController = {
 			'</span>'+
 		'</span>';
 		}
-
+		
 		$('.container').append(
 			'<div class="dateRangeEditor four columns offset-by-eight">'+
 				'<form class="dateRangeForm">'+
@@ -59,7 +59,7 @@ var dateLondonRangeController = {
 		//$('#dateRange_end').val(this.end_date);
 		$('#dateRange_start_month').val(parseInt(this.start_date.month));
 		$('#dateRange_end_month').val(parseInt(this.end_date.month));
-
+		
 		$('#dateRange_start_year').val(this.start_date.year);
 		$('#dateRange_end_year').val(this.end_date.year);
 
@@ -77,11 +77,11 @@ var dateLondonRangeController = {
 
 		dateLondonRangeController.setDates(start, end);
 	},
-
+	
 	getStartString: function(){
 		return dateLondonRangeController.start_date.month+'/'+dateLondonRangeController.start_date.year;
 	},
-
+	
 	getEndString: function(){
 		return dateLondonRangeController.end_date.month+'/'+dateLondonRangeController.end_date.year;
 	},
@@ -93,7 +93,7 @@ var dateLondonRangeController = {
 	getEnd: function(){
 		return dateLondonRangeController.end_date;
 	},
-
+	
 	setStart: function(start){
 		if(start.hasOwnProperty('month') && start.hasOwnProperty('year')){
 			start.month = parseInt(start.month);
@@ -107,13 +107,13 @@ var dateLondonRangeController = {
 			if(start.year < 2009){
 				start.year = 2009 + '';
 			}
-
+			
 			start.year = start.year + '';
 			dateLondonRangeController.start_date.month = start.month;
 			dateLondonRangeController.start_date.year = start.year;
 		}
 	},
-
+	
 	setEnd: function(end){
 		if(end.hasOwnProperty('month') && end.hasOwnProperty('year')){
 			end.month = parseInt(end.month);
@@ -144,7 +144,7 @@ var dateLondonRangeController = {
 		if(end.month < 9){
 			end.month = '0' + end.month;
 		}
-
+		
 		// switch dates if in wrong order
 		if(new Date(start.year+'-'+start.month) > new Date(end.year+'-'+end.month)){
 			var temp = start; // temp for swap
@@ -190,9 +190,9 @@ var dateLondonRangeController = {
 
 		d.setTime(d.getTime() + (exdays*24*60*60*1000));
 		var expires = "expires="+d.toUTCString();
-
+		
 		cvalue = [cvalue.month,cvalue.year].join();
-
+		
 		document.cookie = cname + "=" + cvalue + "; " + expires;
 	},
 
@@ -204,7 +204,7 @@ var dateLondonRangeController = {
 				while (c.charAt(0)==' ') c = c.substring(1);
 				if (c.indexOf(name) == 0){
 					var cook = c.substring(name.length,c.length);
-					var cookdata = cook.split(',');
+					var cookdata = cook.split(','); 
 					return {month:cookdata[0],year:cookdata[1]};
 				};
 		}
