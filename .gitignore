@@ -4,6 +4,7 @@
 /bower_components/
 /node_modules/
 /api/db_config.php
+/admin/db_config.php
 /node/node_modules/
 /london/
 /css/vendor/jquery-ui.structure.min.css
