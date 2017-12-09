@@ -38,22 +38,26 @@ $mail->AltBody = 'To view the message, please use an HTML compatible email viewe
 
 //Connect to the database and select the recipients from your mailing list that have not yet been sent to
 //You'll need to alter this to match your database
-$mysql = mysqli_connect('localhost', 'username', 'password');
-mysqli_select_db($mysql, 'mydb');
-$result = mysqli_query($mysql, 'SELECT full_name, email, photo FROM mailinglist WHERE sent = FALSE');
+
+
+require_once('db_config.php');
+
+$mysql = mysqli_connect($db_info['host'], $db_info['user'], $db_info['password']);
+mysqli_select_db($mysql, 'pmphotog_main');
+$result = mysqli_query($mysql, 'SELECT DISTINCT email FROM `email_list`');
 
 foreach ($result as $row) {
-    $mail->addAddress($row['email'], $row['full_name']);
+    $mail->addAddress($row['email'], $row['email']);
 
     if (!$mail->send()) {
         echo "Mailer Error (" . str_replace("@", "&#64;", $row["email"]) . ') ' . $mail->ErrorInfo . '<br />';
         break; //Abandon sending
     } else {
-        echo "Message sent to :" . $row['full_name'] . ' (' . str_replace("@", "&#64;", $row['email']) . ')<br />';
+        echo "Message sent to :" . $row['email'] . ' (' . str_replace("@", "&#64;", $row['email']) . ')<br />';
         //Mark it as sent in the DB
         mysqli_query(
             $mysql,
-            "UPDATE mailinglist SET sent = TRUE WHERE email = '" .
+            "UPDATE email_list_history SET sent = TRUE WHERE email = '" .
             mysqli_real_escape_string($mysql, $row['email']) . "'"
         );
     }
