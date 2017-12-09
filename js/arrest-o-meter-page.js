@@ -1,5 +1,6 @@
 $( window ).load(function() {
 		setupArrestOMeter();
+		setupArrestHistogram();
 		loadingFinished();
 });
 
@@ -20,11 +21,16 @@ function loadingFinished(){
 			googleTracking.sendTrackEvent('Email List','Focus');
 		});
 };
-
+function setupArrestHistogram(){
+	$.getJSON('api/overall/arrestHistogram.php', function(d){
+		console.log(d);
+	      histogramChart.init({targetElement: '#histogram-arrests',data: d});
+	});
+}
 function setupArrestOMeter(){
 	var animate = true;
 	var alltime;
-	$.getJSON('api/meter.php?limit=3', function(data){
+	$.getJSON('api/NewMeter.php?limit=3', function(data){
 		var daysSince = data['current']['daysSince'],
 				recordAlltime = data['alltime']['record'],
 				recordAvg = data['alltime']['average'],
@@ -33,7 +39,8 @@ function setupArrestOMeter(){
 	        $('#arrest_meter_odds').html('The odds of reaching '+ daysSince + ' days without arrest are <b>' + data['current']['odds']+' : 1</b>');
 		$('#arrest_meter_text').html('It has been <b>'+ daysSince +'</b> Days since the last arrest.</p>');
 		$('#arrest_meter_subtext').html('Average: <b>'+recordAvg+'</b> Days <br/>Record W/O arrest: <b>'+recordAlltime+'</b> Days');
-		for(var brokenKey in data['broken']){
+		$('#aomRecord').html(recordAlltime);
+		/*for(var brokenKey in data['broken']){
 			var brokenObj = data['broken'][brokenKey];
 			var brokenOutput;
 			var dateParts = brokenObj.date.split("-");
@@ -64,7 +71,7 @@ function setupArrestOMeter(){
 			}
 			historyOutput = "<b>"+historyObj.record + "</b> Days&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+month+"-"+day+"-"+tempDate.getFullYear() + " to " + historyObj.date + " Odds: <b>" +displayOdds+ "</b>";
 			$('#arrest_meter_upcoming').append("<li>"+historyOutput+"</li>");
-		}
+		}*/
                 var theWidth = (percent*100);
 		if(theWidth > 100){
 			theWidth = 100;
@@ -82,9 +89,5 @@ function setupArrestOMeter(){
 		}else{
 			$('.meter-fg').width( theWidth + '%');
 		}
-		//$('#arrest-o-meter').append('<ul id="record_history_list"></ul>');
-		//for(var record in data['history']){
-		//	$('#record_history_list').append('<li>'+data['history'][record]['date']+'<span>'+data['history'][record]['record']+'</span></li>');
-		//}
 	});
 }

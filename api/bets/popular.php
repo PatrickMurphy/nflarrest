@@ -25,15 +25,15 @@
 		$limit .= $_GET['limit'];
 	}
 
-	$teamQuery = "SELECT Count(*) as count, teams.teams_full_name FROM `bets` INNER JOIN teams ON team = teams.team_code WHERE team != 'no-choice' GROUP BY team ORDER BY count DESC" . $limit;
+	$teamQuery = "SELECT Count(*) as count, teams.teams_full_name FROM `bets` INNER JOIN teams ON team = teams.team_code WHERE team != 'no-choice' AND active = 1 GROUP BY team ORDER BY count DESC" . $limit;
 	$teamResult = $db->query($teamQuery);
 	$returnArray['team'] = gather_results($teamResult);
 
-	$crimeQuery = "SELECT Count(*) as count, general_category.Category FROM `bets` INNER JOIN general_category ON crime = general_category.general_category_id WHERE crime > 0 GROUP BY crime ORDER BY count DESC" . $limit;
+	$crimeQuery = "SELECT Count(*) as count, general_category.Category FROM `bets` INNER JOIN general_category ON crime = general_category.general_category_id WHERE crime > 0 AND active = 1 GROUP BY crime ORDER BY count DESC" . $limit;
 	$crimeResult = $db->query($crimeQuery);
 	$returnArray['crime'] = gather_results($crimeResult);
 
-	$posQuery = "SELECT Count(*) as count, position.position_title FROM `bets` INNER JOIN position ON position = position.position_tag WHERE position != 'no-choice' GROUP BY position ORDER BY count DESC" . $limit;
+	$posQuery = "SELECT Count(*) as count, position.position_title FROM `bets` INNER JOIN position ON position = position.position_tag WHERE position != 'no-choice' AND active = 1 GROUP BY position ORDER BY count DESC" . $limit;
 	$posResult = $db->query($posQuery);
 	$returnArray['position'] = gather_results($posResult);
 
@@ -45,7 +45,7 @@
 	$statsResult = $db->query($statsQuery);
 	$statsQuery2 = "SELECT Count(Distinct userid) as `total_users` FROM `bets` WHERE active = 1";
 	$statsResult2 = $db->query($statsQuery2);
-
+	
 	$stats = gather_results($statsResult);
 	$tempArray = gather_results($statsResult2);
 	$stats[0]['total_users'] = $tempArray[0]['total_users'];

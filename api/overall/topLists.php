@@ -3,6 +3,10 @@ $tsstring = gmdate('D, d M Y H:i:s ', time() - ((24 * 60) * 60)) . 'GMT';
 $etag = $_GET['limit'] . $_GET['start_pos'] . $_GET['start_date'] . $_GET['end_date'];
 $etag = md5($etag);
 
+if(!isset($path_ext)){
+    $path_ext = '../';
+}
+
 $if_modified_since = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? $_SERVER['HTTP_IF_MODIFIED_SINCE'] : false;
 
 $if_none_match = isset($_SERVER['HTTP_IF_NONE_MATCH']) ? $_SERVER['HTTP_IF_NONE_MATCH'] : false;
@@ -45,7 +49,7 @@ $megaresult = [];
 if(isset($restful)){
 	require_once('api.php');
 }else{
-	require_once('../api.php');
+	require_once($path_ext . 'api.php');
 }
 
 $limit = '';

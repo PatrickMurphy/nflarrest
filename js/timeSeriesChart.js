@@ -74,7 +74,7 @@ var timeSeriesChart = {
 		if(timeSeriesChart.options.ajaxURL.indexOf('?') < 0){
 			var queryString = '?';
 		}else{
-			var queryString = '&';
+			var queryString = '&'; 
 		}
 		for(var index in params){
 			queryString += index+'='+params[index]+'&'

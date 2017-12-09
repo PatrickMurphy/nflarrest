@@ -133,7 +133,7 @@
 		totalArrests += ele.arrest_count;
 	}
 	console.log('Total Arrests ' + totalArrests);
-
+	
 	$('#switchBetButton').click(function(){
 		currBetType = !currBetType;
 		ga('send', 'event', 'betting', 'viewPlaceBetForm', 'switchType');
@@ -179,7 +179,7 @@
 				var tempOdds = 1/(crimeOdds[$('#crime_select').val()]['arrest_count']/totalArrests);
 				odds *= (tempOdds/1 + 1);
 			}
-
+			
 			if($('#team_select').val() !== 'no-choice'){
 				odds *= (32/1 + 1);
 			}
@@ -332,7 +332,7 @@
 			}
 		});
 	}
-
+	
 	$(document).ready(function(){
 		$('#amount').change(calculateOdds);
 		$('#crime_select').change(calculateOdds);

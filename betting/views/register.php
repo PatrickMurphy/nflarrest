@@ -17,7 +17,7 @@ if (isset($registration)) {
 input {
 	width:100%;
 }
-
+	
 	/*for the on off*/
 	.onoffswitch {
     position: relative; width: 76px;
@@ -56,13 +56,13 @@ input {
     position: absolute; top: 0; bottom: 0;
     right: 51px;
     border: 2px solid #999999; border-radius: 13px;
-    transition: all 0.3s ease-in 0s;
+    transition: all 0.3s ease-in 0s; 
 }
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
     margin-left: 0;
 }
 .onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-    right: 0px;
+    right: 0px; 
 }
 	.onoffswitch-checkbox {
 		display:none !important;
@@ -70,7 +70,7 @@ input {
 </style>
 <div class="row" style="margin-top:5px;">
 <!-- register form -->
-<form method="post" action="index.php?register" name="registerform" id="registerForm" style="padding:6px;background:rgba(204, 135, 40, 0.22);border-radius:8px;" class="four columns">
+<form method="post" action="index.php?register" name="registerform" id="registerForm" style="padding:6px;background:rgba(204, 135, 40, 0.22);border-radius:8px;" class="five columns offset-by-one">
 <h2>Register</h2>
     <!-- the user name input field uses a HTML5 pattern check -->
     <label for="login_input_username">Username <sup>(only letters and numbers, 2 to 64 characters)</sup></label>
@@ -99,7 +99,8 @@ input {
 	<input type="submit"  name="register" value="Register" class="button button-primary" />
 
 </form>
-<div class="five columns">
+<div class="six columns">
+<img src="http://nflarrest.com/images/fans.jpg" style="width:94%;margin-left:3%;max-width:640px;" />
 <h5>NFL Arrest Fantasy Betting<sup>Beta</sup></h5>
 <P>Guess the team, crime, or player position of the next NFL arrest and see your self rise on the leaderboards. You can also predict how many more days you think the <a href="http://nflarrest.com/arrest-o-meter.html">NFL streak</a> will last! You start with $100 fake dollars, you receive $5 when you login, redeemable once every 24 hours. This is the beta version, with a few bugs and the visual appearance is not at all perfected.</p>
 <p>This is not a gambling website, you will never be able to redeem winnings for real cash.</p>

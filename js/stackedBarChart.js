@@ -52,11 +52,11 @@ var stackedBarChart = {
             type: 'bar',
             onclick: function (d, i) {
                 // redirect to
-                if(typeof ytdChart != "undefined"){
-                    if(!ytdChart){
+                if(typeof mainChartStyleID != "undefined"){
+                    if(mainChartStyleID == 0){
                         googleTracking.sendTrackEvent('mainChart','teamLink');
                                         setTimeout(function(){
-                        window.location.href = "team.html#"+stackedBarChart.options.data.columns[0][d['index']+1];
+                        window.location.href = "team/"+stackedBarChart.options.data.columns[0][d['index']+1]+'/';
                                         }, 100);
                     }
                 }
@@ -77,7 +77,7 @@ var stackedBarChart = {
             }
         },
 			  color: {
-					pattern: ['#1F77B4', '#FF7F0E', '#2CA02C', '#D62728', '#9467BD', '#8C564B', '#E377C2', '#7F7F7F', '#BCBD22', '#17BECF', '#154F78', '#B0580A', '#248224', '#7D1717']
+					pattern: ["#1F77B4","#FF7F0E","#2CA02C","#D62728","#9467BD","#8C564B","#E377C2","#7F7F7F","#BCBD22","#17BECF","#154F78","#B0580A","#248224","#7D1717"]
                   // DUI Drugs Domestic Violence Assault / Battery Gun License / Traffic Alcohol Disorderly conduct Resisting Theft / Burglary Sex Animal Abuse Murder / Manslaughter Other
 				//pattern: ["#57b9c5", "#75ed85","#cd7b66", "#7f2b04", "#1d413b", "#3f862d", "#b4d170", "#f8cac2", "#f2c029", "#304f9b","#e84675", "#8cabea","#e13219", "#5d1a79"]
               }
