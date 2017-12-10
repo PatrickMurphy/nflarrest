@@ -44,7 +44,11 @@ require_once('db_config.php');
 
 $mysql = mysqli_connect($db_info['host'], $db_info['user'], $db_info['password']);
 mysqli_select_db($mysql, 'pmphotog_main');
-$result = mysqli_query($mysql, 'SELECT DISTINCT email FROM `email_list`');
+$result = mysqli_query($mysql, 'SELECT DISTINCT email FROM `email_list` AS a JOIN `email_list_history` AS b ON a.id = b.id WHERE b.sent = FALSE LIMIT 50');
+
+if(isset($_GET['test'])){
+    $result[0]['email'] = 'turnerp@cwu.edu';
+}
 
 foreach ($result as $row) {
     $mail->addAddress($row['email'], $row['email']);
