@@ -139,9 +139,9 @@ $email_count = $email_count_result->fetch_assoc();
 		</div>
 		
 		<div>
-			<form action="admin/index.php" method="post" id="emailComposeForm">
-			<input type="text" name="email_subject" value="NFL Arrest Update: " />
-			<textarea name="email_msg"></textarea>
+			<form action="admin/sendEmail.php?test=true" method="post" id="emailComposeForm">
+			<input type="text" name="mail_subject" value="NFL Arrest Update: " />
+			<textarea name="mail_body"></textarea>
 			<input type="submit" name="form_action" value="Send Email" />
 			</form>
 		</div>

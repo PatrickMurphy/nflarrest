@@ -2,7 +2,7 @@
 session_start();
 
 //Import the PHPMailer class into the global namespace
-use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer;
 
 error_reporting(E_STRICT | E_ALL);
 
@@ -68,5 +68,13 @@ foreach ($result as $row) {
     // Clear all addresses and attachments for next loop
     $mail->clearAddresses();
     $mail->clearAttachments();
+}
+
+if(count($result) == 0){
+    print '<a href="sendEmail.php?reset_history=1">Reset all history records</a>';
+}
+
+if(isset($_GET['reset_history'])){
+    $result = mysqli_query($mysql, 'UPDATE email_list_history SET sent = FALSE');    
 }
 ?>
