@@ -3,6 +3,14 @@ session_start();
 
 //Import the PHPMailer class into the global namespace
 use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\OAuth;
+use PHPMailer\PHPMailer\SMTP;
+require_once('PHPMailer/PHPMailer.php');
+require_once('PHPMailer/Exception.php');
+require_once('PHPMailer/OAuth.php');
+//require_once('PHPMailer/POP3.php');
+require_once('PHPMailer/SMTP.php');
 
 error_reporting(E_STRICT | E_ALL);
 
@@ -14,7 +22,7 @@ date_default_timezone_set('Etc/UTC');
 
 $mail = new PHPMailer;
 
-$body = $_GET['mail_body'];
+$body = $_POST['mail_body'];
 //$body = file_get_contents('contents.html');
 
 $mail->isSMTP();
@@ -27,7 +35,7 @@ $mail->Password = 'FootballArrestSite';
 $mail->setFrom('newsletter@nflarrest.com', 'NFLArrest.com');
 $mail->addReplyTo('newsletter@nflarrest.com', 'NFLArrest.com');
 
-$mail->Subject = $_GET['mail_subject'];
+$mail->Subject = $_POST['mail_subject'];
 
 //Same body for all messages, so set this before the sending loop
 //If you generate a different body for each recipient (e.g. you're using a templating system),
@@ -47,6 +55,7 @@ mysqli_select_db($mysql, 'pmphotog_main');
 $result = mysqli_query($mysql, 'SELECT DISTINCT email FROM `email_list` AS a JOIN `email_list_history` AS b ON a.id = b.id WHERE b.sent = FALSE LIMIT 50');
 
 if(isset($_GET['test'])){
+    $result = array();
     $result[0]['email'] = 'turnerp@cwu.edu';
 }
 
