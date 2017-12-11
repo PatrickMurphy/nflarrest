@@ -2,7 +2,7 @@
 session_start();
 
 //Import the PHPMailer class into the global namespace
-use PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\PHPMailer;
 
 error_reporting(E_STRICT | E_ALL);
 
