@@ -23,6 +23,7 @@ date_default_timezone_set('Etc/UTC');
 $mail = new PHPMailer;
 
 $body = $_POST['mail_body'];
+
 //$body = file_get_contents('contents.html');
 
 $mail->isSMTP();
@@ -40,7 +41,7 @@ $mail->Subject = $_POST['mail_subject'];
 //Same body for all messages, so set this before the sending loop
 //If you generate a different body for each recipient (e.g. you're using a templating system),
 //set it inside the loop
-$mail->msgHTML($body);
+
 //msgHTML also sets AltBody, but if you want a custom one, set it afterwards
 $mail->AltBody = 'To view the message, please use an HTML compatible email viewer!';
 
@@ -61,7 +62,7 @@ if(isset($_GET['test'])){
 
 foreach ($result as $row) {
     $mail->addAddress($row['email'], $row['email']);
-
+    $mail->msgHTML($body . "\n<a href=\"http://nflarrest.com/EmailListUnsubscribe.php?token=".md5($row['email'])."\">Usubscribe from email list</a>");
     if (!$mail->send()) {
         echo "Mailer Error (" . str_replace("@", "&#64;", $row["email"]) . ') ' . $mail->ErrorInfo . '<br />';
         break; //Abandon sending

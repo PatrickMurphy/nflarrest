@@ -1,7 +1,7 @@
 <?php 
 
 if(isset($_GET['token'])){
-    require_once('db_config.php');
+    require_once('admin/db_config.php');
 
     $mysql = mysqli_connect($db_info['host'], $db_info['user'], $db_info['password']);
     mysqli_select_db($mysql, 'pmphotog_main');
