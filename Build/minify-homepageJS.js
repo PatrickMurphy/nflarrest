@@ -5,22 +5,28 @@ var cssFilename = "styles.min.css";
 
 var generateCSS = true;
 var generateJS = true;
+var modular_css = false;
 
 process.argv.forEach(function (val, index, array) {
-    if (val == "test") {
+    if (val === "test") {
         filename = 'compressed_homepage_test.js';
-        cssFilename = "styles.min.test.css"
+        cssFilename = "styles.min.test.css";
     }
-    if (val == "only-js") {
+    if (val === "only-js") {
         generateCSS = false;
         generateJS = true;
     }
-    if (val == "only-css") {
+    if (val === "only-css") {
         generateJS = false;
         generateCSS = true;
     }
-    if (val == "test-js") {
+    if (val === "test-js") {
         filename = 'compressed_homepage_test.js';
+    }
+    if (val === "modular-css") {
+        generateCSS = true;
+        modular_css = true;
+        cssFilename = "styles-modular.min.css";
     }
 });
 
@@ -37,12 +43,32 @@ if (generateJS) {
 }
 
 if (generateCSS) {
-    compressor.minify({
-        compressor: 'clean-css',
-        input: ['../css/styles.css'],
-        output: '../css/' + cssFilename,
-        callback: function (err, min) {
-            console.log('css finished: ' + cssFilename);
-        }
-    });
+    if (modular_css) {
+        // generate css from modular files
+        compressor.minify({
+            compressor: 'clean-css',
+            input: ['../css/styles-modular.css',
+                    '../css/modules/styles-indexpage.css',
+                    '../css/modules/styles-daterange.css',
+                    '../css/modules/styles-toplists.css',
+                    '../css/modules/styles-arrestometer.css',
+                    '../css/modules/styles-chart.css',
+                    '../css/modules/styles-cards.css',
+                    '../css/modules/styles-kpi.css'
+                   ],
+            output: '../css/' + cssFilename,
+            callback: function (err, min) {
+                console.log('css finished: ' + cssFilename);
+            }
+        });
+    } else {
+        compressor.minify({
+            compressor: 'clean-css',
+            input: ['../css/styles.css'],
+            output: '../css/' + cssFilename,
+            callback: function (err, min) {
+                console.log('css finished: ' + cssFilename);
+            }
+        });
+    }
 }
