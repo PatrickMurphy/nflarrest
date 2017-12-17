@@ -80,6 +80,12 @@ $(window).load(function () {
         //}
         //$( document ).tooltip();
     });
+
+    // add click listener to li so that entire element is clickable rather than just the link
+    $(".top-list ol li").click(function () {
+        window.location = $(this).find("a").attr("href");
+        return false;
+    });
 });
 
 function renderActivePlayerArrests() {
