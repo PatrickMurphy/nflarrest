@@ -42,9 +42,21 @@
     </div>
 </div>
 
+<script type="text/javascript">
+    // apply click listener
+    // default (total time range to 2001) click listener
+    // month button click handler (remember first choice for range)
+    // year change click handler
+    // preset click handler
+</script>
+
 <style type="text/css">
     .month-picker {
-        width: 40%;
+        width: 500px;
+    }
+    .month-picker .button {
+        height:2.5em;
+        line-height: 2.5em;
     }
     
     .month-picker-heading {
@@ -94,6 +106,19 @@
     .month-picker-list li {
         margin: 0;
         padding: 0;
+        padding-top: 2px;
+        font-size: .9em;
+        border-radius: 4px;
+        color:#575757;
+        text-align: center;
+    }
+
+    .month-picker-list li:nth-child(odd){
+        background:#fff8f1;
+    }
+
+    .month-picker-list li:hover {
+        background:#ffce9c;
     }
     
     .month-picker-bottom-bar {
