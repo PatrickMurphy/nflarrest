@@ -5,6 +5,7 @@
 /node_modules/
 /api/db_config.php
 /admin/db_config.php
+/admin/Login_System_Settings.php
 /node/node_modules/
 /london/
 /css/vendor/jquery-ui.structure.min.css
