@@ -128,6 +128,11 @@
 		height: 5px;
 		width: 5px;
 	}
+	#bottomTeamLinks a {
+		margin-top: 3px;
+		font-size: .9em;
+		padding: 2px 3px;
+	}
 	/* Top Lists
 	-----------------------*/
 	.top-list>h3 {
