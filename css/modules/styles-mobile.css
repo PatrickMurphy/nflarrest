@@ -110,6 +110,9 @@
 		background-color: transparent;
 		font-size: .6em;
 	}
+	#arrest_meter_subtext {
+		padding-bottom: 3px;
+	}
 	/* Share buttons
 	----------------- */
 	.share_buttons {
