@@ -59,7 +59,7 @@
 	*/
 	#newsletterDisplayBtn {
 		display: block;
-		margin: auto 10px;
+		margin: 10px auto;
 	}
 	#newsletterContainer {
 		display: none;
@@ -84,21 +84,27 @@
 	#arrest-o-meter {
 		width: 50%;
 	}
+	#arrest-o-meter h5 {
+		font-size: 1em;
+	}
 	#arrest-o-meter p {
 		font-size: .63em
 	}
 	#arrest-o-meter a {
 		font-size: 0.78em;
 	}
+	.arrest-o-meterDetailsBtn {
+		display: none;
+	}
 	.meter-bg,
 	.meter-fg {
-		line-height: 5px;
-		height: 5px;
+		line-height: 8px;
+		height: 8px;
+		text-shadow: 0px 1px #777;
 	}
 	.meter-bg span {
-		color: #767676;
-		background-color: none;
-		font-size: .8em;
+		background-color: transparent;
+		font-size: .6em;
 	}
 	/* Share buttons
 	----------------- */
