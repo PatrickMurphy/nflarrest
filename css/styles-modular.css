@@ -206,10 +206,12 @@ footer a {
 	text-align: center;
 	left: 30.5vw;
 	top: 30vh;
-	font-size: 2.75em;
-	background-color: rgba(34, 34, 34, 0.37);
+	font-size: 3em;
+	background-color: rgba(34, 34, 34, 0.45);
 	padding: 2vw;
 	border-radius: 30px;
+	text-shadow: 2px 2px #444;
+	border: 2px solid #777;
 	color: #fff;
 }
 
