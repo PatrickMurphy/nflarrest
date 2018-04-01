@@ -5,12 +5,15 @@ var cssFilename = "styles.min.css";
 
 var generateCSS = true;
 var generateJS = true;
-var modular_css = false;
+var modular_css = true;
 
 process.argv.forEach(function (val, index, array) {
 	if (val === "test") {
 		filename = 'compressed_homepage_test.js';
 		cssFilename = "styles.min.test.css";
+	}
+	if (val === "test-js") {
+		filename = 'compressed_homepage_test.js';
 	}
 	if (val === "only-js") {
 		generateCSS = false;
@@ -19,9 +22,6 @@ process.argv.forEach(function (val, index, array) {
 	if (val === "only-css") {
 		generateJS = false;
 		generateCSS = true;
-	}
-	if (val === "test-js") {
-		filename = 'compressed_homepage_test.js';
 	}
 	if (val === "modular-css") {
 		generateCSS = true;
@@ -34,7 +34,13 @@ process.argv.forEach(function (val, index, array) {
 if (generateJS) {
 	compressor.minify({
 		compressor: 'uglifyjs',
-		input: ['../js/index.js', '../js/common.js', '../js/stackedBarChart.js', '../js/dateRangeController.js', '../js/google-tracking.js', '../js/nflLoadingBar.js', '../js/loadCSS.js'],
+		input: ['../js/index.js',
+				'../js/common.js',
+				'../js/stackedBarChart.js',
+				'../js/dateRangeController.js',
+				'../js/google-tracking.js',
+				'../js/nflLoadingBar.js',
+				'../js/loadCSS.js'],
 		output: '../js/' + filename,
 		callback: function (err, min) {
 			console.log('finished: ' + filename);

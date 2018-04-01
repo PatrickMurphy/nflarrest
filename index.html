@@ -61,25 +61,32 @@
 		<br class="clear hide-mobile" />
 		<section>
 			<div class="row">
-				<div class="four columns">
+				<div id="pageDescriptionContainer" class="four columns">
 					<p id="index-description">NFL Arrest provides an interactive visualized database of National Football League player Arrests &amp; Charges. <span class="hide-mobile">Learn about your rival team's history with the law, break down arrests by Player, Position, Crime and Team.</span> <b>Keep in mind there are 1700 NFL Players and their arrest rates are <a href="http://nflarrest.com/NFLArrestRate.php">lower than the USA arrest rate</a>.</b></p><span id="activePlayerArrestRate"></span></div>
 				<div id="arrest-o-meter" class="four columns">
 					<h5>The Arrest-O-Meter:</h5>
 					<div class="row meter-bg">
 						<div class="meter-fg">&nbsp;</div>
-						<span style="position:absolute; left:10.9%;" class="avgRecord">7</span>
-						<span style="position:absolute; right:1%;" class="recordHolder">71</span>
+						<span class="avgRecord">7</span>
+						<span class="recordHolder">64</span>
 					</div>
 					<p id="arrest_meter_text">It has been <b>?</b> Days since the last arrest.</p>
 					<p id="arrest_meter_subtext">Average: <b>7</b> Days | Record W/O arrest: <b>64</b> Days</p>
-					<a href="arrest-o-meter.html">See detailed stats and upcoming records!</a><br /><a href="recent-arrests-by-team.html">View the most recent arrest details for each NFL Team!</a>
+					<a href="arrest-o-meter.html" class="button standard_case">Arrest-O-Meter Details</a><br />
+					<a href="recent-arrests-by-team.html" class="button standard_case">Recent Arrests by Team</a>
 				</div>
 				<div class="four columns share_buttons">
-					<p style="font-weight:bold;margin-bottom:3px;">Mailing List:</p>
-					<form id="newsletterForm">
+					<button class="button hide standard_case" id="newsletterDisplayBtn">Join Newsletter</button>
+					<div id="newsletterContainer">
+						<h5>Mailing List:</h5>
 						<span>Be the first to know about NFL Arrests!</span>
-						<div><input type="email" style="width:85%;display:inline-block;" placeholder="e@mail.com" name="email"><input type="submit" name="submit" style="padding:0px;width:15%;background:#c77522;color:#242424;display:inline-block;" value="Go!"></div>
-					</form>
+						<form id="newsletterForm">
+							<div>
+								<input type="email" placeholder="e@mail.com" name="email">
+								<input type="submit" name="submit" value="Go!">
+							</div>
+						</form>
+					</div>
 					<div class="fb-share-button fb_Btn" data-href="http://www.nflarrest.com/" data-layout="box_count">
 					</div>
 					<a href="https://twitter.com/share" class="twitter-share-button twitter_Btn" data-url="http://nflarrest.com" data-text="Explore the arrest records of Football Players, find the most common crimes for your football team." data-count="vertical">Tweet</a>
@@ -93,7 +100,7 @@
 				</div>
 			</div>
 			<div class="row dividedSection">
-				<div class="MainChartSelection" style="float:left;margin-left:1vw;">
+				<div class="MainChartSelection">
 					<button id="mainChartByTeamBtn" class="mainChartBtn button">By Team</button>
 					<button id="mainChartByYearBtn" class="mainChartBtn button">By Year</button>
 					<button id="mainChartBySeasonBtn" class="mainChartBtn button">By Season</button>
@@ -101,8 +108,6 @@
 					<button id="mainChartByConfDivBtn" class="mainChartBtn button">By Division</button>
 				</div>
 				<div class="dateRangeControl">
-
-					<!--<span class="title">Date Range:</span> <a href="#!" id="changeDateRangeLink">01/01/2000 - 01/01/2015</a>-->
 					<span class="title">Date Range:</span> <input id="dateRangeJquery" name="dateRangeJquery">
 				</div>
 			</div>
@@ -115,9 +120,6 @@
 				</div>
 			</div>
 			<br class="clear" />
-			<!--
-<div class="announcement" style="align:center;"><blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Our goal is to factually record NFL arrests. Trump&#39;s remarks are ignorant &amp; belittle a real problem facing minorities in the USA. <a href="https://twitter.com/hashtag/TakeAKnee?src=hash">#TakeAKnee</a></p>&mdash; NFL Arrest (@nfl_arrest) <a href="https://twitter.com/nfl_arrest/status/911629227031588864">September 23, 2017</a></blockquote>
-<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></div>-->
 			<aside>
 				<div class="four columns top-list">
 					<h3>Top Crimes</h3>
