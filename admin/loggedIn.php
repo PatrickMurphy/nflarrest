@@ -102,96 +102,116 @@ $email_list = gather_results($email_list_result);
 $email_count_result = $db2->query('SELECT COUNT(DISTINCT(`email`)) as `total` FROM `email_list`');
 $email_count = $email_count_result->fetch_assoc();
 ?>
-    <div class="row">
-        <div class="eight columns">
-            <h3>Add Record:</h3>
-            <form id="addForm" method="post" action="admin/index.php">
-                <label>Date</label>
-                <input type="date" name="Date" />
-                <label>Team</label>
-                <select name="Team">
-                    <?php print $team_options; ?>
-                </select>
-                <label>Name</label>
-                <input type="text" name="Name" />
-                <label>Position</label>
-                <input type="text" name="Position" />
-                <label>Encounter</label>
-                <input type="text" name="Encounter" value="Arrested" />
-                <label>Category</label>
-                <input type="text" name="Category" />
-                <label>Description</label>
-                <textarea name="Description"></textarea>
-                <label>Outcome</label>
-                <input type="text" name="Outcome" value="Resolution Undetermined." />
-                <label>General Category</label>
-                <select name="general_category_id">
-                    <?php print $crime_options; ?>
-                </select>
-                <label>Legal Level</label>
-                <select name="legal_level_id">
-                    <?php print $legal_options; ?>
-                </select>
-                <label>Outcome Category</label>
-                <select name="resolution_category_id">
-                    <?php print $outcome_options; ?>
-                </select>
-                <br />
-                <input type="hidden" name="form_action" value="add_arrest" />
-                <input type="submit" name="submit" value="Add Arrest" class="button-primary" />
-                <br />
-            </form>
-            <div>
-                <form id="addForm" method="post" action="admin/index.php">
-                    <input type="submit" name="form_action" value="Cache SeasonState" /> >
-                    <input type="submit" name="form_action" value="Cache Arrests View" /> >
-                    <input type="submit" name="form_action" value="Cache Last Arrests" />
-                </form>
-            </div>
+	<div class="row">
+		<div class="eight columns">
+			<div class="twelve columns">
+				<h3>Add Record:</h3>
+				<form id="addForm" method="post" action="admin/index.php">
+					<div class="row">
+						<label>Date</label>
+						<input type="date" name="Date" />
+						<label>Team</label>
+						<select name="Team">
+                    	<?php print $team_options; ?>
+                		</select>
+					</div>
+					<div class="row">
+						<label>Name</label>
+						<input type="text" name="Name" />
+						<label>Position</label>
+						<input type="text" name="Position" />
+					</div>
+					<div class="row">
+						<label>Encounter</label>
+						<input type="text" name="Encounter" value="Arrested" />
+						<label>Category</label>
+						<input type="text" name="Category" />
+					</div>
+					<div class="row">
+						<label>Description</label>
+						<textarea name="Description"></textarea>
+						<label>Outcome</label>
+						<input type="text" name="Outcome" value="Resolution Undetermined." />
+					</div>
+					<div class="row">
+						<label>General Category</label>
+						<select name="general_category_id">
+						<?php print $crime_options; ?>
+						</select>
+						<label>Legal Level</label>
+						<select name="legal_level_id">
+							<?php print $legal_options; ?>
+						</select>
+						<label>Outcome Category</label>
+						<select name="resolution_category_id">
+							<?php print $outcome_options; ?>
+						</select>
+					</div>
+					<br />
+					<input type="hidden" name="form_action" value="add_arrest" />
+					<input type="submit" name="submit" value="Add Arrest" class="button-primary" />
+					<br />
+				</form>
+				<div>
+					<form id="addForm" method="post" action="admin/index.php">
+						<input type="submit" name="form_action" value="Cache SeasonState" /> >
+						<input type="submit" name="form_action" value="Cache Arrests View" /> >
+						<input type="submit" name="form_action" value="Cache Last Arrests" />
+					</form>
+				</div>
+			</div>
 
-            <div>
-                <form action="admin/sendEmail.php" method="post" id="emailComposeForm">
-                    <input type="text" name="mail_subject" value="NFL Arrest Update: " />
-                    <textarea name="mail_body"></textarea>
-                    <input type="submit" name="form_action" value="Send Email" />
-                </form>
-            </div>
-            <div class="four columns">
-                <h3>Cache Files:</h3>
-                <a href="admin/CacheDetailPages.php?page_id=team" class="button">Team HTML</a> <a href="admin/CacheDetailPages.php?page_id=crime" class="button">Crime HTML</a> <a href="admin/CacheDetailPages.php?page_id=position" class="button">
+			<div class="eight columns">
+				<div>
+					<form action="admin/sendEmail.php" method="post" id="emailComposeForm">
+						<input type="text" name="mail_subject" value="NFL Arrest Update: " />
+						<textarea name="mail_body"></textarea>
+						<input type="submit" name="form_action" value="Send Email" />
+					</form>
+				</div>
+			</div>
+
+			<div class="eight columns">
+				<div class="four columns">
+					<h3>Cache Files:</h3>
+					<a href="admin/CacheDetailPages.php?page_id=team" class="button">Team HTML</a> <a href="admin/CacheDetailPages.php?page_id=crime" class="button">Crime HTML</a> <a href="admin/CacheDetailPages.php?page_id=position" class="button">
 Position HTML</a> <a href="admin/CacheDetailPages.php?page_id=player" class="button">Player HTML</a> <a href="admin/CacheJSON.php?page_id=topTeams&fast=32" class="button">Graph JSON</a> <a href="admin/CacheJSON.php?page_id=topLists&fast=32" class="button">Top List JSON</a>
-            </div>
-        </div>
-        <div class="four columns" style="background-color:#f9f9f9; min-height:200px;">
-            <h4>News</h4>
-            <div id="newslist"></div>
-            <div><a href="http://nflarrest.com/blog/admin.php" class="button">Blog Admin</a></div>
-            <div id="email_list_stats">
-                <h5>Email List: <?php print $email_count['total']; ?></h5>
-                <ol>
-                    <?php
+				</div>
+			</div>
+		</div>
+		<div class="four columns" style="background-color:#f9f9f9; min-height:200px;">
+			<h4>News</h4>
+			<div id="newslist"></div>
+			<div><a href="http://nflarrest.com/blog/admin.php" class="button">Blog Admin</a></div>
+			<div id="email_list_stats">
+				<h5>Email List:
+					<?php print $email_count['total']; ?>
+				</h5>
+				<ol>
+					<?php
 		foreach($email_list as $email){
 			print '<li>'.$email['referrer'] . ': ' . $email['total'].'</li>';
 		}
 		?>
-                </ol>
-            </div>
-        </div>
+				</ol>
+			</div>
+		</div>
 
-    </div>
-    <script type="text/javascript">
-        $(function () {
-            $.getJSON('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.google.com%2Falerts%2Ffeeds%2F10878572914104303077%2F17435386549487357803', function (data) {
-                var cards = [];
-                for (var i in data.items) {
-                    var this_html = '<div style="background-color:#fff;box-shadow:0px 2px 2px #bbb; margin-bottom:5px;border-radius:4px;">';
-                    this_html += '<a href="' + data.items[i].link + '">' + data.items[i].title + '</a><br />';
-                    this_html += '<b>' + data.items[i].pubDate + '</b><br />';
-                    this_html += '<p>' + data.items[i].description + '</p>';
-                    this_html += '</div>';
-                    cards.push(this_html);
-                }
-                $('#newslist').html(cards.join(''));
-            });
-        });
-    </script>
+	</div>
+	<script type="text/javascript">
+		$(function() {
+			$.getJSON('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fwww.google.com%2Falerts%2Ffeeds%2F10878572914104303077%2F17435386549487357803', function(data) {
+				var cards = [];
+				for (var i in data.items) {
+					var this_html = '<div style="background-color:#fff;box-shadow:0px 2px 2px #bbb; margin-bottom:5px;border-radius:4px;">';
+					this_html += '<a href="' + data.items[i].link + '">' + data.items[i].title + '</a><br />';
+					this_html += '<b>' + data.items[i].pubDate + '</b><br />';
+					this_html += '<p>' + data.items[i].description + '</p>';
+					this_html += '</div>';
+					cards.push(this_html);
+				}
+				$('#newslist').html(cards.join(''));
+			});
+		});
+
+	</script>

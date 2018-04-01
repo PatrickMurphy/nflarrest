@@ -1,0 +1,87 @@
+.hide-mobile {}
+
+@media (max-width: 640px) {
+	.hide-mobile {
+		display: none;
+	}
+	.container {
+		padding: 0px 5px;
+	}
+	button,
+	.button {
+		height: 24px;
+		line-height: 24px;
+		font-size: .9rem;
+		padding: 0px 10px;
+	}
+	/* Header 
+	----------------
+	*/
+	header {
+		height: 50px;
+	}
+	header>span {
+		display: none;
+	}
+	.site-title {
+		line-height: .4;
+	}
+	#index-description {
+		font-size: .75em;
+		width: 65%;
+		display: inline-block;
+	}
+	/* KPIs 
+	----------------
+	*/
+	#activePlayerArrestRate {
+		width: 34%;
+		display: inline-block;
+	}
+	.kpi-value-large {
+		font-size: 1.2em;
+	}
+	.kpi-value-small {
+		font-size: 0.75em;
+	}
+	.kpi-description-x-small {
+		font-size: x-small;
+	}
+	/* Newsletter  
+	----------------
+	*/
+	#newsletterForm input {
+		height: 25px;
+	}
+	#newsletterForm input[type="submit"] {
+		line-height: 0px;
+	}
+	#newsletterForm span {
+		font-size: .75em;
+	}
+	#arrest-o-meter {
+		width: 50%;
+	}
+	#arrest-o-meter p {
+		font-size: .63em
+	}
+	#arrest-o-meter a {
+		font-size: 0.78em;
+	}
+	.meter-bg,
+	.meter-fg {
+		line-height: 5px;
+		height: 5px;
+	}
+	.meter-bg span {
+		color: #767676;
+		background-color: none;
+		font-size: .8em;
+	}
+	.share_buttons {
+		width: 49%;
+	}
+	.customLegend-item {
+		font-size: .78em;
+	}
+}
