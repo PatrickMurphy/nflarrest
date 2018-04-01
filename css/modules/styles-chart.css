@@ -4,7 +4,10 @@
 	background: #fff;
 }
 
-.MainChartSelection {}
+.MainChartSelection {
+	float: left;
+	margin-left: 1vw;
+}
 
 .chart-options {}
 
