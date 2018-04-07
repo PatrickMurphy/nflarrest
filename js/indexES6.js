@@ -251,17 +251,17 @@ class IndexPage {
 
 	load_top_crimes_list(replace) {
 		replace = replace || false;
-		load_top_list("http://nflarrest.com/api/overall/topCrimes.php?limit=5&start_pos=" + last_start_pos, 'crime', 'top_crime_', '#top_crimes_list', ['Category', 'arrest_count'], replace);
+		this.load_top_list("http://nflarrest.com/api/overall/topCrimes.php?limit=5&start_pos=" + last_start_pos, 'crime', 'top_crime_', '#top_crimes_list', ['Category', 'arrest_count'], replace);
 	}
 
 	load_top_players_list(replace) {
 		replace = replace || false;
-		load_top_list("http://nflarrest.com/api/overall/topPlayers.php?limit=5&start_pos=" + last_start_pos, 'player', 'top_player_', '#top_players_list', ['Name', 'arrest_count'], replace);
+		this.load_top_list("http://nflarrest.com/api/overall/topPlayers.php?limit=5&start_pos=" + last_start_pos, 'player', 'top_player_', '#top_players_list', ['Name', 'arrest_count'], replace);
 	}
 
 	load_top_positions_list(replace) {
 		replace = replace || false;
-		load_top_list("http://nflarrest.com/api/overall/topPositions.php?limit=5&start_pos=" + last_start_pos, 'position', 'top_pos_', '#top_positions_list', ['Position', 'arrest_count'], replace);
+		this.load_top_list("http://nflarrest.com/api/overall/topPositions.php?limit=5&start_pos=" + last_start_pos, 'position', 'top_pos_', '#top_positions_list', ['Position', 'arrest_count'], replace);
 	}
 
 	load_top_lists(first, replace) {
@@ -290,17 +290,17 @@ class IndexPage {
 			load_top_list(positions_list, 'position', 'top_pos_', '#top_positions_list', ['Position', 'arrest_count'], replace);
 
 			// set returns
-			listsReturned = true;
-			listsReturnCount = 0;
-			last_start_pos = last_start_pos + 5;
-			if (mainChartReturned === true) {
-				loadingFinished();
+			this.listsReturned = true;
+			this.listsReturnCount = 0;
+			this.last_start_pos = this.last_start_pos + 5;
+			if (this.mainChartReturned === true) {
+				this.loadingFinished();
 			}
 		});
 	}
 
 	reload_top_lists() {
-		last_start_pos = 0;
+		this.last_start_pos = 0;
 		load_top_lists('not first', true);
 	}
 

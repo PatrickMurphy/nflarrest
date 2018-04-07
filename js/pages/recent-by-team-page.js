@@ -36,21 +36,23 @@ class RecentArrests {
 		if (mobileCheck())
 			arrest_view_mode = 1; // if mobile use cards
 		var items = [];
+		var self = this;
 		$.getJSON('api/v1/lastArrestByTeam', function (data) {
 			for (var id in data) {
 				var row = data[id];
 				if (arrest_view_mode == 0) {
-					items.push(this.renderArrestRow(row));
+					items.push(self.renderArrestRow(row));
 				} else if (arrest_view_mode == 1) {
-					items.push(this.renderArrestCard(row));
+					items.push(self.renderArrestCard(row));
 				}
 			}
 			if (arrest_view_mode == 0) {
-				items.unshift(this.renderArrestTableHeader());
+				items.unshift(self.renderArrestTableHeader());
 				items.unshift('<table id="recent-arrests-table">');
 				items.push('</table>');
 			}
 			$('#recentArrestContainer').html(items.join(''));
+			$('.name_item').show().css("visibility", 'visible');
 		});
 	}
 
