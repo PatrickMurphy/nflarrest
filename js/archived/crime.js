@@ -125,7 +125,7 @@ function setupTimeline(){
 
 function setupCharts(){
 	setupTimeline();
-    document.title = "NFL Arrest | "+pageID+" | Crime Details" 
+    document.title = "NFL Arrest | "+pageID+" | Crime Details"
 	getDonutData('api/crime/topTeams.php?id=' + pageID, 'Team', function(newData){
 		var newChart = donutChart.init({
 			data: newData,
@@ -159,10 +159,9 @@ function renderArrests(){
 	$.getJSON('api/crime/arrests.php?id=' + pageID +'&start_date='+dateRangeNFL.getStart()+'&end_date='+dateRangeNFL.getEnd() + andSimple, function(data){
 		var row,
 				items = ['<tr><th class="one column">Date:</th><th class="two columns">Name:</th><th class="one column">Team:</th><th class="four columns">Description:</th><th class="four columns">Outcome:</th></tr>'];
-		$('body > div.container > section > div > h4').html(data.length+' Incidents:');
 		for(row in data){
 			row = data[row];
-				items.push('<tr><td class="one column">'+moment(row['Date'], "YYYY-MM-DD").fromNow() +'</td><td class="two columns"><a href="player/'+row['Name']+'/">'+row['Name']+'</a></td><td class="one column"><a href="/team/'+row['Team']+'/">'+row['Team']+'</a></td><td class="four columns">'+row['Description']+'</td><td class="four columns">'+row['Outcome']+'</td></tr>');
+				items.push('<tr><td class="one column">'+moment(row['Date'], "YYYY-MM-DD").fromNow() +'</td><td class="two columns"><a href="player.html#!'+row['Name']+'">'+row['Name']+'</a></td><td class="one column"><a href="team.html#!'+row['Team']+'">'+row['Team']+'</a></td><td class="four columns">'+row['Description']+'</td><td class="four columns">'+row['Outcome']+'</td></tr>');
 		}
 		$('#arrest_table').html(items.join(""));
 		if(++callbackReturns == 4){

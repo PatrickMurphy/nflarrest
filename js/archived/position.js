@@ -77,7 +77,7 @@ function renderArrests(){
 				items = ['<tr><th class="one column">Date:</th><th class="two columns">Name:</th><th class="one column">Crime:</th><th class="four columns">Description:</th><th class="four columns">Outcome:</th></tr>'];
 		for(row in data){
 			row = data[row];
-				items.push('<tr><td class="one column">'+moment(row['Date'], "YYYY-MM-DD").fromNow() +'</td><td class="two columns"><a href="player/'+row['Name']+'/">'+row['Name']+'</a></td><td class="one column"><a href="crime/' + row['Category'] + '/">'+row['Category']+'</a></td><td class="four columns">'+row['Description']+'</td><td class="four columns">'+row['Outcome']+'</td></tr>');
+				items.push('<tr><td class="one column">'+moment(row['Date'], "YYYY-MM-DD").fromNow() +'</td><td class="two columns"><a href="player.html#!'+row['Name']+'">'+row['Name']+'</a></td><td class="one column"><a href="crime.html#!' + row['Category'] + '">'+row['Category']+'</a></td><td class="four columns">'+row['Description']+'</td><td class="four columns">'+row['Outcome']+'</td></tr>');
 		}
 		$('#arrest_table').html(items.join(""));
 		if(++callbackReturns == 3){

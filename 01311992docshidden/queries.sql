@@ -72,3 +72,19 @@ SELECT `arrest_stats_id`, `Category`, `general_category_id`, `Description` FROM 
 SELECT count(`arrest_stats_id`), `Category` FROM `arrest_stats` WHERE `general_category_id` = 27 GROUP BY Category ORDER BY count(`arrest_stats_id`) DESC
 
 UPDATE `arrest_stats` SET `general_category_id`= 4 WHERE Category = 'Battery'
+
+-- grab all the positions right
+SELECT `arrest_stats_id`, `Name`, `Category`, position.position_title, Position, position.position_tag
+FROM `arrest_stats`
+INNER JOIN `position`
+ON arrest_stats.Position=position.position_tag
+ORDER BY Position
+
+SELECT Count(*) as count, team FROM `bets` WHERE team != 'no-choice' GROUP BY team ORDER BY count desc
+SELECT Count(*) as count, teams.teams_full_name FROM `bets` INNER JOIN teams ON team = teams.team_code WHERE team != 'no-choice' GROUP BY team ORDER BY count desc
+
+SELECT Count(*) as count, crime FROM `bets` WHERE crime > 0 GROUP BY crime ORDER BY count desc
+
+SELECT Count(*) as count, general_category.Category FROM `bets` INNER JOIN general_category ON crime = general_category.general_category_id WHERE crime > 0 GROUP BY crime ORDER BY count desc
+
+SELECT Count(*) as count, position.position_title FROM `bets` INNER JOIN position ON position = position.position_tag WHERE position != 'no-choice' GROUP BY position ORDER BY count desc

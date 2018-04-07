@@ -28,20 +28,6 @@ $( window ).load(function() {
 	});
 });
 
-function changeTitle(newTitle){
-	document.title = "NFL Arrest | "+ newTitle +" | List of Player Arrests";
-        $('#pageTitle').html("Team: " + newTitle);
-}
-
-function checkLoadingFinished(){
-     if(++callbackReturns == 3){
-	callbackReturns = 0;
-	$('#loading-bar').fadeOut();
-	setupFacebook();
-	setupTwitter();
-     }
-}
-
 function getDonutData(url, param, callback){
 	$.getJSON(url+'&start_date='+dateRangeNFL.getStart()+'&end_date='+dateRangeNFL.getEnd(), function(data){
 		var theData = [];
@@ -55,12 +41,52 @@ function getDonutData(url, param, callback){
 			}
 		}
 		theData.push(otherArray);
-		checkLoadingFinished();
+		if(++callbackReturns == 3){
+			callbackReturns = 0;
+			$('#loading-bar').fadeOut();
+			setupFacebook();
+			setupTwitter();
+		}
 		callback(theData);
 	});
 }
 
 function setupCharts(){
+    var temp = {
+    "CIN": "Bengals",
+    "DEN": "Broncos",
+    "MIN": "Vikings",
+    "TB": "Buccaneers",
+    "TEN": "Titans",
+    "JAC": "Jaguars",
+    "IND": "Colts",
+    "CHI": "Bears",
+    "KC": "Chiefs",
+    "MIA": "Dolphins",
+    "CLE": "Browns",
+    "SD": "Chargers",
+    "BAL": "Ravens",
+    "PIT": "Steelers",
+    "NO": "Saints",
+    "SEA": "Seahawks",
+    "GB": "Packers",
+    "OAK": "Raiders",
+    "WAS": "Redskins",
+    "ATL": "Falcons",
+    "ARI": "Cardinals",
+    "CAR": "Panthers",
+    "NE": "Patriots",
+    "BUF": "Buffalo Bills",
+    "DET": "Lions",
+    "DAL": "Cowboys",
+    "NYJ": "Jets",
+    "PHI": "Eagles",
+    "NYG": "NY Giants",
+    "HOU": "Texans",
+    "LA": "Rams",
+    "FREE": "Free Agents",
+    "SF": "FourtyNiners"
+};
 	getDonutData('api/team/topPlayers.php?id=' + pageID, 'Name', function(newData){
 		var newChart = donutChart.init({
 			data: newData,
@@ -82,13 +108,19 @@ function setupCharts(){
 function renderArrests(){
 	$.getJSON('api/team/arrests.php?id=' + pageID +'&start_date='+dateRangeNFL.getStart()+'&end_date='+dateRangeNFL.getEnd(), function(data){
 		var row,
-		    items = ['<tr><th class="one column">Date:</th><th class="two columns">Name:</th><th class="one column">Crime:</th><th class="four columns">Description:</th><th class="four columns">Outcome:</th></tr>'];
-        	changeTitle(data[0]['Team_preffered_name']);
+				items = ['<tr><th class="one column">Date:</th><th class="two columns">Name:</th><th class="one column">Crime:</th><th class="four columns">Description:</th><th class="four columns">Outcome:</th></tr>'];
+        document.title = "NFL Arrest | "+ data[0]['Team_city'] + " " + data[0]['Team_name']+" | List of Player Arrests";
+        $('#pageTitle').html("Team: " + data[0]['Team_city'] + " " + data[0]['Team_name']);
 		for(row in data){
 			row = data[row];
-			items.push('<tr><td class="one column">'+moment(row['Date'], "YYYY-MM-DD").fromNow() +'</td><td class="two columns"><a href="player/'+row['Name']+'/">'+row['Name']+'</a></td><td class="one column"><a href="crime/' + row['Category'] + '/">'+row['Category']+'</a></td><td class="four columns">'+row['Description']+'</td><td class="four columns">'+row['Outcome']+'</td></tr>');
+				items.push('<tr><td class="one column">'+moment(row['Date'], "YYYY-MM-DD").fromNow() +'</td><td class="two columns"><a href="player.html#!'+row['Name']+'">'+row['Name']+'</a></td><td class="one column"><a href="crime.html#!' + row['Category'] + '">'+row['Category']+'</a></td><td class="four columns">'+row['Description']+'</td><td class="four columns">'+row['Outcome']+'</td></tr>');
 		}
 		$('#arrest_table').html(items.join(""));
-		checkLoadingFinished();
+		if(++callbackReturns == 3){
+			callbackReturns = 0;
+			$('#loading-bar').fadeOut();
+			setupFacebook();
+			setupTwitter();
+		}
 	});
 }

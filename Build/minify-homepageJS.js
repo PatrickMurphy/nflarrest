@@ -1,6 +1,6 @@
 var compressor = require('node-minify');
 
-var filename = 'compressed_homepage.js';
+var filename = 'index.min.js';
 var cssFilename = "styles.min.css";
 
 var generateCSS = true;
@@ -9,11 +9,11 @@ var modular_css = true;
 
 process.argv.forEach(function (val, index, array) {
 	if (val === "test") {
-		filename = 'compressed_homepage_test.js';
+		filename = 'index_test.min.js';
 		cssFilename = "styles.min.test.css";
 	}
 	if (val === "test-js") {
-		filename = 'compressed_homepage_test.js';
+		filename = 'index_test.min.js';
 	}
 	if (val === "only-js") {
 		generateCSS = false;
@@ -36,12 +36,12 @@ if (generateJS) {
 		compressor: 'uglifyjs',
 		input: ['../js/index.js',
 				'../js/common.js',
-				'../js/stackedBarChart.js',
+				'../js/charts/stackedBarChart.js',
 				'../js/dateRangeController.js',
 				'../js/google-tracking.js',
 				'../js/nflLoadingBar.js',
 				'../js/loadCSS.js'],
-		output: '../js/' + filename,
+		output: '../js/compressed/' + filename,
 		callback: function (err, min) {
 			console.log('finished: ' + filename);
 		}

@@ -37,7 +37,7 @@ function getDonutData(url, param, callback){
 
 function setupCharts(){
     document.title = "NFL Arrest | " + pageID + " | Player Details";
-	getDonutData('api/v1/player/topCrimes/' + pageID, 'Category', function(newData){
+	getDonutData('api/v1/player/topCrimes/' + pageID, 'category', function(newData){
 		var newChart = donutChart.init({
 			data: newData,
 			targetElement: '#crimeschart',
@@ -45,7 +45,7 @@ function setupCharts(){
 		});
  		charts.push(newChart);
   });
-	getDonutData('api/v1/player/topTeams/' + pageID, 'Team_name', function(newData){
+	getDonutData('api/v1/player/topTeams/' + pageID, 'Team', function(newData){
 		var newChart = donutChart.init({
 			data: newData,
 			targetElement: '#teamchart',
@@ -61,7 +61,7 @@ function renderArrests(){
 				items = ['<tr><th class="one column">Date:</th><th class="two columns">Name:</th><th class="one column">Crime:</th><th class="one column">Team:</th><th class="four columns">Description:</th><th class="three columns">Outcome:</th></tr>'];
 		for(row in data){
 			row = data[row];
-				items.push('<tr><td class="one column">'+moment(row['Date'], "YYYY-MM-DD").fromNow() +'</td><td class="two columns">'+row['Name']+'</td><td class="one columns"><a href="crime/'+row['Category']+'/">'+row['Category']+'</a></td><td class="one column"><a href="team/'+row['Team']+'/">'+row['Team']+'</a></td><td class="four columns">'+row['Description']+'</td><td class="three columns">'+row['Outcome']+'</td></tr>');
+				items.push('<tr><td class="one column">'+moment(row['Date'], "YYYY-MM-DD").fromNow() +'</td><td class="two columns">'+row['Name']+'</td><td class="one columns"><a href="crime.html#!'+row['Category']+'">'+row['Category']+'</a></td><td class="one column"><a href="team.html#!'+row['Team']+'">'+row['Team']+'</a></td><td class="four columns">'+row['Description']+'</td><td class="three columns">'+row['Outcome']+'</td></tr>');
 		}
 		$('#arrest_table').html(items.join(""));
 		setupFacebook();
