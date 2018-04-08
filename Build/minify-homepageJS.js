@@ -34,14 +34,14 @@ process.argv.forEach(function (val, index, array) {
 if (generateJS) {
 	compressor.minify({
 		compressor: 'uglifyjs',
-		input: ['../js/index.js',
-				'../js/common.js',
-				'../js/charts/stackedBarChart.js',
-				'../js/dateRangeController.js',
-				'../js/google-tracking.js',
-				'../js/nflLoadingBar.js',
-				'../js/loadCSS.js'],
-		output: '../js/compressed/' + filename,
+		input: ['../public_html/js/index.js',
+				'../public_html/js/common.js',
+				'../public_html/js/charts/stackedBarChart.js',
+				'../public_html/js/dateRangeController.js',
+				'../public_html/js/google-tracking.js',
+				'../public_html/js/nflLoadingBar.js',
+				'../public_html/js/loadCSS.js'],
+		output: '../public_html/js/compressed/' + filename,
 		callback: function (err, min) {
 			console.log('finished: ' + filename);
 		}
@@ -53,17 +53,17 @@ if (generateCSS) {
 		// generate css from modular files
 		compressor.minify({
 			compressor: 'clean-css',
-			input: ['../css/styles-modular.css',
-                    '../css/modules/styles-indexpage.css',
-                    '../css/modules/styles-daterange.css',
-                    '../css/modules/styles-toplists.css',
-                    '../css/modules/styles-arrestometer.css',
-                    '../css/modules/styles-chart.css',
-                    '../css/modules/styles-cards.css',
-                    '../css/modules/styles-kpi.css',
-					'../css/modules/styles-mobile.css'
+			input: ['../public_html/css/styles-modular.css',
+                    '../public_html/css/modules/styles-indexpage.css',
+                    '../public_html/css/modules/styles-daterange.css',
+                    '../public_html/css/modules/styles-toplists.css',
+                    '../public_html/css/modules/styles-arrestometer.css',
+                    '../public_html/css/modules/styles-chart.css',
+                    '../public_html/css/modules/styles-cards.css',
+                    '../public_html/css/modules/styles-kpi.css',
+					'../public_html/css/modules/styles-mobile.css'
                    ],
-			output: '../css/' + cssFilename,
+			output: '../public_html/css/' + cssFilename,
 			callback: function (err, min) {
 				console.log('css finished: ' + cssFilename);
 			}
@@ -71,8 +71,8 @@ if (generateCSS) {
 	} else {
 		compressor.minify({
 			compressor: 'clean-css',
-			input: ['../css/styles.css'],
-			output: '../css/' + cssFilename,
+			input: ['../public_html/css/styles.css'],
+			output: '../public_html/css/' + cssFilename,
 			callback: function (err, min) {
 				console.log('css finished: ' + cssFilename);
 			}
