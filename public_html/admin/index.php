@@ -62,7 +62,7 @@ require('Login_System.php');
 			?>
 		</section>
 		<br class="clear" />
-		<footer>Made By <a href="http://resume.patrickmurphyphoto.com" title="Want to see my Resume?">Patrick Murphy</a> | <a href="http://nflarrest.com/api/">Open API</a> | <a href="privacypolicy.html">Privacy Policy</a></footer>
+		<footer>Made By <a href="http://resume.patrickmurphyphoto.com" title="Want to see my Resume?">Patrick Murphy</a> | <a href="http://nflarrest.com/api/">Open API</a> | <a href="PrivacyPolicy.html">Privacy Policy</a></footer>
 	</div>
 	<!-- Include Javascript Logic -->
 	<script src="js/vendor/d3.min.js" async></script>

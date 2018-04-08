@@ -37,7 +37,7 @@ RewriteRule ^position/([^/]*)/$ /PositionCache.html?id=$1 [L]
 RewriteRule ^position/([^/]*)$ /PositionCache.html?id=$1 [L]
 
 # Rewrite for homepage Index or High Traffic
-RewriteRule ^$ /loadHomepage.php [L]
+RewriteRule ^$ /LoadHomepage.php [L]
 
 # api rewrite for cached json files
 RewriteCond %{QUERY_STRING}     graph=true&start_date=2000-01-01    [NC]

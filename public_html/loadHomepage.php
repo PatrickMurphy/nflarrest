@@ -7,7 +7,7 @@ $showHighTrafficBool = (rand(0,1000) > ($highTrafficPercent*100));
 
 // test variables and redirect output to correct file
 if($showHighTraffic && $showHighTrafficBool){
-	include('index_HighTraffic.html');
+	include('templates/index_HighTraffic.html');
 }else{
 	include('index.html');
 }
