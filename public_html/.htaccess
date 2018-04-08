@@ -1,29 +1,45 @@
 <IfModule mod_rewrite.c>
 RewriteEngine On
+
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+
+# NFL Arrest API endpoint verb id, endpoint verb and endpoint redirects
 RewriteRule ^api/v1/([^/]*)/([^/]*)/([^/]*)$ api/router.php?endpoint=$1&verb=$2&id=$3 [QSA,NC,L]
 RewriteRule ^api/v1/([^/]*)/([^/]*)$ api/router.php?endpoint=$1&verb=$2 [QSA,NC,L]
 RewriteRule ^api/v1/([^/]*)$ api/router.php?endpoint=$1 [QSA,NC,L]
 
+# Sidebar Arrest-O-Meter Image
 RewriteCond %{THE_REQUEST} \s/+(sidebar)\.php[\s?] [NC]
 RewriteRule ^ /%1 [R=301,L,NE]
 RewriteRule ^(sidebar).png?$ $1.php [L,NC]
 
+# Sitemap XML redirect
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^sitemap\.xml$ sitemap.php [L]
 RewriteRule ^sitemap$ sitemap.php [L]
+
+# ==========================
+# ------ Detail Pages ------
+# ==========================
 RewriteRule ^crime/([^/]*)/$ /CrimeCache.html?id=$1 [L]
 RewriteRule ^crime/([^/]*)$ /CrimeCache.html?id=$1 [L]
+
 RewriteRule ^team/([^/]*)/$ /TeamCache.html?id=$1 [L]
 RewriteRule ^team/([^/]*)$ /TeamCache.html?id=$1 [L]
+
 RewriteRule ^player/([^/]*)/$ /PlayerCache.html?id=$1 [L]
 RewriteRule ^player/([^/]*)$ /PlayerCache.html?id=$1 [L]
+
 RewriteRule ^position/([^/]*)/$ /PositionCache.html?id=$1 [L]
 RewriteRule ^position/([^/]*)$ /PositionCache.html?id=$1 [L]
+
+# Rewrite for homepage Index or High Traffic
 RewriteRule ^$ /loadHomepage.php [L]
 
+# api rewrite for cached json files
 RewriteCond %{QUERY_STRING}     graph=true&start_date=2000-01-01    [NC]
 RewriteRule ^api/overall/topTeams.php api/overall/Cache/topTeams.json [QSA,NC,L]
    
