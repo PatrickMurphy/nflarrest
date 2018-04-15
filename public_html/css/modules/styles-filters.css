@@ -1,0 +1,80 @@
+#filter-dialog {
+	margin: auto;
+	width: 90%;
+	border: 1px solid #aaa;
+	border-radius: 4px;
+}
+
+
+/* --------
+Layout
+-----------*/
+
+.filter-column {
+	margin-left: 0px !important;
+}
+
+.filter-section {
+	margin-bottom: .7em;
+}
+
+.filter-section-title {
+	padding-left: 1em;
+	font-weight: bold;
+	border: 1px solid #f4e6dd;
+	border-radius: 3px;
+	background: #fff6ed;
+}
+
+.filter-section-title:hover {
+	background: #fffaf5;
+	border-color: #f4ebe6;
+}
+
+.filter-section-title span {
+	float: right;
+	margin-right: .75em;
+	color: #919191;
+	font-weight: normal;
+}
+
+.filter-section-item {
+	padding-left: 2em;
+}
+
+
+/*----------
+Inputs
+------------*/
+
+.filter-chosen {
+	width: 85%;
+}
+
+.filter-chosen-multi {
+	width: 85%;
+}
+
+
+/*Button for switching include exclude*/
+
+.filter-type-btn {
+	padding: 0px 2px;
+	margin-right: -4px;
+	border-radius: 0px;
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+	height: 28px;
+	width: 14%;
+	line-height: 28px;
+	font-size: .5em;
+	text-decoration: underline;
+}
+
+.filter-include {
+	text-decoration-color: #1cac22;
+}
+
+.filter-exclude {
+	text-decoration-color: #ac1c1c;
+}

@@ -1,0 +1,53 @@
+{
+	"arrest_stats_id": "35",
+
+	"Team": "DAL",
+	"Team_name": "Cowboys",
+	"Team_preffered_name": "Dallas Cowboys",
+	"Team_city": "Dallas",
+	"Team_logo_id": "9",
+	"Team_Conference": "NFC",
+	"Team_Division": "East",
+	"Team_Conference_Division": "NFC East",
+	"Team_hex_color": "041E42",
+	"Team_hex_alt_color": "7F9695",
+
+	"reddit_group_id": "5",
+
+	"Name": "Joseph Randle",
+
+	"Position": "RB",
+	"Position_name": "Running Back",
+	"Position_type": "O",
+
+	"general_category_id": "9",
+	"Category": "Theft",
+	"Crime_category": "Theft \/ Burglary",
+	"Crime_category_color": "154F78",
+
+	"Date": "2014-10-13",
+
+	"Season": "2014",
+	"ArrestSeasonState": "InSeason",
+
+	"Year": "2014",
+	"Month": "10",
+	"Day": "13",
+	"Day_of_Week": "Monday",
+	"Day_of_Week_int": "2",
+
+	"DaysSince": "1280",
+	"DaysToLastArrest": "8",
+	"DaysToLastCrimeArrest": "1215",
+	"DaysToLastTeamArrest": "629",
+
+	"Encounter": "Arrested",
+
+	"Description": "Accused of shoplifting at store in Frisco, Texas, after allegedly being caught in the act on video.",
+
+	"resolution_category_id": "1",
+	"Outcome": "Pleaded guilty to misdemeanor, probation, $706 in costs. Charge could be dismissed if he stays out of trouble.",
+
+	"legal_level_id": "1",
+
+}

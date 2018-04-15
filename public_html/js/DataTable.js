@@ -57,7 +57,7 @@ class DataTable {
 	}
 
 	setRowLimit(intRowLimit) {
-		intRowLimit = intRowLimit || 10;
+		intRowLimit = intRowLimit || 15;
 		this.row_limit = intRowLimit;
 	}
 

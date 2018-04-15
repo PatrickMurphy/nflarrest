@@ -1,0 +1,253 @@
+<div id="filter-dialog">
+	<div class="row">
+		<div class="twelve columns">
+			<h4>Filter Arrests</h4>
+		</div>
+	</div>
+	<div class="row">
+		<div class="six columns filter-column">
+			<div class="filter-section">
+				<div class="filter-section-title">
+					Date Filters<span>0/4</span>
+				</div>
+				<div class="filter-section-content">
+					<div class="filter-section-item"><span>Range</span>
+						<div class="dateRangeControl">
+							<span class="title">Date Range:</span> <input id="dateRangeJquery" name="dateRangeJquery">
+						</div>
+					</div>
+					<div class="filter-section-item">
+						<span>Month</span>
+						<div class="control-group">
+							<button class="filter-type-btn filter-include">Include</button>
+							<select multiple class="filter-chosen-multi" data-placeholder="Choose Months...">
+								<option>January</option>
+								<option>February</option>
+								<option>March</option>
+								<option>April</option>
+								<option>May</option>
+								<option>June</option>
+								<option>July</option>
+								<option>August</option>
+								<option>September</option>
+								<option>October</option>
+								<option>November</option>
+								<option>December</option>
+							</select>
+						</div>
+					</div>
+					<div class="filter-section-item">
+						<span>Day of Week</span>
+						<div class="filter-section-item">
+							<div class="control-group">
+								<div class="filter-radio-group">
+									<label for="day1">Mon</label>
+									<input type="checkbox" name="dayofweek" checked id="day1">
+									<label for="day2">Tues</label>
+									<input type="checkbox" name="dayofweek" checked id="day2">
+									<label for="day3">Wed</label>
+									<input type="checkbox" name="dayofweek" checked id="day3">
+									<label for="day4">Thurs</label>
+									<input type="checkbox" name="dayofweek" checked id="day4">
+									<label for="day5">Fri</label>
+									<input type="checkbox" name="dayofweek" checked id="day5">
+									<label for="day6">Sat</label>
+									<input type="checkbox" name="dayofweek" checked id="day6">
+									<label for="day7">Sun</label>
+									<input type="checkbox" name="dayofweek" checked id="day7">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="filter-section-item">
+						<span>Year to Date</span>
+						<div class="control-group">
+							<div class="filter-radio-group">
+								<label for="check1">Year to Date</label>
+								<input type="checkbox" name="yeartodate_flag" id="check1">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="filter-section">
+				<div class="filter-section-title">
+					Season Filters<span>0/3</span>
+				</div>
+				<div class="filter-section-content">
+					<div class="filter-section-item">
+						<span>Season</span>
+						<!--<div id="filter-season-slider"></div>-->
+						<div class="control-group">
+							<button class="filter-type-btn filter-include">Include</button>
+							<select multiple class="filter-chosen-multi" data-placeholder="Choose Seasons...">
+								<option>2018</option>
+								<option>2017</option>
+								<option>2016</option>
+								<option>2015</option>
+								<option>2014</option>
+								<option>2013</option>
+								<option>2012</option>
+								<option>2011</option>
+							</select>
+						</div>
+					</div>
+					<div class="filter-section-item"><span>On / Off Season</span>
+						<div class="control-group">
+							<div class="filter-radio-group">
+								<label for="seasonStatusRadio-1">Either</label>
+								<input type="radio" checked name="seasonStatus" id="seasonStatusRadio-1">
+								<label for="seasonStatusRadio-2">Off Season</label>
+								<input type="radio" name="seasonStatus" id="seasonStatusRadio-2">
+								<label for="seasonStatusRadio-3">Within Season</label>
+								<input type="radio" name="seasonStatus" id="seasonStatusRadio-3">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="six columns filter-column">
+			<div class="filter-section">
+				<div class="filter-section-title">
+					Team Filters
+					<span>0/3</span>
+				</div>
+				<div class="filter-section-content">
+
+					<div class="filter-section-item">
+						<span>Team</span>
+						<div class="control-group">
+							<button class="filter-type-btn filter-include">Include</button>
+							<select multiple class="filter-chosen-multi" data-placeholder="Choose Teams...">
+								<option>Seattle Seahawks</option>
+							</select>
+						</div>
+					</div>
+					<div class="filter-section-item">
+						<span>Conference</span>
+						<div class="control-group">
+							<div class="filter-radio-group">
+								<label for="radio-1">Either</label>
+								<input type="radio" checked name="radio-1" id="radio-1">
+								<label for="radio-2">AFC</label>
+								<input type="radio" name="radio-1" id="radio-2">
+								<label for="radio-3">NFC</label>
+								<input type="radio" name="radio-1" id="radio-3">
+							</div>
+						</div>
+					</div>
+					<div class="filter-section-item">
+						<span>Division</span>
+						<div class="control-group">
+							<button class="filter-type-btn filter-include">Include</button>
+							<select multiple class="filter-chosen-multi" data-placeholder="Choose Divisions...">
+								<option>AFC East</option>
+								<option>AFC North</option>
+								<option>AFC South</option>
+								<option>AFC West</option>
+								<option>NFC East</option>
+								<option>NFC North</option>
+								<option>NFC South</option>
+								<option>NFC West</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="filter-section">
+				<div class="filter-section-title">
+					Crime Filters
+					<span>0/2</span>
+				</div>
+				<div class="filter-section-content">
+					<div class="filter-section-item">
+						<span>Category</span>
+						<div class="control-group">
+							<button class="filter-type-btn filter-include">Include</button>
+							<select multiple class="filter-chosen-multi" data-placeholder="Choose Crime Categories...">
+								<option>DUI</option>
+								<option>Drugs</option>
+							</select>
+						</div>
+					</div>
+					<div class="filter-section-item">
+						<span>Crimes</span>
+						<div class="control-group">
+							<button class="filter-type-btn filter-include">Include</button>
+							<select multiple class="filter-chosen-multi" data-placeholder="Choose Crimes...">
+								<option>DUI, Guns</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="filter-section">
+				<div class="filter-section-title">
+					Position Filters<span>0/2</span>
+				</div>
+				<div class="filter-section-content">
+					<div class="filter-section-item"><span>Position</span>
+						<div class="control-group">
+							<button class="filter-type-btn filter-include">Include</button>
+							<select multiple class="filter-chosen-multi" data-placeholder="Choose Positions...">
+								<option>Punter</option>
+							</select>
+						</div>
+					</div>
+					<div class="filter-section-item"><span>Position Type</span>
+						<div class="control-group">
+							<div class="filter-radio-group">
+								<label for="positionTypeRadio-1">Any</label>
+								<input type="radio" checked name="positionTypeRadio-1" id="positionTypeRadio-1">
+								<label for="positionTypeRadio-2">Offense</label>
+								<input type="radio" name="positionTypeRadio-1" id="positionTypeRadio-2">
+								<label for="positionTypeRadio-3">Defense</label>
+								<input type="radio" name="positionTypeRadio-1" id="positionTypeRadio-3">
+								<label for="positionTypeRadio-4">Special</label>
+								<input type="radio" name="positionTypeRadio-1" id="positionTypeRadio-4">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="filter-section">
+				<div class="filter-section-title">
+					Player Filter<span>0/1</span>
+				</div>
+				<div class="filter-section-content">
+					<div class="filter-section-item"><span>Search Player</span>
+						<div class="control-group">
+							<button class="filter-type-btn filter-include">Include</button>
+							<select multiple class="filter-chosen-multi" data-placeholder="Search Players...">
+								<option>Aldon Smith</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Raleway:400,300,500,600" />
+<link rel="stylesheet" type="text/css" href="../css/vendor/normalize.min.css" />
+<link rel="stylesheet" type="text/css" href="../css/vendor/skeleton.min.css" />
+<link rel="stylesheet" type="text/css" href="../css/vendor/c3.css" />
+<link rel="stylesheet" type="text/css" href="../css/vendor/jquery-ui.min.css" />
+<link rel="stylesheet" type="text/css" href="../css/vendor/chosen.min.css" />
+<link rel="stylesheet" type="text/css" href="../css/styles.min.css" />
+<link rel="stylesheet" type="text/css" href="../css/modules/styles-filters.css" />
+
+<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<!--<script src="../js/vendor/jquery-ui.min.js"></script>-->
+<script src="../js/vendor/d3.min.js" async></script>
+<script src="../js/vendor/c3.min.js" async></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js" async></script>
+<script src="../js/vendor/jquery.comiseo.daterangepicker.min.js" async></script>
+<script type="text/javascript" src="../js/vendor/chosen.jquery.min.js"></script>
+<script type="text/javascript" src="../js/dateRangeController.js"></script>
+<script type="text/javascript" src="../js/filters.js"></script>
