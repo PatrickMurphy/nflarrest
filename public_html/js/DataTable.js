@@ -1,16 +1,48 @@
 class DataTable {
 	constructor(data) {
 		this.data = data;
-
+		this.display_data = this.data;
 		this.current_page = 0;
-		this.page_offset = 0;
+		this.row_limit = 15;
 
 		this.renderView();
 	}
 
 	//filters
-	//sort
-	//pagination
+	filterData() {
+		// team ---------
+		// team code
+		// conference
+		// division
+		// date ---------
+		// range
+		// year to date
+		// month
+		// day of week
+		// season ---------
+		// season year
+		// playoffs
+		// on / off season
+		// crime --------
+		// category
+		// crimes
+		// position --------
+		// def / off / special
+		// position code
+		// player -------
+	}
+
+	// sort
+	sortData(columnInt, directionFlag) {
+		this.data.sort(function (a, b) {
+			if (directionFlag)
+				return a[columnInt] > b[columnInt];
+			else
+				return a[columnInt] < b[columnInt];
+		});
+	}
+
+	// pagination
 	setPage(intPage) {
 		intPage = intPage || this.current_page;
 		this.current_page = intPage;
@@ -20,10 +52,16 @@ class DataTable {
 		this.current_page++;
 	}
 
-	setPageOffset(intOffset) {
-		this.page_offset = intOffset;
+	previousPage() {
+		this.current_page--;
 	}
 
+	setRowLimit(intRowLimit) {
+		intRowLimit = intRowLimit || 10;
+		this.row_limit = intRowLimit;
+	}
+
+	// view
 	renderView() {
 		this.renderArrests();
 	}
@@ -33,7 +71,7 @@ class DataTable {
 			items = [];
 
 		items.push(this.renderArrestRowHeader());
-		var pageData = this.data.slice(this.page_offset * this.current_page);
+		var pageData = this.data.slice(this.row_limit * this.current_page);
 
 		for (var rowID in pageData) {
 			row = data[rowID];
