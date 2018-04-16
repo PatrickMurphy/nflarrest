@@ -1,159 +1,164 @@
 var dateRangeController = {
-    start_date: '2000-01-01',
-    end_date: '',
+	start_date: '2000-01-01',
+	end_date: '',
 
-    init: function (callback) {
-        if (typeof pageID !== 'undefined') {
-            var hash = pageID || '';
-            hash = '#!' + hash;
-        } else {
-            var hash = '#!';
-        }
+	init: function (callback) {
+		if (typeof pageID !== 'undefined') {
+			var hash = pageID || '';
+			hash = '#!' + hash;
+		} else {
+			var hash = '#!';
+		}
 
-        $("#dateRangeJquery").daterangepicker({
-            presetRanges: [{
-                text: 'Last 3 Months',
-                dateStart: function () {
-                    return moment().subtract('months', 3)
-                },
-                dateEnd: function () {
-                    return moment()
-                }
+		$("#dateRangeJquery").daterangepicker({
+			presetRanges: [{
+					text: 'Last 3 Months',
+					dateStart: function () {
+						return moment().subtract('months', 3)
+					},
+					dateEnd: function () {
+						return moment()
+					}
      },
-                           {
-                text: 'Last 6 Months',
-                dateStart: function () {
-                    return moment().subtract('months', 6)
-                },
-                dateEnd: function () {
-                    return moment()
-                }
-     },{
-                text: 'Last Year',
-                dateStart: function () {
-                    return moment().subtract('years', 1);
-                },
-                dateEnd: function () {
-                    return moment()
-                }
+				{
+					text: 'Last 6 Months',
+					dateStart: function () {
+						return moment().subtract('months', 6)
+					},
+					dateEnd: function () {
+						return moment()
+					}
      }, {
-                text: 'Last 5 Years',
-                dateStart: function () {
-                    return moment().subtract('years', 5);
-                },
-                dateEnd: function () {
-                    return moment()
-                }
+					text: 'Last Year',
+					dateStart: function () {
+						return moment().subtract('years', 1);
+					},
+					dateEnd: function () {
+						return moment()
+					}
      }, {
-                text: 'All Records',
-                dateStart: function () {
-                    return moment('2000-01-01')
-                },
-                dateEnd: function () {
-                    return moment()
-                }
+					text: 'Last 5 Years',
+					dateStart: function () {
+						return moment().subtract('years', 5);
+					},
+					dateEnd: function () {
+						return moment()
+					}
+     }, {
+					text: 'All Records',
+					dateStart: function () {
+						return moment('2000-01-01')
+					},
+					dateEnd: function () {
+						return moment()
+					}
      }],
-            datepickerOptions: {
-                minDate: new Date('2000-01-01'),
-                maxDate: 0
-            }
-        });
-        var todayDate = moment().format('YYYY-MM-DD');
+			datepickerOptions: {
+				minDate: new Date('2000-01-01'),
+				maxDate: 0
+			}
+		});
+		var todayDate = moment().format('YYYY-MM-DD');
 
-        this.start_date = this.getCookie('start_date') || '2000-01-01';
-        this.end_date = this.getCookie('end_date') || todayDate;
+		this.start_date = this.getCookie('start_date') || '2000-01-01';
+		this.end_date = this.getCookie('end_date') || todayDate;
 
 
-        $("#dateRangeJquery").daterangepicker("setRange", {
-            start: moment(this.start_date).toDate(),
-            end: moment(this.end_date).toDate()
-        });
+		$("#dateRangeJquery").daterangepicker("setRange", {
+			start: moment(this.start_date).toDate(),
+			end: moment(this.end_date).toDate()
+		});
 
-        $('#dateRangeJquery').on('change', this.changeDateRange);
-        $("#dateRangeJquery").on('open', function () {
-            googleTracking.sendTrackEvent('DateRange', 'OpenDialog');
-        });
+		$('#dateRangeJquery').on('change', this.changeDateRange);
+		$("#dateRangeJquery").on('open', function () {
+			googleTracking.sendTrackEvent('DateRange', 'OpenDialog');
+		});
 
-        callback(this);
-    },
+		callback(this);
+	},
 
-    resetTime: function (softReset) {
-        googleTracking.sendTrackEvent('DateRange', 'Reset');
-        softReset = softReset || false;
-        var today = new Date(),
-            month, day;
-        if (today.getMonth() < 9) {
-            month = '0' + (today.getMonth() + 1);
-        } else {
-            month = today.getMonth() + 1;
-        }
+	resetTime: function (softReset) {
+		googleTracking.sendTrackEvent('DateRange', 'Reset');
+		softReset = softReset || false;
+		var start = '2000-01-01',
+			end = dateRangeController.getToday();
 
-        if (today.getDate() < 10) {
-            day = '0' + today.getDate();
-        } else {
-            day = today.getDate();
-        }
-        var start = '2000-01-01',
-            end = today.getFullYear() + '-' + month + '-' + day;
+		dateRangeController.setDates(start, end);
+	},
 
-        dateRangeController.setDates(start, end);
-    },
+	getToday: function () {
+		var today = new Date(),
+			month, day;
 
-    getStart: function () {
-        return this.start_date;
-    },
+		if (today.getMonth() < 9) {
+			month = '0' + (today.getMonth() + 1);
+		} else {
+			month = today.getMonth() + 1;
+		}
 
-    getEnd: function () {
-        return this.end_date;
-    },
+		if (today.getDate() < 10) {
+			day = '0' + today.getDate();
+		} else {
+			day = today.getDate();
+		}
+		return today.getFullYear() + '-' + month + '-' + day;
+	},
 
-    changeDateRange: function () {
-        var data = JSON.parse($('#dateRangeJquery').val());
-        console.log(data);
-        //console.log(data.start);
-        //var start = $('#dateRange_start').val(),
-        //end = $('#dateRange_end').val();
-        var start = data.start,
-            end = data.end;
-        // swap dates if in wrong order
-        if (new Date(start) > new Date(end)) {
-            var temp = start;
-            start = end;
-            end = temp;
-        }
-        dateRangeController.setDates(start, end);
-    },
+	getStart: function () {
+		return this.start_date;
+	},
 
-    setDates: function (start, end) {
-        dateRangeController.setCookie('start_date', start);
-        dateRangeController.setCookie('end_date', end);
-        dateRangeController.start_date = start;
-        dateRangeController.end_date = end;
+	getEnd: function () {
+		return this.end_date;
+	},
 
-        if (window.CustomEvent) {
-            var event = new Event('dateRangeChanged');
-            $('#dateRangeJquery').trigger('dateRangeChanged');
-            googleTracking.sendTrackEvent('DateRange', 'DateChanged');
-        }
-    },
+	changeDateRange: function () {
+		var data = JSON.parse($('#dateRangeJquery').val());
+		console.log(data);
+		//console.log(data.start);
+		//var start = $('#dateRange_start').val(),
+		//end = $('#dateRange_end').val();
+		var start = data.start,
+			end = data.end;
+		// swap dates if in wrong order
+		if (new Date(start) > new Date(end)) {
+			var temp = start;
+			start = end;
+			end = temp;
+		}
+		dateRangeController.setDates(start, end);
+	},
 
-    setCookie: function setCookie(cname, cvalue, exdays) {
-        var d = new Date();
-        exdays = exdays || 0.5;
+	setDates: function (start, end) {
+		dateRangeController.setCookie('start_date', start);
+		dateRangeController.setCookie('end_date', end);
+		dateRangeController.start_date = start;
+		dateRangeController.end_date = end;
 
-        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-        var expires = "expires=" + d.toUTCString();
-        document.cookie = cname + "=" + cvalue + "; " + expires;
-    },
+		if (window.CustomEvent) {
+			var event = new Event('dateRangeChanged');
+			$('#dateRangeJquery').trigger('dateRangeChanged');
+			googleTracking.sendTrackEvent('DateRange', 'DateChanged');
+		}
+	},
 
-    getCookie: function getCookie(cname) {
-        var name = cname + "=";
-        var ca = document.cookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') c = c.substring(1);
-            if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
-        }
-        return "";
-    }
+	setCookie: function setCookie(cname, cvalue, exdays) {
+		var d = new Date();
+		exdays = exdays || 0.5;
+
+		d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+		var expires = "expires=" + d.toUTCString();
+		document.cookie = cname + "=" + cvalue + "; " + expires;
+	},
+
+	getCookie: function getCookie(cname) {
+		var name = cname + "=";
+		var ca = document.cookie.split(';');
+		for (var i = 0; i < ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0) == ' ') c = c.substring(1);
+			if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+		}
+		return "";
+	}
 }
