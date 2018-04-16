@@ -27,7 +27,7 @@ function prepare_filters(){
     }
     
     if(isset($_GET['month'])){
-        array_push($where_filters,'Month IN ('.implode(',',$_GET['month']).')');
+        array_push($where_filters,'Month IN (\''.implode("','",$_GET['month']).'\')');
     }
     
     if(isset($_GET['dayofweek'])){
@@ -43,7 +43,7 @@ function prepare_filters(){
     }
     
     if(isset($_GET['yeartodate'])){
-        if($_GET['yeartodate']=='true'){
+        if($_GET['yeartodate']==1){
             array_push($where_filters,'YearToDate = 1');
         }else{
             array_push($where_filters,'YearToDate = 0');
@@ -51,7 +51,7 @@ function prepare_filters(){
     }
     
     if(isset($_GET['season'])){
-        array_push($where_filters,'Season IN ('.implode(',',$_GET['season']).')');
+        array_push($where_filters,'Season IN (\''.implode("','",$_GET['season']).'\')');
     }
     
     if(isset($_GET['season_status'])){
@@ -63,7 +63,7 @@ function prepare_filters(){
     }
     
     if(isset($_GET['team'])){
-        array_push($where_filters,'Team IN ('.implode(',',$_GET['team']).')');
+        array_push($where_filters,'Team IN (\''.implode("','",$_GET['team']).'\')');
     }
     
     if(isset($_GET['conference'])){
@@ -75,10 +75,10 @@ function prepare_filters(){
     }
     
     if(isset($_GET['division'])){
-        array_push($where_filters,'Team_Conference_Division IN ('.implode(',',$_GET['division']).')');
+        array_push($where_filters,'Team_Conference_Division IN (\''.implode("','",$_GET['division']).'\')');
     }
     if(isset($_GET['position'])){
-        array_push($where_filters,'Position IN ('.implode(',',$_GET['position']).')');
+        array_push($where_filters,'Position IN (\''.implode("','",$_GET['position']).'\')');
     }
     if(isset($_GET['position_type'])){
         $arr_pos_type = str_split($_GET['position_type']);
@@ -94,47 +94,24 @@ function prepare_filters(){
         if($arr_pos_type[2] == '1'){
             $arr_vals[] = "'S'";
         }
-        array_push($where_filters,'Position_type IN ('.implode(',',$arr_vals.')');
+        array_push($where_filters,'Position_type IN (\''.implode("','",$arr_vals).'\')');
     }
     
     if(isset($_GET['crimeCategory'])){
-        array_push($where_filters,'Crime_category IN ('.implode(',',$_GET['crimeCategory']).')');
+        array_push($where_filters,'Crime_category IN (\''.implode("','",$_GET['crimeCategory']).'\')');
     }
     
     if(isset($_GET['crime'])){
-        array_push($where_filters,'Category IN ('.implode(',',$_GET['crime']).')');
+        array_push($where_filters,'Category IN (\''.implode("','",$_GET['crime']).'\')');
     }
     
     
     if(isset($_GET['player'])){
-        array_push($where_filters,'Name IN ('.implode(',',$_GET['player']).')');
+        array_push($where_filters,'Name IN (\''.implode("','",$_GET['player']).'\')');
     }
     
     
     return 'WHERE ' . implode(' AND ',$where_filters);
-    
-
-        /*
-            team: {
-                title: 'Team Filters',
-                element: '#filter-team-section',
-                items: [
-                    {
-                        element: '#filter-conference-AFC-input, #filter-conference-NFC-input',
-                        type: 'checkbox-group',
-                        default_val: 'all'
-					}]
-            },
-            position: {
-                title: 'Position Filters',
-                element: '#filter-position-section',
-                items: [{
-                    element: '#filter-position-type-input-o, #filter-position-type-input-d, #filter-position-type-input-s',
-                    type: 'checkbox-group',
-                    default_val: 'all'
-					}]
-            },
-            */
 }
 
 header("Access-Control-Allow-Origin: *");
