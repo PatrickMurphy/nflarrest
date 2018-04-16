@@ -47,6 +47,17 @@ Layout
 Inputs
 ------------*/
 
+.filter-section-item .dateRangeControl {
+	float: none;
+	margin-right: none;
+	background: transparent;
+	display: block;
+}
+
+.filter-section-item .dateRangeControl .title {
+	display: none;
+}
+
 .filter-chosen {
 	width: 85%;
 }
