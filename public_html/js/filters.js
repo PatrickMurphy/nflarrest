@@ -3,128 +3,9 @@ class FiltersControl {
 		this.options = options || {};
 		this.options.hidden_panels = options.hidden_panels || [];
 		this.options.presets = options.presets || {};
+
+		this.filters_model = new FiltersModel();
 		this.dateRangeNFL;
-
-		this.filter_items = {
-			date_range: {
-				element: '#dateRangeJquery',
-				type: 'dateRangeController',
-				name: ['start_date', 'end_date'],
-				default_val: ['2000-01-01', dateRangeController.getToday()]
-			},
-			month: {
-				element: '#filter-month-input',
-				type: 'select',
-				name: 'month[]',
-				default_val: null
-			},
-			dayofweek: {
-				element: '#filter-dayofweek-input-mon, #filter-dayofweek-input-tues, #filter-dayofweek-input-wed, #filter-dayofweek-input-thur, #filter-dayofweek-input-fri, #filter-dayofweek-input-sat, #filter-dayofweek-input-sun',
-				type: 'checkbox-group',
-				name: 'dayofweek',
-				default_val: 'all'
-			},
-			yeartodate: {
-				element: '#filter-yeartodate-input',
-				type: 'checkbox',
-				name: 'yeartodate',
-				default_val: false
-			},
-			season: {
-				element: '#filter-season-input',
-				type: 'select',
-				name: 'season[]',
-				default_val: null
-			},
-			season_status: {
-				element: '#filter-seasonStatusOn-input, #filter-seasonStatusOff-input',
-				type: 'checkbox-group',
-				name: 'season_status',
-				default_val: 'all'
-			},
-			team: {
-				element: '#filter-team-input',
-				type: 'select',
-				name: 'team[]',
-				default_val: null
-			},
-			conference: {
-				element: '#filter-conference-AFC-input, #filter-conference-NFC-input',
-				type: 'checkbox-group',
-				name: 'conference',
-				default_val: 'all'
-			},
-			division: {
-				element: '#filter-division-input',
-				type: 'select',
-				name: 'division[]',
-				default_val: null
-			},
-			crimeCategory: {
-				element: '#filter-crime-category-input',
-				type: 'select',
-				name: 'crimeCategory[]',
-				default_val: null
-			},
-			crime: {
-				element: '#filter-crime-input',
-				type: 'select',
-				name: 'crime[]',
-				default_val: null
-			},
-			position: {
-				element: '#filter-position-input',
-				type: 'select',
-				name: 'position[]',
-				default_val: null
-			},
-			position_type: {
-				element: '#filter-position-type-input-o, #filter-position-type-input-d, #filter-position-type-input-s',
-				type: 'checkbox-group',
-				name: 'position_type',
-				default_val: 'all'
-			},
-			player: {
-				element: '#filter-player-input',
-				type: 'select',
-				name: 'player[]',
-				default_val: null
-			}
-		};
-
-		this.filters = {
-			date: {
-				title: 'Date Filters',
-				element: '#filter-date-section',
-				items: [this.filter_items.date_range, this.filter_items.month, this.filter_items.dayofweek, this.filter_items.yeartodate]
-			},
-			season: {
-				title: 'Season Filters',
-				element: '#filter-season-section',
-				items: [this.filter_items.season, this.filter_items.season_status]
-			},
-			team: {
-				title: 'Team Filters',
-				element: '#filter-team-section',
-				items: [this.filter_items.team, this.filter_items.conference, this.filter_items.division]
-			},
-			crime: {
-				title: 'Crime Filters',
-				element: '#filter-crime-section',
-				items: [this.filter_items.crimeCategory, this.filter_items.crime]
-			},
-			position: {
-				title: 'Position Filters',
-				element: '#filter-position-section',
-				items: [this.filter_items.position, this.filter_items.position_type]
-			},
-			player: {
-				title: 'Player Filters',
-				element: '#filter-player-section',
-				items: [this.filter_items.player]
-			}
-		};
-
 		this.setupView();
 		this.renderView();
 	}
@@ -217,53 +98,57 @@ class FiltersControl {
 					break;
 			}
 		}
-		$('#filter-date-section .filter-section-title span').html(this.filters.date.active_count + '/4');
-		$('#filter-season-section .filter-section-title span').html(this.filters.season.active_count + '/2');
-		$('#filter-team-section .filter-section-title span').html(this.filters.team.active_count + '/3');
-		$('#filter-crime-section .filter-section-title span').html(this.filters.crime.active_count + '/2');
-		$('#filter-position-section .filter-section-title span').html(this.filters.position.active_count + '/2');
-		$('#filter-player-section .filter-section-title span').html(this.filters.player.active_count + '/1');
+		$('#filter-date-section .filter-section-title span').html(this.filters_model.filter_sections.date.active_count + '/4');
+		$('#filter-season-section .filter-section-title span').html(this.filters_model.filter_sections.season.active_count + '/2');
+		$('#filter-team-section .filter-section-title span').html(this.filters_model.filter_sections.team.active_count + '/3');
+		$('#filter-crime-section .filter-section-title span').html(this.filters_model.filter_sections.crime.active_count + '/2');
+		$('#filter-position-section .filter-section-title span').html(this.filters_model.filter_sections.position.active_count + '/2');
+		$('#filter-player-section .filter-section-title span').html(this.filters_model.filter_sections.player.active_count + '/1');
 	}
 
 	// count by section the number of filters not set to default
 	countSetFilters() {
-		for (var key in this.filters) {
+		for (var key in this.filters_model.filter_sections) {
 			// skip loop if the property is from prototype
-			if (!this.filters.hasOwnProperty(key)) continue;
+			if (!this.filters_model.filter_sections.hasOwnProperty(key)) continue;
 
-			var obj = this.filters[key]['items'];
-			this.filters[key]['active_count'] = 0;
-			for (var prop in obj) {
+			var section = this.filters_model.filter_sections[key];
+
+			section['active_count'] = 0;
+
+			for (var item_key in section['items']) {
 				// skip loop if the property is from prototype
-				if (!obj.hasOwnProperty(prop)) continue;
+				if (!section['items'].hasOwnProperty(item_key)) continue;
+				var item = section['items'][item_key];
 				var is_active = false;
-				switch (obj[prop]['type']) {
+
+				switch (item['type']) {
 					case 'select':
-						is_active = $(obj[prop]['element']).val() != obj[prop]['default_val'];
+						is_active = $(item['element']).val() != item['default_val'];
 						break;
 					case 'dateRangeController':
-						is_active = this.dateRangeNFL.start_date != obj[prop]['default_val'][0] || this.dateRangeNFL.end_date != obj[prop]['default_val'][1];
+						is_active = this.dateRangeNFL.start_date != item['default_val'][0] || this.dateRangeNFL.end_date != item['default_val'][1];
 						break;
 					case 'checkbox-group':
-						// assume default val = all
 						var group_count = 0;
-						$(obj[prop]['element']).map(function (item, el) {
+						$(item['element']).map(function (item, el) {
 							if (!$(el).prop('checked')) {
 								group_count++;
 							}
 						});
 						is_active = group_count > 0;
-						//for(){} each item if all, all must be checked
 						break;
 					case 'checkbox':
-						is_active = $(obj[prop]['element']).prop('checked') != obj[prop]['default_val'];
+						is_active = $(item['element']).prop('checked') != item['default_val'];
 						break;
 					default:
 						console.log('unknown type');
 				}
-				obj[prop]['active'] = is_active;
+
+				// set item active status and section increment count
+				item['active'] = is_active;
 				if (is_active) {
-					this.filters[key]['active_count']++;
+					section['active_count']++;
 				}
 			}
 		}
@@ -271,21 +156,22 @@ class FiltersControl {
 
 	getValues() {
 		var value_ret = {};
-		for (var key in this.filters) {
+		for (var section_key in this.filters_model.filter_sections) {
 			// skip loop if the property is from prototype
-			if (!this.filters.hasOwnProperty(key)) continue;
+			if (!this.filters_model.filter_sections.hasOwnProperty(section_key)) continue;
+			var section = this.filters_model.filter_sections[section_key];
+			var items = section['items'];
 
-			var obj = this.filters[key]['items'];
-
-			for (var prop in obj) {
+			for (var item_key in items) {
 				// skip loop if the property is from prototype
-				if (!obj.hasOwnProperty(prop)) continue;
+				if (!items.hasOwnProperty(item_key)) continue;
 				var is_active = false;
-				var filter_name = obj[prop]['name'];
+				var item = items[item_key];
+				var filter_name = item['name'];
 				var filter_value = '';
-				switch (obj[prop]['type']) {
+				switch (item['type']) {
 					case 'select':
-						filter_value = $(obj[prop]['element']).val();
+						filter_value = $(item['element']).val();
 						break;
 					case 'dateRangeController':
 						filter_value = [this.dateRangeNFL.start_date, this.dateRangeNFL.end_date];
@@ -293,7 +179,7 @@ class FiltersControl {
 					case 'checkbox-group':
 						// assume default val = all
 						var group_settings = [];
-						$(obj[prop]['element']).map(function (item, el) {
+						$(item['element']).map(function (item, el) {
 							if (!$(el).prop('checked')) {
 								group_settings.push('1');
 							} else {
@@ -303,20 +189,20 @@ class FiltersControl {
 						filter_value = group_settings.join('');
 						break;
 					case 'checkbox':
-						filter_value = $(obj[prop]['element']).prop('checked');
+						filter_value = $(item['element']).prop('checked');
 						break;
 					default:
 						console.log('unknown type');
 				}
 
 				// store value if active
-				if (obj[prop]['active']) {
-					if (!value_ret.hasOwnProperty(key)) {
-						value_ret[key] = {};
+				if (item['active']) {
+					if (!value_ret.hasOwnProperty(section_key)) {
+						value_ret[section_key] = {};
 					}
 
 					// save value
-					value_ret[key][filter_name] = filter_value;
+					value_ret[section_key][filter_name] = filter_value;
 				}
 			}
 		}
