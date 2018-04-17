@@ -113,7 +113,7 @@ function prepare_filters(){
     }
     
     
-    return 'WHERE ' . implode(' AND ',$where_filters);
+    return implode(' AND ',$where_filters);
 }
 
 header("Access-Control-Allow-Origin: *");
@@ -127,3 +127,15 @@ if(isset($_GET['test'])){
                    
 //sets the table that standard queries pull from
 $DB_MAIN_TABLE = 'ArrestsCacheTable';
+
+$limit = '';
+
+if(isset($_GET['limit'])){
+	$limit = ' LIMIT ' . $_GET['limit'];
+}
+
+$query = 'SELECT * FROM '.$DB_MAIN_TABLE.' WHERE '.prepare_filters() .' '. $limit;
+
+$result = $db->query($query);
+
+print json_encode(gather_results($result));

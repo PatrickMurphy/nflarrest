@@ -9,6 +9,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^api/v1/([^/]*)/([^/]*)/([^/]*)$ api/router.php?endpoint=$1&verb=$2&id=$3 [QSA,NC,L]
 RewriteRule ^api/v1/([^/]*)/([^/]*)$ api/router.php?endpoint=$1&verb=$2 [QSA,NC,L]
 RewriteRule ^api/v1/([^/]*)$ api/router.php?endpoint=$1 [QSA,NC,L]
+RewriteRule ^api/v2/arrest$ api/APIv2.php [QSA,NC,L]
 
 # Sidebar Arrest-O-Meter Image
 RewriteCond %{THE_REQUEST} \s/+(sidebar)\.php[\s?] [NC]
