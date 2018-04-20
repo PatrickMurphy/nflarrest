@@ -6,25 +6,47 @@ class FiltersModel {
 				name: 'dateRangeController',
 				library: 'NFLArrest',
 				description: 'The NFL Date Range Controller Module, contains two values',
-				default_val: ['2000-01-01', dateRangeController.getToday()]
+				default_val: ['2000-01-01', dateRangeController.getToday()],
+				getValue: function (dateRangeControl) {
+					return [dateRangeControl.start_date, dateRangeControl.end_date];
+				}
 			},
 			select: {
 				name: 'select',
 				library: 'Chosen',
 				description: 'multi select field for filters, contains an array of values',
-				default_val: null
+				default_val: null,
+				getValue: function (ele) {
+					return $(ele).val();
+				}
 			},
 			checkbox_group: {
 				name: 'checkbox-group',
 				library: 'JQuery-UI',
 				description: 'a group of binary options',
-				default_val: 'all'
+				default_val: 'all',
+				getValue: function (ele) {
+					var group_settings = [];
+
+					$(ele).map(function (item, el) {
+						if (!$(el).prop('checked')) {
+							group_settings.push('1');
+						} else {
+							group_settings.push('0');
+						}
+					});
+
+					return group_settings.join('');
+				}
 			},
 			checkbox: {
 				name: 'checkbox',
 				library: 'JQuery-UI',
 				description: 'a single binary option',
-				default_val: false
+				default_val: false,
+				getValue: function (ele) {
+					return $(ele).prop('checked');
+				}
 			}
 		};
 

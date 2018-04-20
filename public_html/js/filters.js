@@ -171,25 +171,17 @@ class FiltersControl {
 				var filter_value = '';
 				switch (item['type']) {
 					case 'select':
-						filter_value = $(item['element']).val();
+						filter_value = item[type].getValue(item['element']);
 						break;
 					case 'dateRangeController':
-						filter_value = [this.dateRangeNFL.start_date, this.dateRangeNFL.end_date];
+						filter_value = item[type].getValue(this.dateRangeNFL.end_date);
 						break;
 					case 'checkbox-group':
-						// assume default val = all
-						var group_settings = [];
-						$(item['element']).map(function (item, el) {
-							if (!$(el).prop('checked')) {
-								group_settings.push('1');
-							} else {
-								group_settings.push('0');
-							}
-						});
-						filter_value = group_settings.join('');
+
+						filter_value = item[type].getValue(item['element']);
 						break;
 					case 'checkbox':
-						filter_value = $(item['element']).prop('checked');
+						filter_value = item[type].getValue(item['element']);
 						break;
 					default:
 						console.log('unknown type');
