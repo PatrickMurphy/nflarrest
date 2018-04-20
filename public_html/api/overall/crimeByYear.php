@@ -28,6 +28,7 @@ else
 $start = isset($_GET['start_date']) ? $_GET['start_date'] : '2000-01-01';
 $end = isset($_GET['end_date']) ? $_GET['end_date'] : date('Y-m-d');
 
+// Check if Restful API or Direct File query
 if(isset($restful)){
 	require_once('api.php');
 }else{

@@ -46,6 +46,7 @@ if($_GET['debug'] == '1'){
 }
 
 $megaresult = [];
+// Check if Restful API or Direct File query
 if(isset($restful)){
 	require_once('api.php');
 }else{

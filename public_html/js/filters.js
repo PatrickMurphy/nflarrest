@@ -67,6 +67,7 @@ class FiltersControl {
 		});
 	}
 
+	// setup the UI Elements that are interactive, but not direct inputs
 	setupUserInterface() {
 		// allow toggle of hidden content filter sections
 		$('.filter-section-title').click(function () {
@@ -74,14 +75,25 @@ class FiltersControl {
 		});
 	}
 
+	// construct the view the first time (initialize)
 	setupView() {
 		var self = this;
-
 		this.setupPresets();
 		this.setupUserInterface();
-		this.setupInputs(function () {
-			self.renderView();
+		this.setupInputs(function (evt, act) {
+			self.onFilterChanged(self, evt, act);
 		});
+	}
+
+	// the event for when a filter is changed, do anything extra and then render the view
+	onFilterChanged(self, event_action, selected_value) {
+		var button_id = event_action.currentTarget.getAttribute('id');
+		var button_id_end = button_id.substring(button_id.indexOf('-') + 1, button_id.length);
+		var button_id_name = button_id_end.substring(0, button_id_end.lastIndexOf('-'));
+		// todo: got half of the reqs for GA events
+		// rename ids based on these rules
+		console.log(button_id, button_id_end, button_id_name);
+		self.renderView();
 	}
 
 	// view update after setting changed
@@ -94,7 +106,7 @@ class FiltersControl {
 				case 'crime':
 				case 'position':
 				case 'player':
-					$(self.filters[self.options.hidden_panels[key]]['element']).hide();
+					$(self.filters_model.filter_sections[self.options.hidden_panels[key]]['element']).hide();
 					break;
 			}
 		}
@@ -121,13 +133,12 @@ class FiltersControl {
 				if (!section['items'].hasOwnProperty(item_key)) continue;
 				var item = section['items'][item_key];
 				var is_active = false;
-
-				switch (item['type']) {
+				switch (item['type']['name']) {
 					case 'select':
-						is_active = $(item['element']).val() != item['default_val'];
+						is_active = $(item['element']).val() != item['type']['default_val'];
 						break;
 					case 'dateRangeController':
-						is_active = this.dateRangeNFL.start_date != item['default_val'][0] || this.dateRangeNFL.end_date != item['default_val'][1];
+						is_active = this.dateRangeNFL.start_date != item['type']['default_val'][0] || this.dateRangeNFL.end_date != item['type']['default_val'][1];
 						break;
 					case 'checkbox-group':
 						var group_count = 0;
@@ -139,7 +150,7 @@ class FiltersControl {
 						is_active = group_count > 0;
 						break;
 					case 'checkbox':
-						is_active = $(item['element']).prop('checked') != item['default_val'];
+						is_active = $(item['element']).prop('checked') != item['type']['default_val'];
 						break;
 					default:
 						console.log('unknown type');
@@ -154,6 +165,7 @@ class FiltersControl {
 		}
 	}
 
+	// get all of the filter values
 	getValues() {
 		var value_ret = {};
 		for (var section_key in this.filters_model.filter_sections) {
@@ -169,19 +181,18 @@ class FiltersControl {
 				var item = items[item_key];
 				var filter_name = item['name'];
 				var filter_value = '';
-				switch (item['type']) {
+				switch (item['type']['name']) {
 					case 'select':
-						filter_value = item[type].getValue(item['element']);
+						filter_value = item['type'].getValue(item['element']);
 						break;
 					case 'dateRangeController':
-						filter_value = item[type].getValue(this.dateRangeNFL.end_date);
+						filter_value = item['type'].getValue(this.dateRangeNFL.end_date);
 						break;
 					case 'checkbox-group':
-
-						filter_value = item[type].getValue(item['element']);
+						filter_value = item['type'].getValue(item['element']);
 						break;
 					case 'checkbox':
-						filter_value = item[type].getValue(item['element']);
+						filter_value = item['type'].getValue(item['element']);
 						break;
 					default:
 						console.log('unknown type');
@@ -201,6 +212,7 @@ class FiltersControl {
 		return value_ret;
 	}
 
+	// get the string to append to the api URL
 	getQueryString() {
 		var valueSet = this.getValues();
 		// copy presets to value set
@@ -221,6 +233,8 @@ class FiltersControl {
 		return qs.join('&');
 	}
 }
+
+// remove this in PRD
 var page;
 $(document).ready(function () {
 	page = new FiltersControl({

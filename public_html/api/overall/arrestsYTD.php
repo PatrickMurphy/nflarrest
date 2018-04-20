@@ -31,6 +31,7 @@ $end = isset($_GET['end_date']) ? $_GET['end_date'] : date('Y-m-d');
 $start = substr($start,0, 4);
 $end = substr($end, 0,4);
 
+// Check if Restful API or Direct File query
 if(isset($restful)){
 	require_once('api.php');
 }else{

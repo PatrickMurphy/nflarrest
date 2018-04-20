@@ -4,6 +4,7 @@ if(isset($_GET['term'])){
 }else{
 	die('team name must be set');
 }
+// Check if Restful API or Direct File query
 if(isset($restful)){
 	require_once('api.php');
 }else{

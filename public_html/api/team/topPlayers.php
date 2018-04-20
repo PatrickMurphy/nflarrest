@@ -5,6 +5,7 @@ if(!isset($_GET['id'])){
 	$id = $_GET['id'];
 }
 
+// Check if Restful API or Direct File query
 if(isset($restful)){
 	require_once('api.php');
 }else{
