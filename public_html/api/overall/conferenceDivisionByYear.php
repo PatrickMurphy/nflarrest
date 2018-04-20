@@ -53,9 +53,9 @@ if(isset($_GET['graph'])){
 	$bar_column = 'Year';
 	$measure_column = 'arrest_count';
 	$stacks_column = 'Team_Conference_Division';
-    $query = 'SELECT Year,a.'.$stacks_column.', count(a.arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' AS a, `general_category` AS b WHERE (Date BETWEEN \'' . $start . "' AND '" . $end . '\') AND a.general_category_id = b.general_category_id GROUP BY a.Year, a.'.$stacks_column.' ORDER BY Year DESC';
+    $query = 'SELECT Year,a.'.$stacks_column.', count(a.arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' AS a '. prepare_filters() .' GROUP BY a.Year, a.'.$stacks_column.' ORDER BY Year DESC';
 }else{
-    $query = 'SELECT Year, count(arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. $date_range .'GROUP BY Year ORDER BY arrest_count DESC' . $limit;
+    $query = 'SELECT Year, count(arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. prepare_filters() .' GROUP BY Year ORDER BY arrest_count DESC' . $limit;
 }
 $result = $db->query($query);
 
@@ -67,7 +67,7 @@ if(isset($_GET['graph'])){
 			$team_stats[$row[$bar_column]][$row[$stacks_column]] = $row[$measure_column];
 	}
 
-	$result3 = $db->query('SELECT '.$stacks_column.', count(a.arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' AS a WHERE (Date BETWEEN \'' . $start . "' AND '" . $end . '\') GROUP BY '.$stacks_column.' ORDER BY '.$stacks_column.' DESC');
+	$result3 = $db->query('SELECT '.$stacks_column.', count(a.arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' AS a '. prepare_filters() .' GROUP BY '.$stacks_column.' ORDER BY '.$stacks_column.' DESC');
 	foreach($result3 as $row3){
 		if(!in_array($row3[$stacks_column], $categories)){
 			$categories[] = $row3[$stacks_column];
@@ -75,7 +75,7 @@ if(isset($_GET['graph'])){
 	}
 
     // get teams
-    $result2 = $db->query('SELECT '.$bar_column.', count(arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. $date_range .'GROUP BY '.$bar_column.' ORDER BY '.$bar_column.', '.$stacks_column.' ASC' . $limit);
+    $result2 = $db->query('SELECT '.$bar_column.', count(arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. $date_range .' GROUP BY '.$bar_column.' ORDER BY '.$bar_column.', '.$stacks_column.' ASC' . $limit);
 
     $teams = [];
     $new_result['columns'][0][0] = 'x';

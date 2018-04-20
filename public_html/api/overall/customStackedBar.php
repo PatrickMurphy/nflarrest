@@ -128,9 +128,9 @@ if(isset($_GET['legend_order_dir']) && in_array($_GET['legend_order_dir'],array_
 // Pull main data from ArrestsDateView
 // create stacked bar chart data
 // Pull main data from ArrestsDateView
-$query                      = 'SELECT '.$bar_column.',a.'.$stacks_column.', '.$measure.' AS '.$measure_column.' FROM '. $DB_MAIN_TABLE.' AS a WHERE (Date BETWEEN \'' .    $start . "' AND '" .   $end . '\') GROUP BY '.$bar_column.', a.'.$stacks_column.' ORDER BY '.$order_by_column.' '.$order_by_direction;
-$legends_categories_query   = 'SELECT '.$stacks_column.', '.$measure.' AS '.$measure_column.' FROM '.                   $DB_MAIN_TABLE.' AS a WHERE (Date BETWEEN \'' .                             $start . "' AND '" .   $end . '\') GROUP BY '.$stacks_column.' ORDER BY '.$legend_order_by_column.' '.$legend_order_by_direction;
-$bar_group_query            = 'SELECT '.$bar_column.', '.$measure.' AS '.$measure_column.' FROM '.                      $DB_MAIN_TABLE.' AS a WHERE (Date BETWEEN \'' .                                  $start . "' AND '" .   $end . '\') GROUP BY '.$bar_column.' ORDER BY '.$bar_order_by_column.' '.$bar_order_by_direction.' ' . $limit;
+$query                      = 'SELECT '.$bar_column.',a.'.$stacks_column.', '.$measure.' AS '.$measure_column.' FROM '. $DB_MAIN_TABLE.' AS a '. prepare_filters() .' GROUP BY '.$bar_column.', a.'.$stacks_column.' ORDER BY '.$order_by_column.' '.$order_by_direction;
+$legends_categories_query   = 'SELECT '.$stacks_column.', '.$measure.' AS '.$measure_column.' FROM '.                   $DB_MAIN_TABLE.' AS a '. prepare_filters() .' GROUP BY '.$stacks_column.' ORDER BY '.$legend_order_by_column.' '.$legend_order_by_direction;
+$bar_group_query            = 'SELECT '.$bar_column.', '.$measure.' AS '.$measure_column.' FROM '.                      $DB_MAIN_TABLE.' AS a '. prepare_filters() .' GROUP BY '.$bar_column.' ORDER BY '.$bar_order_by_column.' '.$bar_order_by_direction.' ' . $limit;
 $result = $db->query($query);
 $bar_groups_result = $db->query($bar_group_query);
 $legend_cats = $db->query($legends_categories_query);

@@ -25,9 +25,9 @@ if(isset($_GET['start_date']) || isset($_GET['end_date'])){
 }
 
 if(isset($_GET['simple'])){
-		$query = 'SELECT Team, Team_name, Team_city, count(arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' WHERE general_category_id = (SELECT general_category_id FROM `general_category` WHERE Category = \''. $id .'\') '. $date_range .' GROUP BY Team, Team_name, Team_city ORDER BY arrest_count DESC' . $limit;
+		$query = 'SELECT Team, Team_name, Team_city, count(arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. prepare_filters() .' GROUP BY Team, Team_name, Team_city ORDER BY arrest_count DESC' . $limit;
 }else{
-	$query = 'SELECT Team, Team_name, Team_city, count(arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' WHERE Category = \''. $id .'\''. $date_range .' GROUP BY Team, Team_name, Team_city ORDER BY arrest_count DESC' . $limit;
+	$query = 'SELECT Team, Team_name, Team_city, count(arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. prepare_filters() .' GROUP BY Team, Team_name, Team_city ORDER BY arrest_count DESC' . $limit;
 }
 
 $result = $db->query($query);

@@ -27,7 +27,7 @@ if(isset($_GET['start_date']) || isset($_GET['end_date'])){
 	$end = isset($_GET['end_date']) ? $_GET['end_date'] : date('Y-m-d');
 	$date_range = " && Date BETWEEN '" . $start . "' AND '" . $end . "' ";
 }
-$query = 'SELECT Name, Position, COUNT(Name) AS arrest_count FROM '.$DB_MAIN_TABLE.' WHERE Name LIKE \'%'. $term .'%\''. $date_range .'GROUP BY Name ORDER BY arrest_count DESC' . $limit;
+$query = 'SELECT Name, Position, COUNT(Name) AS arrest_count FROM '.$DB_MAIN_TABLE.' WHERE Name LIKE \'%'. $term .'%\''. $date_range .' GROUP BY Name ORDER BY arrest_count DESC' . $limit;
 $result = $db->query($query);
 
 print json_encode(gather_results($result));

@@ -1,5 +1,4 @@
 <?php
-//SELECT * FROM '.$DB_MAIN_TABLE.' WHERE name = 'Aldon Smith' ORDER BY Date Desc
 if(isset($_GET['id'])){
 	$id = $_GET['id'];
 }else{
@@ -25,9 +24,9 @@ if(isset($_GET['start_date']) || isset($_GET['end_date'])){
 }
 
 if(isset($_GET['simple'])){
-		$query = 'SELECT A.arrest_stats_id, A.Date, A.Team, A.Name, A.Position, A.Encounter, A.Category, A.Description, A.Outcome, A.general_category_id FROM '.$DB_MAIN_TABLE.' AS A, `general_category` AS B WHERE A.general_category_id = B.general_category_id AND B.Category = \''. $id .'\' '. $date_range .' ORDER BY A.Date DESC' . $limit;
+		$query = 'SELECT A.arrest_stats_id, A.Date, A.Team, A.Name, A.Position, A.Encounter, A.Category, A.Description, A.Outcome, A.general_category_id FROM '.$DB_MAIN_TABLE.' AS A, `general_category` AS B ' . prepare_filters() . ' AND A.general_category_id = B.general_category_id AND Category = \''. $id .'\' '. $date_range .' ORDER BY A.Date DESC' . $limit;
 }else{
-	$query = 'SELECT * FROM '.$DB_MAIN_TABLE.' WHERE Category = \''. $id .'\''. $date_range .'ORDER BY Date DESC' . $limit;
+	$query = 'SELECT * FROM '.$DB_MAIN_TABLE . ' ' . prepare_filters() .'ORDER BY Date DESC' . $limit;
 }
 
 $result = $db->query($query);

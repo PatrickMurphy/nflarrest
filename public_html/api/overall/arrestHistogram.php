@@ -43,7 +43,7 @@ if(isset($_GET['limit'])){
 }
 
 
-$query = 'SELECT DaysToLastArrest AS \'Day\', count(1) as \'Value\' FROM `ArrestsCacheTable` WHERE DaysToLastArrest IS NOT NULL GROUP BY DaysToLastArrest ORDER BY DaysToLastArrest';
+$query = 'SELECT DaysToLastArrest AS \'Day\', count(1) as \'Value\' FROM `ArrestsCacheTable` '. prepare_filters() .' AND DaysToLastArrest IS NOT NULL GROUP BY DaysToLastArrest ORDER BY DaysToLastArrest';
 $result = $db->query($query);
 $result2 = array_reverse(gather_results($result));
 $row = array_pop($result2);

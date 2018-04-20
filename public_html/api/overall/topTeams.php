@@ -90,9 +90,9 @@ $order_by_direction = "DESC";
 
 // create stacked bar chart data
 // Pull main data from ArrestsDateView
-$query                      = 'SELECT '.$bar_column.',a.'.$stacks_column.', '.$measure.' AS '.$measure_column.' FROM '. $DB_MAIN_TABLE.' AS a WHERE (Date BETWEEN \'' .    $start . "' AND '" .   $end . '\') GROUP BY '.$bar_column.', a.'.$stacks_column.' ORDER BY '.$order_by_column.' '.$order_by_direction;
-$legends_categories_query   = 'SELECT '.$stacks_column.', '.$measure.' AS '.$measure_column.' FROM '.                   $DB_MAIN_TABLE.' AS a WHERE (Date BETWEEN \'' .                             $start . "' AND '" .   $end . '\') GROUP BY '.$stacks_column.' ORDER BY '.$order_by_column.' '.$order_by_direction;
-$bar_group_query            = 'SELECT '.$bar_column.', '.$measure.' AS '.$measure_column.' FROM '.                      $DB_MAIN_TABLE.' AS a WHERE (Date BETWEEN \'' .                                  $start . "' AND '" .   $end . '\') GROUP BY '.$bar_column.' ORDER BY '.$order_by_column.' '.$order_by_direction.' ' . $limit;
+$query                      = 'SELECT '.$bar_column.',a.'.$stacks_column.', '.$measure.' AS '.$measure_column.' FROM '. $DB_MAIN_TABLE.' AS a '. prepare_filters() .' GROUP BY '.$bar_column.', a.'.$stacks_column.' ORDER BY '.$order_by_column.' '.$order_by_direction;
+$legends_categories_query   = 'SELECT '.$stacks_column.', '.$measure.' AS '.$measure_column.' FROM '.                   $DB_MAIN_TABLE.' AS a '. prepare_filters() .' GROUP BY '.$stacks_column.' ORDER BY '.$order_by_column.' '.$order_by_direction;
+$bar_group_query            = 'SELECT '.$bar_column.', '.$measure.' AS '.$measure_column.' FROM '.                      $DB_MAIN_TABLE.' AS a '. prepare_filters() .' GROUP BY '.$bar_column.' ORDER BY '.$order_by_column.' '.$order_by_direction.' ' . $limit;
 $result = $db->query($query);
 
 $stacks = [];
@@ -138,7 +138,7 @@ $new_result['columns'] = array_values($new_result['columns']);
 $new_result['groups'] = $bar_groups;
 print json_encode($new_result);
 }else{
-    $query = 'SELECT Team, Team_preffered_name,Team_name, Team_city, Team_Conference, Team_Conference_Division, Team_logo_id, count(arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. $date_range .'GROUP BY Team, Team_preffered_name,Team_name, Team_city, Team_Conference, Team_Conference_Division, Team_logo_id ORDER BY arrest_count DESC' . $limit;
+    $query = 'SELECT Team, Team_preffered_name,Team_name, Team_city, Team_Conference, Team_Conference_Division, Team_logo_id, count(arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. $date_range .' GROUP BY Team, Team_preffered_name,Team_name, Team_city, Team_Conference, Team_Conference_Division, Team_logo_id ORDER BY arrest_count DESC' . $limit;
     $result = $db->query($query);
     print json_encode(gather_results($result));
 }

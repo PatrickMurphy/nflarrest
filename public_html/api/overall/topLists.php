@@ -71,17 +71,17 @@ if(isset($_GET['start_date']) || isset($_GET['end_date'])){
 	$date_range = "WHERE Date BETWEEN '" . $start . "' AND '" . $end . "' ";
 }
 // crime
-$result2 = $db->query('SELECT Category, COUNT(Category) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. $date_range .'GROUP BY Category ORDER BY arrest_count DESC' . $limit);
+$result2 = $db->query('SELECT Category, COUNT(Category) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. prepare_filters() .' GROUP BY Category ORDER BY arrest_count DESC' . $limit);
 
 $megaresult[] = gather_results($result2);
 
 // players
-$result = $db->query('SELECT Name, Position, COUNT(Name) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. $date_range .'GROUP BY Name HAVING arrest_count > 1 ORDER BY arrest_count DESC' . $limit);
+$result = $db->query('SELECT Name, Position, COUNT(Name) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. prepare_filters() .' GROUP BY Name HAVING arrest_count > 1 ORDER BY arrest_count DESC' . $limit);
 
 $megaresult[] = gather_results($result);
 
 // position
-$result3 = $db->query('SELECT Position, COUNT(Position) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. $date_range .'GROUP BY Position ORDER BY arrest_count DESC' . $limit);
+$result3 = $db->query('SELECT Position, COUNT(Position) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. $date_range .' GROUP BY Position ORDER BY arrest_count DESC' . $limit);
 $megaresult[] = gather_results($result3);
 
 print json_encode($megaresult);

@@ -50,9 +50,9 @@ if(isset($_GET['start_date']) || isset($_GET['end_date'])){
 }
 
 if(isset($_GET['graph'])){
-    $query = 'SELECT Year, b.Category, count(a.arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' AS a, `general_category` AS b WHERE (Date BETWEEN \'' . $start . "' AND '" . $end . '\') AND a.general_category_id = b.general_category_id GROUP BY a.Year, b.Category ORDER BY Year, b.Category DESC';
+    $query = 'SELECT Year, Category, count(a.arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' AS a '. prepare_filters() .' GROUP BY a.Year, Category ORDER BY Year, Category DESC';
 }else{
-    $query = 'SELECT Year, count(arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. $date_range .'GROUP BY Year ORDER BY arrest_count DESC' . $limit;
+    $query = 'SELECT Year, count(arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. prepare_filters() .' GROUP BY Year ORDER BY arrest_count DESC' . $limit;
 }
 $result = $db->query($query);
 
@@ -64,7 +64,7 @@ if(isset($_GET['graph'])){
 			$team_stats[$row['Year']][$row['Category']] = $row['arrest_count'];
 	}
 
-	$result3 = $db->query('SELECT b.Category, count(a.arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' AS a, `general_category` AS b WHERE (Date BETWEEN \'' . $start . "' AND '" . $end . '\') AND a.general_category_id = b.general_category_id GROUP BY b.Category ORDER BY arrest_count DESC');
+	$result3 = $db->query('SELECT Category, count(a.arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' AS a '. prepare_filters() .' GROUP BY Category ORDER BY arrest_count DESC');
 	$addOther = false;
 	foreach($result3 as $row3){
 		if(!in_array($row3['Category'], $categories)){
@@ -80,7 +80,7 @@ if(isset($_GET['graph'])){
 	}
 
     // get teams
-    $result2 = $db->query('SELECT Year, count(arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. $date_range .'GROUP BY Year ORDER BY arrest_count DESC' . $limit);
+    $result2 = $db->query('SELECT Year, count(arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. $date_range .' GROUP BY Year ORDER BY arrest_count DESC' . $limit);
 
     $teams = [];
     $new_result['columns'][0][0] = 'x';

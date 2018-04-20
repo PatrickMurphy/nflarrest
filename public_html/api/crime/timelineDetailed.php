@@ -1,6 +1,4 @@
 <?php
-// SELECT Date, Name, Team FROM '.$DB_MAIN_TABLE.' WHERE Category = 'DUI' ORDER BY Date DESC
-
 if(!isset($_GET['id'])){
 	die('must select crime');
 }else{
@@ -26,6 +24,6 @@ if(isset($_GET['start_date']) || isset($_GET['end_date'])){
 	$date_range = " && Date BETWEEN '" . $start . "' AND '" . $end . "' ";
 }
 
-$result = $db->query('SELECT Date, Name, Team FROM '.$DB_MAIN_TABLE.' WHERE Category = \''. $id .'\''. $date_range .' ORDER BY date DESC' . $limit);
+$result = $db->query('SELECT Date, Name, Team FROM '.$DB_MAIN_TABLE.' '.prepare_filters().' ORDER BY date DESC' . $limit);
 
 print json_encode(gather_results($result));

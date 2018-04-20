@@ -22,6 +22,6 @@ if(isset($_GET['start_date']) || isset($_GET['end_date'])){
 	$date_range = "WHERE Date BETWEEN '" . $start . "' AND '" . $end . "' ";
 }
 
-$result = $db->query('SELECT Position, COUNT(Position) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. $date_range .'GROUP BY Position ORDER BY arrest_count DESC' . $limit);
+$result = $db->query('SELECT Position, COUNT(Position) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. $date_range .' GROUP BY Position ORDER BY arrest_count DESC' . $limit);
 
 print json_encode(gather_results($result));

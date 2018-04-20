@@ -52,7 +52,7 @@ if(isset($_GET['start_date']) || isset($_GET['end_date'])){
 	$date_range = "WHERE season >= '" . $start . "' AND season <= '" . $end . "' ";
 }
 
-$query = 'SELECT * FROM `ArrestSeasonStateSummary` '. $date_range . $limit;
+$query = 'SELECT * FROM `ArrestSeasonStateSummary` '. prepare_filters() . $limit;
 
 $result = $db->query($query);
 $inSeasonTitle_string = "During Season";
@@ -60,9 +60,7 @@ $offSeasonTitle_string = "Off Season";
 
 	$year_stats2 = array('columns'=>array('x'=>array('x'),$inSeasonTitle_string=>array($inSeasonTitle_string),$offSeasonTitle_string=>array($offSeasonTitle_string)));
 
-//print_r($result);
     foreach($result as $row){
-       //	print_r( $row);
         array_push($year_stats2['columns']['x'], $row['season']);
         array_push($year_stats2['columns'][$inSeasonTitle_string], $row['InSeason']);
         array_push($year_stats2['columns'][$offSeasonTitle_string], $row['OffSeason']);
