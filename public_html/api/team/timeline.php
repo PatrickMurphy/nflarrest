@@ -11,6 +11,6 @@ $param[$query_string_parameter] = get_query_string($query_string_parameter);
 $limit = get_limit();
 
 
-$result = $db->query('SELECT MONTH(Date) AS Month, YEAR(Date) AS Year, COUNT(Team) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. prepare_filters() .' GROUP BY YEAR(Date), MONTH(Date) ORDER BY Date ASC' . $limit);
+$result = $db->query('SELECT MONTH(Date) AS Month, YEAR(Date) AS Year, COUNT(Team) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. prepare_filters($param) .' GROUP BY YEAR(Date), MONTH(Date) ORDER BY Date ASC' . $limit);
 
 print json_encode(gather_results($result));

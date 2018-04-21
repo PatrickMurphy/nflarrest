@@ -12,9 +12,9 @@ $param[$query_string_parameter] = get_query_string($query_string_parameter);
 $limit = get_limit();
 
 if(isset($_GET['simple'])){
-	$query = 'SELECT A.arrest_stats_id, A.Date, A.Team, A.Name, A.Position, A.Encounter, A.Category, A.Description, A.Outcome, A.general_category_id FROM '.$DB_MAIN_TABLE.' AS A ' . prepare_filters() .' ORDER BY A.Date DESC' . $limit;
+	$query = 'SELECT A.arrest_stats_id, A.Date, A.Team, A.Name, A.Position, A.Encounter, A.Category, A.Description, A.Outcome, A.general_category_id FROM '.$DB_MAIN_TABLE.' AS A ' . prepare_filters($param) .' ORDER BY A.Date DESC' . $limit;
 }else{
-	$query = 'SELECT * FROM '.$DB_MAIN_TABLE . ' ' . prepare_filters() .'ORDER BY Date DESC' . $limit;
+	$query = 'SELECT * FROM '.$DB_MAIN_TABLE . ' ' . prepare_filters($param) .'ORDER BY Date DESC' . $limit;
 }
 
 $result = $db->query($query);

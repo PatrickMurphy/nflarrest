@@ -10,6 +10,6 @@ $param[$query_string_parameter] = get_query_string($query_string_parameter);
 
 $limit = get_limit();
 
-$result = $db->query('SELECT Date, Name, Team FROM '.$DB_MAIN_TABLE.' '.prepare_filters().' ORDER BY date DESC' . $limit);
+$result = $db->query('SELECT Date, Name, Team FROM '.$DB_MAIN_TABLE.' '.prepare_filters($param).' ORDER BY date DESC' . $limit);
 
 print json_encode(gather_results($result));
