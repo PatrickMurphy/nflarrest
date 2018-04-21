@@ -6,7 +6,7 @@ if(isset($restful)){
 	require_once('../api.php');
 }
 $query_string_parameter = 'player';
-$main_parameter = get_query_string($query_string_parameter);
+$param[$query_string_parameter] = get_query_string($query_string_parameter);
 
 $limit = get_limit();
 

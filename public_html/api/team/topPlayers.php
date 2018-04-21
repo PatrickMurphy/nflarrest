@@ -5,11 +5,12 @@ if(isset($restful)){
 }else{
 	require_once('../api.php');
 }
+
 $query_string_parameter = 'team';
-$main_parameter = get_query_string($query_string_parameter);
+$param[$query_string_parameter] = get_query_string($query_string_parameter);
 
 $limit = get_limit();
 
-$result = $db->query('SELECT Name, count(arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. prepare_filters() .' GROUP BY Name ORDER BY arrest_count DESC' . $limit);
+$result = $db->query('SELECT Name, count(arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. prepare_filters($param) .' GROUP BY Name ORDER BY arrest_count DESC' . $limit);
 
 print json_encode(gather_results($result));
