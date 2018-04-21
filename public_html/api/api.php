@@ -194,7 +194,7 @@ function get_date_range(){
 	return $return_date_range;
 }
 
-header("Access-Control-Allow-Origin: *");
+//header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 header("Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS" );
 header('Content-type:application/json');

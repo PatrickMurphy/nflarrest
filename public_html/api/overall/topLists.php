@@ -25,10 +25,19 @@ if ($etagMatches && $timeTolerance)
 }
 else
 {
-		header('Content-Type: application/json');
+	header('Content-Type: application/json');
     header("Last-Modified: $tsstring");
     header("ETag: \"{$etag}\"");
 }
+$megaresult = [];
+// Check if Restful API or Direct File query
+if(isset($restful)){
+	require_once('api.php');
+}else{
+	require_once($path_ext . 'api.php');
+}
+
+
 if($_GET['debug'] == '1'){
 	print $if_none_match;
 	$debug_options = array(
@@ -45,13 +54,6 @@ if($_GET['debug'] == '1'){
 	print_r ($debug_options);
 }
 
-$megaresult = [];
-// Check if Restful API or Direct File query
-if(isset($restful)){
-	require_once('api.php');
-}else{
-	require_once($path_ext . 'api.php');
-}
 
 $limit = get_limit();
 
