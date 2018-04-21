@@ -186,7 +186,7 @@ class FiltersControl {
 						filter_value = item['type'].getValue(item['element']);
 						break;
 					case 'dateRangeController':
-						filter_value = item['type'].getValue(this.dateRangeNFL.end_date);
+						filter_value = item['type'].getValue(this.dateRangeNFL);
 						break;
 					case 'checkbox-group':
 						filter_value = item['type'].getValue(item['element']);
@@ -205,7 +205,14 @@ class FiltersControl {
 					}
 
 					// save value
-					value_ret[section_key][filter_name] = filter_value;
+					if (Array.isArray(filter_value) && item['type'].hasOwnProperty('names')) {
+						var i = 0;
+						for (var filter_val_key in filter_value) {
+							value_ret[section_key][item['type']['names'][i++]] = filter_value[filter_val_key];
+						}
+					} else {
+						value_ret[section_key][filter_name] = filter_value;
+					}
 				}
 			}
 		}

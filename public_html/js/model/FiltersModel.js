@@ -4,11 +4,15 @@ class FiltersModel {
 		this.filter_types = {
 			date_range_controller: {
 				name: 'dateRangeController',
+				names: ['start_date', 'end_date'],
 				library: 'NFLArrest',
 				description: 'The NFL Date Range Controller Module, contains two values',
 				default_val: ['2000-01-01', dateRangeController.getToday()],
 				getValue: function (dateRangeControl) {
-					return [dateRangeControl.start_date, dateRangeControl.end_date];
+					var arr = [];
+					arr.push(dateRangeControl.start_date);
+					arr.push(dateRangeControl.end_date);
+					return arr;
 				}
 			},
 			select: {
