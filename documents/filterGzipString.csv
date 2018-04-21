@@ -1,0 +1,16 @@
+name,value,maxlength
+date 1,11012001,8
+date 2,12312018,8
+months,101010101010,12
+days of week,1010101,7
+year to date,1,1
+seasons,2000-2018 now,list(~18*2(last two digits of year))
+season status,01,2
+team,33 total 3 letter,33*3=99
+team division,12345678,8
+team conference,01,2
+category,1-10 14 16 23 27,18
+crime,113 total now,230 if ids
+position,30 ids,9+(21*2)=51
+position-type,010,3
+player,name,25

@@ -33,15 +33,7 @@ if(isset($restful)){
 	require_once('../api.php');
 }
 
-$limit = '';
-
-if(isset($_GET['limit'])){
-	$limit = ' LIMIT ';
-	if(isset($_GET['start_pos'])){
-		$limit .= $_GET['start_pos'] . ', ';
-	}
-	$limit .= $_GET['limit'];
-}
+$limit = get_limit();
 
 
 $query = 'SELECT DaysToLastArrest AS \'Day\', count(1) as \'Value\' FROM `ArrestsCacheTable` '. prepare_filters() .' AND DaysToLastArrest IS NOT NULL GROUP BY DaysToLastArrest ORDER BY DaysToLastArrest';

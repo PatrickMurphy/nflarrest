@@ -35,20 +35,7 @@ if(isset($restful)){
 	require_once('../api.php');
 }
 
-$limit = '';
-$date_range = '';
-
-if(isset($_GET['limit'])){
-	$limit = ' LIMIT ';
-	if(isset($_GET['start_pos'])){
-		$limit .= $_GET['start_pos'] . ', ';
-	}
-	$limit .= $_GET['limit'];
-}
-
-if(isset($_GET['start_date']) || isset($_GET['end_date'])){
-	$date_range = "WHERE Date BETWEEN '" . $start . "' AND '" . $end . "' ";
-}
+$limit = get_limit();
 
 if(isset($_GET['graph'])){
 	$bar_column = 'Year';

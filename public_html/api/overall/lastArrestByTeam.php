@@ -33,16 +33,7 @@ if(isset($restful)){
 	require_once('../api.php');
 }
 
-$limit = '';
-
-if(isset($_GET['limit'])){
-	$limit = ' LIMIT ';
-	if(isset($_GET['start_pos'])){
-		$limit .= $_GET['start_pos'] . ', ';
-	}
-	$limit .= $_GET['limit'];
-}
-
+$limit = get_limit();
 
 $query = 'SELECT * FROM `Cache_LastArrestByTeam` '. $limit;
 $result = $db->query($query);

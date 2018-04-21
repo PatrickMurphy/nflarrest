@@ -1,4 +1,21 @@
 <?php
+$tsstring = gmdate('D, d M Y H:i:s ', time()) . 'GMT';
+$if_modified_since = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? $_SERVER['HTTP_IF_MODIFIED_SINCE'] : false;
+
+$timeTolerance = ($if_modified_since && ((strtotime($tsstring) - strtotime($if_modified_since)) < (4*60*60)));
+
+if ($timeTolerance)
+{
+    header('HTTP/1.1 304 Not Modified');
+    exit();
+}
+else
+{
+		header('Content-Type: application/json');
+    header("Last-Modified: $tsstring");
+}
+require_once('api.php');
+
 function array_msort($array, $cols)
 {
     $colarr = array();
@@ -23,22 +40,6 @@ function array_msort($array, $cols)
     return $ret;
 
 }
-$tsstring = gmdate('D, d M Y H:i:s ', time()) . 'GMT';
-$if_modified_since = isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) ? $_SERVER['HTTP_IF_MODIFIED_SINCE'] : false;
-
-$timeTolerance = ($if_modified_since && ((strtotime($tsstring) - strtotime($if_modified_since)) < (4*60*60)));
-
-if ($timeTolerance)
-{
-    header('HTTP/1.1 304 Not Modified');
-    exit();
-}
-else
-{
-		header('Content-Type: application/json');
-    header("Last-Modified: $tsstring");
-}
-require_once('api.php');
 
 $date_range = '';
 if(isset($_GET['start_date']) || isset($_GET['end_date'])){

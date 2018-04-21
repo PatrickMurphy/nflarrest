@@ -34,21 +34,7 @@ if(isset($restful)){
 }else{
 	require_once('../api.php');
 }
-
-$limit = '';
-$date_range = '';
-
-if(isset($_GET['limit'])){
-	$limit = ' LIMIT ';
-	if(isset($_GET['start_pos'])){
-		$limit .= $_GET['start_pos'] . ', ';
-	}
-	$limit .= $_GET['limit'];
-}
-
-if(isset($_GET['start_date']) || isset($_GET['end_date'])){
-	$date_range = "WHERE Date BETWEEN '" . $start . "' AND '" . $end . "' ";
-}
+$limit = get_limit();
 
 if(isset($_GET['graph'])){
     $query = 'SELECT Year, Category, count(a.arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' AS a '. prepare_filters() .' GROUP BY a.Year, Category ORDER BY Year, Category DESC';

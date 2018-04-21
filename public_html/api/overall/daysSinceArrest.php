@@ -11,7 +11,7 @@ if ($timeTolerance)
 }
 else
 {
-		header('Content-Type: application/json');
+	header('Content-Type: application/json');
     header("Last-Modified: $tsstring");
 }
 
