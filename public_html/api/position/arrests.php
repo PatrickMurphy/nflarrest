@@ -6,8 +6,8 @@ if(isset($restful)){
 	require_once('../api.php');
 }
 
-$query_string_parameter = 'position';
-$param[$query_string_parameter] = get_query_string($query_string_parameter);
+$param[$query_string_parameter] = get_query_string('position');
+
 
 $limit = get_limit();
 

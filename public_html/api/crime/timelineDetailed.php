@@ -5,8 +5,8 @@ if(isset($restful)){
 }else{
 	require_once('../api.php');
 }
-$query_string_parameter = 'crime';
-$param[$query_string_parameter] = get_query_string($query_string_parameter);
+$param[$query_string_parameter] = get_query_string('crime');
+
 
 $limit = get_limit();
 
