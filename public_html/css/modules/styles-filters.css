@@ -27,6 +27,14 @@ Layout
 
 #filters-close-button {
 	font-weight: bold;
+	padding: 0px;
+	margin-left: 3px;
+	float: right;
+}
+
+#filters-button-row button {
+	float: right;
+	margin-top: 0px;
 }
 
 .filter-column {

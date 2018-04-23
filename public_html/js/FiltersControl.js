@@ -25,6 +25,7 @@ class FiltersControl {
 				self.hide();
 			}
 		});
+
 		// setup dialog control
 		this.hide();
 	}
@@ -109,10 +110,36 @@ class FiltersControl {
 
 	// setup the UI Elements that are interactive, but not direct inputs
 	setupUserInterface() {
+		var self = this;
 		// allow toggle of hidden content filter sections
 		$('.filter-section-title').click(function () {
 			$(this).parent().children().eq(1).toggle();
 		});
+
+		$('#filters-close-button').click(function () {
+			self.hide();
+		});
+
+		$('#filters-apply-button').click(function () {
+			self.apply();
+			self.hide();
+		});
+
+		$('#filters-clear-button').click(function () {
+			self.reset();
+		});
+
+		$('#filters-cancel-button').click(function () {
+			self.hide();
+		});
+	}
+
+	apply() {
+
+	}
+
+	reset() {
+
 	}
 
 	// the event for when a filter is changed, do anything extra and then render the view
