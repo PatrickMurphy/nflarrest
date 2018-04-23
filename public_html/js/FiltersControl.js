@@ -1,17 +1,22 @@
 class FiltersControl {
 	constructor(options) {
+		// setup options
 		this.options = options || {};
 		this.options.hidden_panels = options.hidden_panels || [];
 		this.options.presets = options.presets || {};
-		this.options.dialog_element = options.dialog_element || '#filter-dialog-container';
-		this.options.dialog_content_url = options.dialog_content_url || 'templates/FiltersDialog.html';
 		this.options.date_range_object = options.date_range_object || {};
 
+		this.options.dialog_element = options.dialog_element || '#filter-dialog-container';
+		this.options.dialog_content_url = options.dialog_content_url || 'templates/FiltersDialog.html';
+
+		// load model and date range object
 		this.filters_model = new FiltersModel();
 		this.dateRangeNFL = this.options.date_range_object;
 
-		// setup
+		// setup dialog control
 		this.loadDialogContents();
+		this.setupFilterPresets();
+		this.setupUserInterface();
 		this.setupView();
 		this.renderView();
 	}
@@ -24,17 +29,17 @@ class FiltersControl {
 	}
 
 	// add hidden panels for sections effected by presets
-	setupPresets() {
-		for (var key in this.options.presets) {
-			var value1 = this.options.presets[key];
-			for (var key2 in value1) {
-				var value2 = value1[key2];
-				switch (key2) {
+	setupFilterPresets() {
+		for (var option_key in this.options.presets) {
+			var option_value = this.options.presets[option_key];
+			for (var option_sub_key in option_value) {
+				var option_sub_value = option_value[option_sub_key];
+				switch (option_sub_key) {
 					case 'team':
 					case 'crime':
 					case 'position':
 					case 'player':
-						this.options.hidden_panels.push(key2);
+						this.options.hidden_panels.push(option_sub_key);
 						break;
 					default:
 						console.log('unknown preset');
@@ -44,7 +49,7 @@ class FiltersControl {
 	}
 
 	// add UI librarys to input, as well as on change events
-	setupInputs(onChangeCallback) {
+	setupFilterInput(onChangeCallback) {
 		var self = this;
 		var chosen_multi_settings = {
 			inherit_select_classes: true,
@@ -87,16 +92,6 @@ class FiltersControl {
 		});
 	}
 
-	// construct the view the first time (initialize)
-	setupView() {
-		var self = this;
-		this.setupPresets();
-		this.setupUserInterface();
-		this.setupInputs(function (evt, act) {
-			self.onFilterChanged(self, evt, act);
-		});
-	}
-
 	// the event for when a filter is changed, do anything extra and then render the view
 	onFilterChanged(self, event_action, selected_value) {
 		var button_id = event_action.currentTarget.getAttribute('id');
@@ -108,10 +103,18 @@ class FiltersControl {
 		self.renderView();
 	}
 
+	// construct the view the first time (initialize)
+	setupView() {
+		var self = this;
+		this.setupFilterInput(function (evt, act) {
+			self.onFilterChanged(self, evt, act);
+		});
+	}
+
 	// view update after setting changed
 	renderView() {
 		var self = this;
-		this.countSetFilters();
+		this.countActiveFilters();
 		for (var key in self.options.hidden_panels) {
 			switch (self.options.hidden_panels[key]) {
 				case 'team':
@@ -131,7 +134,7 @@ class FiltersControl {
 	}
 
 	// count by section the number of filters not set to default
-	countSetFilters() {
+	countActiveFilters() {
 		for (var key in this.filters_model.filter_sections) {
 			// skip loop if the property is from prototype
 			if (!this.filters_model.filter_sections.hasOwnProperty(key)) continue;
@@ -178,7 +181,7 @@ class FiltersControl {
 	}
 
 	// get all of the filter values
-	getValues() {
+	getFilterValues() {
 		var value_ret = {};
 		for (var section_key in this.filters_model.filter_sections) {
 			// skip loop if the property is from prototype
@@ -233,22 +236,24 @@ class FiltersControl {
 
 	// get the string to append to the api URL
 	getQueryString() {
-		var valueSet = this.getValues();
+		var filterValueSet = this.getFilterValues();
 		// copy presets to value set
-		valueSet = Object.assign(valueSet, this.options.presets);
-		var qs = [];
-		for (var key in valueSet) {
-			for (var key2 in valueSet[key]) {
-				if (valueSet[key][key2] instanceof Array) {
-					for (var key3 in valueSet[key][key2]) {
-						qs.push(key2 + '=' + valueSet[key][key2][key3]);
+		filterValueSet = Object.assign(filterValueSet, this.options.presets);
+
+		// build query string
+		var querystring_return = [];
+		for (var filterKey in filterValueSet) {
+			for (var filterSubKey in filterValueSet[filterKey]) {
+				if (Array.isArray(filterValueSet[filterKey][filterSubKey])) {
+					for (var filterSubSubKey in filterValueSet[filterKey][filterSubKey]) {
+						querystring_return.push(filterSubKey + '=' + filterValueSet[filterKey][filterSubKey][filterSubSubKey]);
 					}
 				} else {
-					qs.push(key2 + '=' + valueSet[key][key2]);
+					querystring_return.push(filterSubKey + '=' + filterValueSet[filterKey][filterSubKey]);
 				}
 			}
 		}
 
-		return qs.join('&');
+		return querystring_return.join('&');
 	}
 }
