@@ -135,13 +135,39 @@ class FiltersControl {
 	}
 
 	apply() {
-
+		var tempVals = this.getFilterValues();
+		for (var key in tempVals) {
+			for (var key2 in tempVals[key]) {
+				setCookieValue(key2, tempVals[key][key2]);
+			}
+		}
 	}
-
+	// get all of the filter values
 	reset() {
+		var self = this;
+		for (var section_key in this.filters_model.filter_sections) {
+			// skip loop if the property is from prototype
+			if (!this.filters_model.filter_sections.hasOwnProperty(section_key)) continue;
+			var section = this.filters_model.filter_sections[section_key];
+			var items = section['items'];
 
+			for (var item_key in items) {
+				// skip loop if the property is from prototype
+				if (!items.hasOwnProperty(item_key)) continue;
+				var item = items[item_key];
+
+				// save value
+				if (Array.isArray(item['type'].default_val) && item['type'].hasOwnProperty('names')) {
+					var i = 0;
+					for (var filter_val_key in item['type'].default_val) {
+						setCookieValue(item['type']['names'][i], item['type'].default_val[i++]);
+					}
+				} else {
+					setCookieValue(item_key, item['type'].default_val);
+				}
+			}
+		}
 	}
-
 	// the event for when a filter is changed, do anything extra and then render the view
 	onFilterChanged(self, event_action, selected_value) {
 		var button_id = event_action.currentTarget.getAttribute('id');
