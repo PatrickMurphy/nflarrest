@@ -13,6 +13,11 @@ class FiltersModel {
 					arr.push(dateRangeControl.start_date);
 					arr.push(dateRangeControl.end_date);
 					return arr;
+				},
+				isActive: function (FCObj, item) {
+					var start_date_bool = FCObj.dateRangeNFL.start_date != item['type']['default_val'][0];
+					var end_date_bool = FCObj.dateRangeNFL.end_date != item['type']['default_val'][1];
+					return start_date_bool || end_date_bool;
 				}
 			},
 			select: {
@@ -22,6 +27,9 @@ class FiltersModel {
 				default_val: null,
 				getValue: function (ele) {
 					return $(ele).val();
+				},
+				isActive: function (FCObj, item) {
+					return $(item['element']).val() != item['type']['default_val'];
 				}
 			},
 			checkbox_group: {
@@ -41,6 +49,15 @@ class FiltersModel {
 					});
 
 					return group_settings.join('');
+				},
+				isActive: function (FCObj, item) {
+					var group_count = 0;
+					$(item['element']).map(function (item2, el) {
+						if (!$(el).prop('checked')) {
+							group_count++;
+						}
+					});
+					return group_count > 0;
 				}
 			},
 			checkbox: {
@@ -50,6 +67,9 @@ class FiltersModel {
 				default_val: false,
 				getValue: function (ele) {
 					return $(ele).prop('checked');
+				},
+				isActive: function (FCObj, item) {
+					return $(item['element']).prop('checked') != item['type']['default_val'];
 				}
 			}
 		};

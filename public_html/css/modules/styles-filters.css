@@ -1,8 +1,21 @@
 #filter-dialog {
 	margin: auto;
-	width: 90%;
+	width: 100%;
 	border: 1px solid #aaa;
 	border-radius: 4px;
+	background-color: #fff;
+}
+
+#filter-dialog-container {
+	position: fixed;
+	top: 2%;
+	left: 2%;
+	width: 96%;
+}
+
+.comiseo-daterangepicker {
+	position: fixed !important;
+	top: 3%;
 }
 
 

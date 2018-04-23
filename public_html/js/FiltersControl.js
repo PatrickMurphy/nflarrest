@@ -14,20 +14,20 @@ class FiltersControl {
 		this.dateRangeNFL = this.options.date_range_object;
 
 		// setup dialog control
+		$(this.options.dialog_element).hide();
 		this.loadDialogContents();
-		this.setupFilterPresets();
-		this.setupUserInterface();
-		this.setupView();
-		this.renderView();
 	}
 
 	// load the html contents of the dialog
 	loadDialogContents() {
+		var self = this;
 		loadCSS('css/modules/styles-filters.css');
 		loadCSS('css/vendor/chosen.min.css');
 
-		$(this.options.dialog_element).load(this.options.dialog_content_url, function () {
+		$(self.options.dialog_element).load(self.options.dialog_content_url, function () {
 			console.log("Load was performed.");
+			self.setupView();
+			self.renderView();
 		});
 	}
 
@@ -109,6 +109,8 @@ class FiltersControl {
 	// construct the view the first time (initialize)
 	setupView() {
 		var self = this;
+		this.setupFilterPresets();
+		this.setupUserInterface();
 		this.setupFilterInput(function (evt, act) {
 			self.onFilterChanged(self, evt, act);
 		});
@@ -138,6 +140,7 @@ class FiltersControl {
 
 	// count by section the number of filters not set to default
 	countActiveFilters() {
+		var self = this;
 		for (var key in this.filters_model.filter_sections) {
 			// skip loop if the property is from prototype
 			if (!this.filters_model.filter_sections.hasOwnProperty(key)) continue;
@@ -150,29 +153,7 @@ class FiltersControl {
 				// skip loop if the property is from prototype
 				if (!section['items'].hasOwnProperty(item_key)) continue;
 				var item = section['items'][item_key];
-				var is_active = false;
-				switch (item['type']['name']) {
-					case 'select':
-						is_active = $(item['element']).val() != item['type']['default_val'];
-						break;
-					case 'dateRangeController':
-						is_active = this.dateRangeNFL.start_date != item['type']['default_val'][0] || this.dateRangeNFL.end_date != item['type']['default_val'][1];
-						break;
-					case 'checkbox-group':
-						var group_count = 0;
-						$(item['element']).map(function (item, el) {
-							if (!$(el).prop('checked')) {
-								group_count++;
-							}
-						});
-						is_active = group_count > 0;
-						break;
-					case 'checkbox':
-						is_active = $(item['element']).prop('checked') != item['type']['default_val'];
-						break;
-					default:
-						console.log('unknown type');
-				}
+				var is_active = item['type'].isActive(self, item);
 
 				// set item active status and section increment count
 				item['active'] = is_active;
