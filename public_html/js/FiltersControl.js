@@ -3,11 +3,24 @@ class FiltersControl {
 		this.options = options || {};
 		this.options.hidden_panels = options.hidden_panels || [];
 		this.options.presets = options.presets || {};
+		this.options.dialog_element = options.dialog_element || '#filter-dialog-container';
+		this.options.dialog_content_url = options.dialog_content_url || 'templates/FiltersDialog.html';
+		this.options.date_range_object = options.date_range_object || {};
 
 		this.filters_model = new FiltersModel();
-		this.dateRangeNFL;
+		this.dateRangeNFL = this.options.date_range_object;
+
+		// setup
+		this.loadDialogContents();
 		this.setupView();
 		this.renderView();
+	}
+
+	// load the html contents of the dialog
+	loadDialogContents() {
+		$(this.options.dialog_element).load(this.options.dialog_content_url, function () {
+			console.log("Load was performed.");
+		});
 	}
 
 	// add hidden panels for sections effected by presets
@@ -52,7 +65,6 @@ class FiltersControl {
 			self.dateRangeNFL = newDateRange;
 			$('#dateRangeJquery').on('dateRangeChanged', onChangeCallback);
 		});
-
 
 		// include exclude filter button toggles
 		$('.filter-type-btn').click(function () {
@@ -240,15 +252,3 @@ class FiltersControl {
 		return qs.join('&');
 	}
 }
-
-// remove this in PRD
-var page;
-$(document).ready(function () {
-	page = new FiltersControl({
-		presets: {
-			team: {
-				team: 'SEA'
-			}
-		}
-	});
-});

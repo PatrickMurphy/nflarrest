@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<!-- saved from url=(0275)https://gator4088.hostgator.com:2083/cpsess0954745695/3rdparty/phpMyAdmin/db_datadict.php?db=pmphotog_nfl&token=251ab5f9b28f034984713440a7c62112&goto=db_structure.php#PMAURL-0:db_datadict.php?db=pmphotog_nfl&table=users&server=1&target=&token=251ab5f9b28f034984713440a7c62112 -->
+<html lang="en" dir="ltr" class="chrome chrome65"><script type="text/javascript" src="chrome-extension://eoknmaajkanapojcdeccofmeimpddoim/xhr_overload.js"></script><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta name="robots" content="noindex,nofollow"><meta http-equiv="X-UA-Compatible" content="IE=Edge"><link rel="icon" href="https://gator4088.hostgator.com:2083/cpsess0954745695/3rdparty/phpMyAdmin/favicon.ico" type="image/x-icon"><link rel="shortcut icon" href="https://gator4088.hostgator.com:2083/cpsess0954745695/3rdparty/phpMyAdmin/favicon.ico" type="image/x-icon"><link rel="stylesheet" type="text/css" href="./DataDictionary_files/print.css"><title>Print view - phpMyAdmin 4.3.8</title><script type="text/javascript" src="./DataDictionary_files/whitelist.php"></script><script type="text/javascript" src="./DataDictionary_files/get_scripts.js.php"></script><script type="text/javascript" src="./DataDictionary_files/messages.php"></script><script type="text/javascript" src="./DataDictionary_files/get_image.js.php"></script><script type="text/javascript">// <![CDATA[
+PMA_commonParams.setAll({common_query:"?token=251ab5f9b28f034984713440a7c62112",opendb_url:"db_structure.php",safari_browser:"0",collation_connection:"utf8mb4_unicode_ci",lang:"en",server:"1",table:"",db:"pmphotog_nfl",token:"251ab5f9b28f034984713440a7c62112",text_dir:"ltr",pma_absolute_uri:"https://gator4088.hostgator.com:2083/cpsess0954745695/3rdparty/phpMyAdmin/",pma_text_default_tab:"Browse",pma_text_left_default_tab:"Structure",LimitChars:"50",pftext:"P",confirm:"1",LoginCookieValidity:"1440",logged_in:"1"});
+AJAX.scriptHandler.add("jquery/jquery-1.8.3.min.js",0).add("whitelist.php?lang=en&amp;db=pmphotog_nfl&amp;token=251ab5f9b28f034984713440a7c62112",1).add("sprintf.js",1).add("ajax.js",0).add("keyhandler.js",1).add("jquery/jquery-ui-1.9.2.custom.min.js",0).add("jquery/jquery.cookie.js",0).add("jquery/jquery.mousewheel.js",0).add("jquery/jquery.event.drag-2.2.js",0).add("jquery/jquery-ui-timepicker-addon.js",0).add("jquery/jquery.ba-hashchange-1.3.js",0).add("jquery/jquery.debounce-1.0.5.js",0).add("menu-resizer.js",1).add("cross_framing_protection.js",0).add("rte.js",1).add("tracekit/tracekit.js",1).add("error_report.js",1).add("messages.php?lang=en&amp;db=pmphotog_nfl&amp;token=251ab5f9b28f034984713440a7c62112",0).add("get_image.js.php?theme=pmahomme",0).add("doclinks.js",1).add("functions.js",1).add("navigation.js",0).add("indexes.js",1).add("common.js",1).add("codemirror/lib/codemirror.js",0).add("codemirror/mode/sql/sql.js",0).add("codemirror/addon/runmode/runmode.js",0).add("codemirror/addon/hint/show-hint.js",0).add("codemirror/addon/hint/sql-hint.js",0);
+$(function() {AJAX.fireOnload("whitelist.php?lang=en&amp;db=pmphotog_nfl&amp;token=251ab5f9b28f034984713440a7c62112");AJAX.fireOnload("sprintf.js");AJAX.fireOnload("keyhandler.js");AJAX.fireOnload("menu-resizer.js");AJAX.fireOnload("rte.js");AJAX.fireOnload("tracekit/tracekit.js");AJAX.fireOnload("error_report.js");AJAX.fireOnload("doclinks.js");AJAX.fireOnload("functions.js");AJAX.fireOnload("indexes.js");AJAX.fireOnload("common.js");});
+// ]]></script><noscript>&lt;style&gt;html{display:block}&lt;/style&gt;</noscript></head><body><noscript>&lt;div class="error"&gt;&lt;img src="themes/dot.gif" title="" alt="" class="icon ic_s_error" /&gt; Javascript must be enabled past this point!&lt;/div&gt;</noscript><div id="page_content"><div>
+<h2>ActivePlayerArrestPercent_v</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">arrested</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">active</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">percent</td><td class="nowrap" lang="en" dir="ltr">decimal(24,4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>Active_Player_Arrest_Stats_Log</h2>
+<table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">observed_date <em>(Primary)</em></td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">arrested</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">active</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">percent</td><td class="nowrap" lang="en" dir="ltr">decimal(10,5)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="1">PRIMARY</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>observed_date</td><td>12</td><td>A</td><td>No</td><td rowspan="1"></td></tr></tbody></table></div><div>
+<h2>ArrestCountByDateAndTeam</h2>
+<table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">Date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">team</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">arrest_count</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>ArrestDateCacheRedditGroups</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">arrest_stats_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_preffered_name</td><td class="nowrap" lang="en" dir="ltr">varchar(55)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_city</td><td class="nowrap" lang="en" dir="ltr">varchar(35)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_logo_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_Conference</td><td class="nowrap" lang="en" dir="ltr">varchar(3)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_Division</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_Conference_Division</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_hex_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap"></td>    <td>The hex value that represents the team main color, without the preceding # hash symbol</td>
+</tr><tr class="even"><td class="nowrap">Team_hex_alt_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap"></td>    <td>The hex value that represents the team second color, without the preceding # hash symbol</td>
+</tr><tr class="odd"><td class="nowrap">reddit_group_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td>Reddit Group ID</td>
+</tr><tr class="even"><td class="nowrap">Name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Position</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Position_name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Position_type</td><td class="nowrap" lang="en" dir="ltr">varchar(2)</td><td>No</td><td class="nowrap"></td>    <td>O = offense, D = Defense, S = special teams</td>
+</tr><tr class="even"><td class="nowrap">Encounter</td><td class="nowrap" lang="en" dir="ltr">varchar(12)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Category</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Crime_category</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Crime_category_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Description</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Outcome</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Season</td><td class="nowrap" lang="en" dir="ltr">year(4)</td><td>No</td><td class="nowrap">0000</td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">ArrestSeasonState</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">general_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">legal_level_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">resolution_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Year</td><td class="nowrap" lang="en" dir="ltr">int(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Month</td><td class="nowrap" lang="en" dir="ltr">int(2)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Day</td><td class="nowrap" lang="en" dir="ltr">int(2)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Day_of_Week</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Day_of_Week_int</td><td class="nowrap" lang="en" dir="ltr">int(1)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">DaysSince</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">DaysToLastArrest</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">DaysToLastCrimeArrest</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">DaysToLastTeamArrest</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Reddit_Group_Name</td><td class="nowrap" lang="en" dir="ltr">varchar(128)</td><td>No</td><td class="nowrap"></td>    <td>Name of the Reddit group</td>
+</tr><tr class="odd"><td class="nowrap">Reddit_Group_SubReddit</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Reddit_Group_URL</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>No</td><td class="nowrap"></td>    <td>Reddit Full URL</td>
+</tr><tr class="odd"><td class="nowrap">Reddit_Group_Description</td><td class="nowrap" lang="en" dir="ltr">longtext</td><td>No</td><td class="nowrap"></td>    <td>What do they have in common, colors etc</td>
+</tr></tbody></table></div><div>
+<h2>ArrestDateFact</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">arrest_stats_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">DateCount</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">LastDate</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">LastTeamDate</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">LastCrimeDate</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>ArrestDateRedditGroups</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">arrest_stats_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_preffered_name</td><td class="nowrap" lang="en" dir="ltr">varchar(55)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_city</td><td class="nowrap" lang="en" dir="ltr">varchar(35)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_logo_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_Conference</td><td class="nowrap" lang="en" dir="ltr">varchar(3)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_Division</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_Conference_Division</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_hex_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap">000</td>    <td>The hex value that represents the team main color, without the preceding # hash symbol</td>
+</tr><tr class="even"><td class="nowrap">Team_hex_alt_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap">fff</td>    <td>The hex value that represents the team second color, without the preceding # hash symbol</td>
+</tr><tr class="odd"><td class="nowrap">reddit_group_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td>Reddit Group ID</td>
+</tr><tr class="even"><td class="nowrap">Name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Position</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Position_name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Position_type</td><td class="nowrap" lang="en" dir="ltr">varchar(2)</td><td>No</td><td class="nowrap"></td>    <td>O = offense, D = Defense, S = special teams</td>
+</tr><tr class="even"><td class="nowrap">Encounter</td><td class="nowrap" lang="en" dir="ltr">varchar(12)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Category</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Crime_category</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Crime_category_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap">000000</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Description</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Outcome</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Season</td><td class="nowrap" lang="en" dir="ltr">year(4)</td><td>No</td><td class="nowrap">0000</td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">ArrestSeasonState</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">general_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">legal_level_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">resolution_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Year</td><td class="nowrap" lang="en" dir="ltr">int(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Month</td><td class="nowrap" lang="en" dir="ltr">int(2)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Day</td><td class="nowrap" lang="en" dir="ltr">int(2)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Day_of_Week</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Day_of_Week_int</td><td class="nowrap" lang="en" dir="ltr">int(1)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">DaysSince</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">DaysToLastArrest</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">DaysToLastCrimeArrest</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">DaysToLastTeamArrest</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Reddit_Group_Name</td><td class="nowrap" lang="en" dir="ltr">varchar(128)</td><td>No</td><td class="nowrap"></td>    <td>Name of the Reddit group</td>
+</tr><tr class="odd"><td class="nowrap">Reddit_Group_SubReddit</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Reddit_Group_URL</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>No</td><td class="nowrap"></td>    <td>Reddit Full URL</td>
+</tr><tr class="odd"><td class="nowrap">Reddit_Group_Description</td><td class="nowrap" lang="en" dir="ltr">longtext</td><td>No</td><td class="nowrap"></td>    <td>What do they have in common, colors etc</td>
+</tr></tbody></table></div><div>
+<h2>ArrestOMeterStats</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">Average</td><td class="nowrap" lang="en" dir="ltr">decimal(24,4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Record</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Current</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>ArrestSeasonState</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">season</td><td class="nowrap" lang="en" dir="ltr">year(4)</td><td>No</td><td class="nowrap">0000</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">SeasonState</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">cnt</td><td class="nowrap" lang="en" dir="ltr">decimal(42,0)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>ArrestSeasonStateByArrest</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">arrest_stats_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">season</td><td class="nowrap" lang="en" dir="ltr">year(4)</td><td>No</td><td class="nowrap">0000</td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">SeasonState</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>ArrestSeasonStateByTeam</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">season</td><td class="nowrap" lang="en" dir="ltr">year(4)</td><td>No</td><td class="nowrap">0000</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">SeasonState</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">team</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">cnt</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>ArrestSeasonStateSummary</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">season</td><td class="nowrap" lang="en" dir="ltr">year(4)</td><td>No</td><td class="nowrap">0000</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">InSeason</td><td class="nowrap" lang="en" dir="ltr">decimal(42,0)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">OffSeason</td><td class="nowrap" lang="en" dir="ltr">decimal(42,0)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>Arrest_Stats_Player</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">Name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Position</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>Arrest_Stats_Player_Join</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">arrest_stats_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">player_id</td><td class="nowrap" lang="en" dir="ltr">int(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">full_name</td><td class="nowrap" lang="en" dir="ltr">varchar(27)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">first_name</td><td class="nowrap" lang="en" dir="ltr">varchar(14)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">last_name</td><td class="nowrap" lang="en" dir="ltr">varchar(17)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">team_id</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">position</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">uniform_number</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">birthdate</td><td class="nowrap" lang="en" dir="ltr">varchar(10)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">college</td><td class="nowrap" lang="en" dir="ltr">varchar(39)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">height</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">weight</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">years_pro</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">status</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>Arrest_Stats_Player_mismatch</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">arrest_stats_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Position</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Encounter</td><td class="nowrap" lang="en" dir="ltr">varchar(12)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Category</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Description</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Outcome</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">general_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">legal_level_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">resolution_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>ArrestsByDay</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">Year</td><td class="nowrap" lang="en" dir="ltr">int(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Month</td><td class="nowrap" lang="en" dir="ltr">int(2)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Day</td><td class="nowrap" lang="en" dir="ltr">int(2)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">count(`arrest_stats_id`)</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>ArrestsByMonth</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">Year</td><td class="nowrap" lang="en" dir="ltr">int(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Month</td><td class="nowrap" lang="en" dir="ltr">int(2)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Count(`arrest_stats_id`)</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>ArrestsByYear</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">Year</td><td class="nowrap" lang="en" dir="ltr">int(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">TotalArrests</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>ArrestsByYearView</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">Year</td><td class="nowrap" lang="en" dir="ltr">int(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">TotalArrests</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">ArrestsYTD</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">ArrestsDiff</td><td class="nowrap" lang="en" dir="ltr">bigint(22)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>ArrestsCacheTable</h2>
+<table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">arrest_stats_id <em>(Primary)</em></td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_preffered_name</td><td class="nowrap" lang="en" dir="ltr">varchar(55)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_city</td><td class="nowrap" lang="en" dir="ltr">varchar(35)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_logo_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_Conference</td><td class="nowrap" lang="en" dir="ltr">varchar(3)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_Division</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_Conference_Division</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_hex_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap"></td>    <td>The hex value that represents the team main color, without the preceding # hash symbol</td>
+</tr><tr class="even"><td class="nowrap">Team_hex_alt_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap"></td>    <td>The hex value that represents the team second color, without the preceding # hash symbol</td>
+</tr><tr class="odd"><td class="nowrap">reddit_group_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td>Reddit Group ID</td>
+</tr><tr class="even"><td class="nowrap">Name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Position</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Position_name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Position_type</td><td class="nowrap" lang="en" dir="ltr">varchar(2)</td><td>No</td><td class="nowrap"></td>    <td>O = offense, D = Defense, S = special teams</td>
+</tr><tr class="even"><td class="nowrap">Encounter</td><td class="nowrap" lang="en" dir="ltr">varchar(12)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Category</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Crime_category</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Crime_category_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Description</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Outcome</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Season</td><td class="nowrap" lang="en" dir="ltr">year(4)</td><td>No</td><td class="nowrap">0000</td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">ArrestSeasonState</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">general_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">legal_level_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">resolution_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Year</td><td class="nowrap" lang="en" dir="ltr">int(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Month</td><td class="nowrap" lang="en" dir="ltr">int(2)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Day</td><td class="nowrap" lang="en" dir="ltr">int(2)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Day_of_Week</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Day_of_Week_int</td><td class="nowrap" lang="en" dir="ltr">int(1)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">YearToDate</td><td class="nowrap" lang="en" dir="ltr">int(0)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">DaysSince</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">DaysToLastArrest</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">DaysToLastCrimeArrest</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">DaysToLastTeamArrest</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="1">PRIMARY</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>arrest_stats_id</td><td>890</td><td>A</td><td>No</td><td rowspan="1"></td></tr><tr class="noclick even"><td rowspan="1">date_index</td><td rowspan="1">BTREE</td><td rowspan="1">No</td><td rowspan="1">No</td><td>Date</td><td>890</td><td>A</td><td>Yes</td><td rowspan="1"></td></tr><tr class="noclick odd"><td rowspan="1">team_index</td><td rowspan="1">BTREE</td><td rowspan="1">No</td><td rowspan="1">No</td><td>Team</td><td>31</td><td>A</td><td>Yes</td><td rowspan="1"></td></tr><tr class="noclick even"><td rowspan="1">player_index</td><td rowspan="1">BTREE</td><td rowspan="1">No</td><td rowspan="1">No</td><td>Name</td><td>890</td><td>A</td><td>Yes</td><td rowspan="1"></td></tr><tr class="noclick odd"><td rowspan="1">crime_index</td><td rowspan="1">BTREE</td><td rowspan="1">No</td><td rowspan="1">No</td><td>Category</td><td>111</td><td>A</td><td>Yes</td><td rowspan="1"></td></tr><tr class="noclick even"><td rowspan="1">crime_category_index</td><td rowspan="1">BTREE</td><td rowspan="1">No</td><td rowspan="1">No</td><td>Crime_category</td><td>13</td><td>A</td><td>No</td><td rowspan="1"></td></tr><tr class="noclick odd"><td rowspan="1">position_index</td><td rowspan="1">BTREE</td><td rowspan="1">No</td><td rowspan="1">No</td><td>Position</td><td>18</td><td>A</td><td>Yes</td><td rowspan="1"></td></tr><tr class="noclick even"><td rowspan="1">reddit_index</td><td rowspan="1">BTREE</td><td rowspan="1">No</td><td rowspan="1">No</td><td>reddit_group_id</td><td>6</td><td>A</td><td>No</td><td rowspan="1"></td></tr></tbody></table></div><div>
+<h2>ArrestsCacheTable2</h2>
+<table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">arrest_stats_id <em>(Primary)</em></td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_preffered_name</td><td class="nowrap" lang="en" dir="ltr">varchar(55)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_city</td><td class="nowrap" lang="en" dir="ltr">varchar(35)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_logo_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_Conference</td><td class="nowrap" lang="en" dir="ltr">varchar(3)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_Division</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_Conference_Division</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_hex_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap"></td>    <td>The hex value that represents the team main color, without the preceding # hash symbol</td>
+</tr><tr class="even"><td class="nowrap">Team_hex_alt_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap"></td>    <td>The hex value that represents the team second color, without the preceding # hash symbol</td>
+</tr><tr class="odd"><td class="nowrap">reddit_group_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td>Reddit Group ID</td>
+</tr><tr class="even"><td class="nowrap">Name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Position</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Position_name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Position_type</td><td class="nowrap" lang="en" dir="ltr">varchar(2)</td><td>No</td><td class="nowrap"></td>    <td>O = offense, D = Defense, S = special teams</td>
+</tr><tr class="even"><td class="nowrap">Encounter</td><td class="nowrap" lang="en" dir="ltr">varchar(12)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Category</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Crime_category</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Crime_category_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Description</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Outcome</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Season</td><td class="nowrap" lang="en" dir="ltr">year(4)</td><td>No</td><td class="nowrap">0000</td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">ArrestSeasonState</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">general_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">legal_level_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">resolution_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Year</td><td class="nowrap" lang="en" dir="ltr">int(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Month</td><td class="nowrap" lang="en" dir="ltr">int(2)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Day</td><td class="nowrap" lang="en" dir="ltr">int(2)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Day_of_Week</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Day_of_Week_int</td><td class="nowrap" lang="en" dir="ltr">int(1)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">DaysSince</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">DaysToLastArrest</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">DaysToLastCrimeArrest</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">DaysToLastTeamArrest</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="1">PRIMARY</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>arrest_stats_id</td><td>881</td><td>A</td><td>No</td><td rowspan="1"></td></tr><tr class="noclick even"><td rowspan="1">date_index</td><td rowspan="1">BTREE</td><td rowspan="1">No</td><td rowspan="1">No</td><td>Date</td><td>881</td><td>A</td><td>Yes</td><td rowspan="1"></td></tr><tr class="noclick odd"><td rowspan="1">team_index</td><td rowspan="1">BTREE</td><td rowspan="1">No</td><td rowspan="1">No</td><td>Team</td><td>31</td><td>A</td><td>Yes</td><td rowspan="1"></td></tr><tr class="noclick even"><td rowspan="1">player_index</td><td rowspan="1">BTREE</td><td rowspan="1">No</td><td rowspan="1">No</td><td>Name</td><td>881</td><td>A</td><td>Yes</td><td rowspan="1"></td></tr><tr class="noclick odd"><td rowspan="1">crime_index</td><td rowspan="1">BTREE</td><td rowspan="1">No</td><td rowspan="1">No</td><td>Category</td><td>110</td><td>A</td><td>Yes</td><td rowspan="1"></td></tr><tr class="noclick even"><td rowspan="1">crime_category_index</td><td rowspan="1">BTREE</td><td rowspan="1">No</td><td rowspan="1">No</td><td>Crime_category</td><td>13</td><td>A</td><td>No</td><td rowspan="1"></td></tr><tr class="noclick odd"><td rowspan="1">position_index</td><td rowspan="1">BTREE</td><td rowspan="1">No</td><td rowspan="1">No</td><td>Position</td><td>19</td><td>A</td><td>Yes</td><td rowspan="1"></td></tr></tbody></table></div><div>
+<h2>ArrestsDateView</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">arrest_stats_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_preffered_name</td><td class="nowrap" lang="en" dir="ltr">varchar(55)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_city</td><td class="nowrap" lang="en" dir="ltr">varchar(35)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_logo_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_Conference</td><td class="nowrap" lang="en" dir="ltr">varchar(3)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_Division</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_Conference_Division</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_hex_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap">000</td>    <td>The hex value that represents the team main color, without the preceding # hash symbol</td>
+</tr><tr class="even"><td class="nowrap">Team_hex_alt_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap">fff</td>    <td>The hex value that represents the team second color, without the preceding # hash symbol</td>
+</tr><tr class="odd"><td class="nowrap">reddit_group_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td>Reddit Group ID</td>
+</tr><tr class="even"><td class="nowrap">Name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Position</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Position_name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Position_type</td><td class="nowrap" lang="en" dir="ltr">varchar(2)</td><td>No</td><td class="nowrap"></td>    <td>O = offense, D = Defense, S = special teams</td>
+</tr><tr class="even"><td class="nowrap">Encounter</td><td class="nowrap" lang="en" dir="ltr">varchar(12)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Category</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Crime_category</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Crime_category_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap">000000</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Description</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Outcome</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Season</td><td class="nowrap" lang="en" dir="ltr">year(4)</td><td>No</td><td class="nowrap">0000</td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">ArrestSeasonState</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">general_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">legal_level_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">resolution_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Year</td><td class="nowrap" lang="en" dir="ltr">int(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Month</td><td class="nowrap" lang="en" dir="ltr">int(2)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Day</td><td class="nowrap" lang="en" dir="ltr">int(2)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Day_of_Week</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Day_of_Week_int</td><td class="nowrap" lang="en" dir="ltr">int(1)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">YearToDate</td><td class="nowrap" lang="en" dir="ltr">int(0)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">DaysSince</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">DaysToLastArrest</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">DaysToLastCrimeArrest</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">DaysToLastTeamArrest</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>ArrestsYearToDate</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">Year</td><td class="nowrap" lang="en" dir="ltr">int(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">ArrestsYTD</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>Bandwagon_users</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">date</td><td class="nowrap" lang="en" dir="ltr">timestamp</td><td>No</td><td class="nowrap">0000-00-00 00:00:00</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">username</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">flair_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">old_flair_id</td><td class="nowrap" lang="en" dir="ltr">mediumtext</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">flair_team</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">old_flair_team</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>Bandwagon_users_notnull</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">date</td><td class="nowrap" lang="en" dir="ltr">timestamp</td><td>No</td><td class="nowrap">0000-00-00 00:00:00</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">username</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">flair_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">old_flair_id</td><td class="nowrap" lang="en" dir="ltr">mediumtext</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">flair_team</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">old_flair_team</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>Cache_LastArrestByTeam</h2>
+<table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">arrest_stats_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_preffered_name</td><td class="nowrap" lang="en" dir="ltr">varchar(55)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_city</td><td class="nowrap" lang="en" dir="ltr">varchar(35)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_logo_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_Conference</td><td class="nowrap" lang="en" dir="ltr">varchar(3)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_Division</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_Conference_Division</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_hex_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap"></td>    <td>The hex value that represents the team main color, without the preceding # hash symbol</td>
+</tr><tr class="even"><td class="nowrap">Team_hex_alt_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap"></td>    <td>The hex value that represents the team second color, without the preceding # hash symbol</td>
+</tr><tr class="odd"><td class="nowrap">reddit_group_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td>Reddit Group ID</td>
+</tr><tr class="even"><td class="nowrap">Name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Position</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Position_name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Position_type</td><td class="nowrap" lang="en" dir="ltr">varchar(2)</td><td>No</td><td class="nowrap"></td>    <td>O = offense, D = Defense, S = special teams</td>
+</tr><tr class="even"><td class="nowrap">Encounter</td><td class="nowrap" lang="en" dir="ltr">varchar(12)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Category</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Crime_category</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Crime_category_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Description</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Outcome</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Season</td><td class="nowrap" lang="en" dir="ltr">year(4)</td><td>No</td><td class="nowrap">0000</td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">ArrestSeasonState</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">general_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">legal_level_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">resolution_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Year</td><td class="nowrap" lang="en" dir="ltr">int(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Month</td><td class="nowrap" lang="en" dir="ltr">int(2)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Day</td><td class="nowrap" lang="en" dir="ltr">int(2)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Day_of_Week</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Day_of_Week_int</td><td class="nowrap" lang="en" dir="ltr">int(1)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">DaysSince</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">DaysToLastArrest</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">DaysToLastCrimeArrest</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">DaysToLastTeamArrest</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>CachedArrestSeasonState</h2>
+<table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">arrest_stats_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">season</td><td class="nowrap" lang="en" dir="ltr">year(4)</td><td>No</td><td class="nowrap">0000</td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">SeasonState</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>External_Crime_Category</h2>
+Table comments: Crime Categories from external sources<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">External_Crime_Category_id <em>(Primary)</em></td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">External_Source_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td>key of external source</td>
+</tr><tr class="odd"><td class="nowrap">Name</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>No</td><td class="nowrap"></td>    <td>Title/Name of category</td>
+</tr><tr class="even"><td class="nowrap">Description</td><td class="nowrap" lang="en" dir="ltr">text</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="1">PRIMARY</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>External_Crime_Category_id</td><td>2</td><td>A</td><td>No</td><td rowspan="1"></td></tr></tbody></table></div><div>
+<h2>External_Sources</h2>
+Table comments: This is a table of sources where I pull data for coding to match reports<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">External_Source_id <em>(Primary)</em></td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td>Primary Key</td>
+</tr><tr class="even"><td class="nowrap">Name</td><td class="nowrap" lang="en" dir="ltr">varchar(128)</td><td>No</td><td class="nowrap"></td>    <td>title</td>
+</tr><tr class="odd"><td class="nowrap">Primary_Use</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>No</td><td class="nowrap"></td>    <td>what is this used for most</td>
+</tr><tr class="even"><td class="nowrap">URL</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>No</td><td class="nowrap"></td>    <td>url of source</td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="1">PRIMARY</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>External_Source_id</td><td>3</td><td>A</td><td>No</td><td rowspan="1"></td></tr></tbody></table></div><div>
+<h2>External_crime_category_relation</h2>
+<table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">general_category_id <em>(Primary)</em></td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">External_Crime_Category_id <em>(Primary)</em></td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="2">PRIMARY</td><td rowspan="2">BTREE</td><td rowspan="2">Yes</td><td rowspan="2">No</td><td>general_category_id</td><td></td><td>A</td><td>No</td><td rowspan="2"></td></tr><tr class="noclick odd"><td>External_Crime_Category_id</td><td>0</td><td>A</td><td>No</td></tr></tbody></table></div><div>
+<h2>InSeasonArrests</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">arrest_stats_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Position</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Encounter</td><td class="nowrap" lang="en" dir="ltr">varchar(12)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Category</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Description</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Outcome</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">general_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">legal_level_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">resolution_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">season</td><td class="nowrap" lang="en" dir="ltr">year(4)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">season_start</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">season_end</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">playoff_start</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">superbowl_date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">superbowl_afc_team</td><td class="nowrap" lang="en" dir="ltr">varchar(10)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">superbowl_nfc_team</td><td class="nowrap" lang="en" dir="ltr">varchar(10)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">superbowl_winning_team</td><td class="nowrap" lang="en" dir="ltr">varchar(10)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">probowl_date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>LastArrestByTeam</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">arrest_stats_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_preffered_name</td><td class="nowrap" lang="en" dir="ltr">varchar(55)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_city</td><td class="nowrap" lang="en" dir="ltr">varchar(35)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_logo_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_Conference</td><td class="nowrap" lang="en" dir="ltr">varchar(3)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_Division</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_Conference_Division</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_hex_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap">000</td>    <td>The hex value that represents the team main color, without the preceding # hash symbol</td>
+</tr><tr class="even"><td class="nowrap">Team_hex_alt_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap">fff</td>    <td>The hex value that represents the team second color, without the preceding # hash symbol</td>
+</tr><tr class="odd"><td class="nowrap">reddit_group_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td>Reddit Group ID</td>
+</tr><tr class="even"><td class="nowrap">Name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Position</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Position_name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Position_type</td><td class="nowrap" lang="en" dir="ltr">varchar(2)</td><td>No</td><td class="nowrap"></td>    <td>O = offense, D = Defense, S = special teams</td>
+</tr><tr class="even"><td class="nowrap">Encounter</td><td class="nowrap" lang="en" dir="ltr">varchar(12)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Category</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Crime_category</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Crime_category_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap">000000</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Description</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Outcome</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Season</td><td class="nowrap" lang="en" dir="ltr">year(4)</td><td>No</td><td class="nowrap">0000</td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">ArrestSeasonState</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">general_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">legal_level_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">resolution_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Year</td><td class="nowrap" lang="en" dir="ltr">int(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Month</td><td class="nowrap" lang="en" dir="ltr">int(2)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Day</td><td class="nowrap" lang="en" dir="ltr">int(2)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Day_of_Week</td><td class="nowrap" lang="en" dir="ltr">varchar(9)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Day_of_Week_int</td><td class="nowrap" lang="en" dir="ltr">int(1)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">DaysSince</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">DaysToLastArrest</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">DaysToLastCrimeArrest</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">DaysToLastTeamArrest</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>LastArrestByTeam_id</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">Team</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">ArrestDate</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">arrest_stats_id</td><td class="nowrap" lang="en" dir="ltr">bigint(11)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>LastArrestDateByTeam</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">Team</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">ArrestDate</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>LastArrestDateFact</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">arrest_stats_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">DateCount</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">LastDate</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">DaysToLastArrest</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">DaysToLastTeamArrest</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">DaysToLastCrimeArrest</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>NFL_Game_Player_Arrest_Join</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">arrest_stats_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">player_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">first_name</td><td class="nowrap" lang="en" dir="ltr">varchar(128)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">last_name</td><td class="nowrap" lang="en" dir="ltr">varchar(128)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">full_name</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">birthdate</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">college</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">height</td><td class="nowrap" lang="en" dir="ltr">int(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">weight</td><td class="nowrap" lang="en" dir="ltr">int(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">profile_url</td><td class="nowrap" lang="en" dir="ltr">text</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">team</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_preffered_name</td><td class="nowrap" lang="en" dir="ltr">varchar(55)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Last_Team_Update</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">position</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">position_title</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">position_type</td><td class="nowrap" lang="en" dir="ltr">varchar(2)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td>O = offense, D = Defense, S = special teams</td>
+</tr><tr class="odd"><td class="nowrap">Last_Position_Update</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">status</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">status_description</td><td class="nowrap" lang="en" dir="ltr">varchar(120)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Last_Status_Update</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>NFL_Game_Player_Current_Position</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">player_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Last_Update</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">position</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">position_title</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">position_type</td><td class="nowrap" lang="en" dir="ltr">varchar(2)</td><td>No</td><td class="nowrap"></td>    <td>O = offense, D = Defense, S = special teams</td>
+</tr></tbody></table></div><div>
+<h2>NFL_Game_Player_Current_RPT</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">player_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">first_name</td><td class="nowrap" lang="en" dir="ltr">varchar(128)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">last_name</td><td class="nowrap" lang="en" dir="ltr">varchar(128)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">full_name</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">birthdate</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">college</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">height</td><td class="nowrap" lang="en" dir="ltr">int(5)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">weight</td><td class="nowrap" lang="en" dir="ltr">int(5)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">profile_url</td><td class="nowrap" lang="en" dir="ltr">text</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">team</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_preffered_name</td><td class="nowrap" lang="en" dir="ltr">varchar(55)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Last_Team_Update</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">position</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">position_title</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">position_type</td><td class="nowrap" lang="en" dir="ltr">varchar(2)</td><td>No</td><td class="nowrap"></td>    <td>O = offense, D = Defense, S = special teams</td>
+</tr><tr class="even"><td class="nowrap">Last_Position_Update</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">status</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">status_description</td><td class="nowrap" lang="en" dir="ltr">varchar(120)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Last_Status_Update</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>NFL_Game_Player_Current_Status</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">player_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Last_Update</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">status</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">status_description</td><td class="nowrap" lang="en" dir="ltr">varchar(120)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>NFL_Game_Player_Current_Team</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">player_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Last_Update</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">team</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_preffered_name</td><td class="nowrap" lang="en" dir="ltr">varchar(55)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>NFL_Game_Player_Details</h2>
+Table comments: The table that holds ETL processed player details that shouldn't change<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">player_id <em>(Primary)</em></td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">first_name</td><td class="nowrap" lang="en" dir="ltr">varchar(128)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">last_name</td><td class="nowrap" lang="en" dir="ltr">varchar(128)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">full_name</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">birthdate</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">college</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">height</td><td class="nowrap" lang="en" dir="ltr">int(5)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">weight</td><td class="nowrap" lang="en" dir="ltr">int(5)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">profile_url</td><td class="nowrap" lang="en" dir="ltr">text</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="1">PRIMARY</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>player_id</td><td>7855</td><td>A</td><td>No</td><td rowspan="1"></td></tr></tbody></table></div><div>
+<h2>NFL_Game_Player_Position</h2>
+<table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">player_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">observed_change</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">position</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="3">Unique_Change</td><td rowspan="3">BTREE</td><td rowspan="3">Yes</td><td rowspan="3">No</td><td>player_id</td><td></td><td>A</td><td>No</td><td rowspan="3"></td></tr><tr class="noclick odd"><td>observed_change</td><td></td><td>A</td><td>No</td></tr><tr class="noclick odd"><td>position</td><td>8262</td><td>A</td><td>No</td></tr></tbody></table></div><div>
+<h2>NFL_Game_Player_Status</h2>
+<table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">player_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">observed_change</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">status</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="3">unique_index</td><td rowspan="3">BTREE</td><td rowspan="3">Yes</td><td rowspan="3">No</td><td>player_id</td><td></td><td>A</td><td>No</td><td rowspan="3"></td></tr><tr class="noclick odd"><td>observed_change</td><td></td><td>A</td><td>No</td></tr><tr class="noclick odd"><td>status</td><td>8404</td><td>A</td><td>No</td></tr></tbody></table></div><div>
+<h2>NFL_Game_Player_Status_Description</h2>
+<table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">status_code <em>(Primary)</em></td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">status_description</td><td class="nowrap" lang="en" dir="ltr">varchar(120)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="1">PRIMARY</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>status_code</td><td>8</td><td>A</td><td>No</td><td rowspan="1"></td></tr></tbody></table></div><div>
+<h2>NFL_Game_Player_Status_History_RPT</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">player_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">first_name</td><td class="nowrap" lang="en" dir="ltr">varchar(128)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">last_name</td><td class="nowrap" lang="en" dir="ltr">varchar(128)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">full_name</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">birthdate</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">college</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">height</td><td class="nowrap" lang="en" dir="ltr">int(5)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">weight</td><td class="nowrap" lang="en" dir="ltr">int(5)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">profile_url</td><td class="nowrap" lang="en" dir="ltr">text</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">observed_change</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">status</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">status_description</td><td class="nowrap" lang="en" dir="ltr">varchar(120)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>NFL_Game_Player_Team</h2>
+<table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">player_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">observed_change</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">team</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="3">Unique_Change</td><td rowspan="3">BTREE</td><td rowspan="3">Yes</td><td rowspan="3">No</td><td>player_id</td><td></td><td>A</td><td>No</td><td rowspan="3"></td></tr><tr class="noclick odd"><td>observed_change</td><td></td><td>A</td><td>No</td></tr><tr class="noclick odd"><td>team</td><td>8231</td><td>A</td><td>No</td></tr></tbody></table></div><div>
+<h2>OffSeasonArrests</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">arrest_stats_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Position</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Encounter</td><td class="nowrap" lang="en" dir="ltr">varchar(12)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Category</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Description</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Outcome</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">general_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">legal_level_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">resolution_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">season</td><td class="nowrap" lang="en" dir="ltr">year(4)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">season_start</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">season_end</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">playoff_start</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">superbowl_date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">superbowl_afc_team</td><td class="nowrap" lang="en" dir="ltr">varchar(10)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">superbowl_nfc_team</td><td class="nowrap" lang="en" dir="ltr">varchar(10)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">superbowl_winning_team</td><td class="nowrap" lang="en" dir="ltr">varchar(10)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">probowl_date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>PlayoffSeasonArrests</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">arrest_stats_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Position</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Encounter</td><td class="nowrap" lang="en" dir="ltr">varchar(12)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Category</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Description</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Outcome</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">general_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">legal_level_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">resolution_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">season</td><td class="nowrap" lang="en" dir="ltr">year(4)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">season_start</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">season_end</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">playoff_start</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">superbowl_date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">superbowl_afc_team</td><td class="nowrap" lang="en" dir="ltr">varchar(10)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">superbowl_nfc_team</td><td class="nowrap" lang="en" dir="ltr">varchar(10)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">superbowl_winning_team</td><td class="nowrap" lang="en" dir="ltr">varchar(10)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">probowl_date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>Reddit_Team_Groups</h2>
+Table comments: A list of related nfl teams that have subreddits, like /r/BirdTeams<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">group_id <em>(Primary)</em></td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td>Group Identifier</td>
+</tr><tr class="even"><td class="nowrap">group_name</td><td class="nowrap" lang="en" dir="ltr">varchar(128)</td><td>No</td><td class="nowrap"></td>    <td>Name of the Reddit group</td>
+</tr><tr class="odd"><td class="nowrap">group_description</td><td class="nowrap" lang="en" dir="ltr">longtext</td><td>No</td><td class="nowrap"></td>    <td>What do they have in common, colors etc</td>
+</tr><tr class="even"><td class="nowrap">group_url</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>No</td><td class="nowrap"></td>    <td>Reddit Full URL</td>
+</tr><tr class="odd"><td class="nowrap">group_subreddit</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="1">PRIMARY</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>group_id</td><td>6</td><td>A</td><td>No</td><td rowspan="1">The Identifier for the Reddit Group</td></tr></tbody></table></div><div>
+<h2>SOURCE_NFL_Game_Player</h2>
+Table comments: The Source table for the latest import of NFL Players<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">player_id <em>(Primary)</em></td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td>gsis_id with hyphen removed</td>
+</tr><tr class="even"><td class="nowrap">birthdate</td><td class="nowrap" lang="en" dir="ltr">varchar(10)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">college</td><td class="nowrap" lang="en" dir="ltr">varchar(128)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">first_name</td><td class="nowrap" lang="en" dir="ltr">varchar(128)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">full_name</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">gsis_id</td><td class="nowrap" lang="en" dir="ltr">varchar(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">gsis_name</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">height</td><td class="nowrap" lang="en" dir="ltr">int(5)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">last_name</td><td class="nowrap" lang="en" dir="ltr">varchar(128)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">number</td><td class="nowrap" lang="en" dir="ltr">int(5)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">position</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">profile_url</td><td class="nowrap" lang="en" dir="ltr">text</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">status</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">team</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">weight</td><td class="nowrap" lang="en" dir="ltr">int(5)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">years_pro</td><td class="nowrap" lang="en" dir="ltr">int(5)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="1">PRIMARY</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>player_id</td><td>7855</td><td>A</td><td>No</td><td rowspan="1"></td></tr></tbody></table></div><div>
+<h2>StatHeads_Player</h2>
+Table comments: An import from StatHeads of the player table 10-11-2017<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">player_id</td><td class="nowrap" lang="en" dir="ltr">int(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">full_name</td><td class="nowrap" lang="en" dir="ltr">varchar(27)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">first_name</td><td class="nowrap" lang="en" dir="ltr">varchar(14)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">last_name</td><td class="nowrap" lang="en" dir="ltr">varchar(17)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">team_id</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">position</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">uniform_number</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">birthdate</td><td class="nowrap" lang="en" dir="ltr">varchar(10)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">college</td><td class="nowrap" lang="en" dir="ltr">varchar(39)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">height</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">weight</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">years_pro</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">status</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="1">player_id_2</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>player_id</td><td></td><td>A</td><td>Yes</td><td rowspan="1"></td></tr><tr class="noclick even"><td rowspan="1">player_id</td><td rowspan="1">BTREE</td><td rowspan="1">No</td><td rowspan="1">No</td><td>player_id</td><td>7178</td><td>A</td><td>Yes</td><td rowspan="1"></td></tr></tbody></table></div><div>
+<h2>StatHeads_Player_Join</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">player_id</td><td class="nowrap" lang="en" dir="ltr">int(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">full_name</td><td class="nowrap" lang="en" dir="ltr">varchar(27)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">first_name</td><td class="nowrap" lang="en" dir="ltr">varchar(14)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">last_name</td><td class="nowrap" lang="en" dir="ltr">varchar(17)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">team_id</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">position</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">uniform_number</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">birthdate</td><td class="nowrap" lang="en" dir="ltr">varchar(10)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">college</td><td class="nowrap" lang="en" dir="ltr">varchar(39)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">height</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">weight</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">years_pro</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">status</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>Team_details_view</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">teams_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">teams_full_name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_preffered_name</td><td class="nowrap" lang="en" dir="ltr">varchar(55)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">team_code</td><td class="nowrap" lang="en" dir="ltr">varchar(7)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">city</td><td class="nowrap" lang="en" dir="ltr">varchar(35)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">state</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap">USA</td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_logo_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_Conference</td><td class="nowrap" lang="en" dir="ltr">varchar(3)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_Division</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Stadium</td><td class="nowrap" lang="en" dir="ltr">varchar(35)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Stadium_Capacity</td><td class="nowrap" lang="en" dir="ltr">int(7)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">first_nfl_season</td><td class="nowrap" lang="en" dir="ltr">int(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Head_coach_2016</td><td class="nowrap" lang="en" dir="ltr">varchar(14)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_hex_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap">000</td>    <td>The hex value that represents the team main color, without the preceding # hash symbol</td>
+</tr><tr class="odd"><td class="nowrap">Team_hex_alt_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap">fff</td>    <td>The hex value that represents the team second color, without the preceding # hash symbol</td>
+</tr><tr class="even"><td class="nowrap">reddit_group_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td>Reddit Group ID</td>
+</tr></tbody></table></div><div>
+<h2>Teams_view</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">teams_full_name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">bandwagon_code</td><td class="nowrap" lang="en" dir="ltr">bigint(20)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>USATodayCheck</h2>
+<table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">DATE</td><td class="nowrap" lang="en" dir="ltr">varchar(15)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">TEAM</td><td class="nowrap" lang="en" dir="ltr">varchar(10)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">NAME</td><td class="nowrap" lang="en" dir="ltr">varchar(23)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">POS</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">CASE</td><td class="nowrap" lang="en" dir="ltr">varchar(11)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">CATEGORY</td><td class="nowrap" lang="en" dir="ltr">varchar(29)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">DESCRIPTION</td><td class="nowrap" lang="en" dir="ltr">varchar(167)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">OUTCOME</td><td class="nowrap" lang="en" dir="ltr">varchar(195)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">MisMatchReason</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>No</td><td class="nowrap">Match</td>    <td>This is a notes field to track why usa today mismatch is acceptable</td>
+</tr></tbody></table></div><div>
+<h2>USATodayDateFix</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">Date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team</td><td class="nowrap" lang="en" dir="ltr">varchar(10)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Name</td><td class="nowrap" lang="en" dir="ltr">varchar(23)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Position</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Encounter</td><td class="nowrap" lang="en" dir="ltr">varchar(11)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Category</td><td class="nowrap" lang="en" dir="ltr">varchar(29)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Description</td><td class="nowrap" lang="en" dir="ltr">varchar(167)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Outcome</td><td class="nowrap" lang="en" dir="ltr">varchar(195)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">MisMatchReason</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>No</td><td class="nowrap">Match</td>    <td>This is a notes field to track why usa today mismatch is acceptable</td>
+</tr></tbody></table></div><div>
+<h2>USATodayRecordsIHaveNotInUSA</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">Date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Position</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Encounter</td><td class="nowrap" lang="en" dir="ltr">varchar(12)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Category</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Description</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Outcome</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>USATodayRecordsNotInArrestStats</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">Date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team</td><td class="nowrap" lang="en" dir="ltr">varchar(10)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Name</td><td class="nowrap" lang="en" dir="ltr">varchar(23)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Position</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Encounter</td><td class="nowrap" lang="en" dir="ltr">varchar(11)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Category</td><td class="nowrap" lang="en" dir="ltr">varchar(29)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Description</td><td class="nowrap" lang="en" dir="ltr">varchar(167)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Outcome</td><td class="nowrap" lang="en" dir="ltr">varchar(195)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">MisMatchReason</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>No</td><td class="nowrap">Match</td>    <td>This is a notes field to track why usa today mismatch is acceptable</td>
+</tr></tbody></table></div><div>
+<h2>arrest_stats</h2>
+<table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">arrest_stats_id <em>(Primary)</em></td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Position</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Encounter</td><td class="nowrap" lang="en" dir="ltr">varchar(12)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Category</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Description</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Outcome</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">general_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">legal_level_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">resolution_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="1">PRIMARY</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>arrest_stats_id</td><td>893</td><td>A</td><td>No</td><td rowspan="1"></td></tr><tr class="noclick even"><td rowspan="1">arrest_stats_id</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>arrest_stats_id</td><td>893</td><td>A</td><td>No</td><td rowspan="1"></td></tr><tr class="noclick odd"><td rowspan="1">general_category_id</td><td rowspan="1">BTREE</td><td rowspan="1">No</td><td rowspan="1">No</td><td>general_category_id</td><td>14</td><td>A</td><td>No</td><td rowspan="1"></td></tr></tbody></table></div><div>
+<h2>bandwagon_bipartite</h2>
+Table comments: VIEW<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">flair_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">old_flair_id</td><td class="nowrap" lang="en" dir="ltr">mediumtext</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">flair_team</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">old_flair_team</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Bandwagonners</td><td class="nowrap" lang="en" dir="ltr">bigint(21)</td><td>No</td><td class="nowrap">0</td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>bets</h2>
+<table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">bet_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">userid</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td>the user placing the bet</td>
+</tr><tr class="odd"><td class="nowrap">amount</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td>points to bet</td>
+</tr><tr class="even"><td class="nowrap">odds</td><td class="nowrap" lang="en" dir="ltr">float</td><td>No</td><td class="nowrap"></td>    <td>the probability or odds against the player</td>
+</tr><tr class="odd"><td class="nowrap">crime</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap">-1</td>    <td>the id of the general category chosen, -1 for no choice</td>
+</tr><tr class="even"><td class="nowrap">player</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap">no-choice</td>    <td>the player name, need to find list of active players</td>
+</tr><tr class="odd"><td class="nowrap">team</td><td class="nowrap" lang="en" dir="ltr">varchar(11)</td><td>No</td><td class="nowrap">no-choice</td>    <td>the team choosen as abreviation, 1/32</td>
+</tr><tr class="even"><td class="nowrap">position</td><td class="nowrap" lang="en" dir="ltr">varchar(11)</td><td>No</td><td class="nowrap">no-choice</td>    <td>the position chosen in text, 1/25</td>
+</tr><tr class="odd"><td class="nowrap">active</td><td class="nowrap" lang="en" dir="ltr">int(1)</td><td>No</td><td class="nowrap">1</td>    <td>0 = inactive, 1 = active</td>
+</tr><tr class="even"><td class="nowrap">date_placed</td><td class="nowrap" lang="en" dir="ltr">timestamp</td><td>No</td><td class="nowrap">CURRENT_TIMESTAMP</td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">recordDate</td><td class="nowrap" lang="en" dir="ltr">int(10)</td><td>No</td><td class="nowrap">0</td>    <td>0 = no bet, number = the seconds since epoch, to the guess bet</td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="1">bet_id_3</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>bet_id</td><td>124</td><td>A</td><td>No</td><td rowspan="1"></td></tr><tr class="noclick even"><td rowspan="1">bet_id</td><td rowspan="1">BTREE</td><td rowspan="1">No</td><td rowspan="1">No</td><td>bet_id</td><td>124</td><td>A</td><td>No</td><td rowspan="1"></td></tr><tr class="noclick odd"><td rowspan="1">bet_id_2</td><td rowspan="1">BTREE</td><td rowspan="1">No</td><td rowspan="1">No</td><td>bet_id</td><td>124</td><td>A</td><td>No</td><td rowspan="1"></td></tr></tbody></table></div><div>
+<h2>comments</h2>
+<table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">comment_id <em>(Primary)</em></td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">comment_type</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap">0</td>    <td>0 = profile comment, 1 = message</td>
+</tr><tr class="odd"><td class="nowrap">comment_sender</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td>user id of sender</td>
+</tr><tr class="even"><td class="nowrap">comment_target</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td>db_id of target</td>
+</tr><tr class="odd"><td class="nowrap">comment_msg</td><td class="nowrap" lang="en" dir="ltr">varchar(1000)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">comment_date</td><td class="nowrap" lang="en" dir="ltr">timestamp</td><td>No</td><td class="nowrap">CURRENT_TIMESTAMP</td>    <td></td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="1">PRIMARY</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>comment_id</td><td>6</td><td>A</td><td>No</td><td rowspan="1"></td></tr></tbody></table></div><div>
+<h2>free_arrests</h2>
+<table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">arrest_stats_id <em>(Primary)</em></td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Position</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Encounter</td><td class="nowrap" lang="en" dir="ltr">varchar(12)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Category</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Description</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Outcome</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">general_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">legal_level_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">resolution_category_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="1">PRIMARY</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>arrest_stats_id</td><td>5</td><td>A</td><td>No</td><td rowspan="1"></td></tr><tr class="noclick even"><td rowspan="1">general_category_id</td><td rowspan="1">BTREE</td><td rowspan="1">No</td><td rowspan="1">No</td><td>general_category_id</td><td>5</td><td>A</td><td>No</td><td rowspan="1"></td></tr></tbody></table></div><div>
+<h2>general_category</h2>
+<table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">general_category_id <em>(Primary)</em></td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Category</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">hex_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap">000000</td>    <td></td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="1">PRIMARY</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>general_category_id</td><td>27</td><td>A</td><td>No</td><td rowspan="1"></td></tr></tbody></table></div><div>
+<h2>legal_level</h2>
+<table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">legal_level_id <em>(Primary)</em></td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Category</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="1">PRIMARY</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>legal_level_id</td><td>3</td><td>A</td><td>No</td><td rowspan="1"></td></tr></tbody></table></div><div>
+<h2>position</h2>
+<table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">position_id <em>(Primary)</em></td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">position_tag</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">position_title</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">position_type</td><td class="nowrap" lang="en" dir="ltr">varchar(2)</td><td>No</td><td class="nowrap"></td>    <td>O = offense, D = Defense, S = special teams</td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="1">PRIMARY</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>position_id</td><td>30</td><td>A</td><td>No</td><td rowspan="1"></td></tr><tr class="noclick even"><td rowspan="1">position_tag</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>position_tag</td><td>30</td><td>A</td><td>No</td><td rowspan="1"></td></tr></tbody></table></div><div>
+<h2>reddit_bandwagon</h2>
+<table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">username</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">flair</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">date</td><td class="nowrap" lang="en" dir="ltr">timestamp</td><td>No</td><td class="nowrap">CURRENT_TIMESTAMP</td>    <td></td>
+</tr><tr class="even"><td class="nowrap">previous_flair_list</td><td class="nowrap" lang="en" dir="ltr">mediumtext</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="1">username</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>username</td><td>30145</td><td>A</td><td>No</td><td rowspan="1"></td></tr></tbody></table></div><div>
+<h2>resolution_category</h2>
+<table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">resolution_category_id <em>(Primary)</em></td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Category</td><td class="nowrap" lang="en" dir="ltr">varchar(20)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="1">PRIMARY</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>resolution_category_id</td><td>5</td><td>A</td><td>No</td><td rowspan="1"></td></tr></tbody></table></div><div>
+<h2>seasons</h2>
+Table comments: This table holds information about the dates and superbowl outcomes each year<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">season</td><td class="nowrap" lang="en" dir="ltr">year(4)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">season_start</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">season_end</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">playoff_start</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">superbowl_date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">superbowl_afc_team</td><td class="nowrap" lang="en" dir="ltr">varchar(10)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">superbowl_nfc_team</td><td class="nowrap" lang="en" dir="ltr">varchar(10)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">superbowl_winning_team</td><td class="nowrap" lang="en" dir="ltr">varchar(10)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">probowl_date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="1">season</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>season</td><td>20</td><td>A</td><td>No</td><td rowspan="1"></td></tr></tbody></table></div><div>
+<h2>suspensions</h2>
+<table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">date</td><td class="nowrap" lang="en" dir="ltr">date</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">length</td><td class="nowrap" lang="en" dir="ltr">int(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">length_type</td><td class="nowrap" lang="en" dir="ltr">varchar(10)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">update_length</td><td class="nowrap" lang="en" dir="ltr">int(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">update_length_type</td><td class="nowrap" lang="en" dir="ltr">varchar(8)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">name</td><td class="nowrap" lang="en" dir="ltr">varchar(23)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">position</td><td class="nowrap" lang="en" dir="ltr">varchar(3)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">team_code</td><td class="nowrap" lang="en" dir="ltr">varchar(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">reason</td><td class="nowrap" lang="en" dir="ltr">varchar(134)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr></tbody></table></div><div>
+<h2>teams</h2>
+<table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">teams_id <em>(Primary)</em></td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">teams_full_name</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_preffered_name</td><td class="nowrap" lang="en" dir="ltr">varchar(55)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">team_code</td><td class="nowrap" lang="en" dir="ltr">varchar(7)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">city</td><td class="nowrap" lang="en" dir="ltr">varchar(35)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">state</td><td class="nowrap" lang="en" dir="ltr">varchar(25)</td><td>No</td><td class="nowrap">USA</td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">division</td><td class="nowrap" lang="en" dir="ltr">varchar(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">bandwagon_code</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_logo_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">reddit_group_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td>ID from the Reddit Group Table</td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="1">PRIMARY</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>teams_id</td><td>33</td><td>A</td><td>No</td><td rowspan="1"></td></tr></tbody></table></div><div>
+<h2>teams_detail</h2>
+<table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">Team_Conference</td><td class="nowrap" lang="en" dir="ltr">varchar(3)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_Division</td><td class="nowrap" lang="en" dir="ltr">varchar(5)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Team_name <em>(Primary)</em></td><td class="nowrap" lang="en" dir="ltr">varchar(20)</td><td>No</td><td class="nowrap"></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_City</td><td class="nowrap" lang="en" dir="ltr">varchar(19)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Stadium</td><td class="nowrap" lang="en" dir="ltr">varchar(35)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Stadium_Capacity</td><td class="nowrap" lang="en" dir="ltr">int(7)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Stadium_coords</td><td class="nowrap" lang="en" dir="ltr">varchar(18)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">first_nfl_season</td><td class="nowrap" lang="en" dir="ltr">int(4)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="odd"><td class="nowrap">Head_coach_2016</td><td class="nowrap" lang="en" dir="ltr">varchar(14)</td><td>Yes</td><td class="nowrap"><i>NULL</i></td>    <td></td>
+</tr><tr class="even"><td class="nowrap">Team_hex_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap">000</td>    <td>The hex value that represents the team main color, without the preceding # hash symbol</td>
+</tr><tr class="odd"><td class="nowrap">Team_hex_alt_color</td><td class="nowrap" lang="en" dir="ltr">varchar(6)</td><td>No</td><td class="nowrap">fff</td>    <td>The hex value that represents the team second color, without the preceding # hash symbol</td>
+</tr><tr class="even"><td class="nowrap">reddit_group_id</td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td>Reddit Group ID</td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="1">PRIMARY</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>Team_name</td><td>32</td><td>A</td><td>No</td><td rowspan="1"></td></tr></tbody></table></div><div>
+<h2>users</h2>
+Table comments: user data<br><br><table width="100%" class="print"><tbody><tr><th width="50">Column</th><th width="80">Type</th><th width="40">Null</th><th width="70">Default</th>    <th>Comments</th>
+</tr><tr class="odd"><td class="nowrap">user_id <em>(Primary)</em></td><td class="nowrap" lang="en" dir="ltr">int(11)</td><td>No</td><td class="nowrap"></td>    <td>auto incrementing user_id of each user, unique index</td>
+</tr><tr class="even"><td class="nowrap">user_name</td><td class="nowrap" lang="en" dir="ltr">varchar(64)</td><td>No</td><td class="nowrap"></td>    <td>user's name, unique</td>
+</tr><tr class="odd"><td class="nowrap">user_password_hash</td><td class="nowrap" lang="en" dir="ltr">varchar(255)</td><td>No</td><td class="nowrap"></td>    <td>user's password in salted and hashed format</td>
+</tr><tr class="even"><td class="nowrap">user_email</td><td class="nowrap" lang="en" dir="ltr">varchar(64)</td><td>No</td><td class="nowrap"></td>    <td>user's email, unique</td>
+</tr><tr class="odd"><td class="nowrap">created</td><td class="nowrap" lang="en" dir="ltr">timestamp</td><td>No</td><td class="nowrap">CURRENT_TIMESTAMP</td>    <td>The date the user was created</td>
+</tr><tr class="even"><td class="nowrap">last_login</td><td class="nowrap" lang="en" dir="ltr">bigint(20)</td><td>No</td><td class="nowrap">0</td>    <td>time in seconds since epoch</td>
+</tr><tr class="odd"><td class="nowrap">balance</td><td class="nowrap" lang="en" dir="ltr">decimal(11,2)</td><td>No</td><td class="nowrap">100.00</td>    <td>The users current point balance</td>
+</tr><tr class="even"><td class="nowrap">user_group</td><td class="nowrap" lang="en" dir="ltr">int(4)</td><td>No</td><td class="nowrap">1</td>    <td>0 = not logged in, 1 = user, 2 = mod, 3=admin</td>
+</tr><tr class="odd"><td class="nowrap">newsletter</td><td class="nowrap" lang="en" dir="ltr">bit(1)</td><td>No</td><td class="nowrap">b'0'</td>    <td>1 = yes email list, 0 = no email list</td>
+</tr></tbody></table><h3>Indexes</h3><div class="no_indexes_defined hide"><div class="notice"><img src="./DataDictionary_files/dot.gif" title="" alt="" class="icon ic_s_notice"> No index defined!</div></div><table id="table_index"><thead><tr><th>Keyname</th><th>Type</th><th>Unique</th><th>Packed</th><th>Column</th><th>Cardinality</th><th>Collation</th><th>Null</th><th>Comment</th></tr></thead><tbody><tr class="noclick odd"><td rowspan="1">PRIMARY</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>user_id</td><td>22</td><td>A</td><td>No</td><td rowspan="1"></td></tr><tr class="noclick even"><td rowspan="1">user_name</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>user_name</td><td>22</td><td>A</td><td>No</td><td rowspan="1"></td></tr><tr class="noclick odd"><td rowspan="1">user_email</td><td rowspan="1">BTREE</td><td rowspan="1">Yes</td><td rowspan="1">No</td><td>user_email</td><td>22</td><td>A</td><td>No</td><td rowspan="1"></td></tr></tbody></table></div><p class="print_ignore"><input type="button" class="button" id="print" value="Print"></p></div><div id="selflink" class="print_ignore"><a href="https://gator4088.hostgator.com:2083/cpsess0954745695/3rdparty/phpMyAdmin/db_datadict.php?db=pmphotog_nfl&amp;table=users&amp;server=1&amp;target=&amp;token=251ab5f9b28f034984713440a7c62112" title="Open new phpMyAdmin window" target="_blank"><img src="./DataDictionary_files/dot.gif" title="Open new phpMyAdmin window" alt="Open new phpMyAdmin window" class="icon ic_window-new"></a></div><div class="clearfloat" id="pma_errors"></div><script type="text/javascript">// <![CDATA[
+AJAX.cache.primer = { url: "db_datadict.php?db=pmphotog_nfl&table=users&server=1&target=&token=251ab5f9b28f034984713440a7c62112", scripts: [{"name":"jquery\/jquery-1.8.3.min.js","fire":0},{"name":"sprintf.js","fire":1},{"name":"ajax.js","fire":0},{"name":"keyhandler.js","fire":1},{"name":"jquery\/jquery-ui-1.9.2.custom.min.js","fire":0},{"name":"jquery\/jquery.cookie.js","fire":0},{"name":"jquery\/jquery.mousewheel.js","fire":0},{"name":"jquery\/jquery.event.drag-2.2.js","fire":0},{"name":"jquery\/jquery-ui-timepicker-addon.js","fire":0},{"name":"jquery\/jquery.ba-hashchange-1.3.js","fire":0},{"name":"jquery\/jquery.debounce-1.0.5.js","fire":0},{"name":"menu-resizer.js","fire":1},{"name":"cross_framing_protection.js","fire":0},{"name":"rte.js","fire":1},{"name":"tracekit\/tracekit.js","fire":1},{"name":"error_report.js","fire":1},{"name":"doclinks.js","fire":1},{"name":"functions.js","fire":1},{"name":"navigation.js","fire":0},{"name":"indexes.js","fire":1},{"name":"common.js","fire":1},{"name":"codemirror\/lib\/codemirror.js","fire":0},{"name":"codemirror\/mode\/sql\/sql.js","fire":0},{"name":"codemirror\/addon\/runmode\/runmode.js","fire":0},{"name":"codemirror\/addon\/hint\/show-hint.js","fire":0},{"name":"codemirror\/addon\/hint\/sql-hint.js","fire":0}], menuHash: "85b07daa"};
+AJAX.scriptHandler;
+$(function() {});
+// ]]></script></body></html>

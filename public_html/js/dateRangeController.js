@@ -77,6 +77,14 @@ var dateRangeController = {
 		callback(this);
 	},
 
+	open: function () {
+		$('#dateRangeJquery').daterangepicker("open");
+	},
+
+	close: function () {
+		$('#dateRangeJquery').daterangepicker("close");
+	},
+
 	resetTime: function (softReset) {
 		googleTracking.sendTrackEvent('DateRange', 'Reset');
 		softReset = softReset || false;

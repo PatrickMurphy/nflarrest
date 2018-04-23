@@ -85,15 +85,18 @@
 	</div>
 
 	<!-- Include Javascript Logic -->
-	<script src="js/loadCSS.js"></script>
-	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
-	<script src="js/vendor/jquery-ui.min.js"></script>
-	<script src="js/google-tracking.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
-	<script src="js/vendor/d3.min.js"></script>
-	<script src="js/vendor/c3.js"></script>
-	<script src="js/vendor/jquery.comiseo.daterangepicker.min.js"></script>
-	<script src="js/charts/donutChart.js"></script>
+	<script type="text/javascript" src="js/loadCSS.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script type="text/javascript" src="js/vendor/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="js/google-tracking.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
+	<script type="text/javascript" src="js/vendor/d3.min.js"></script>
+	<script type="text/javascript" src="js/vendor/c3.js"></script>
+	<script type="text/javascript" src="js/vendor/jquery.comiseo.daterangepicker.min.js"></script>
+	<script type="text/javascript" src="js/vendor/chosen.jquery.min.js"></script>
+	<script type="text/javascript" src="js/model/FiltersModel.js"></script>
+	<script type="text/javascript" src="js/FiltersControl.js"></script>
+	<script type="text/javascript" src="js/charts/donutChart.js"></script>
 	<?php 
         if(count($page_details['javascript'])>1){
             foreach($page_details['javascript'] as $key => $var){
