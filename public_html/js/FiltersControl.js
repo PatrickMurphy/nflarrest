@@ -23,6 +23,9 @@ class FiltersControl {
 
 	// load the html contents of the dialog
 	loadDialogContents() {
+		loadCSS('css/modules/styles-filters.css');
+		loadCSS('css/vendor/chosen.min.css');
+
 		$(this.options.dialog_element).load(this.options.dialog_content_url, function () {
 			console.log("Load was performed.");
 		});

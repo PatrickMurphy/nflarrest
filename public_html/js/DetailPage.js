@@ -6,6 +6,15 @@ class DetailPage {
 		this.chartOptions = chartOptions; // [{url:'',field:'',targetElement:'',title:''}]
 		this.arrest_view_mode = 0; // 0 = table, 1 = card (Mobile Default)
 
+		var page_dimension = this.pageTitle.toLowerCase();
+		var filters_options = {
+			presets: {}
+		};
+		filters_options['presets'][page_dimension] = {};
+		filters_options['presets'][page_dimension][page_dimension] = this.pageID;
+
+		this.FilterControl = new FiltersControl(filters_options);
+
 		this.callbackReturns = 0;
 		this.charts = [];
 

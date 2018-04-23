@@ -82,7 +82,7 @@
 					<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 				</form>
 			</footer>
-			<div id="#filter-dialog-container"></div>
+			<div id="filter-dialog-container"></div>
 	</div>
 
 	<!-- Include Javascript Logic -->
