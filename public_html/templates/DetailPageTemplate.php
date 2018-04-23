@@ -50,7 +50,7 @@
 			<div class="fb-share-button fb_Btn" data-href="http://NFLArrest.com" data-layout="button_count"></div>
 
 			<div class="dateRangeControl">
-				<span class="title">Date Range:</span> <input id="dateRangeJquery" name="dateRangeJquery">
+				<button id="filters-open-button">F</button><span class="title">Date Range:</span> <input id="dateRangeJquery" name="dateRangeJquery">
 			</div>
 		</header>
 		<br class="clear" />
@@ -82,8 +82,8 @@
 					<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
 				</form>
 			</footer>
-			<div id="filter-dialog-container"></div>
 	</div>
+	<div id="filter-dialog-container"></div>
 
 	<!-- Include Javascript Logic -->
 	<script type="text/javascript" src="js/loadCSS.js"></script>

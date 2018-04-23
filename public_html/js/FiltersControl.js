@@ -12,10 +12,33 @@ class FiltersControl {
 		// load model and date range object
 		this.filters_model = new FiltersModel();
 		this.dateRangeNFL = this.options.date_range_object;
+		this.first_open = true;
 
+		var self = this;
+
+		$('#filters-open-button').click(function () {
+			self.show();
+		});
+
+		$('#filter-dialog-container').click(function (e) {
+			if (e.target.id == 'filter-dialog-container') {
+				self.hide();
+			}
+		});
 		// setup dialog control
+		this.hide();
+	}
+
+	show() {
+		$(this.options.dialog_element).show();
+		if (this.first_open) {
+			this.loadDialogContents();
+			this.first_open = false;
+		}
+	}
+
+	hide() {
 		$(this.options.dialog_element).hide();
-		this.loadDialogContents();
 	}
 
 	// load the html contents of the dialog
@@ -69,10 +92,7 @@ class FiltersControl {
 		$('.filter-radio-group input').checkboxradio(jquery_checkbox_settings).change(onChangeCallback);
 
 		// setup date range controller
-		dateRangeController.init(function (newDateRange) {
-			self.dateRangeNFL = newDateRange;
-			$('#dateRangeJquery').on('dateRangeChanged', onChangeCallback);
-		});
+		$('#dateRangeJquery').on('dateRangeChanged', onChangeCallback);
 
 		// include exclude filter button toggles
 		$('.filter-type-btn').click(function () {
@@ -166,6 +186,7 @@ class FiltersControl {
 
 	// get all of the filter values
 	getFilterValues() {
+		var self = this;
 		var value_ret = {};
 		for (var section_key in this.filters_model.filter_sections) {
 			// skip loop if the property is from prototype
@@ -179,23 +200,7 @@ class FiltersControl {
 				var is_active = false;
 				var item = items[item_key];
 				var filter_name = item['name'];
-				var filter_value = '';
-				switch (item['type']['name']) {
-					case 'select':
-						filter_value = item['type'].getValue(item['element']);
-						break;
-					case 'dateRangeController':
-						filter_value = item['type'].getValue(this.dateRangeNFL);
-						break;
-					case 'checkbox-group':
-						filter_value = item['type'].getValue(item['element']);
-						break;
-					case 'checkbox':
-						filter_value = item['type'].getValue(item['element']);
-						break;
-					default:
-						console.log('unknown type');
-				}
+				var filter_value = item['type'].getValue(self, item);
 
 				// store value if active
 				if (item['active']) {

@@ -8,10 +8,10 @@ class FiltersModel {
 				library: 'NFLArrest',
 				description: 'The NFL Date Range Controller Module, contains two values',
 				default_val: ['2000-01-01', dateRangeController.getToday()],
-				getValue: function (dateRangeControl) {
+				getValue: function (FCObj, item) {
 					var arr = [];
-					arr.push(dateRangeControl.start_date);
-					arr.push(dateRangeControl.end_date);
+					arr.push(FCObj.dateRangeNFL.start_date);
+					arr.push(FCObj.dateRangeNFL.end_date);
 					return arr;
 				},
 				isActive: function (FCObj, item) {
@@ -25,11 +25,11 @@ class FiltersModel {
 				library: 'Chosen',
 				description: 'multi select field for filters, contains an array of values',
 				default_val: null,
-				getValue: function (ele) {
-					return $(ele).val();
+				getValue: function (FCObj, item) {
+					return $(item.element).val();
 				},
 				isActive: function (FCObj, item) {
-					return $(item['element']).val() != item['type']['default_val'];
+					return $(item.element).val() != item['type']['default_val'];
 				}
 			},
 			checkbox_group: {
@@ -37,10 +37,10 @@ class FiltersModel {
 				library: 'JQuery-UI',
 				description: 'a group of binary options',
 				default_val: 'all',
-				getValue: function (ele) {
+				getValue: function (FCObj, item) {
 					var group_settings = [];
 
-					$(ele).map(function (item, el) {
+					$(item.element).map(function (item2, el) {
 						if (!$(el).prop('checked')) {
 							group_settings.push('1');
 						} else {
@@ -52,7 +52,7 @@ class FiltersModel {
 				},
 				isActive: function (FCObj, item) {
 					var group_count = 0;
-					$(item['element']).map(function (item2, el) {
+					$(item.element).map(function (item2, el) {
 						if (!$(el).prop('checked')) {
 							group_count++;
 						}
@@ -65,11 +65,11 @@ class FiltersModel {
 				library: 'JQuery-UI',
 				description: 'a single binary option',
 				default_val: false,
-				getValue: function (ele) {
-					return $(ele).prop('checked');
+				getValue: function (FCObj, item) {
+					return $(item.element).prop('checked');
 				},
 				isActive: function (FCObj, item) {
-					return $(item['element']).prop('checked') != item['type']['default_val'];
+					return $(item.element).prop('checked') != item['type']['default_val'];
 				}
 			}
 		};
