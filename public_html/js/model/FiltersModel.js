@@ -76,8 +76,8 @@ class FiltersModel {
 
 		// all the filter items
 		this.filter_items = {
-			date_range: {
-				element: '#dateRangeJquery',
+			daterange: {
+				element: '#filter-daterange-input',
 				type: this.filter_types.date_range_controller,
 				name: ['start_date', 'end_date']
 			},
@@ -152,7 +152,7 @@ class FiltersModel {
 			date: {
 				title: 'Date Filters',
 				element: '#filter-date-section',
-				items: [this.filter_items.date_range, this.filter_items.month, this.filter_items.dayofweek, this.filter_items.yeartodate]
+				items: [this.filter_items.daterange, this.filter_items.month, this.filter_items.dayofweek, this.filter_items.yeartodate]
 			},
 			season: {
 				title: 'Season Filters',

@@ -142,6 +142,7 @@ class FiltersControl {
 			}
 		}
 	}
+
 	// get all of the filter values
 	reset() {
 		var self = this;
@@ -167,7 +168,9 @@ class FiltersControl {
 				}
 			}
 		}
+		self.loadDialogContents();
 	}
+
 	// the event for when a filter is changed, do anything extra and then render the view
 	onFilterChanged(self, event_action, selected_value) {
 		var button_id = event_action.currentTarget.getAttribute('id');
@@ -203,6 +206,7 @@ class FiltersControl {
 					break;
 			}
 		}
+		$('#filter-daterange-input').html(self.dateRangeNFL.getStart() + '-' + self.dateRangeNFL.getEnd());
 		$('#filter-date-section .filter-section-title span').html(this.filters_model.filter_sections.date.active_count + '/4');
 		$('#filter-season-section .filter-section-title span').html(this.filters_model.filter_sections.season.active_count + '/2');
 		$('#filter-team-section .filter-section-title span').html(this.filters_model.filter_sections.team.active_count + '/3');
