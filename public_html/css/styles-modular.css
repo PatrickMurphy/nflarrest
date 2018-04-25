@@ -32,7 +32,7 @@ header {
 	padding-left: 15px;
 }
 
-header>span {
+header > span {
 	font-weight: 700;
 	font-size: 17px;
 	color: #9a9a9a;
@@ -227,28 +227,6 @@ footer a {
 .fb_Btn {
 	top: -6px;
 	margin-left: 5px;
-}
-
-#tooltip {
-	position: absolute;
-	left: 0.5%;
-	top: 175px;
-	z-index: -5555;
-	width: 8%;
-	padding: 0.5%;
-	background: rgba(255, 255, 255, 0.25);
-	border-radius: 5px;
-}
-
-#tooltip span {
-	width: 100%;
-	background: rgba(255, 255, 255, 0.32);
-	text-align: center;
-	font-weight: bold;
-}
-
-@media (min-width: 550px) {
-	#tooltip {}
 }
 
 .search-row {
