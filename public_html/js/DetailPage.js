@@ -31,11 +31,11 @@ class DetailPage {
 			filters_options['presets'][page_dimension] = {};
 			filters_options['presets'][page_dimension][page_dimension] = self.pageID;
 			self.FilterControl = new FiltersControl(filters_options);
-
-			self.renderView();
-			$('#dateRangeJquery').on('dateRangeChanged', function () {
+			self.FilterControl.on('FilterDialogChanged', function () {
 				self.renderView();
 			});
+
+			self.renderView();
 		});
 	}
 
@@ -64,7 +64,7 @@ class DetailPage {
 
 	renderArrests() {
 		var self = this;
-		$.getJSON(this.arrestsUrl + this.pageID + '&start_date=' + this.dateRangeNFL.getStart() + '&end_date=' + this.dateRangeNFL.getEnd(), function (data) {
+		$.getJSON(this.arrestsUrl + this.pageID + '?' + this.FilterControl.getQueryString(), function (data) {
 			var row,
 				items = [];
 			$('body > div.container > section > div > h4').html(data.length + ' Incidents:');
@@ -114,7 +114,7 @@ class DetailPage {
 
 	getDonutData(url, param, chartID, callback) {
 		var self = this;
-		$.getJSON(url + '&start_date=' + this.dateRangeNFL.getStart() + '&end_date=' + this.dateRangeNFL.getEnd(), function (data) {
+		$.getJSON(url + '?' + this.FilterControl.getQueryString(), function (data) {
 			var theData = [];
 			var index, i = 0;
 			var otherArray = ['Other', 0];
