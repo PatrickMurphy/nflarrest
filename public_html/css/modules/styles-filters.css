@@ -1,3 +1,12 @@
+#filter-dialog-container {
+	position: fixed;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.5);
+	overflow-y: auto;
+}
+
 #filter-dialog {
 	margin: auto;
 	margin-top: 2%;
@@ -5,14 +14,8 @@
 	border: 1px solid #aaa;
 	border-radius: 4px;
 	background-color: #fff;
-}
-
-#filter-dialog-container {
-	position: fixed;
-	top: 0px;
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, 0.5);
+	overflow-y: scroll;
+	max-height: 100%;
 }
 
 .comiseo-daterangepicker {
@@ -80,7 +83,7 @@ Inputs
 
 .filter-section-item .dateRangeControl {
 	float: none;
-	margin-right: none;
+	margin-right: 0px;
 	background: transparent;
 	display: block;
 }
