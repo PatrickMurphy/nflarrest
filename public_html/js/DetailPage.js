@@ -47,7 +47,7 @@ class DetailPage {
 
 	renderView() {
 		$('#loading-bar').fadeIn();
-		this.pageID = update_hash();
+		this.pageID = update_hash(this.pageID);
 		this.changeTitle();
 		this.setupCharts();
 		this.renderArrests();

@@ -22,6 +22,7 @@ class FiltersControl {
 		});
 
 		$('#filter-dialog-container').click(function (e) {
+			// if clicked outside of dialog window
 			if (e.target.id == 'filter-dialog-container') {
 				self.hide();
 			}
