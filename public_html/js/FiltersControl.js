@@ -6,7 +6,8 @@ class FiltersControl {
 		this.options.presets = options.presets || {};
 		this.options.date_range_object = options.date_range_object || {};
 
-		this.options.dialog_element = options.dialog_element || '#filter-dialog-container';
+		this.options.dialog_element_container = options.dialog_element_container || '#filter-dialog-container';
+		this.options.dialog_element = options.dialog_element || '#filter-dialog';
 		this.options.dialog_content_url = options.dialog_content_url || 'templates/FiltersDialog.html';
 
 		// load model and date range object
@@ -30,8 +31,13 @@ class FiltersControl {
 		this.hide();
 	}
 
+	on(evt, handle) {
+		if (evt & handle)
+			$(self.options.dialog_element).on(evt, handle);
+	}
+
 	show() {
-		$(this.options.dialog_element).show();
+		$(this.options.dialog_element_container).show();
 		if (this.first_open) {
 			this.loadDialogContents();
 			this.first_open = false;
@@ -39,7 +45,7 @@ class FiltersControl {
 	}
 
 	hide() {
-		$(this.options.dialog_element).hide();
+		$(this.options.dialog_element_container).hide();
 	}
 
 	// load the html contents of the dialog
@@ -48,7 +54,7 @@ class FiltersControl {
 		loadCSS('css/modules/styles-filters.css');
 		loadCSS('css/vendor/chosen.min.css');
 
-		$(self.options.dialog_element).load(self.options.dialog_content_url, function () {
+		$(self.options.dialog_element_container).load(self.options.dialog_content_url, function () {
 			console.log("Load was performed.");
 			self.setupView();
 			self.renderView();
@@ -117,16 +123,19 @@ class FiltersControl {
 		});
 
 		$('#filters-close-button').click(function () {
+			$(self.options.dialog_element).trigger('FilterDialogClosed');
 			self.hide();
 		});
 
 		$('#filters-apply-button').click(function () {
 			self.apply();
+			$(self.options.dialog_element).trigger('FilterDialogChanged');
 			self.hide();
 		});
 
 		$('#filters-clear-button').click(function () {
 			self.reset();
+			$(self.options.dialog_element).trigger('FilterDialogReset');
 		});
 
 		$('#filters-cancel-button').click(function () {
