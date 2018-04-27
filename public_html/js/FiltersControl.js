@@ -130,6 +130,7 @@ class FiltersControl {
 
 		$('#filters-apply-button').click(function () {
 			self.apply();
+			console.log(self.options.dialog_element);
 			$(self.options.dialog_element).trigger('FilterDialogChanged');
 			self.hide();
 		});
