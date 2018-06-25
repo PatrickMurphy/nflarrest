@@ -33,8 +33,18 @@ require('Login_System.php');
 	<meta name="msapplication-config" content="http://nflarrest.com/images/favicon/browserconfig.xml">
 	<meta name="theme-color" content="#e7b736">
 
+	<link rel="stylesheet" href="../css/vendor/normalize.css" />
+	<link rel="stylesheet" href="../css/vendor/skeleton.css" />
+	<link rel="stylesheet" href="../css/styles.min.css" />
+	<link rel="stylesheet" href="../css/vendor/c3.css" />
+	<link rel="stylesheet" href="../css/vendor/jquery-ui.min.css" />
+	<link rel="stylesheet" href="../css/vendor/jquery.comiseo.daterangepicker.css" />
+
+
 	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
 </head>
 
 <body>
@@ -70,7 +80,6 @@ require('Login_System.php');
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js" async></script>
 	<script src="http://nflarrest.com/js/vendor/jquery.comiseo.daterangepicker.min.js" async></script>
 	<script src="http://nflarrest.com/js/common.js" async></script>
-	<script src="http://nflarrest.com/js/loadCSS.js" async></script>
 </body>
 
 </html>
