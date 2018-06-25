@@ -1,6 +1,6 @@
 <!-- Admin Dashboard HTML Include -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
-<link rel="stylesheet" href="admin/AdminDashboard.css" />
+<link rel="stylesheet" href="AdminDashboard.css" />
 <div class="row">
 	<!-- Content Area -->
 	<div class="eight columns">
@@ -12,7 +12,7 @@
 			</ul>
 			<div id="tabs-1">
 				<h2>Caches</h2>
-				<form id="addForm" method="post" action="admin/index.php">
+				<form id="addForm" method="post" action="index.php">
 					<input type="submit" name="form_action" value="Cache SeasonState" /> >
 					<input type="submit" name="form_action" value="Cache Arrests View" /> >
 					<input type="submit" name="form_action" value="Cache Last Arrests" />
@@ -20,17 +20,17 @@
 
 				<h3>Cache Files</h3>
 				<p>
-					<a href="admin/CacheDetailPages.php?page_id=team" class="button">Team HTML</a>
-					<a href="admin/CacheDetailPages.php?page_id=crime" class="button">Crime HTML</a>
-					<a href="admin/CacheDetailPages.php?page_id=position" class="button">Position HTML</a>
-					<a href="admin/CacheDetailPages.php?page_id=player" class="button">Player HTML</a>
-					<a href="admin/CacheJSON.php?page_id=topTeams&fast=32" class="button">Graph JSON</a>
-					<a href="admin/CacheJSON.php?page_id=topLists&fast=32" class="button">Top List JSON</a>
+					<a href="CacheDetailPages.php?page_id=team" class="button">Team HTML</a>
+					<a href="CacheDetailPages.php?page_id=crime" class="button">Crime HTML</a>
+					<a href="CacheDetailPages.php?page_id=position" class="button">Position HTML</a>
+					<a href="CacheDetailPages.php?page_id=player" class="button">Player HTML</a>
+					<a href="CacheJSON.php?page_id=topTeams&fast=32" class="button">Graph JSON</a>
+					<a href="CacheJSON.php?page_id=topLists&fast=32" class="button">Top List JSON</a>
 				</p>
 			</div>
 			<div id="tabs-2">
 				<h2>Add Record:</h2>
-				<form id="addForm" method="post" action="admin/index.php">
+				<form id="addForm" method="post" action="index.php">
 					<div class="row">
 						<label>Date</label>
 						<input type="date" name="Date" />
@@ -80,7 +80,7 @@
 			<div id="tabs-3">
 				<h2>Email List</h2>
 				<div>
-					<form action="admin/sendEmail.php" method="post" id="emailComposeForm">
+					<form action="sendEmail.php" method="post" id="emailComposeForm">
 						<input type="text" name="mail_subject" value="NFL Arrest Update: " />
 						<textarea name="mail_body"></textarea>
 						<input type="submit" name="form_action" value="Send Email" />
@@ -110,4 +110,4 @@
 	</div>
 </div>
 <!-- Get News Alerts -->
-<script type="text/javascript" src="admin/AdminDashboard.js"></script>
+<script type="text/javascript" src="AdminDashboard.js"></script>
