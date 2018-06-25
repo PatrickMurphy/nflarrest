@@ -1,6 +1,6 @@
 <!-- Admin Dashboard HTML Include -->
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="AdminDashboard.css" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+<link rel="stylesheet" href="admin/AdminDashboard.css" />
 <div class="row">
 	<!-- Content Area -->
 	<div class="eight columns">
@@ -20,8 +20,12 @@
 
 				<h3>Cache Files</h3>
 				<p>
-					<a href="admin/CacheDetailPages.php?page_id=team" class="button">Team HTML</a> <a href="admin/CacheDetailPages.php?page_id=crime" class="button">Crime HTML</a> <a href="admin/CacheDetailPages.php?page_id=position" class="button">
-Position HTML</a> <a href="admin/CacheDetailPages.php?page_id=player" class="button">Player HTML</a> <a href="admin/CacheJSON.php?page_id=topTeams&fast=32" class="button">Graph JSON</a> <a href="admin/CacheJSON.php?page_id=topLists&fast=32" class="button">Top List JSON</a>
+					<a href="admin/CacheDetailPages.php?page_id=team" class="button">Team HTML</a>
+					<a href="admin/CacheDetailPages.php?page_id=crime" class="button">Crime HTML</a>
+					<a href="admin/CacheDetailPages.php?page_id=position" class="button">Position HTML</a>
+					<a href="admin/CacheDetailPages.php?page_id=player" class="button">Player HTML</a>
+					<a href="admin/CacheJSON.php?page_id=topTeams&fast=32" class="button">Graph JSON</a>
+					<a href="admin/CacheJSON.php?page_id=topLists&fast=32" class="button">Top List JSON</a>
 				</p>
 			</div>
 			<div id="tabs-2">
@@ -106,4 +110,4 @@ Position HTML</a> <a href="admin/CacheDetailPages.php?page_id=player" class="but
 	</div>
 </div>
 <!-- Get News Alerts -->
-<script type="text/javascript" src="AdminDashboard.js" />
+<script type="text/javascript" src="admin/AdminDashboard.js"></script>

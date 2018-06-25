@@ -33,6 +33,9 @@ require('Login_System.php');
 	<meta name="msapplication-TileImage" content="/images/favicon/mstile-144x144.png">
 	<meta name="msapplication-config" content="/images/favicon/browserconfig.xml">
 	<meta name="theme-color" content="#e7b736">
+
+	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 </head>
 
 <body>
@@ -63,8 +66,6 @@ require('Login_System.php');
 		<footer>Made By <a href="http://resume.patrickmurphyphoto.com" title="Want to see my Resume?">Patrick Murphy</a> | <a href="http://nflarrest.com/api/">Open API</a> | <a href="PrivacyPolicy.html">Privacy Policy</a></footer>
 	</div>
 	<!-- Include Javascript Logic -->
-	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
-	<script src="js/vendor/jquery-ui.min.js"></script>
 	<script src="js/vendor/d3.min.js" async></script>
 	<script src="js/vendor/c3.min.js" async></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js" async></script>
