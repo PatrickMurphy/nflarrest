@@ -8,7 +8,7 @@ class FiltersControl {
 
 		this.options.dialog_element_container = options.dialog_element_container || '#filter-dialog-container';
 		this.options.dialog_element = options.dialog_element || '#filter-dialog';
-		this.options.dialog_content_url = options.dialog_content_url || 'templates/FiltersDialog.html';
+		this.options.dialog_content_url = options.dialog_content_url || 'templates/FiltersTemplateCache.html';
 
 		// load model and date range object
 		this.filters_model = new FiltersModel();
@@ -132,6 +132,7 @@ class FiltersControl {
 			self.apply();
 			console.log(self.options.dialog_element);
 			$(self.options.dialog_element).trigger('FilterDialogChanged');
+			$(window).trigger('hashchange');
 			self.hide();
 		});
 

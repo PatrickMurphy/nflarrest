@@ -31,7 +31,9 @@ class DetailPage {
 			filters_options['presets'][page_dimension] = {};
 			filters_options['presets'][page_dimension][page_dimension] = self.pageID;
 			self.FilterControl = new FiltersControl(filters_options);
-			self.FilterControl.on('FilterDialogChanged', function () {
+			$(self.FilterControl.options.dialog_element).on('FilterDialogChanged', function () {
+				console.log('render view filter');
+				// todo not working, using the hash change global for now
 				self.renderView();
 			});
 
