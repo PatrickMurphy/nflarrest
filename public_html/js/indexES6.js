@@ -8,6 +8,7 @@ class IndexPage {
 		this.listsReturned = false;
 		this.ytdChart = false;
 		this.mainChartStyleID = 0;
+		this.nflLoadingBar = new LoadingBarManager();
 
 		this.MainChartOptions = {
 			buttons: [{
@@ -74,7 +75,7 @@ class IndexPage {
 	}
 
 	renderView() {
-		nflLoadingBar.showLoading();
+		this.nflLoadingBar.showLoading();
 		this.setupChart();
 		this.reload_top_lists();
 		this.renderTeamLinks();
@@ -120,7 +121,7 @@ class IndexPage {
 
 	loadingFinished() {
 		this.setupArrestOMeter();
-		nflLoadingBar.hideLoading();
+		this.nflLoadingBar.hideLoading();
 		this.listsReturned = false;
 		this.mainChartReturned = false;
 		setupFacebook();

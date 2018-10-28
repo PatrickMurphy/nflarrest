@@ -8,7 +8,7 @@ var last_start_pos = 0,
 
 $( window ).load(function() {
 	dateRangeController.init(function(newDateRange){
-		nflLoadingBar.init();
+		nflLoadingBar.reset();
 		dateRangeNFL = newDateRange;
                 if(window.location.hash){
                    if(window.location.hash == "#ByYear"){

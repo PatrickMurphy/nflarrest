@@ -5,10 +5,11 @@ var last_start_pos = 0,
 	listsReturned = false,
 	ytdChart = false,
 	mainChartStyleID = 0;
-
+var nflLoadingBar;
 $(window).load(function () {
+	nflLoadingBar = new LoadingBarManager();
 	dateRangeController.init(function (newDateRange) {
-		nflLoadingBar.init();
+		nflLoadingBar.reset();
 		dateRangeNFL = newDateRange;
 		if (window.location.hash) {
 			if (window.location.hash == "#ByYear") {
