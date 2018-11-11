@@ -7,7 +7,10 @@ var generateCSS = true;
 var generateJS = true;
 var modular_css = true;
 
+
+// Handle Script arguments
 process.argv.forEach(function (val, index, array) {
+	// test test-js only-js only-css modular-css
 	if (val === "test") {
 		filename = 'index_test.min.js';
 		cssFilename = "styles.min.test.css";
@@ -35,7 +38,7 @@ if (generateJS) {
 	compressor.minify({
 		compressor: 'uglifyjs',
 		input: ['../public_html/js/index.js',
-				'../public_html/js/common.js',
+				'../public_html/js/Utilities.js',
 				'../public_html/js/charts/stackedBarChart.js',
 				'../public_html/js/dateRangeController.js',
 				'../public_html/js/google-tracking.js',
