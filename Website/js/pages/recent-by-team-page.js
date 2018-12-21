@@ -83,7 +83,7 @@ class RecentArrests {
 		rowHTML.push('<td><a href="crime/' + row['Category'] + '/">' + row['Category'] + '</a></td>');
 		rowHTML.push('<td>' + row['Description'] + '</td>');
 		rowHTML.push('</tr>');
-		return rowHTML.join();
+		return rowHTML.join('');
 	}
 
 }
