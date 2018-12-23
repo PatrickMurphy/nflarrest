@@ -10,27 +10,27 @@ require('PHP\Login_System.php');
 	<title>NFL Arrest - Football Arrest Record Database &amp; Statistics</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="image_src" href="http://nflarrest.com/images/preview.png" />
-	<link rel="apple-touch-icon" sizes="57x57" href="http://nflarrest.com/images/favicon/apple-touch-icon-57x57.png">
-	<link rel="apple-touch-icon" sizes="60x60" href="http://nflarrest.com/images/favicon/apple-touch-icon-60x60.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="http://nflarrest.com/images/favicon/apple-touch-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="76x76" href="http://nflarrest.com/images/favicon/apple-touch-icon-76x76.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="http://nflarrest.com/images/favicon/apple-touch-icon-114x114.png">
-	<link rel="apple-touch-icon" sizes="120x120" href="http://nflarrest.com/images/favicon/apple-touch-icon-120x120.png">
-	<link rel="apple-touch-icon" sizes="144x144" href="http://nflarrest.com/images/favicon/apple-touch-icon-144x144.png">
-	<link rel="apple-touch-icon" sizes="152x152" href="http://nflarrest.com/images/favicon/apple-touch-icon-152x152.png">
-	<link rel="apple-touch-icon" sizes="180x180" href="http://nflarrest.com/images/favicon/apple-touch-icon-180x180.png">
-	<link rel="icon" type="image/png" href="http://nflarrest.com/images/favicon/favicon-32x32.png" sizes="32x32">
-	<link rel="icon" type="image/png" href="http://nflarrest.com/images/favicon/favicon-194x194.png" sizes="194x194">
-	<link rel="icon" type="image/png" href="http://nflarrest.com/images/favicon/favicon-96x96.png" sizes="96x96">
-	<link rel="icon" type="image/png" href="http://nflarrest.com/images/favicon/android-chrome-192x192.png" sizes="192x192">
-	<link rel="icon" type="image/png" href="http://nflarrest.com/images/favicon/favicon-16x16.png" sizes="16x16">
-	<link rel="manifest" href="http://nflarrest.com/images/favicon/manifest.json">
-	<link rel="shortcut icon" href="http://nflarrest.com/images/favicon/favicon.ico">
+	<link rel="apple-touch-icon" sizes="57x57" href="../images/favicon/apple-touch-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="../images/favicon/apple-touch-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="../images/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="../images/favicon/apple-touch-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="../images/favicon/apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="../images/favicon/apple-touch-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="../images/favicon/apple-touch-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="../images/favicon/apple-touch-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="../images/favicon/apple-touch-icon-180x180.png">
+	<link rel="icon" type="image/png" href="../images/favicon/favicon-32x32.png" sizes="32x32">
+	<link rel="icon" type="image/png" href="../images/favicon/favicon-194x194.png" sizes="194x194">
+	<link rel="icon" type="image/png" href="../images/favicon/favicon-96x96.png" sizes="96x96">
+	<link rel="icon" type="image/png" href="../images/favicon/android-chrome-192x192.png" sizes="192x192">
+	<link rel="icon" type="image/png" href="../images/favicon/favicon-16x16.png" sizes="16x16">
+	<link rel="manifest" href="../images/favicon/manifest.json">
+	<link rel="shortcut icon" href="../images/favicon/favicon.ico">
 	<meta name="apple-mobile-web-app-title" content="NFL Arrest">
 	<meta name="application-name" content="NFL Arrest">
 	<meta name="msapplication-TileColor" content="#e7b736">
-	<meta name="msapplication-TileImage" content="http://nflarrest.com/images/favicon/mstile-144x144.png">
-	<meta name="msapplication-config" content="http://nflarrest.com/images/favicon/browserconfig.xml">
+	<meta name="msapplication-TileImage" content="../images/favicon/mstile-144x144.png">
+	<meta name="msapplication-config" content="../images/favicon/browserconfig.xml">
 	<meta name="theme-color" content="#e7b736">
 
 	<link rel="stylesheet" href="../css/vendor/normalize.css" />
@@ -39,18 +39,19 @@ require('PHP\Login_System.php');
 	<link rel="stylesheet" href="../css/vendor/c3.css" />
 	<link rel="stylesheet" href="../css/vendor/jquery-ui.min.css" />
 	<link rel="stylesheet" href="../css/vendor/jquery.comiseo.daterangepicker.css" />
-
-
+	<link href="//fonts.googleapis.com/css?family=Raleway:400,300,500,600" rel="stylesheet">
+	<link rel="stylesheet" href="CSS/AdminDashboard.css" />
+	
 	<script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-
 </head>
 
 <body>
 	<div class="container">
 		<header>
-			<a href="http://nflarrest.com" class="logo"><img src="http://nflarrest.com/images/logo-transparent.png" alt="NFL Arrest Logo" height="30" /></a>
+			<a href="http://nflarrest.com" class="logo">
+				<img src="http://nflarrest.com/images/logo-transparent.png" alt="NFL Arrest Logo" height="16" />
+			</a>
 			<a href="http://nflarrest.com">
 				<h1>
 					NFL<span>Arrest</span>.com
@@ -58,9 +59,7 @@ require('PHP\Login_System.php');
 			</a>
 			<span>Data Warehouse Admin</span>
 		</header>
-		<br class="clear" />
 		<section>
-
 			<?php
 				// IF already logged in or username and password have been entered try and validate, else display form
 				if(isLoggedIn() || formFieldsSet()){

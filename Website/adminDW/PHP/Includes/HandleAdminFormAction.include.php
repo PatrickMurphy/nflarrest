@@ -5,18 +5,15 @@ if(isset($_POST['form_action'])){
 		case 'add_arrest':
 			$dataArray = array();
 			$dataArray['Date'] = $_POST['Date'];
-			$dataArray['Team'] = $_POST['Team'];
-			$dataArray['Name'] = $_POST['Name'];
-			$dataArray['Position'] = $_POST['Position'];
-			$dataArray['Encounter'] = $_POST['Encounter'];
-			$dataArray['Category'] = $_POST['Category'];
-			$dataArray['Description'] = $_POST['Description'];
-			$dataArray['Outcome'] = $_POST['Outcome'];
-			$dataArray['general_category_id'] = $_POST['general_category_id'];
-			$dataArray['legal_level_id'] = $_POST['legal_level_id'];
-			$dataArray['resolution_category_id'] = $_POST['resolution_category_id'];
+			$dataArray['TeamID'] = $_POST['TeamID'];
+			$dataArray['PlayerID'] = $_POST['PlayerID'];
+			$dataArray['PositionID'] = $_POST['PositionID'];
+			$dataArray['InfractionID'] = $_POST['InfractionID'];
+			
+			$wasInsertSuccessful = $db->insert('fctIncidents', $dataArray);
 
-			$wasInsertSuccessful = $db->insert('arrest_stats', $dataArray);
+			// add notes
+			// add sources
 
 			$SuggestedEmail = '';
 		break;

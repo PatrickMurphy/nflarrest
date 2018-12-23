@@ -6,6 +6,7 @@ require_once($_SERVER['DOCUMENT_ROOT'].'/nflarrest/Website/adminDW/PHP/db_config
 // connect to both dbs, one for email, one for nfl arrest
 $db = new MySQL($db_info['host'], $db_info['user'], $db_info['password'], $db_info['db_name']);
 $db2 = new MySQL($db_info['host'], $db_info['user'], $db_info['password'], 'pmphotog_main');
+$db3 = new MySQL($db_info['host'], $db_info['user'], $db_info['password'], 'pmphotog_NFL_Arrest');
 
 // if connected
 if($db == false || $db2 == false){

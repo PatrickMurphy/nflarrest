@@ -1,5 +1,5 @@
 <?php
-
+error_reporting(1);
 /**
  * Description of MySQL
  */
@@ -29,7 +29,6 @@ class MySQL extends BaseDatabase implements IDatabase {
   }
 
   public function connect() {
-
     $this->conn = new mysqli($this->host, $this->user, $this->password);
 
     if ($this->conn->connect_error) {

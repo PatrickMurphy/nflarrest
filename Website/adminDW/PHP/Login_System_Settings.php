@@ -10,4 +10,5 @@ $login_system_settings['values']['password'] = 'DeepSnow2017';
 
 $login_system_settings['errors'] = array();
 $login_system_settings['errors']['invalid_login'] = '<div style="border:#ff4f4f; background:#ffa5a5;"><b>Error:</b> Incorrect login Details.</div>';
+$login_system_settings['errors']['invalid_login_json'] = '{"error": "Incorrect login Details", "errorCode": 1}';
 ?>

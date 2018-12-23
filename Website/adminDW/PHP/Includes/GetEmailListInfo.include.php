@@ -5,6 +5,9 @@ $email_list_result = $db2->query('SELECT referrer, count(1) as `total` FROM `ema
 $email_list = gather_results($email_list_result);
 
 $email_count_result = $db2->query('SELECT COUNT(DISTINCT(`email`)) as `total` FROM `email_list`');
-$email_count = $email_count_result->fetch_assoc();
-
+if($email_count_result){
+	$email_count = $email_count_result->fetch_assoc();
+}else{
+	die('<div class="error">'.'DB Connection Error'.'</div>');
+}
 ?>

@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require('PHP/Login_System_Settings.php');
+require($_SERVER['DOCUMENT_ROOT'].'/nflarrest/Website/adminDW/PHP/Login_System_Settings.php');
 
 function isLoggedIn() {
 	global $login_system_settings;
