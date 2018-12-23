@@ -2,7 +2,8 @@ var simpleLineChart = {
     lineChart: undefined,
     options: {
         targetElement: '#theElementSelector',
-        data: {}
+        data: {},
+        colors: ["#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#BCBD22", "#17BECF", "#154F78", "#B0580A", "#248224", "#7D1717"]
     },
 
     init: function(options) {
@@ -32,7 +33,7 @@ var simpleLineChart = {
                 bottom: bottomPadding
             },
             color: {
-                pattern: ["#1F77B4", "#FF7F0E", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F", "#BCBD22", "#17BECF", "#154F78", "#B0580A", "#248224", "#7D1717"]
+                pattern: simpleLineChart.options.colors
             }
         });
     }
