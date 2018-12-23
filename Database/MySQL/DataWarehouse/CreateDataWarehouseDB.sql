@@ -51,7 +51,7 @@ ALTER TABLE `dimDate`
 DROP TABLE IF EXISTS `dimFranchise`;
 CREATE TABLE `dimFranchise` (
   `FranchiseID` int(11) NOT NULL COMMENT 'Team Franchise Key',
-  `FranchiseCode` varchar(3) COLLATE utf8_unicode_ci NOT NULL,
+  `FranchiseCode` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
   `FranchiseDesc` varchar(127) COLLATE utf8_unicode_ci NOT NULL,
   `UpdateDate` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `CreateDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -117,6 +117,7 @@ CREATE TABLE `dimInfractionCategory` (
   `InfractionCategoryID` int(11) NOT NULL,
   `InfractionCategoryCode` varchar(5) COLLATE utf8_unicode_ci NOT NULL,
   `InfractionCategoryDesc` varchar(127) COLLATE utf8_unicode_ci NOT NULL,
+  `InfractionCategoryHex` varchar(6) COLLATE utf8_unicode_ci DEFAULT NULL,
   `UpdateDate` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `CreateDate` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `UpdateUser` varchar(15) DEFAULT NULL,
