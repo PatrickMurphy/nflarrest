@@ -192,6 +192,11 @@ footer a {
 	display: none;
 }
 
+#recent-arrests-table {
+	margin-left: auto;
+	margin-right: auto;
+}
+
 #arrest_table td {
 	height: 100px;
 }

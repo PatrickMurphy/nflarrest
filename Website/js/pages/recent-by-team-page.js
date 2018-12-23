@@ -37,7 +37,7 @@ class RecentArrests {
 			arrest_view_mode = 1; // if mobile use cards
 		var items = [];
 		var self = this;
-		$.getJSON('api/v1/lastArrestByTeam', function (data) {
+		$.getJSON('http://nflarrest.com/api/v1/lastArrestByTeam', function (data) {
 			for (var id in data) {
 				var row = data[id];
 				if (arrest_view_mode == 0) {
@@ -77,11 +77,16 @@ class RecentArrests {
 	renderArrestRow(row) {
 		var rowHTML = ['<tr>'];
 		rowHTML.push('<td><span class="value-cell">' + row['DaysSince'] + '</span></td>');
-		rowHTML.push('<td><a href="team/' + row['Team'] + '/">' + row['Team_name'] + '</a></td>');
+		rowHTML.push('<td><a href="team/' + row['Team'] + '/"><span style="display:inline-block;width:20px;height:20px;background:url(\'images/NFLTeamLogos.png\') 0px -'+row['Team_logo_id']*20+'px;background-size:100%;"></span> ' + row['Team_preffered_name'] + '</a>');
+		//rowHTML.push('<td><a href="team/' + row['Team'] + '/">' + row['Team_name'] + '</a></td>');
 		rowHTML.push('<td><a href="player/' + row['Name'] + '/">' + row['Name'] + '</a></td>');
 		rowHTML.push('<td><a href="position/' + row['Position'] + '/">' + row['Position'] + '</a></td>');
 		rowHTML.push('<td><a href="crime/' + row['Category'] + '/">' + row['Category'] + '</a></td>');
-		rowHTML.push('<td>' + row['Description'] + '</td>');
+		rowHTML.push('<td>' + row['Description'].substring(0, (row['Description'].substring(0,50)).lastIndexOf(' ')));
+		if(row['Description'].length > 50){
+			rowHTML.push(' <a href="player/' + row['Name'] + '/">More</a>');
+		}
+		rowHTML.push('</td>');
 		rowHTML.push('</tr>');
 		return rowHTML.join('');
 	}
