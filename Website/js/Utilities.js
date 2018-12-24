@@ -1,11 +1,11 @@
 class Utilities {
 	constructor() {
 		// only instance of google tracking
-		this.googleTracking = new GoogleAnalyticsManager();
+		//this.googleTracking = new GoogleAnalyticsManager();
 	}
 
 	gaEvent(send, type, network, action, url) {
-		this.googleTracking.sendTrackEvent(network, action);
+		//this.googleTracking.sendTrackEvent(network, action);
 	}
 
 	setCookieValue(cname, cvalue, exdays) {
@@ -133,7 +133,7 @@ class Utilities {
 	update_hash(prevPageID) {
 		prevPageID = prevPageID || false;
 		var pathParts = window.location.pathname.split("/");
-		pageID = window.location.hash || extractParamFromUri(window.location.search, "id") || (pathParts.pop() || pathParts.pop()) || '#!ID Not Set';
+		var pageID = window.location.hash || this.extractParamFromUri(window.location.search, "id") || (pathParts.pop() || pathParts.pop()) || '#!ID Not Set';
 		pageID = decodeURI(pageID);
 		pageID = pageID.replace('#!', '');
 		pageID = pageID.replace('#', '');

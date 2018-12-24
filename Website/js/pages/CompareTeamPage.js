@@ -1,22 +1,30 @@
 var CompareTeam;
 class CompareTeamPage {
-    constructor(pageID) {
+    constructor() {
+        this.util = new Utilities();
         this.overtimechart = undefined;
         this.monthchart = undefined;
 
+        // setup teams
+        this.setupTeamSelects();
+        // add handlers
         this.setupEventHandlers();
 
         // render
         this.renderView();
     }
 
+    setupTeamSelects(){
+        var hashs = this.util.update_hash().split('-');
+        // select options based on hash bang
+        $('#teamSelect-1').val(hashs[0]);
+        $('#teamSelect-2').val(hashs[1]);
+    }
+
     setupEventHandlers(){
         // setup handler to render view when selects or date range changed
         var that = this;
-        $('#teamSelect-1').change(function(){
-            that.renderView();
-        });
-        $('#teamSelect-2').change(function(){
+        $('#teamSelect-1, #teamSelect-2').change(function(){
             that.renderView();
         });
     }
@@ -25,6 +33,9 @@ class CompareTeamPage {
         this.resetTeams();
         this.teams[0].code = $('#teamSelect-1').val();
         this.teams[1].code = $('#teamSelect-2').val();
+
+        // set the location hash
+        window.location.hash = '#'+this.teams[0].code+'-'+this.teams[1].code;
 
         var that = this;
         var renderAfterData = function(){
@@ -40,31 +51,6 @@ class CompareTeamPage {
         this.loadTeamData(2, renderAfterData);
     }
 
-    resetTeams(){
-        // reset teams
-        this.teams = [];
-        this.teams[0] = {
-            code: '',
-            data:[],
-            totalArrests: 0,
-            byMonth: ['TEAM', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            maxSeason:-1,
-            minSeason:999999,
-            bySeason: {},
-            return: false
-        };
-        this.teams[1] = {
-            code: '',
-            data:[],
-            totalArrests: 0,
-            byMonth: ['TEAM', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            maxSeason:-1,
-            minSeason:999999,
-            bySeason: {},
-            return: false
-        };
-    }
-
     loadTeamData(teamIndex,callback){
         var teamObj = this.teams[teamIndex-1];
         var that = this;
@@ -74,6 +60,8 @@ class CompareTeamPage {
             teamObj.totalArrests = data.length;
             for (var i = data.length - 1; i >= 0; i--) {
                 var arrest = data[i];
+            
+                // record season count
                 teamObj.maxSeason = Math.max(teamObj.maxSeason,parseInt(arrest.Season));
                 teamObj.minSeason = Math.min(teamObj.minSeason,parseInt(arrest.Season));
 
@@ -83,18 +71,19 @@ class CompareTeamPage {
                     teamObj.bySeason[arrest.Season] = 1;
                 }
 
-                if(tempByMonth.hasOwnProperty(arrest.Month)){
-                    tempByMonth[arrest.Month]++;
+                if(teamObj.byCrime.hasOwnProperty(arrest.Crime_category)){
+                    teamObj.byCrime[arrest.Crime_category]++;
                 }else{
-                    tempByMonth[arrest.Month] = 1;
+                    teamObj.byCrime[arrest.Crime_category] = 1;
                 }
+
+                // record data by month
+                teamObj.byMonth[0] = teamObj.code;
+                teamObj.byMonth[parseInt(arrest.Month)]++;
             }
-            
-            teamObj.byMonth[0] = teamObj.code;
-            for(var i in tempByMonth){
-                teamObj.byMonth[parseInt(i)] = tempByMonth[i];
-            }
+
             // render
+            $('.teamKPI-'+teamIndex).css('border','2px solid '+'#'+teamObj.data[0].Team_hex_color);
             $('#teamKPI-arrests-'+teamIndex).html(teamObj.totalArrests).css('color','#'+that.teams[teamIndex-1].data[0].Team_hex_color);
             $('#teamImg-'+teamIndex).attr("src", "images/TeamLogos/"+teamObj.code+".gif");
 
@@ -106,7 +95,7 @@ class CompareTeamPage {
     renderDelta(){
         var that = this;
         var diff = ((that.teams[0].totalArrests-that.teams[1].totalArrests)/that.teams[1].totalArrests)*100.0;
-        var diff = Math.round(diff * 100) / 100;
+        diff = Math.round(diff * 100) / 100;
         if(diff>0)
             $('#compareDelta').html('+'+diff+'%');
         else
@@ -156,6 +145,7 @@ class CompareTeamPage {
     }
 
     setupMonthChart() {
+        // for some reason adding groups that don't exist (not stacked) make them not stack
         var options = {
             targetElement: '#monthchart',
             data: {
@@ -169,9 +159,40 @@ class CompareTeamPage {
         // add data for two teams
         options.data.columns.push(this.teams[0].byMonth);
         options.data.columns.push(this.teams[1].byMonth);
+
+        // init chart
         this.monthchart = stackedBarChart.init(options);
     }
+
+    resetTeams(){
+        // reset teams
+        this.teams = [];
+        this.teams[0] = {
+            code: '',
+            data:[],
+            totalArrests: 0,
+            byMonth: ['TEAM', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            maxSeason:-1,
+            minSeason:999999,
+            bySeason: {},
+            byCrime:{},
+            return: false
+        };
+        this.teams[1] = {
+            code: '',
+            data:[],
+            totalArrests: 0,
+            byMonth: ['TEAM', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            maxSeason:-1,
+            minSeason:999999,
+            bySeason: {},
+            byCrime:{},
+            return: false
+        };
+    }
 }
+
+// init page
 $(window).load(function() {
-    CompareTeam = new CompareTeamPage(update_hash());
+    CompareTeam = new CompareTeamPage();
 });
