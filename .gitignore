@@ -2,13 +2,21 @@
 # https://help.github.com/articles/ignoring-files
 # Example .gitignore files: https://github.com/github/gitignore
 /bower_components/
+/test.sql
 /node_modules/
+/Processes/node_modules/
+/Processes/node/node_modules/
+/Processes/node/dbSettings.json
 /public_html/api/db_config.php
 /public_html/admin/db_config.php
 /public_html/admin/Login_System_Settings.php
-/Processes/node/node_modules/
 /public_html/london/
 /public_html/css/vendor/jquery-ui.structure.min.css
 /public_html/css/vendor/jquery-ui.theme.min.css
-/test.sql
-/Processes/node_modules/
+/Website/api/db_config.php
+/Website/admin/db_config.php
+/Website/admin/Login_System_Settings.php
+/Website/london/
+/Website/css/vendor/jquery-ui.structure.min.css
+/Website/css/vendor/jquery-ui.theme.min.css
+/Website/css/styles.css
