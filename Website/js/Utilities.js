@@ -25,11 +25,14 @@ class Utilities {
 			while (c.charAt(0) == ' ') c = c.substring(1);
 			if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
 		}
+
+		// if not found return empty string
 		return "";
 	}
 
 	setupFacebook() {
 		console.log('FB Setup');
+		var that = this;
 		window.fbAsyncInit = function () {
 			FB.init({
 				appId: '563956043742586',
@@ -37,15 +40,15 @@ class Utilities {
 				version: 'v2.4'
 			});
 			FB.Event.subscribe('edge.create', function (targetUrl) {
-				this.gaEvent('send', 'social', 'facebook', 'like', targetUrl);
+				that.gaEvent('send', 'social', 'facebook', 'like', targetUrl);
 			});
 
 			FB.Event.subscribe('edge.remove', function (targetUrl) {
-				this.gaEvent('send', 'social', 'facebook', 'unlike', targetUrl);
+				that.gaEvent('send', 'social', 'facebook', 'unlike', targetUrl);
 			});
 
 			FB.Event.subscribe('message.send', function (targetUrl) {
-				this.gaEvent('send', 'social', 'facebook', 'send', targetUrl);
+				that.gaEvent('send', 'social', 'facebook', 'send', targetUrl);
 			});
 		};
 
@@ -63,6 +66,7 @@ class Utilities {
 
 	setupTwitter() {
 		console.log('twitter setup');
+		var that = this;
 		window.twttr = (function (d, s, id) {
 			var js, fjs = d.getElementsByTagName(s)[0],
 				t = window.twttr || {};
@@ -88,7 +92,7 @@ class Utilities {
 					if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
 						opt_pagePath = extractParamFromUri(intent_event.target.src, 'url');
 					}
-					this.gaEvent('send', 'social', 'twitter', 'tweet', opt_pagePath);
+					that.gaEvent('send', 'social', 'twitter', 'tweet', opt_pagePath);
 					console.log('thanks for sharing', opt_pagePath);
 				}
 			});
@@ -131,14 +135,20 @@ class Utilities {
 	}
 
 	update_hash(prevPageID) {
+		// if old page hash param set save, else set to false
 		prevPageID = prevPageID || false;
 		var pathParts = window.location.pathname.split("/");
 		var pageID = window.location.hash || this.extractParamFromUri(window.location.search, "id") || (pathParts.pop() || pathParts.pop()) || '#!ID Not Set';
 		pageID = decodeURI(pageID);
 		pageID = pageID.replace('#!', '');
 		pageID = pageID.replace('#', '');
-		if (prevPageID !== pageID) {
-			$('#pageTitle').append(pageID);
+
+		// if param was passed
+		// todo: move this to callback
+		if (prevPageID){
+			if (prevPageID !== pageID) {
+				$('#pageTitle').append(pageID);
+			}
 		}
 		return pageID;
 	}
