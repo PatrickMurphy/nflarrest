@@ -58,12 +58,17 @@ class CompareTeamPage {
         $.getJSON( "http://nflarrest.com/api/v1/team/arrests/"+teamObj.code+"?start_date=" + dateRangeNFL.getStart() + "&end_date=" + dateRangeNFL.getEnd(), function( data ) {
             teamObj.data = data;
             teamObj.totalArrests = data.length;
+            teamObj.avgDaysToArrest = 0;
             for (var i = data.length - 1; i >= 0; i--) {
                 var arrest = data[i];
             
                 // record season count
                 teamObj.maxSeason = Math.max(teamObj.maxSeason,parseInt(arrest.Season));
                 teamObj.minSeason = Math.min(teamObj.minSeason,parseInt(arrest.Season));
+                
+                if(arrest.DaysToLastTeamArrest != null){ 
+                    teamObj.avgDaysToArrest += parseInt(arrest.DaysToLastTeamArrest);
+                }
 
                 if(teamObj.bySeason.hasOwnProperty(arrest.Season)){
                     teamObj.bySeason[arrest.Season]++;
@@ -82,10 +87,15 @@ class CompareTeamPage {
                 teamObj.byMonth[parseInt(arrest.Month)]++;
             }
 
+            teamObj.avgDaysToArrest = teamObj.avgDaysToArrest/(data.length-1);
+
             // render
+            //$('#teamSelect-'+teamIndex).css('color','#'+teamObj.data[0].Team_hex_color);
             $('.teamKPI-'+teamIndex).css('border','2px solid '+'#'+teamObj.data[0].Team_hex_color);
             $('#teamKPI-arrests-'+teamIndex).html(teamObj.totalArrests).css('color','#'+that.teams[teamIndex-1].data[0].Team_hex_color);
             $('#teamImg-'+teamIndex).attr("src", "images/TeamLogos/"+teamObj.code+".gif");
+            var avgDaysStr = (teamObj.avgDaysToArrest+'');
+            $('#teamKPI-arrestDay-'+teamIndex).html(avgDaysStr.substring(0,avgDaysStr.indexOf('.')+2));
 
             teamObj.return = true;
             callback();
@@ -94,12 +104,40 @@ class CompareTeamPage {
 
     renderDelta(){
         var that = this;
+
+        // arrest total count deltas
         var diff = ((that.teams[0].totalArrests-that.teams[1].totalArrests)/that.teams[1].totalArrests)*100.0;
         diff = Math.round(diff * 100) / 100;
-        if(diff>0)
-            $('#compareDelta').html('+'+diff+'%');
+
+        var diff2 = ((that.teams[1].totalArrests-that.teams[0].totalArrests)/that.teams[0].totalArrests)*100.0;
+        diff2 = Math.round(diff2 * 100) / 100;
+        
+        // avg days between arrest deltas
+        var dayDiff1 = ((that.teams[0].avgDaysToArrest-that.teams[1].avgDaysToArrest)/that.teams[1].avgDaysToArrest)*100.0;
+        dayDiff1 = Math.round(dayDiff1 * 100) / 100;
+
+        var dayDiff2 = ((that.teams[1].avgDaysToArrest-that.teams[0].avgDaysToArrest)/that.teams[0].avgDaysToArrest)*100.0;
+        dayDiff2 = Math.round(dayDiff2 * 100) / 100;
+
+        this.renderDeltaElement(diff,'#compareDelta-1',true);
+        this.renderDeltaElement(diff2,'#compareDelta-2',true);
+
+        this.renderDeltaElement(dayDiff1,'#compareDayDelta-1',false);
+        this.renderDeltaElement(dayDiff2,'#compareDayDelta-2',false);
+    }
+
+    renderDeltaElement(diff,ele,posOrNeg){
+        posOrNeg = posOrNeg || false;
+        if(posOrNeg)
+            if(diff>0)
+                $(ele).html('+'+diff+'%').css('background-color','red');
+            else
+                $(ele).html(diff+'%').css('background-color','green');
         else
-            $('#compareDelta').html(diff+'%');
+            if(diff>0)
+                $(ele).html('+'+diff+'%').css('background-color','green');
+            else
+                $(ele).html(diff+'%').css('background-color','red');
     }
 
     setupOvertimeChart() {
@@ -171,6 +209,7 @@ class CompareTeamPage {
             code: '',
             data:[],
             totalArrests: 0,
+            avgDaysToArrest: 0,
             byMonth: ['TEAM', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             maxSeason:-1,
             minSeason:999999,
@@ -182,6 +221,7 @@ class CompareTeamPage {
             code: '',
             data:[],
             totalArrests: 0,
+            avgDaysToArrest: 0,
             byMonth: ['TEAM', 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             maxSeason:-1,
             minSeason:999999,
