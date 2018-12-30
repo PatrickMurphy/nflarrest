@@ -50,12 +50,12 @@ class CompareTeamPage {
         this.loadTeamData(1, renderAfterData);
         this.loadTeamData(2, renderAfterData);
     }
-
+//?start_date=" + dateRangeNFL.getStart() + "&end_date=" + dateRangeNFL.getEnd()
     loadTeamData(teamIndex,callback){
         var teamObj = this.teams[teamIndex-1];
         var that = this;
         var tempByMonth = {};
-        $.getJSON( "http://nflarrest.com/api/v1/team/arrests/"+teamObj.code, function( data ) {
+        $.getJSON( "http://nflarrest.com/api/v1/team/arrests/"+teamObj.code+"?start_date=" + dateRangeNFL.getStart() + "&end_date=" + dateRangeNFL.getEnd(), function( data ) {
             teamObj.data = data;
             teamObj.totalArrests = data.length;
             for (var i = data.length - 1; i >= 0; i--) {
@@ -191,8 +191,17 @@ class CompareTeamPage {
         };
     }
 }
-
+var dateRangeNFL;
 // init page
 $(window).load(function() {
-    CompareTeam = new CompareTeamPage();
+    dateRangeController.init(function (newDateRange) {
+        dateRangeNFL = newDateRange;
+
+
+        CompareTeam = new CompareTeamPage();
+    
+        $('#dateRangeJquery').on('dateRangeChanged', function (e) {
+           CompareTeam.renderView();             
+        });
+    });
 });
