@@ -44,6 +44,7 @@ class CompareTeamPage {
                 that.renderDelta();
                 that.setupOvertimeChart();
                 that.setupMonthChart();    
+                that.setupCrimeTable();
             }
         }
         // loads data
@@ -88,7 +89,7 @@ class CompareTeamPage {
             }
 
             teamObj.avgDaysToArrest = teamObj.avgDaysToArrest/(data.length-1);
-
+            //console.log(teamObj.byCrime);
             // render
             //$('#teamSelect-'+teamIndex).css('color','#'+teamObj.data[0].Team_hex_color);
             $('.teamKPI-'+teamIndex).css('border','2px solid '+'#'+teamObj.data[0].Team_hex_color);
@@ -138,6 +139,72 @@ class CompareTeamPage {
                 $(ele).html('+'+diff+'%').css('background-color','green');
             else
                 $(ele).html(diff+'%').css('background-color','red');
+    }
+
+    setupCrimeTable(){
+        var keys = Object.assign(Object.keys(this.teams[0].byCrime),Object.keys(this.teams[1].byCrime));
+        //console.log(keys);
+
+        var crimeTotals = {};
+        for (var i = this.teams.length - 1; i >= 0; i--) {
+            var teamObj = this.teams[i];
+            for (var j = keys.length - 1; j >= 0; j--) {
+                var crimeObj = keys[j];
+                // if team has this crime
+                if(teamObj.byCrime.hasOwnProperty(crimeObj)){
+                    // if crime already has obj
+                    if(crimeTotals.hasOwnProperty(crimeObj)){
+                        crimeTotals[crimeObj] += parseInt(teamObj.byCrime[crimeObj]);
+                    }else{
+                        crimeTotals[crimeObj] = parseInt(teamObj.byCrime[crimeObj]);
+                    }
+                }
+            }
+        }
+        console.log(crimeTotals);
+
+        var sortable = [];
+        for (var crime in crimeTotals) {
+            sortable.push([crime, crimeTotals[crime]]);
+        }
+
+        sortable.sort(function(a, b) {
+            return b[1] - a[1];
+        });
+
+        console.log(sortable);
+
+        $('#crimeTable').html('<tr><th>Crime Category</th><th>'+ this.teams[0].code +' Arrests</th><th>'+ this.teams[1].code +' Arrests</th><th>Total Arrests</th></tr>');
+        var teamTotals = [0,0,0];
+        for (var i = 0; i < sortable.length; i++) {
+            var val1 = 0;
+            var val2 = 0;
+            var crimeCat = sortable[i];
+            var newRow = '<tr>';
+            newRow += '<td>'+crimeCat[0]+'</td>';
+            if(this.teams[0].byCrime.hasOwnProperty(crimeCat[0])){
+                val1 = this.teams[0].byCrime[crimeCat[0]];
+            }
+            newRow += '<td>'+val1+'</td>';
+            if(this.teams[1].byCrime.hasOwnProperty(crimeCat[0])){
+                val2 = this.teams[1].byCrime[crimeCat[0]];
+            }
+            newRow += '<td>'+val2+'</td>';
+            newRow += '<td>'+crimeCat[1]+'</td>';
+            newRow += '</tr>';
+            $('#crimeTable').append(newRow);
+            teamTotals[0] += val1;
+            teamTotals[1] += val2;
+            teamTotals[2] += crimeCat[1];
+        }
+        var newRow = '<tr>';
+        newRow += '<td>Total</td>';
+        newRow += '<td>'+teamTotals[0]+'</td>';
+        newRow += '<td>'+teamTotals[1]+'</td>';
+        newRow += '<td>'+teamTotals[2]+'</td>';
+        newRow += '</tr>';
+        $('#crimeTable').append(newRow);
+
     }
 
     setupOvertimeChart() {
