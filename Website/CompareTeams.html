@@ -57,15 +57,6 @@
         <br class="clear" />
         <section>
             <style>
-                .value-cell {
-					background-color: rgb(3, 143, 239);
-					box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.58);
-					padding: 1px 8px;
-					border-radius: 10px;
-					line-height: 24px;
-					margin-top: 4px;
-					color: #fff !important;
-				}
 				.compare-kpi {
 					border-radius: 6px;
 				}
@@ -91,6 +82,20 @@
                     border-radius: 2px;
                     color:#fff;
                 }
+
+                .value-cell {    
+                    font-weight: bold;
+                    line-height: 28px;
+                    text-align: center;
+                    /*background-color: rgb(3, 143, 239);
+                    text-align: center;
+                    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.58);
+                    padding: 1px 8px;
+                    border-radius: 10px;
+                    line-height: 24px;
+                    margin-top: 4px;
+                    color: #fff !important;*/
+                }
 			</style>
             <div class="row">
                 <div class="dateRangeControl">
@@ -107,15 +112,20 @@
                         <img src="images/TeamLogos/NFL.gif" id="teamImg-1" class="four columns hide-mobile" style="max-width: 20%;" />
                         <div class="eight columns">
                             <div class="row">
-                                <div class="six columns">
+                                <div class="four columns">
                                     <span style="color:#041E42;" id="teamKPI-arrests-1" class="kpi-value-large">#</span>
                                     <span id="compareDelta-1" class="delta"></span>
                                     <span class="kpi-description-smaller">Arrests</span>
                                 </div>
-                                <div class="six columns">
+                                <div class="four columns">
                                     <span style="color:#041E42;" id="teamKPI-arrestDay-1" class="kpi-value-large">#</span>
                                     <span id="compareDayDelta-1" class="delta"></span>
                                     <span class="kpi-description-smaller">Avg. Days to Arrest</span>
+                                </div>
+                                <div class="four columns">
+                                    <span style="color:#041E42;" id="teamKPI-arrestPlayer-1" class="kpi-value-large">#</span>
+                                    <span id="comparePlayerDelta-1" class="delta"></span>
+                                    <span class="kpi-description-smaller">Arrests Per Player</span>
                                 </div>
                             </div>
                         </div>
@@ -129,15 +139,20 @@
                         <img src="images/TeamLogos/NFL.gif" id="teamImg-2" class="four columns hide-mobile" style="max-width: 20%;" />
                         <div class="eight columns">
                             <div class="row">
-                                <div class="six columns">
+                                <div class="four columns">
                                     <span style="color:#041E42;" id="teamKPI-arrests-2" class="kpi-value-large">#</span>
                                     <span id="compareDelta-2" class="delta"></span>
                                     <span class="kpi-description-smaller">Arrests</span>
                                 </div>
-                                <div class="six columns">
+                                <div class="four columns">
                                     <span style="color:#041E42;" id="teamKPI-arrestDay-2" class="kpi-value-large">#</span>
                                     <span id="compareDayDelta-2" class="delta"></span>
                                     <span class="kpi-description-smaller">Avg. Days to Arrest</span>
+                                </div>
+                                <div class="four columns">
+                                    <span style="color:#041E42;" id="teamKPI-arrestPlayer-2" class="kpi-value-large">#</span>
+                                    <span id="comparePlayerDelta-2" class="delta"></span>
+                                    <span class="kpi-description-smaller">Arrests Per Player</span>
                                 </div>
                             </div>
                         </div>
@@ -162,30 +177,6 @@
                     <table id="crimeTable" style="width:100%;"></table>
                 </div>
             </div>
-            <!--
-            <div style="width:100%; height: 200px;border:1px solid #000;line-height: 200px;">Over Time Chart</div>	
-            <div class="row">
-                <div class="six columns">
-                    <a href="http://nflarrest.com/" style="text-decoration:none;">
-						<h5 style="text-decoration:underline;">Visit our homepage!</h5>
-						<p style="text-align:center;">
-							<img src="images/preview.png" alt="Preview of the nflarrest homepage" style="width:70%;margin:auto;" /><br/> Visit our homepage for many more graphs, explore 15 years of NFL arrest records, find the most common crimes for your rival football team. Find out what players have the most arrests and read the details of each incident!</p>
-					</a>
-                </div>
-                <div class="six columns share_buttons">
-                    <h5 style="text-decoration:underline;">Mailing List:</h5>
-                    <form id="newsletterForm">
-                        <span>Be the first to know about NFL Arrests! Sign up for our newsletter!</span>
-                        <div><input type="email" style="width:85%;display:inline-block;" placeholder="e@mail.com" name="email"><input type="submit" name="submit" style="padding:0px;width:15%;background:#c77522;color:#242424;display:inline-block;" value="Go!"></div>
-                    </form>
-                    <div class="fb-share-button fb_Btn" data-href="http://www.nflarrest.com/ArrestMeter.html">
-                    </div>
-                    <a href="https://twitter.com/share" class="twitter-share-button twitter_Btn" data-url="http://nflarrest.com/ArrestMeter.html" data-text="Explore the arrest records of Football Players, find the most common crimes for your football team.">Tweet</a>
-                    <script type="text/javascript" src="//www.redditstatic.com/button/button1.js"></script>
-                    <br /> Want to embed the arrest-o-meter on your site, blog, or subreddit? The Below is an image that can be embeded anywhere that will automatically update every day!
-                    <img src="http://nflarrest.com/sidebar.png" alt="nfl arrest meter automatic streak image" /><br />Get the code: <input type="text" value='<img src="http://nflarrest.com/sidebar.png" />'>
-                </div>
-            </div>-->
         </section>
         <br class="clear" />
         <footer>Made By <a href="http://resume.patrickmurphyphoto.com" title="Want to see my Resume?">Patrick Murphy</a> | <a href="http://nflarrest.com/api/">Open API</a> | <a href="http://nflarrest.com/">Homepage</a><span class="new-super">More Stats!</span> </footer>
@@ -209,19 +200,25 @@
     loadCSS('css/vendor/c3.css');
     </script>
 
-    <!-- Include Javascript Logic -->
-    <!--<script type="text/javascript" src="js/common.js" async></script>-->
-    <script type="text/javascript" src="js/Utilities.js" async></script>
+    <!-- Vendor JavaScript -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="js/vendor/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="js/vendor/d3.min.js"></script>
+    <script type="text/javascript" src="js/vendor/c3.min.js"></script>
+
+    <!-- Util/Standard JavaScript -->
+    <script type="text/javascript" src="js/Utilities.js" async></script>
     <script type="text/javascript" src="js/google-tracking.js" async></script>
 
+    <!-- DateRange JavaScript -->
     <script type="text/javascript" src="js/common.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
     <script src="js/vendor/jquery.comiseo.daterangepicker.min.js"></script>
     <script type="text/javascript" src="js/dateRangeController.js"></script>
-    <script type="text/javascript" src="js/vendor/d3.min.js"></script>
-    <script type="text/javascript" src="js/vendor/c3.min.js"></script>
+    <!-- End DateRange JavaScript -->
+
+    <!-- For this Page -->
+    <script type="text/javascript" src="js/CompareCrimeByTeamTable.js"></script>
     <script type="text/javascript" src="js/charts/simpleLineChart.js"></script>
     <script type="text/javascript" src="js/charts/stackedBarChart.js"></script>
     <script type="text/javascript" src="js/pages/CompareTeamPage.js" defer></script>
