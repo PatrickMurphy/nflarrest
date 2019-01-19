@@ -1,3 +1,4 @@
+//Dev
 var CompareTeam;
 class CompareTeamPage {
     constructor() {
