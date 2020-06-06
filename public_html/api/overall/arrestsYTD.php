@@ -21,7 +21,7 @@ if ($etagMatches && $timeTolerance)
 }
 else
 {
-		header('Content-Type: application/json');
+	header('Content-Type: application/json');
     header("Last-Modified: $tsstring");
     header("ETag: \"{$etag}\"");
 }

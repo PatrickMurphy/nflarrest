@@ -1,7 +1,7 @@
 /*----------------------
 Old Code Replaced with ES6
 -----------------------*/
-/*
+
 function loadCSS(url) {
     (function (d, t) {
         var g = d.createElement(t),
@@ -18,8 +18,8 @@ loadCSS('css/vendor/skeleton.min.css');
 loadCSS('css/vendor/c3.css');
 loadCSS('css/vendor/jquery-ui.min.css');
 loadCSS('css/vendor/jquery.comiseo.daterangepicker.css');
-*/
 
+/*
 class StyleSheetManager {
 	constructor() {
 		this.stylesheets = ['css/styles.min.css'
@@ -54,4 +54,4 @@ class StyleSheetManager {
 	}
 }
 
-var StyleSheetManagerInst = new StyleSheetManager();
+var StyleSheetManagerInst = new StyleSheetManager();*/

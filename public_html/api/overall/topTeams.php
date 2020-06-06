@@ -26,7 +26,7 @@ if ($etagMatches && $timeTolerance)
 }
 else
 {
-		header('Content-Type: application/json');
+	header('Content-Type: application/json');
     header("Last-Modified: $tsstring");
     header("ETag: \"{$etag}\"");
 }
@@ -79,64 +79,64 @@ if(isset($_GET['start_date']) || isset($_GET['end_date'])){
 }
 
 if(isset($_GET['graph'])){
-// Settings
+	// Settings
 
-$bar_column = 'Team';
-$measure = 'count(a.arrest_stats_id)';
-$measure_column = 'arrest_count';
-$stacks_column = 'Crime_category';
-$order_by_column = 'arrest_count';
-$order_by_direction = "DESC";
+	$bar_column = 'Team';
+	$measure = 'count(a.arrest_stats_id)';
+	$measure_column = 'arrest_count';
+	$stacks_column = 'Crime_category';
+	$order_by_column = 'arrest_count';
+	$order_by_direction = "DESC";
 
-// create stacked bar chart data
-// Pull main data from ArrestsDateView
-$query                      = 'SELECT '.$bar_column.',a.'.$stacks_column.', '.$measure.' AS '.$measure_column.' FROM '. $DB_MAIN_TABLE.' AS a '. prepare_filters() .' GROUP BY '.$bar_column.', a.'.$stacks_column.' ORDER BY '.$order_by_column.' '.$order_by_direction;
-$legends_categories_query   = 'SELECT '.$stacks_column.', '.$measure.' AS '.$measure_column.' FROM '.                   $DB_MAIN_TABLE.' AS a '. prepare_filters() .' GROUP BY '.$stacks_column.' ORDER BY '.$order_by_column.' '.$order_by_direction;
-$bar_group_query            = 'SELECT '.$bar_column.', '.$measure.' AS '.$measure_column.' FROM '.                      $DB_MAIN_TABLE.' AS a '. prepare_filters() .' GROUP BY '.$bar_column.' ORDER BY '.$order_by_column.' '.$order_by_direction.' ' . $limit;
-$result = $db->query($query);
+	// create stacked bar chart data
+	// Pull main data from ArrestsDateView
+	$query                      = 'SELECT '.$bar_column.',a.'.$stacks_column.', '.$measure.' AS '.$measure_column.' FROM '. $DB_MAIN_TABLE.' AS a '. prepare_filters() .' GROUP BY '.$bar_column.', a.'.$stacks_column.' ORDER BY '.$order_by_column.' '.$order_by_direction;
+	$legends_categories_query   = 'SELECT '.$stacks_column.', '.$measure.' AS '.$measure_column.' FROM '.                   $DB_MAIN_TABLE.' AS a '. prepare_filters() .' GROUP BY '.$stacks_column.' ORDER BY '.$order_by_column.' '.$order_by_direction;
+	$bar_group_query            = 'SELECT '.$bar_column.', '.$measure.' AS '.$measure_column.' FROM '.                      $DB_MAIN_TABLE.' AS a '. prepare_filters() .' GROUP BY '.$bar_column.' ORDER BY '.$order_by_column.' '.$order_by_direction.' ' . $limit;
+	$result = $db->query($query);
 
-$stacks = [];
-$bar_groups = [];
+	$stacks = [];
+	$bar_groups = [];
 
-// add each stack value
-foreach($result as $main_row){
-	$bar_id = $main_row[$bar_column];
-	$stack_id = $main_row[$stacks_column];
-        $stacks[$bar_id][$stack_id] = $main_row[$measure_column];
-}
+	// add each stack value
+	foreach($result as $main_row){
+		$bar_id = $main_row[$bar_column];
+		$stack_id = $main_row[$stacks_column];
+	        $stacks[$bar_id][$stack_id] = $main_row[$measure_column];
+	}
 
-// get legend categories
-$legend_cats = $db->query($legends_categories_query);
-foreach($legend_cats as $legend_row){
-    if(!in_array($legend_row[$stacks_column], $bar_groups)){
-        $bar_groups[] = $legend_row[$stacks_column];
-    }
-}
+	// get legend categories
+	$legend_cats = $db->query($legends_categories_query);
+	foreach($legend_cats as $legend_row){
+	    if(!in_array($legend_row[$stacks_column], $bar_groups)){
+	        $bar_groups[] = $legend_row[$stacks_column];
+	    }
+	}
 
-// get bars
-$bar_groups_result = $db->query($bar_group_query);
+	// get bars
+	$bar_groups_result = $db->query($bar_group_query);
 
-//$teams = [];
-$new_result = array();
-$new_result['columns'][0][0] = 'x';
+	//$teams = [];
+	$new_result = array();
+	$new_result['columns'][0][0] = 'x';
 
 
-foreach($bar_groups as $cat){
-    $new_result['columns'][$cat][0] = $cat;
-}
+	foreach($bar_groups as $cat){
+	    $new_result['columns'][$cat][0] = $cat;
+	}
 
-foreach($bar_groups_result as $bar_row){
-    //$teams[$bar_row[$bar_column]] = $bar_row[$measure_column];
-    $new_result['columns'][0][] = $bar_row[$bar_column];
-    foreach($bar_groups as $cat){
-        $new_result['columns'][$cat][] = isset($stacks[$bar_row[$bar_column]][$cat]) ? $stacks[$bar_row[$bar_column]][$cat] : 0;
-    }
-}
+	foreach($bar_groups_result as $bar_row){
+	    //$teams[$bar_row[$bar_column]] = $bar_row[$measure_column];
+	    $new_result['columns'][0][] = $bar_row[$bar_column];
+	    foreach($bar_groups as $cat){
+	        $new_result['columns'][$cat][] = isset($stacks[$bar_row[$bar_column]][$cat]) ? $stacks[$bar_row[$bar_column]][$cat] : 0;
+	    }
+	}
 
-// setup and send
-$new_result['columns'] = array_values($new_result['columns']);
-$new_result['groups'] = $bar_groups;
-print json_encode($new_result);
+	// setup and send
+	$new_result['columns'] = array_values($new_result['columns']);
+	$new_result['groups'] = $bar_groups;
+	print json_encode($new_result);
 }else{
     $query = 'SELECT Team, Team_preffered_name,Team_name, Team_city, Team_Conference, Team_Conference_Division, Team_logo_id, count(arrest_stats_id) AS arrest_count FROM '.$DB_MAIN_TABLE.' '. $date_range .' GROUP BY Team, Team_preffered_name,Team_name, Team_city, Team_Conference, Team_Conference_Division, Team_logo_id ORDER BY arrest_count DESC' . $limit;
     $result = $db->query($query);

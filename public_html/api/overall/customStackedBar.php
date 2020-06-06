@@ -1,5 +1,7 @@
 <?php
-// cache
+/*============================
+-------- Start Cache ---------
+============================*/
 $tsstring = gmdate('D, d M Y H:i:s ', time() - (24 * 60 * 60)) . 'GMT';
 $etag = $_GET['graph'] . $_GET['limit'] . $_GET['start_pos'] . $_GET['start_date'] . $_GET['end_date'];
 $etag = md5($etag);
@@ -22,12 +24,15 @@ if ($etagMatches && $timeTolerance)
 }
 else
 {
-		header('Content-Type: application/json');
+	header('Content-Type: application/json');
     header("Last-Modified: $tsstring");
     header("ETag: \"{$etag}\"");
 }
 $start = isset($_GET['start_date']) ? $_GET['start_date'] : '2000-01-01';
 $end = isset($_GET['end_date']) ? $_GET['end_date'] : date('Y-m-d');
+/*============================
+-------- End Cache -----------
+============================*/
 
 // Check if Restful API or Direct File query
 if(isset($restful)){
@@ -35,6 +40,7 @@ if(isset($restful)){
 }else{
 	require_once('../api.php');
 }
+
 $limit = get_limit();
 
 // Settings
@@ -53,18 +59,23 @@ $column_options['Crime'] = 'Crime_category';
 $column_options['Season'] = 'Season';
 $column_options['SeasonState'] = 'ArrestSeasonState';
 $column_options['Measure'] = 'arrest_count';
+
 // for sorting
 $direction_options['ASC'] = 'ASC';
 $direction_options['DESC'] = 'DESC';
 
 $measure = 'count(arrest_stats_id)';
 $measure_column = 'arrest_count';
+
 $bar_column = $column_options['Year'];
 $stacks_column = $column_options['Division'];
+
 $order_by_column = $column_options['Year'];
 $order_by_direction = $direction_options['ASC'];
+
 $bar_order_by_column = $order_by_column;
 $bar_order_by_direction = $order_by_direction;
+
 $legend_order_by_column = $order_by_column;
 $legend_order_by_direction =  $direction_options['DESC'];
 
@@ -107,18 +118,44 @@ if(isset($_GET['legend_order_dir']) && in_array($_GET['legend_order_dir'],array_
 	$legend_order_by_direction = $direction_options[$_GET['legend_order_dir']];
 }
 
+// create stacked bar chart data
+// Pull main data from ArrestsDateView
+$query = 
+	'SELECT '.$bar_column
+			.',a.'.$stacks_column
+			.', '.$measure.' AS '.$measure_column
+			.' FROM '. $DB_MAIN_TABLE.' AS a '
+			// where
+			. prepare_filters() 
+			.' GROUP BY '.$bar_column.', a.'.$stacks_column
+			.' ORDER BY '.$order_by_column.' '.$order_by_direction;
 
-// create stacked bar chart data
-// Pull main data from ArrestsDateView
-// create stacked bar chart data
-// Pull main data from ArrestsDateView
-$query                      = 'SELECT '.$bar_column.',a.'.$stacks_column.', '.$measure.' AS '.$measure_column.' FROM '. $DB_MAIN_TABLE.' AS a '. prepare_filters() .' GROUP BY '.$bar_column.', a.'.$stacks_column.' ORDER BY '.$order_by_column.' '.$order_by_direction;
-$legends_categories_query   = 'SELECT '.$stacks_column.', '.$measure.' AS '.$measure_column.' FROM '.                   $DB_MAIN_TABLE.' AS a '. prepare_filters() .' GROUP BY '.$stacks_column.' ORDER BY '.$legend_order_by_column.' '.$legend_order_by_direction;
-$bar_group_query            = 'SELECT '.$bar_column.', '.$measure.' AS '.$measure_column.' FROM '.                      $DB_MAIN_TABLE.' AS a '. prepare_filters() .' GROUP BY '.$bar_column.' ORDER BY '.$bar_order_by_column.' '.$bar_order_by_direction.' ' . $limit;
+$legends_categories_query = 
+	'SELECT '.$stacks_column
+			.', '.$measure.' AS '.$measure_column
+			.' FROM '. $DB_MAIN_TABLE.' AS a '
+			// where
+			. prepare_filters() 
+			.' GROUP BY '.$stacks_column
+			.' ORDER BY '.$legend_order_by_column.' '.$legend_order_by_direction;
+
+$bar_group_query = 
+	'SELECT '.$bar_column
+			.', '.$measure.' AS '.$measure_column
+			.' FROM '. $DB_MAIN_TABLE.' AS a '
+			. prepare_filters() 
+			.' GROUP BY '.$bar_column
+			.' ORDER BY '.$bar_order_by_column.' '.$bar_order_by_direction
+			.' ' . $limit;
+
+
+// run the 3 queries
 $result = $db->query($query);
 $bar_groups_result = $db->query($bar_group_query);
 $legend_cats = $db->query($legends_categories_query);
 
+
+// temp var for stacks and bars 
 $stacks = [];
 $bar_groups = [];
 
@@ -136,15 +173,16 @@ foreach($legend_cats as $legend_row){
     }
 }
 
-
+// create output format
 $new_result = array();
 $new_result['columns'][0][0] = 'x';
 
-
+// add each bar title to output
 foreach($bar_groups as $cat){
     $new_result['columns'][$cat][0] = $cat;
 }
 
+// add each bar value to output
 foreach($bar_groups_result as $bar_row){
     //$teams[$bar_row[$bar_column]] = $bar_row[$measure_column];
     $new_result['columns'][0][] = $bar_row[$bar_column];

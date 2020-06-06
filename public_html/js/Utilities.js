@@ -119,7 +119,7 @@ class Utilities {
 		var regex = new RegExp('[\\?&#]' + paramName + '=([^&#]*)');
 		var params = regex.exec(uri);
 		if (params != null) {
-			return decodeURI(unescape(params[1]));
+			return decodeURI( unescape(params[1]));
 		}
 		return null;
 	}

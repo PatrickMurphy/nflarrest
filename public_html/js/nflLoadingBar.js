@@ -1,7 +1,7 @@
 /*----------------
 Todo: replace references
 ------------------*/
-
+/*
 class LoadingBarManager {
 	constructor(){
 		this.options = {targetEl: 'body',
@@ -23,8 +23,8 @@ class LoadingBarManager {
 		$('#'+ this.options.loadingElID).fadeIn();
 	}
 }
+*/
 
-/*
 var nflLoadingBar = {
 	options: {
 		targetEl: 'body',
@@ -44,4 +44,4 @@ var nflLoadingBar = {
 	showLoading: function() {
 		$('#'+ nflLoadingBar.options.loadingElID).fadeIn();
 	}
-};*/
+};

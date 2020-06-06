@@ -15,7 +15,7 @@ var data_controller;
 $(window).load(function () {
 	nflLoadingBar = new LoadingBarManager();
 	dateRangeController.init(function (newDateRange) {
-		data_controller = new DataController();
+		data_controller = DataController.init;
 		nflLoadingBar.reset();
 		dateRangeNFL = newDateRange;
 		if (window.location.hash) {
@@ -38,7 +38,8 @@ $(window).load(function () {
 
 		$('#loadMoreLists').click(load_top_lists);
 
-		renderActivePlayerArrests();
+		// remove for static
+		//renderActivePlayerArrests();
 
 		//$.getJSON('http://nflarrest.com/api/v1/team', loadTeamLinks);
 		data_controller.getTeams(loadTeamLinks);
@@ -139,7 +140,7 @@ function loadingFinished() {
 	$('#newsletterForm input[name=email]').focus(function () {
 		googleTracking.sendTrackEvent('Email List', 'Focus');
 	});
-};
+}
 
 function setupArrestOMeter() {
 	var animate = true;

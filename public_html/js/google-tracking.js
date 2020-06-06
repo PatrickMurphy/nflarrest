@@ -1,4 +1,4 @@
-class GoogleAnalyticsManager {
+/*class GoogleAnalyticsManager {
 	constructor(){
 		// initialize and load external
 
@@ -39,8 +39,7 @@ class GoogleAnalyticsManager {
 		}
 	}
 }
-
-/*
+*/
 // set page hash and path var
 var hashervar = window.location.hash || '',
 	pagePath = window.location.pathname + hashervar;
@@ -84,4 +83,3 @@ $(document).ready(function () {
 		googleTracking.sendTrackEvent('Donate', 'Click');
 	});
 });
-*/
