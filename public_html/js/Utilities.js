@@ -1,9 +1,11 @@
-class CommonUtil {
+class Utilities {
 	constructor() {
+		// only instance of google tracking
+		this.googleTracking = new GoogleAnalyticsManager();
 	}
 
 	gaEvent(send, type, network, action, url) {
-		googleTracking.sendTrackEvent(network, action);
+		this.googleTracking.sendTrackEvent(network, action);
 	}
 
 	setCookieValue(cname, cvalue, exdays) {
@@ -35,15 +37,15 @@ class CommonUtil {
 				version: 'v2.4'
 			});
 			FB.Event.subscribe('edge.create', function (targetUrl) {
-				gaEvent('send', 'social', 'facebook', 'like', targetUrl);
+				this.gaEvent('send', 'social', 'facebook', 'like', targetUrl);
 			});
 
 			FB.Event.subscribe('edge.remove', function (targetUrl) {
-				gaEvent('send', 'social', 'facebook', 'unlike', targetUrl);
+				this.gaEvent('send', 'social', 'facebook', 'unlike', targetUrl);
 			});
 
 			FB.Event.subscribe('message.send', function (targetUrl) {
-				gaEvent('send', 'social', 'facebook', 'send', targetUrl);
+				this.gaEvent('send', 'social', 'facebook', 'send', targetUrl);
 			});
 		};
 
@@ -86,7 +88,7 @@ class CommonUtil {
 					if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
 						opt_pagePath = extractParamFromUri(intent_event.target.src, 'url');
 					}
-					gaEvent('send', 'social', 'twitter', 'tweet', opt_pagePath);
+					this.gaEvent('send', 'social', 'twitter', 'tweet', opt_pagePath);
 					console.log('thanks for sharing', opt_pagePath);
 				}
 			});
@@ -141,5 +143,3 @@ class CommonUtil {
 		return pageID;
 	}
 }
-
-

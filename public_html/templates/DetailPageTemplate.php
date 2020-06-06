@@ -108,7 +108,7 @@
         }
     ?>
 	<script src="js/dateRangeController.js"></script>
-	<script src="js/common.js"></script>
+	<script src="js/Utilities.js"></script>
 	<script src="js/DetailPage.js"></script>
 	<script src="<?php echo $page_details['javascript']['main']; ?>"></script>
 </body>

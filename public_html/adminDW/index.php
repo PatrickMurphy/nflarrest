@@ -1,5 +1,5 @@
 <?php
-require('Login_System.php');
+require('PHP/Login_System.php');
 ?>
 <!doctype html>
 
@@ -56,7 +56,7 @@ require('Login_System.php');
 					NFL<span>Arrest</span>.com
 				</h1>
 			</a>
-			<span>The Database of NFL Arrest Statistics</span>
+			<span>Data Warehouse Admin</span>
 		</header>
 		<br class="clear" />
 		<section>
