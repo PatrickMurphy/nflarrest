@@ -28,7 +28,6 @@ var convert_data = function (record) {
 
 var updateSQL = function updateSQL(updateRows, callback) {
     updateRows.reverse();
-    //console.log(updateRows);
 
     callback = callback | function () {};
 
@@ -50,9 +49,9 @@ var updateSQL = function updateSQL(updateRows, callback) {
             });
         });
     }
-
 }
 
+// search html with most recent record in MYSQL
 var LookBackMatch = function (html, result, callback) {
     callback = callback | function () {};
 
@@ -84,6 +83,7 @@ var LookBackMatch = function (html, result, callback) {
     }
 }
 
+// get most recent arrest date
 mysql_connection.query('SELECT * FROM `arrest_stats` ORDER BY Date DESC Limit 1', function (error, results, fields) {
     var result = results[0];
     request('http://www.usatoday.com/sports/nfl/arrests/', function (error, response, html) {

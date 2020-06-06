@@ -41,10 +41,11 @@ var replaceAll = function (text, search, replacement) {
 
 var generate_insert_query = function (data) {
     var row_values = '';
-    var query_prefix = 'INSERT INTO SOURCE_NFL_Game_Player (`player_id`,`birthdate`,`college`,`first_name`,`full_name`,`gsis_id`,`gsis_name`,`height`,`last_name`,`number`,`position`,`profile_url`,`status`,`team`,`weight`,`years_pro`) VALUES ';
+    var query_prefix = 'INSERT INTO SOURCE_NFL_Game_Player '+
+						'(`player_id`,`birthdate`,`college`,`first_name`,`full_name`,`gsis_id`,`gsis_name`,`height`,'+
+						'`last_name`,`number`,`position`,`profile_url`,`status`,`team`,`weight`,`years_pro`) VALUES ';
     //  n = typeof n !== 'undefined' ? n : data.length;
     // offset = typeof offset !== 'undefined' ? offset : 0;
-
 
     var temp_player = {};
 
@@ -95,7 +96,6 @@ var generate_insert_query = function (data) {
 var print_result = function (error, results, fields) {
     console.log(results, error);
 }
-
 
 // Save results to SQL Source - NFL Arrest DB
 mysql_connection.connect();
