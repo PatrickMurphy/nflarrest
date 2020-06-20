@@ -53,7 +53,7 @@ var stackedBarChart = {
             onclick: function (d, i) {
                 // redirect to
                 if(typeof mainChartStyleID != "undefined"){
-                    if(mainChartStyleID == 0){
+                    if(mainChartStyleID == 0 && detail_page_active){
                         googleTracking.sendTrackEvent('mainChart','teamLink');
                                         setTimeout(function(){
                         window.location.href = "team/"+stackedBarChart.options.data.columns[0][d['index']+1]+'/';

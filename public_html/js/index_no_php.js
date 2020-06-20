@@ -5,11 +5,13 @@ var last_start_pos = 0,
 	listsReturnCount = 0,
 	listsReturned = false,
 	ytdChart = false,
-	mainChartStyleID = 0;
+	mainChartStyleID = 0
+	detail_page_active = true;
 
 //removed for es6 var nflLoadingBar;
 
 // controller to load data from DB or pre-queried json
+detail_page_active = false;
 var data_controller;
 
 $(window).load(function () {
@@ -20,16 +22,11 @@ $(window).load(function () {
 			//nflLoadingBar.reset();
 			data_controller = newDataController;
 			dateRangeNFL = newDateRange;
-			if (window.location.hash) {
-				if (window.location.hash == "#ByYear") {
-					mainChartStyleID = 1;
-				} else if (window.location.hash == "#BySeason") {
-					mainChartStyleID = 2;
-				} else {
-					mainChartStyleID = 0;
-				}
-			}
+
+			evaluateHash();
 			changeTopChart();
+
+			// first load of top lists
 			load_top_lists('first');
 
 			$('#dateRangeJquery').on('dateRangeChanged', function (e) {
@@ -42,44 +39,14 @@ $(window).load(function () {
 
 			// remove for static
 			//renderActivePlayerArrests();
+			
+			if(detail_page_active){
+				data_controller.getTeams(loadTeamLinks);
+			}else{
+				$('#bottomTeamLinks').hide();
+			}
 
-			//$.getJSON('http://nflarrest.com/api/v1/team', loadTeamLinks);
-			data_controller.getTeams(loadTeamLinks);
-			$('#mainChartByTeamBtn').click(function () {
-				ytdChart = false;
-				mainChartStyleID = 0;
-				window.location.hash = "ByTeam";
-				changeTopChart();
-				googleTracking.sendTrackEvent('mainChart', 'switchToByTeam');
-			});
-			$('#mainChartByYearBtn').click(function () {
-				ytdChart = true;
-				mainChartStyleID = 1;
-				window.location.hash = "ByYear";
-				changeTopChart();
-				googleTracking.sendTrackEvent('mainChart', 'switchToByYear');
-			});
-			$('#mainChartBySeasonBtn').click(function () {
-				ytdChart = false;
-				mainChartStyleID = 2;
-				window.location.hash = "BySeason";
-				changeTopChart();
-				googleTracking.sendTrackEvent('mainChart', 'switchToBySeason');
-			});
-			$('#mainChartByConfBtn').click(function () {
-				ytdChart = true;
-				mainChartStyleID = 3;
-				window.location.hash = "ByDayOfWeek";
-				changeTopChart();
-				googleTracking.sendTrackEvent('mainChart', 'switchToByDayOfWeek');
-			});
-			$('#mainChartByConfDivBtn').click(function () {
-				ytdChart = true;
-				mainChartStyleID = 4;
-				window.location.hash = "ByDivision";
-				changeTopChart();
-				googleTracking.sendTrackEvent('mainChart', 'switchToByDivision');
-			});
+			addChartButtonListeners();
 
 			// button for mobile to show the newsletter form
 			$('#newsletterDisplayBtn').click(function () {
@@ -91,12 +58,53 @@ $(window).load(function () {
 	});
 
 	// add click listener to li so that entire element is clickable rather than just the link
-	$(".top-list ol li").click(function () {
-		window.location = $(this).find("a").attr("href");
-		console.log($(this).find("a").attr("href"));
-		return false;
-	});
+	if(detail_page_active){
+		$(".top-list ol li").click(function () {
+			window.location = $(this).find("a").attr("href");
+			console.log($(this).find("a").attr("href"));
+			return false;
+		});
+	}
 });
+
+function addChartButtonListeners() {
+	// Settup chart buttons
+	$('#mainChartByTeamBtn').click(function () {
+		ytdChart = false;
+		mainChartStyleID = 0;
+		window.location.hash = "ByTeam";
+		changeTopChart();
+		googleTracking.sendTrackEvent('mainChart', 'switchToByTeam');
+	});
+	$('#mainChartByYearBtn').click(function () {
+		ytdChart = true;
+		mainChartStyleID = 1;
+		window.location.hash = "ByYear";
+		changeTopChart();
+		googleTracking.sendTrackEvent('mainChart', 'switchToByYear');
+	});
+	$('#mainChartBySeasonBtn').click(function () {
+		ytdChart = false;
+		mainChartStyleID = 2;
+		window.location.hash = "BySeason";
+		changeTopChart();
+		googleTracking.sendTrackEvent('mainChart', 'switchToBySeason');
+	});
+	$('#mainChartByConfBtn').click(function () {
+		ytdChart = true;
+		mainChartStyleID = 3;
+		window.location.hash = "ByDayOfWeek";
+		changeTopChart();
+		googleTracking.sendTrackEvent('mainChart', 'switchToByDayOfWeek');
+	});
+	$('#mainChartByConfDivBtn').click(function () {
+		ytdChart = true;
+		mainChartStyleID = 4;
+		window.location.hash = "ByDivision";
+		changeTopChart();
+		googleTracking.sendTrackEvent('mainChart', 'switchToByDivision');
+	});
+}
 
 function renderActivePlayerArrests() {
 	//$.getJSON('http://nflarrest.com/api/overall/activePlayerArrests.php', function (data) {
@@ -172,12 +180,23 @@ function setupArrestOMeter() {
 	});
 }
 
-function changeTopChart() {
-	setupChart();
+function evaluateHash(){
+	// if hash set, set chart type
+	if (window.location.hash) {
+		if (window.location.hash == "#ByYear") {
+			mainChartStyleID = 1;
+		} else if (window.location.hash == "#BySeason") {
+			mainChartStyleID = 2;
+		} else {
+			mainChartStyleID = 0;
+		}
+	}
+}
+
+function changeChartButtonStyle(){
 	if (mainChartStyleID == 1) {
 		$('.mainChartBtn').removeClass('button-primary');
 		$('#mainChartByYearBtn').addClass('button-primary');
-
 	} else if (mainChartStyleID == 0) {
 		$('.mainChartBtn').removeClass('button-primary');
 		$('#mainChartByTeamBtn').addClass('button-primary');
@@ -190,8 +209,12 @@ function changeTopChart() {
 	} else if (mainChartStyleID == 4) {
 		$('.mainChartBtn').removeClass('button-primary');
 		$('#mainChartByConfDivBtn').addClass('button-primary');
-
 	}
+}
+
+function changeTopChart() {
+	setupChart();
+	changeChartButtonStyle();
 }
 
 function getOverallChartData(callback) {
@@ -243,7 +266,7 @@ function load_top_list(data, page, prefix, list, values, replace) {
 		$.each(data, function (key, val) {
 			var link = "<a href=\"" + page + "/" + val[values[0]] + "/\">";
 			var link_end = '</a>';
-			if (page == '') {
+			if (page == '' || !detail_page_active) {
 				link = '';
 				link_end = '';
 			}
