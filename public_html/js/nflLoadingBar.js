@@ -33,8 +33,12 @@ var nflLoadingBar = {
 	},
 	
 	init: function initialize_loadingbar(){
-		$(this.options.targetEl).append('<div id="'+ this.options.loadingElID +'">'+ this.options.message +'</div>');
-		this.showLoading();
+		nflLoadingBar.reset();
+	},
+
+	reset: function(){
+		$(nflLoadingBar.options.targetEl).append('<div id="'+ nflLoadingBar.options.loadingElID +'">'+ nflLoadingBar.options.message +'</div>');
+		nflLoadingBar.showLoading();
 	},
 	
 	hideLoading: function() {

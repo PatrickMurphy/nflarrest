@@ -39,15 +39,15 @@ process.argv.forEach(function (val, index, array) {
 if (generateJS) {
 	compressor.minify({
 		compressor: 'uglifyjs',
-		input: ['../public_html/js/index_no_php.js',
+		input: ['../public_html/js/nflLoadingBar.js',
+				'../public_html/js/data/ArrestsCacheTable_data.js',
+				'../public_html/js/DataController.js',
+				'../public_html/js/index_no_php.js',
 				'../public_html/js/common.js',
 				'../public_html/js/charts/stackedBarChart.js',
 				'../public_html/js/dateRangeController.js',
 				'../public_html/js/google-tracking.js',
-				'../public_html/js/nflLoadingBar.js',
-				'../public_html/js/loadCSS.js',
-				'../public_html/js/data/ArrestsCacheTable_data.js',
-				'../public_html/js/DataController.js'
+				'../public_html/js/loadCSS.js'
 				],
 		output: '../public_html/js/compressed/' + filename,
 		callback: function (err, min) {

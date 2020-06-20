@@ -45,7 +45,7 @@ var hashervar = window.location.hash || '',
 	pagePath = window.location.pathname + hashervar;
 
 // load analytics JS from google
-(function (i, s, o, g, r, a, m) {
+/*(function (i, s, o, g, r, a, m) {
 	i['GoogleAnalyticsObject'] = r;
 	i[r] = i[r] || function () {
 		(i[r].q = i[r].q || []).push(arguments)
@@ -61,7 +61,7 @@ var hashervar = window.location.hash || '',
 ga('create', 'UA-66360026-1', 'auto');
 // send page view request
 ga('send', 'pageview', pagePath);
-
+*/
 // google tracking pre es6 class
 var googleTracking = {
 	tracker: undefined,
@@ -70,16 +70,16 @@ var googleTracking = {
 	},
 	sendTrackEvent: function sendTrackEvent(category, action) {
 		if (arguments.length < 3) {
-			ga('send', 'event', category, action);
+			//ga('send', 'event', category, action);
 		}
 	}
 };
 // init google analytics pre es6 class
-googleTracking.initialize(ga);
+//googleTracking.initialize(ga);
 
 // add click handler to donate button on page load
 $(document).ready(function () {
-	$('.donate').click(function () {
-		googleTracking.sendTrackEvent('Donate', 'Click');
-	});
+//	$('.donate').click(function () {
+//		googleTracking.sendTrackEvent('Donate', 'Click');
+//	});
 });
