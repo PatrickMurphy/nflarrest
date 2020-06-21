@@ -5,6 +5,6 @@ var ghpages = require('gh-pages');
 // minify homepage
 // build detailPage html
 // minify detailPage JS 
-ghpages.publish('Website', function(err) {
+ghpages.publish('../Website', function(err) {
 	console.log(err);
 });
