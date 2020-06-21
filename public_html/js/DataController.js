@@ -1,3 +1,4 @@
+var meter_use_current_day = true;
 var DataController = {
 	options: {},
 	init: function(callback){
@@ -65,11 +66,23 @@ var DataController = {
 		var record_count = 0;
 		var min_days = 9000000000;
 
+		// a and b are javascript Date objects
+		var dateDiffInDays = function(a, b) {
+		  	// Discard the time and time-zone information
+		  	var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+		  	var utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+			return Math.floor((utc2 - utc1) / (1000 * 60 * 60 * 24));
+		};
+
 		for (var i = DataController.options.data.length - 1; i >= 0; i--) {
 			var row = DataController.options.data[i];
 			if(this.dateLimit(row,dateRangeNFL.getStart(),dateRangeNFL.getEnd())){
 				record_count++;
 				avg_days += row.DaysToLastArrest;
+
+				if(meter_use_current_day){
+					row.daysSince = dateDiffInDays(new Date(row.Date),new Date());
+				}
 
 				if(row.DaysToLastArrest > max_days){
 					max_days = row.DaysToLastArrest;
