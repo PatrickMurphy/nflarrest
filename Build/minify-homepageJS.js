@@ -39,17 +39,17 @@ process.argv.forEach(function (val, index, array) {
 if (generateJS) {
 	compressor.minify({
 		compressor: 'uglifyjs',
-		input: ['../public_html/js/nflLoadingBar.js',
-				'../public_html/js/data/ArrestsCacheTable_data.js',
-				'../public_html/js/DataController.js',
-				'../public_html/js/index_no_php.js',
-				'../public_html/js/common.js',
-				'../public_html/js/charts/stackedBarChart.js',
-				'../public_html/js/dateRangeController.js',
-				'../public_html/js/google-tracking.js',
-				'../public_html/js/loadCSS.js'
+		input: ['../Website/js/nflLoadingBar.js',
+				'../Website/js/data/ArrestsCacheTable_data.js',
+				'../Website/js/DataController.js',
+				'../Website/js/index_no_php.js',
+				'../Website/js/common.js',
+				'../Website/js/charts/stackedBarChart.js',
+				'../Website/js/dateRangeController.js',
+				'../Website/js/google-tracking.js',
+				'../Website/js/loadCSS.js'
 				],
-		output: '../public_html/js/compressed/' + filename,
+		output: '../Website/js/compressed/' + filename,
 		callback: function (err, min) {
 			console.log('finished: ' + filename);
 		}
@@ -61,17 +61,17 @@ if (generateCSS) {
 		// generate css from modular files
 		compressor.minify({
 			compressor: 'clean-css',
-			input: ['../public_html/css/styles-modular.css',
-                    '../public_html/css/modules/styles-indexpage.css',
-                    '../public_html/css/modules/styles-daterange.css',
-                    '../public_html/css/modules/styles-toplists.css',
-                    '../public_html/css/modules/styles-arrestometer.css',
-                    '../public_html/css/modules/styles-chart.css',
-                    '../public_html/css/modules/styles-cards.css',
-                    '../public_html/css/modules/styles-kpi.css',
-					'../public_html/css/modules/styles-mobile.css'
+			input: ['../Website/css/styles-modular.css',
+                    '../Website/css/modules/styles-indexpage.css',
+                    '../Website/css/modules/styles-daterange.css',
+                    '../Website/css/modules/styles-toplists.css',
+                    '../Website/css/modules/styles-arrestometer.css',
+                    '../Website/css/modules/styles-chart.css',
+                    '../Website/css/modules/styles-cards.css',
+                    '../Website/css/modules/styles-kpi.css',
+					'../Website/css/modules/styles-mobile.css'
                    ],
-			output: '../public_html/css/' + cssFilename,
+			output: '../Website/css/' + cssFilename,
 			callback: function (err, min) {
 				console.log('css finished: ' + cssFilename);
 			}
@@ -79,8 +79,8 @@ if (generateCSS) {
 	} else {
 		compressor.minify({
 			compressor: 'clean-css',
-			input: ['../public_html/css/styles.css'],
-			output: '../public_html/css/' + cssFilename,
+			input: ['../Website/css/styles.css'],
+			output: '../Website/css/' + cssFilename,
 			callback: function (err, min) {
 				console.log('css finished: ' + cssFilename);
 			}

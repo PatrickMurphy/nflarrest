@@ -3,7 +3,7 @@ var fs = require('fs');
 
 
 var filename = 'ArrestsCacheTable_data.js';
-var scriptPath = '../public_html/js/data/';
+var scriptPath = '../Website/js/data/';
 
 // Connect to NFL Arrest database
 var mysql_connection = mysql.createConnection({
