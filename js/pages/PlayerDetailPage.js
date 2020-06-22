@@ -31,8 +31,8 @@ class PlayerDetailPage extends DetailPage {
     renderArrestRow(row) {
         return '<tr><td class="one column">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>'
         + '<td class="two columns">' + row['Name'] + '</td>'
-        + '<td class="one columns"><a href="CrimeCache.html#' + row['Category'] + '">' + row['Category'] + '</a></td>'
-        + '<td class="one column"><a href="TeamCache.html#' + row['Team'] + '"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -'+(row['Team_logo_id']*20)+'px;background-size:100%;"></span> ' + row['Team'] + '</a></td>'
+        + '<td class="one columns"><a href="Crime.html#' + row['Category'] + '">' + row['Category'] + '</a></td>'
+        + '<td class="one column"><a href="Team.html#' + row['Team'] + '"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -'+(row['Team_logo_id']*20)+'px;background-size:100%;"></span> ' + row['Team'] + '</a></td>'
         + '<td class="four columns">' + row['Description'] + '</td>'
         + '<td class="three columns">' + row['Outcome'] + '</td></tr>';
     }

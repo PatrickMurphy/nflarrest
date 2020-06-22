@@ -55,8 +55,8 @@ class TeamDetailPage extends DetailPage {
     // Override DetailPage method
     renderArrestRow(row) {
         return '<tr><td class="one column">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td><td class="two columns">'
-            +'<a href="PlayerCache.html#' + row['Name'] + '">' + row['Name'] + '</a></td>'
-            +'<td class="one column"><a href="CrimeCache.html#' + row['Category'] + '">' + row['Category'] + '</a>'
+            +'<a href="Player.html#' + row['Name'] + '">' + row['Name'] + '</a></td>'
+            +'<td class="one column"><a href="Crime.html#' + row['Category'] + '">' + row['Category'] + '</a>'
             +'</td><td class="four columns">' + row['Description'] + '</td><td class="four columns">' + row['Outcome'] + '</td></tr>';
     }
 
@@ -65,8 +65,8 @@ class TeamDetailPage extends DetailPage {
         card.push('<span class="date_item" title="' + row['Date'] + '">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</span>');
         card.push('<span class="name_item">' + row['Name'] + '</span>');
         card.push("<br />");
-        card.push('<span class="crime_item" style="background-color:#'+row['Crime_category_color']+';"><a href="CrimeCache.html#' + row['Category'] + '">' + row['Category'] + "</a> </span>");
-        card.push('<span class="team_item" style="background-color:#' + row['Team_hex_color'] + ';"><a href="PlayerCache.html#' + row['Name'] + '" style="color:#' + row['Team_hex_alt_color'] + ';" >' + row['Name'] + '</a></span>');
+        card.push('<span class="crime_item" style="background-color:#'+row['Crime_category_color']+';"><a href="Crime.html#' + row['Category'] + '">' + row['Category'] + "</a> </span>");
+        card.push('<span class="team_item" style="background-color:#' + row['Team_hex_color'] + ';"><a href="Player.html#' + row['Name'] + '" style="color:#' + row['Team_hex_alt_color'] + ';" >' + row['Name'] + '</a></span>');
         card.push('<br />');
         //card.push('<span class="description_item">Crime: <a href="crime/' + row['Category'] + '">' + row['Category'] + '</a></span>'); // .substring(0,n)
         card.push('<br />');
