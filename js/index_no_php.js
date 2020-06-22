@@ -256,7 +256,7 @@ function setupChart() {
 }
 
 function getPageLink(page,value){
-	return page + "Cache.html#" + value;
+	return (page.charAt(0).toUpperCase() + page.slice(1)) + "Cache.html#" + value;
 }
 
 function load_top_list(data, page, prefix, list, values, replace) {
