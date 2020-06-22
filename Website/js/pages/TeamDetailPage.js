@@ -19,9 +19,32 @@ class TeamDetailPage extends DetailPage {
     changeTitle() {
         var superChange = super.changeTitle;
         var self = this;
-        $.getJSON('api/v1/team/arrests/' + this.pageID + '?limit=1', function (data) {
-            superChange(data[0].Team_preffered_name + ' <span style="display:inline-block;width:20px;height:20px;background:url(\'images/NFLTeamLogos.png\') 0px -'+data[0]['Team_logo_id']*20+'px;background-size:100%;"></span>', self);
-        });
+        self.data_controller.getArrests(function(row){
+                if(self.pageTitle == 'Team'){
+                    if(row['Team'] != self.pageID){
+                        return false;
+                    }
+                }else if(self.pageTitle == 'Position'){
+                    if(row['Position'] != self.pageID){
+                        return false;
+                    }
+                }else if(self.pageTitle == 'Player'){
+                    if(row['Name'] != self.pageID){
+                        return false;
+                    }
+                }else if(self.pageTitle == 'Crime'){
+                    if(row['Category'] != self.pageID){
+                        return false;
+                    }
+                }
+
+                return true;
+            }, function (data) {
+                superChange(data[0].Team_preffered_name + ' <span style="display:inline-block;width:20px;height:20px;background:url(\'images/NFLTeamLogos.png\') 0px -'+data[0]['Team_logo_id']*20+'px;background-size:100%;"></span>', self)
+            });
+        //$.getJSON('api/v1/team/arrests/' + this.pageID + '?limit=1', function (data) {
+          //  superChange(data[0].Team_preffered_name + ' <span style="display:inline-block;width:20px;height:20px;background:url(\'images/NFLTeamLogos.png\') 0px -'+data[0]['Team_logo_id']*20+'px;background-size:100%;"></span>', self);
+        //});
     }
 
     // Override DetailPage method

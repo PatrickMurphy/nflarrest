@@ -12,46 +12,46 @@ var dateRangeController = {
 
         $("#dateRangeJquery").daterangepicker({
             presetRanges: [{
-                text: 'Last 3 Months',
-                dateStart: function () {
-                    return moment().subtract('months', 3)
-                },
-                dateEnd: function () {
-                    return moment()
-                }
+                    text: 'Last 3 Months',
+                    dateStart: function () {
+                        return moment().subtract('months', 3)
+                    },
+                    dateEnd: function () {
+                        return moment()
+                    }
      },
-                           {
-                text: 'Last 6 Months',
-                dateStart: function () {
-                    return moment().subtract('months', 6)
-                },
-                dateEnd: function () {
-                    return moment()
-                }
-     },{
-                text: 'Last Year',
-                dateStart: function () {
-                    return moment().subtract('years', 1);
-                },
-                dateEnd: function () {
-                    return moment()
-                }
+                {
+                    text: 'Last 6 Months',
+                    dateStart: function () {
+                        return moment().subtract('months', 6)
+                    },
+                    dateEnd: function () {
+                        return moment()
+                    }
      }, {
-                text: 'Last 5 Years',
-                dateStart: function () {
-                    return moment().subtract('years', 5);
-                },
-                dateEnd: function () {
-                    return moment()
-                }
+                    text: 'Last Year',
+                    dateStart: function () {
+                        return moment().subtract('years', 1);
+                    },
+                    dateEnd: function () {
+                        return moment()
+                    }
      }, {
-                text: 'All Records',
-                dateStart: function () {
-                    return moment('2000-01-01')
-                },
-                dateEnd: function () {
-                    return moment()
-                }
+                    text: 'Last 5 Years',
+                    dateStart: function () {
+                        return moment().subtract('years', 5);
+                    },
+                    dateEnd: function () {
+                        return moment()
+                    }
+     }, {
+                    text: 'All Records',
+                    dateStart: function () {
+                        return moment('2000-01-01')
+                    },
+                    dateEnd: function () {
+                        return moment()
+                    }
      }],
             datepickerOptions: {
                 minDate: new Date('2000-01-01'),
@@ -77,11 +77,27 @@ var dateRangeController = {
         callback(this);
     },
 
+    open: function () {
+        $('#dateRangeJquery').daterangepicker("open");
+    },
+
+    close: function () {
+        $('#dateRangeJquery').daterangepicker("close");
+    },
+
     resetTime: function (softReset) {
         googleTracking.sendTrackEvent('DateRange', 'Reset');
         softReset = softReset || false;
+        var start = '2000-01-01',
+            end = dateRangeController.getToday();
+
+        dateRangeController.setDates(start, end);
+    },
+
+    getToday: function () {
         var today = new Date(),
             month, day;
+
         if (today.getMonth() < 9) {
             month = '0' + (today.getMonth() + 1);
         } else {
@@ -93,10 +109,7 @@ var dateRangeController = {
         } else {
             day = today.getDate();
         }
-        var start = '2000-01-01',
-            end = today.getFullYear() + '-' + month + '-' + day;
-
-        dateRangeController.setDates(start, end);
+        return today.getFullYear() + '-' + month + '-' + day;
     },
 
     getStart: function () {
@@ -138,22 +151,10 @@ var dateRangeController = {
     },
 
     setCookie: function setCookie(cname, cvalue, exdays) {
-        var d = new Date();
-        exdays = exdays || 0.5;
-
-        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-        var expires = "expires=" + d.toUTCString();
-        document.cookie = cname + "=" + cvalue + "; " + expires;
+        return setCookieValue(cname, cvalue, exdays);
     },
 
     getCookie: function getCookie(cname) {
-        var name = cname + "=";
-        var ca = document.cookie.split(';');
-        for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == ' ') c = c.substring(1);
-            if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
-        }
-        return "";
+        return getCookieValue(cname);
     }
 }

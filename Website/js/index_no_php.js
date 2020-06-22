@@ -18,10 +18,10 @@ $(window).load(function () {
 	//removed for es6 nflLoadingBar = new LoadingBarManager();
 	nflLoadingBar.init();
 	dateRangeController.init(function (newDateRange) {
-		DataController.init(function (newDataController) {
+		dateRangeNFL = newDateRange;
+		DataController.init(dateRangeNFL, function (newDataController) {
 			//nflLoadingBar.reset();
 			data_controller = newDataController;
-			dateRangeNFL = newDateRange;
 
 			evaluateHash();
 			changeTopChart();

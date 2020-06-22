@@ -19,9 +19,32 @@ class PositionDetailPage extends DetailPage {
     changeTitle() {
         var superChange = super.changeTitle;
         var self = this;
-        $.getJSON('api/v1/position/arrests/' + this.pageID + '?limit=1', function (data) {
-            superChange(data[0].Position_name, self);
-        });
+        self.data_controller.getArrests(function(row){
+                if(self.pageTitle == 'Team'){
+                    if(row['Team'] != self.pageID){
+                        return false;
+                    }
+                }else if(self.pageTitle == 'Position'){
+                    if(row['Position'] != self.pageID){
+                        return false;
+                    }
+                }else if(self.pageTitle == 'Player'){
+                    if(row['Name'] != self.pageID){
+                        return false;
+                    }
+                }else if(self.pageTitle == 'Crime'){
+                    if(row['Category'] != self.pageID){
+                        return false;
+                    }
+                }
+
+                return true;
+            }, function (data) {
+                superChange(data[0].Position_name, self);
+            });
+        //$.getJSON('api/v1/position/arrests/' + this.pageID + '?limit=1', function (data) {
+        //    superChange(data[0].Position_name, self);
+        //});
     }
 
     // Override DetailPage method

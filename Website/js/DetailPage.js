@@ -22,15 +22,15 @@ class DetailPage {
 		});
 
 		dateRangeController.init(function (newDateRange) {
-			DataController.init(function (newDataController) {
+			self.dateRangeNFL = newDateRange;
+			DataController.init(self.dateRangeNFL, function (newDataController) {
 				self.data_controller = newDataController;
-				self.dateRangeNFL = newDateRange;
-
 				var page_dimension = self.pageTitle.toLowerCase();
 				var filters_options = {
 					presets: {},
 					date_range_object: self.dateRangeNFL
 				};
+
 				filters_options['presets'][page_dimension] = {};
 				filters_options['presets'][page_dimension][page_dimension] = self.pageID;
 				self.FilterControl = new FiltersControl(filters_options);
@@ -39,6 +39,18 @@ class DetailPage {
 					// todo not working, using the hash change global for now
 					self.renderView();
 				});
+
+				$('#dateRangeJquery').on('dateRangeChanged', function (e) {
+					self.renderView();
+				});
+
+				/*
+			$('#dateRangeJquery').on('dateRangeChanged', function (e) {
+				nflLoadingBar.showLoading();
+				setupChart();
+				reload_top_lists();
+			});
+				*/
 
 				self.renderView();
 			})
@@ -71,37 +83,6 @@ class DetailPage {
 	renderArrests() {
 		var self = this;
 		self.data_controller.getArrests(function(row){
-				/*//this.arrestsUrl + this.pageID + '?' + this.FilterControl.getQueryString();
-				var filterValueSet = self.FilterControl.getFilterValues();
-				// copy presets to value set
-				filterValueSet = Object.assign(filterValueSet, self.FilterControl.options.presets);
-
-				// build query string
-				var querystring_return = [];
-				for (var filterKey in filterValueSet) {
-					for (var filterSubKey in filterValueSet[filterKey]) {
-						if (Array.isArray(filterValueSet[filterKey][filterSubKey])) {
-							var returnVal = false;
-							for (var filterSubSubKey in filterValueSet[filterKey][filterSubKey]) {
-								if(row[filterSubKey] == filterValueSet[filterKey][filterSubKey][filterSubSubKey]){
-									returnVal = true;
-								}
-								//querystring_return.push(filterSubKey + '=' + filterValueSet[filterKey][filterSubKey][filterSubSubKey]);
-							}
-							if(returnVal === false){
-								return false;
-							}
-						} else {
-							if(row[filterSubKey] != filterValueSet[filterKey][filterSubKey]){
-								return false;
-							}
-							//querystring_return.push(filterSubKey + '=' + filterValueSet[filterKey][filterSubKey]);
-						}
-					}
-				}
-
-				return true;
-				*/
 				if(self.pageTitle == 'Team'){
 					if(row['Team'] != self.pageID){
 						return false;
@@ -173,28 +154,53 @@ class DetailPage {
 
 	getDonutData(url, param, chartID, callback) {
 		var self = this;
-		$.getJSON(url + '?' + this.FilterControl.getQueryString(), function (data) {
-			var theData = [];
-			var index, i = 0;
-			var otherArray = ['Other', 0];
-			for (index in data) {
-				if (++i < 12) {
-					theData.push([data[index][param], data[index]['arrest_count']]);
-				} else {
-					otherArray[1] = parseInt(otherArray[1]) + parseInt(data[index]['arrest_count']);
+
+		var filterFunction = function (row) {
+				if(self.pageTitle == 'Team'){
+					if(row['Team'] != self.pageID){
+						return false;
+					}
+				}else if(self.pageTitle == 'Position'){
+					if(row['Position'] != self.pageID){
+						return false;
+					}
+				}else if(self.pageTitle == 'Player'){
+					if(row['Name'] != self.pageID){
+						return false;
+					}
+				}else if(self.pageTitle == 'Crime'){
+					if(row['Category'] != self.pageID){
+						return false;
+					}
 				}
-			}
-			theData.push(otherArray);
-			self.checkLoadingFinished();
-			callback(theData, chartID);
-		});
+
+				return true;
+			};
+
+		var callbackFunc = function (data) {
+				var theData = [];
+				var index, i = 0;
+				var otherArray = ['Other', 0];
+				for (index in data) {
+					if (++i < 12) {
+						theData.push([data[index][param], data[index]['arrest_count']]);
+					} else {
+						otherArray[1] = parseInt(otherArray[1]) + parseInt(data[index]['arrest_count']);
+					}
+				}
+				theData.push(otherArray);
+				self.checkLoadingFinished();
+				callback(theData, chartID);
+			};			
+
+		self.data_controller.getDonutChart(param, filterFunction, callbackFunc);
 	}
 
 	setupCharts() {
 		var self = this;
-		for (var chartID in this.chartOptions) {
+		for (var chartID in self.chartOptions) {
 			var chartOption = self.chartOptions[chartID];
-			this.getDonutData(chartOption.url + self.pageID, chartOption.field, chartID, function (newData, cID) {
+			self.getDonutData(chartOption.url + self.pageID, chartOption.field, chartID, function (newData, cID) {
 				self.charts.push(new DonutChart({
 					data: newData,
 					targetElement: self.chartOptions[cID].targetElement,
