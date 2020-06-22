@@ -1,0 +1,211 @@
+<!doctype html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Reddit NFL Bandwagon | NFLArrest.com</title>
+    <meta property="og:url" content="http://NFLArrest.com" />
+    <meta property="og:title" content="NFL Arrest Statistics" />
+    <meta property="og:description" content="Explore the arrest records of NFL Players, find the most common crimes for your rival football team. Find out what players have the most arrests and read the details of each incident! Checkout our Arrest-o-Meter and findout how many days it's been since the last NFL Arrest." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="NFL Arrest" />
+    <meta property="og:image" content="http://nflarrest.com/images/preview.png?cache=710" />
+    <meta name="description" content="Explore the arrest records of NFL Players, find the most common crimes for your rival football team. Find out what players have the most arrests and read the details of each incident! Checkout our Arrest-o-Meter and findout how many days it's been since the last NFL Arrest.">
+    <meta name="author" content="Patrick Murphy">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@nfl_arrest">
+    <meta name="twitter:creator" content="@patrickmurphoto">
+    <meta name="twitter:title" content="NFL Arrest Statistics">
+    <meta name="twitter:description" content="Explore the arrest records of NFL Players, find the most common crimes for your rival football team. Find out what players have the most arrests and read the details of each incident!">
+    <meta name="twitter:image" content="http://nflarrest.com/images/preview.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="image_src" href="http://nflarrest.com/images/preview.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="/images/favicon/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/images/favicon/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/favicon/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/images/favicon/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/favicon/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/images/favicon/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/favicon/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/images/favicon/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/favicon/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/images/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/images/favicon/favicon-194x194.png" sizes="194x194">
+    <link rel="icon" type="image/png" href="/images/favicon/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/images/favicon/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/images/favicon/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/images/favicon/manifest.json">
+    <link rel="shortcut icon" href="/images/favicon/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="NFL Arrest">
+    <meta name="application-name" content="NFL Arrest">
+    <meta name="msapplication-TileColor" content="#e7b736">
+    <meta name="msapplication-TileImage" content="/images/favicon/mstile-144x144.png">
+    <meta name="msapplication-config" content="/images/favicon/browserconfig.xml">
+    <meta name="theme-color" content="#e7b736">
+</head>
+<style>
+    .mainBars rect {
+        shape-rendering: auto;
+        fill-opacity: 0;
+        stroke-width: 0.5px;
+        stroke: rgb(0, 0, 0);
+        stroke-opacity: 0;
+    }
+    
+    .subBars {
+        shape-rendering: crispEdges;
+    }
+    
+    .edges {
+        stroke: none;
+        fill-opacity: 0.5;
+    }
+</style>
+
+<body>
+    <div id="fb-root"></div>
+    <div class="container">
+        <header>
+            <a href="http://nflarrest.com" class="logo"><img src="images/logo-transparent.png" alt="NFL Arrest Logo" height="30" /></a>
+            <a href="http://nflarrest.com"><h1 style="line-height:1.2;">
+                NFL<span>Arrest</span>.com
+			</h1></a>
+            <span>The Database of NFL Arrest Statistics</span>
+        </header>
+        <br class="clear" />
+        <section>
+            <div class="row"><h1>Reddit /r/NFL Bandwagon Tracker</h1><h5>I've been watching you reddit!</h5></div>
+            <div class="row"><p style="width:92%;margin-left:4%;">
+                 Every day I run a script to log /r/NFL user flair from comments. I check to see if your flair has changed since the last time my script saw you, if you did you show up here! My goal as the season progresses is to see trends of bandwagon fans as they make the switch to a more popular team etc.  I will publish results here in graphs! Below you can see a Bipartite graph of flair changes.  On the left you have the users previous Flair, and on the right thier current flair. Mouse over categories to see where people moved, and where they came from!<br/><sup>(I've been running the script since 5/20/16)</sup></p>
+            </div>
+            <div class="bipartite row">
+                
+            </div>
+        </section>
+        <br class="clear" />
+        <footer>Made By <a href="http://resume.patrickmurphyphoto.com" title="Want to see my Resume?">Patrick Murphy</a> | <a href="http://nflarrest.com/api/">Open API</a><span class="new-super">New!</span> </footer>
+    </div>
+    <script>
+        function loadCSS(url) {
+            (function (d, t) {
+                var g = d.createElement(t),
+                    s = d.getElementsByTagName(t)[0];
+                g.href = url;
+                g.rel = 'stylesheet';
+                s.parentNode.insertBefore(g, s);
+            }(document, 'LINK'));
+        }
+        loadCSS('css/styles.min.css');
+        loadCSS('//fonts.googleapis.com/css?family=Raleway:400,300,500,600');
+        loadCSS('css/vendor/normalize.min.css');
+        loadCSS('css/vendor/skeleton.min.css');
+        loadCSS('css/vendor/c3.css');
+        loadCSS('css/vendor/jquery-ui.min.css');
+    </script>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="https://d3js.org/d3.v4.0.0-alpha.44.min.js"></script>
+    <script src="http://vizjs.org/viz.v1.0.0.min.js"></script>
+    <script src="js/google-tracking.js" async></script>
+    <script>
+        var color = {
+            'NFL Badge': '#D8B164',
+            'AFC Badge': '#CE1F2C',
+            Panthers: '#0085CA',
+            Bengals: '#FB4F14',
+            Saints: '#9F8958',
+            Chiefs: '#E31837',
+            Patriots: '#C60C30',
+            Colts: '#002C5F',
+            Eagles: '#004953',
+            Chargers: '#0073CF',
+            Jaguars: '#D7A22A',
+            Vikings: '#4F2683',
+            Steelers: '#FFB612',
+            Seahawks: '#69BE28',
+            Broncos: '#FB4F14',
+            Packers: '#203731',
+            'NY Giants': '#0B2265',
+            Bears: '#0B162A',
+            Cowboys: '#002244',
+            Cardinals: '#97233F',
+            'Buffalo Bills': '#00338D',
+            Buccaneers: '#D50A0A',
+            'NFC Badge': '#14468C',
+            Titans: '#4B92DB',
+            Browns: '#FB4F14',
+            Texans: '#A71930',
+            Redskins: '#773141',
+            Ravens: '#241773',
+            Rams: '#B3995D',
+            Raiders: '#A5ACAF',
+            Lions: '#005A8B',
+            Jets: '#203731',
+            Falcons: '#A71930',
+            Dolphins: '#008E97',
+            FourtyNiners: '#AA0000'
+        };
+
+        $.get('http://nflarrest.com/api/overall/bandwagon.php', function successReturn(theData) {
+            var data = JSON.parse(theData);
+            console.log(data);
+            var svg = d3.select(".bipartite").append("svg").attr("width", 960).attr("height", 800);
+            var g = svg.append("g").attr("transform", "translate(150,50)");
+
+            var bp = viz.bP()
+                .data(data)
+                .min(12)
+                .pad(1.2)
+                .height(600)
+                .width(200)
+                .barSize(30)
+                .fill(d => color[d.primary]);
+
+            g.call(bp);
+
+            g.selectAll(".mainBars")
+                .on("mouseover", mouseover)
+                .on("mouseout", mouseout)
+
+            g.selectAll(".mainBars").append("text").attr("class", "label")
+                .attr("x", d => (d.part == "primary" ? -30 : 30))
+                .attr("y", d => +6)
+                .text(d => d.key)
+                .attr("text-anchor", d => (d.part == "primary" ? "end" : "start"));
+
+            g.selectAll(".mainBars").append("text").attr("class", "perc")
+                .attr("x", d => (d.part == "primary" ? -125 : 105))
+                .attr("y", d => +6)
+                .text(function (d) {
+                    return d3.format("0.0%")(d.percent)
+                })
+                .attr("text-anchor", d => (d.part == "primary" ? "end" : "start"));
+
+            function mouseover(d) {
+                bp.mouseover(d);
+                g.selectAll(".mainBars")
+                    .select(".perc")
+                    .text(function (d) {
+                        return d3.format("0.0%")(d.percent)
+                    })
+            }
+
+            function mouseout(d) {
+                bp.mouseout(d);
+                g.selectAll(".mainBars")
+                    .select(".perc")
+                    .text(function (d) {
+                        return d3.format("0.0%")(d.percent)
+                    })
+            }
+            d3.select(self.frameElement).style("height", "800px");
+
+        });
+
+        //SELECT `flair_id`,`old_flair_id`,`flair_team`,`old_flair_team`, COUNT(`username`) AS 'Bandwagonners' FROM `Bandwagon_users` GROUP BY `old_flair_id`, `flair_id` ORDER BY `Bandwagonners` DESC
+    </script>
+</body>
+
+</html>

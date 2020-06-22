@@ -19,9 +19,32 @@ class TeamDetailPage extends DetailPage {
     changeTitle() {
         var superChange = super.changeTitle;
         var self = this;
-        $.getJSON('api/v1/team/arrests/' + this.pageID + '?limit=1', function (data) {
-            superChange(data[0].Team_preffered_name + ' <span style="display:inline-block;width:20px;height:20px;background:url(\'images/NFLTeamLogos.png\') 0px -'+data[0]['Team_logo_id']*20+'px;background-size:100%;"></span>', self);
-        });
+        self.data_controller.getArrests(function(row){
+                if(self.pageTitle == 'Team'){
+                    if(row['Team'] != self.pageID){
+                        return false;
+                    }
+                }else if(self.pageTitle == 'Position'){
+                    if(row['Position'] != self.pageID){
+                        return false;
+                    }
+                }else if(self.pageTitle == 'Player'){
+                    if(row['Name'] != self.pageID){
+                        return false;
+                    }
+                }else if(self.pageTitle == 'Crime'){
+                    if(row['Category'] != self.pageID){
+                        return false;
+                    }
+                }
+
+                return true;
+            }, function (data) {
+                superChange(data[0].Team_preffered_name + ' <span style="display:inline-block;width:20px;height:20px;background:url(\'images/NFLTeamLogos.png\') 0px -'+data[0]['Team_logo_id']*20+'px;background-size:100%;"></span>', self)
+            });
+        //$.getJSON('api/v1/team/arrests/' + this.pageID + '?limit=1', function (data) {
+          //  superChange(data[0].Team_preffered_name + ' <span style="display:inline-block;width:20px;height:20px;background:url(\'images/NFLTeamLogos.png\') 0px -'+data[0]['Team_logo_id']*20+'px;background-size:100%;"></span>', self);
+        //});
     }
 
     // Override DetailPage method
@@ -31,7 +54,10 @@ class TeamDetailPage extends DetailPage {
 
     // Override DetailPage method
     renderArrestRow(row) {
-        return '<tr><td class="one column">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td><td class="two columns"><a href="player/' + row['Name'] + '/">' + row['Name'] + '</a></td><td class="one column"><a href="crime/' + row['Category'] + '/">' + row['Category'] + '</a></td><td class="four columns">' + row['Description'] + '</td><td class="four columns">' + row['Outcome'] + '</td></tr>';
+        return '<tr><td class="one column">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td><td class="two columns">'
+            +'<a href="PlayerCache.html#' + row['Name'] + '">' + row['Name'] + '</a></td>'
+            +'<td class="one column"><a href="CrimeCache.html#' + row['Category'] + '">' + row['Category'] + '</a>'
+            +'</td><td class="four columns">' + row['Description'] + '</td><td class="four columns">' + row['Outcome'] + '</td></tr>';
     }
 
     renderArrestCard(row) {
@@ -39,8 +65,8 @@ class TeamDetailPage extends DetailPage {
         card.push('<span class="date_item" title="' + row['Date'] + '">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</span>');
         card.push('<span class="name_item">' + row['Name'] + '</span>');
         card.push("<br />");
-        card.push('<span class="crime_item" style="background-color:#'+row['Crime_category_color']+';"><a href="crime/' + row['Category'] + '">' + row['Category'] + "</a> </span>");
-        card.push('<span class="team_item" style="background-color:#' + row['Team_hex_color'] + ';"><a href="player/' + row['Name'] + '" style="color:#' + row['Team_hex_alt_color'] + ';" >' + row['Name'] + '</a></span>');
+        card.push('<span class="crime_item" style="background-color:#'+row['Crime_category_color']+';"><a href="CrimeCache.html#' + row['Category'] + '">' + row['Category'] + "</a> </span>");
+        card.push('<span class="team_item" style="background-color:#' + row['Team_hex_color'] + ';"><a href="PlayerCache.html#' + row['Name'] + '" style="color:#' + row['Team_hex_alt_color'] + ';" >' + row['Name'] + '</a></span>');
         card.push('<br />');
         //card.push('<span class="description_item">Crime: <a href="crime/' + row['Category'] + '">' + row['Category'] + '</a></span>'); // .substring(0,n)
         card.push('<br />');

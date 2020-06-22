@@ -1,8 +1,13 @@
 var meter_use_current_day = true;
 var DataController = {
-	options: {},
-	init: function(callback){
+	options: {
+		dateRange: undefined,
+		data: undefined
+	},
+	init: function(dateRange, callback){
+		DataController.options.date_range = dateRange;
 		DataController.options.data = ArrestsCacheTable;
+
 		callback(this);
 	},
 
@@ -11,7 +16,7 @@ var DataController = {
 		for (var i = DataController.options.data.length - 1; i >= 0; i--) {
 			var row = DataController.options.data[i];
 			if(dateLimit){
-				if(this.dateLimit(row,dateRangeNFL.getStart(),dateRangeNFL.getEnd())){
+				if(this.dateLimit(row,DataController.options.date_range.getStart(),DataController.options.date_range.getEnd())){
 					rowCallback(row);
 				}
 			}else{
@@ -76,7 +81,7 @@ var DataController = {
 
 		for (var i = DataController.options.data.length - 1; i >= 0; i--) {
 			var row = DataController.options.data[i];
-			if(this.dateLimit(row,dateRangeNFL.getStart(),dateRangeNFL.getEnd())){
+			if(this.dateLimit(row,DataController.options.date_range.getStart(),DataController.options.date_range.getEnd())){
 				record_count++;
 				avg_days += row.DaysToLastArrest;
 
@@ -106,6 +111,32 @@ var DataController = {
 								,'odds': Math.floor(1/Math.exp((min_days*-1)/avg_days))
 							}
 				});
+	},
+
+	getDonutChart: function(column, filterFunc, callback){
+		var sortDESC = function(a, b) {
+		  return b.arrest_count - a.arrest_count;
+		};
+
+		var return_map = {};
+
+		var return_arr = [];
+
+		for (var i = DataController.options.data.length - 1; i >= 0; i--) {
+			var row = DataController.options.data[i];
+			if(filterFunc(row) && this.dateLimit(row,DataController.options.date_range.getStart(),DataController.options.date_range.getEnd())){
+				return_map = this.incrementMap(return_map, row[column]);
+			}
+		}
+
+		Object.keys(return_map).forEach(function (key) {
+			var obj = {};
+			obj[column] = key;
+			obj['arrest_count'] = return_map[key];
+			return_arr.push(obj);
+		});
+
+		callback(return_arr.sort(sortDESC));
 	},
 
 	getOverallChart: function(stack,bar,order_col,order_dir,callback){
@@ -153,7 +184,7 @@ var DataController = {
 
 		for (var i = DataController.options.data.length - 1; i >= 0; i--) {
 			var row = DataController.options.data[i];
-			if(this.dateLimit(row,dateRangeNFL.getStart(),dateRangeNFL.getEnd())){
+			if(this.dateLimit(row,DataController.options.date_range.getStart(),DataController.options.date_range.getEnd())){
 				bar_stacks_count = this.incrementMap(bar_stacks_count, (row[bar_column]+row[stacks_column]));
 				bar_count = this.incrementMap(bar_count, row[bar_column]);
 				stacks_count = this.incrementMap(stacks_count, row[stacks_column]);
@@ -215,7 +246,7 @@ var DataController = {
 
 		for (var i = DataController.options.data.length - 1; i >= 0; i--) {
 			var row = DataController.options.data[i];
-			if(this.dateLimit(row,dateRangeNFL.getStart(),dateRangeNFL.getEnd())){
+			if(this.dateLimit(row,DataController.options.date_range.getStart(),DataController.options.date_range.getEnd())){
 				crime_map = this.incrementMap(crime_map, row.Category);
 				player_map = this.incrementMap(player_map, row.Name);
 				position_map = this.incrementMap(position_map, row.Position);
@@ -259,9 +290,12 @@ var DataController = {
 
 	getArrests: function(filterFunc, callback){
 		var arrests = [];
-		this.forEach(function(row){
-			if(filterFunc(row)){
-				arrests.push(row);
+		var self = this;
+		self.forEach(function(row){
+			if(self.dateLimit(row,DataController.options.date_range.getStart(),DataController.options.date_range.getEnd())){
+				if(filterFunc(row)){
+					arrests.push(row);
+				}
 			}
 		},function(){
 			// finished
