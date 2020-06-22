@@ -6,12 +6,11 @@ var last_start_pos = 0,
 	listsReturned = false,
 	ytdChart = false,
 	mainChartStyleID = 0
-	detail_page_active = false;
+	detail_page_active = true;
 
 //removed for es6 var nflLoadingBar;
 
 // controller to load data from DB or pre-queried json
-detail_page_active = false;
 var data_controller;
 
 $(window).load(function () {
@@ -125,7 +124,7 @@ function renderActivePlayerArrests() {
 
 function loadTeamLinks(data) {
 	$.each(data, function (key, val) {
-		$('#bottomTeamLinks').append('<a href="' + getPageLink("team", val.Team) + '/"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -' + (val.Team_logo_id * 20) + 'px;background-size:100%;"></span> ' + val.Team_preffered_name + '</a> ');
+		$('#bottomTeamLinks').append('<a href="' + getPageLink("team", val.Team) + '"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -' + (val.Team_logo_id * 20) + 'px;background-size:100%;"></span> ' + val.Team_preffered_name + '</a> ');
 	});
 }
 
@@ -268,7 +267,7 @@ function load_top_list(data, page, prefix, list, values, replace) {
 	var items = [];
 	if (data.length > 0) {
 		$.each(data, function (key, val) {
-			var link = "<a href=\"" + getPageLink(page, val[values[0]]) + "/\">";
+			var link = "<a href=\"" + getPageLink(page, val[values[0]]) + "\">";
 			var link_end = '</a>';
 			if (page == '' || !detail_page_active) {
 				link = '';

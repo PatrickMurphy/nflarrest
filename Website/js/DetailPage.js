@@ -133,7 +133,7 @@ class DetailPage {
 
 	// should be overloaded
 	renderArrestRow(row) {
-		return '<tr><td class="one column">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td><td class="one column">' + row['Team'] + '</td><td class="two columns"><a href="player/' + row['Name'] + '/">' + row['Name'] + '</a></td><td class="one column"><a href="crime/' + row['Category'] + '/">' + row['Category'] + '</a></td><td class="four columns">' + row['Description'] + '</td><td class="three columns">' + row['Outcome'] + '</td></tr>';
+		return '<tr><td class="one column">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td><td class="one column">' + row['Team'] + '</td><td class="two columns"><a href="PlayerCache.html#' + row['Name'] + '">' + row['Name'] + '</a></td><td class="one column"><a href="CrimeCache.html#' + row['Category'] + '">' + row['Category'] + '</a></td><td class="four columns">' + row['Description'] + '</td><td class="three columns">' + row['Outcome'] + '</td></tr>';
 	}
 
 	renderArrestCard(row) {
@@ -141,8 +141,10 @@ class DetailPage {
 		card.push('<span class="date_item" title="' + row['Date'] + '">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</span>');
 		card.push('<span class="name_item">' + row['Name'] + '</span>');
 		card.push("<br />");
-		card.push('<span class="crime_item" style="background-color:#' + row['Crime_category_color'] + '"><a href="crime/' + row['Category'] + '">' + row['Category'] + "</a> </span>");
-		card.push('<span class="team_item ' + row['Team'] + '" style="background-color:#' + row['Team_hex_color'] + ';"><a href="team/' + row['Team'] + '" style="color:#' + row['Team_hex_alt_color'] + ';" >' + row['Team_preffered_name'] + '</a></span>');
+		card.push('<span class="crime_item" style="background-color:#' + row['Crime_category_color'] + '">');
+			card.push('<a href="CrimeCache.html#' + row['Category'] + '">' + row['Category'] + "</a> </span>");
+		card.push('<span class="team_item ' + row['Team'] + '" style="background-color:#' + row['Team_hex_color'] + ';">');
+			card.push('<a href="TeamCache.html#' + row['Team'] + '" style="color:#' + row['Team_hex_alt_color'] + ';" >' + row['Team_preffered_name'] + '</a></span>');
 		card.push('<br />');
 		card.push('<span class="description_item">' + row['Description'] + '</span>'); // .substring(0,n)
 		card.push('<span class="outcome_item">' + row['Outcome'] + '</span>');
