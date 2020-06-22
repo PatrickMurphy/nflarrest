@@ -36,8 +36,8 @@ class CrimeDetailPage extends DetailPage {
     // Override DetailPage method
     renderArrestRow(row) {
         return '<tr><td class="one column">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>'
-            + '<td class="two columns"><a href="PlayerCache.html#' + row['Name'] + '">' + row['Name'] + '</a></td>'
-            + '<td class="one column"><a href="TeamCache.html#' + row['Team'] + '">'
+            + '<td class="two columns"><a href="Player.html#' + row['Name'] + '">' + row['Name'] + '</a></td>'
+            + '<td class="one column"><a href="Team.html#' + row['Team'] + '">'
             + '<span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -'+(row['Team_logo_id']*20)+'px;background-size:100%;"></span>'+ row['Team'] + '</a></td>'
             + '<td class="four columns">' + row['Description'] + '</td>'
             + '<td class="four columns">' + row['Outcome'] + '</td></tr>';
@@ -49,10 +49,10 @@ class CrimeDetailPage extends DetailPage {
         card.push('<span class="date_item" title="' + row['Date'] + '">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</span>');
         card.push('<span class="name_item">' + row['Name'] + '</span>');
         card.push("<br />");
-        card.push('<span class="crime_item" style="opacity: 0.8;background-color:#'+row['Crime_category_color']+';"><a href="CrimeCache.html#' + row['Category'] + '">' + row['Category'] + "</a> </span>");
-        card.push('<span class="team_item ' + row['Team'] + '" style="background-color:#' + row['Team_hex_color'] + ';opacity: 0.8;"><a href="TeamCache.html#' + row['Team'] + '" style="color:#' + row['Team_hex_alt_color'] + ';" >' + row['Team_preffered_name'] + '</a></span>');
+        card.push('<span class="crime_item" style="opacity: 0.8;background-color:#'+row['Crime_category_color']+';"><a href="Crime.html#' + row['Category'] + '">' + row['Category'] + "</a> </span>");
+        card.push('<span class="team_item ' + row['Team'] + '" style="background-color:#' + row['Team_hex_color'] + ';opacity: 0.8;"><a href="Team.html#' + row['Team'] + '" style="color:#' + row['Team_hex_alt_color'] + ';" >' + row['Team_preffered_name'] + '</a></span>');
         card.push('<br />');
-        card.push('<span class="description_item">Player: <a href="PlayerCache.html#' + row['Name'] + '">' + row['Name'] + '</a></span>'); // .substring(0,n)
+        card.push('<span class="description_item">Player: <a href="Player.html#' + row['Name'] + '">' + row['Name'] + '</a></span>'); // .substring(0,n)
         card.push('<br />');
         card.push('<span class="description_item">' + row['Description'] + '</span>');
         card.push('<span class="outcome_item">' + row['Outcome'] + '</span>');

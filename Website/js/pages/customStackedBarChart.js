@@ -35,7 +35,7 @@ $( window ).load(function() {
 
 function loadTeamLinks(data){
 	$.each(data,function(key,val){
-		$('#bottomTeamLinks').append('<a href="team.html#'+val.Team+'"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -'+(val.Team_logo_id*20)+'px;background-size:100%;"></span> '+val.Team_preffered_name+'</a> ');
+		$('#bottomTeamLinks').append('<a href="Team.html#'+val.Team+'"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -'+(val.Team_logo_id*20)+'px;background-size:100%;"></span> '+val.Team_preffered_name+'</a> ');
 	});
 }
 
