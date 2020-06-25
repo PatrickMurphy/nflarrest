@@ -7,34 +7,45 @@ var shell = require('shelljs');
 // build detailPage html
 // minify detailPage JS 
 
-function buildJSONFromDB(cb) {
-	shell.exec('node ./Build/BuildJSONFromDB.js', function(code, stdout, stderr) {
-		if(code !== 0){
-			console.log('Program stderr:', stderr);
-			shell.exit(1);
-		}else{	
-			cb();
-		}
+function runNode(path, cb1, cb){
+	shell.exec('node '+ path, function(code, stdout, stderr){
+		cb(code, stdout, stderr, cb1);
 	});
+}
+
+function nodeCB(code, stdout, stderr, cb) {
+	if(code !== 0){
+		console.log('Program stderr:', stderr);
+		shell.exit(1);
+	}else{	
+		cb();
+	}
+}
+
+function buildArrestCacheTableDB(cb) {
+	runNode('./Build/BuildArrestsCacheTableDB.js', cb, nodeCB);
+}
+
+function buildLastArrestsDB(cb) {
+	runNode('./Build/BuildCacheLastArrestsDB.js', cb, nodeCB);
+}
+
+function buildJSONFromDB(cb) {
+	runNode('./Build/BuildJSONFromDB.js', cb, nodeCB);
 }
 
 function minifyHomepageJS(cb) {
-	shell.exec('node ./Build/minify-homepageJS.js', function(code, stdout, stderr) {
-		if(code !== 0){
-			console.log('Program stderr:', stderr);
-			shell.exit(1);
-		}else{	
-			cb();
-		}
-	});
+	runNode('./Build/minify-homepageJS.js', cb, nodeCB);
+}
+
+function buildSiteMap(cb) {
+	runNode('./Build/BuildSitemap.js', cb, nodeCB);
 }
 
 function publishGHPages(cb) {
-	// publish branch for website
-	ghpages.publish('Website', function(){
-		cb();
-	});
+	ghpages.publish('Website', cb);
 }
 
-exports.default = series(buildJSONFromDB, minifyHomepageJS);
-exports.publish = series(buildJSONFromDB, minifyHomepageJS, publishGHPages)
+exports.default = series(buildJSONFromDB, minifyHomepageJS, buildSiteMap);
+exports.buildDB = series(buildSeasonStateDB, buildArrestCacheTableDB, buildLastArrestsDB);
+exports.publish = series(buildSeasonStateDB, buildArrestCacheTableDB, buildLastArrestsDB, buildJSONFromDB, minifyHomepageJS, buildSiteMap, publishGHPages)
