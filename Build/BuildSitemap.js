@@ -61,7 +61,6 @@ mysql_connection.query('SELECT DISTINCT(Team) AS id FROM `arrest_stats` ORDER BY
 			lines.push('</urlset>');
 
 			var newText = lines.join(' ');
-			console.log(newText);
 
 			fs.writeFile(scriptPath+filename, newText, function(err) {
 			    if(err) {
@@ -69,6 +68,7 @@ mysql_connection.query('SELECT DISTINCT(Team) AS id FROM `arrest_stats` ORDER BY
 			    }
 
 			    console.log("The file was saved!");
+			    mysql_connection.end();
 			}); 
 		});
 	});

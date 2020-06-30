@@ -22,6 +22,10 @@ function nodeCB(code, stdout, stderr, cb) {
 	}
 }
 
+function buildSeasonStateDB(cb) {
+	runNode('./Build/BuildCacheSeasonStateDB.js', cb, nodeCB);
+}
+
 function buildArrestCacheTableDB(cb) {
 	runNode('./Build/BuildArrestsCacheTableDB.js', cb, nodeCB);
 }
