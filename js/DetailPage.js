@@ -100,7 +100,6 @@ class DetailPage {
 						return false;
 					}
 				}
-
 				return true;
 			}, function (data) {
 				var row,

@@ -4,32 +4,12 @@ class DataTable {
 		this.display_data = this.data;
 		this.current_page = 0;
 		this.row_limit = 15;
+		this.arrest_view_mobile = false;
+
+		if(mobileCheck())
+			this.arrest_view_mobile = true;
 
 		this.renderView();
-	}
-
-	//filters
-	filterData() {
-		// team ---------
-		// team code
-		// conference
-		// division
-		// date ---------
-		// range
-		// year to date
-		// month
-		// day of week
-		// season ---------
-		// season year
-		// playoffs
-		// on / off season
-		// crime --------
-		// category
-		// crimes
-		// position --------
-		// def / off / special
-		// position code
-		// player -------
 	}
 
 	// sort
