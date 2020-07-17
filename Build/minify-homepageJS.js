@@ -5,9 +5,9 @@ var compressor = require('node-minify');
 var filename = 'index.min.js';
 var cssFilename = "styles.min.css";
 
-var generateCSS = false;
+var generateCSS = true;
 var generateJS = true;
-var modular_css = false;
+var modular_css = true;
 
 
 // Handle Script arguments
