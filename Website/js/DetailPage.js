@@ -57,6 +57,26 @@ class DetailPage {
 		});
 	}
 
+	getLink(Dimension, EntityValue){
+		return Dimension + '.html#' + EntityValue;
+	}
+
+	getCrimeLink(EntityValue){
+		return this.getLink('Crime', EntityValue);
+	}
+
+	getPlayerLink(EntityValue){
+		return this.getLink('Player', EntityValue);
+	}
+
+	getTeamLink(EntityValue){
+		return this.getLink('Team', EntityValue);
+	}
+
+	getPositionLink(EntityValue){
+		return this.getLink('Position', EntityValue);
+	}
+
 	changeTitle(newTitle, s) {
 		var self = s || this;
 		document.title = "NFL Arrest | " + newTitle + " | List of Player Arrests";

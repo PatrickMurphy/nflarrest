@@ -61,9 +61,9 @@ class PositionDetailPage extends DetailPage {
     // Override DetailPage method
     renderArrestRow(row) {
         return '<tr><td class="one column">' + moment(row['Date'], "YYYY-MM-DD").fromNow() 
-            + '</td><td class="two columns"><a href="Player.html#' + row['Name'] + '">' + row['Name'] 
-            + '</a></td><td class="two columns"><a href="Crime.html#' + row['Category'] + '">' + row['Category'] 
-            + '</a></td><td class="one column"><a href="Team.html#' + row['Team'] + '">' + row['Team']
+            + '</td><td class="two columns"><a href="' + this.getPlayerLink(row['Name']) + '">' + row['Name'] 
+            + '</a></td><td class="two columns"><a href="' + this.getCrimeLink(row['Category']) + '">' + row['Category'] 
+            + '</a></td><td class="one column"><a href="' + this.getTeamLink(row['Team']) + '">' + row['Team']
             + '</a></td><td class="five columns">' + row['Description'] 
             //+ '</td><td class="four columns">' + row['Outcome'] + '</td>'
             + '</td></tr>';
@@ -71,17 +71,29 @@ class PositionDetailPage extends DetailPage {
     
     renderArrestCard(row) {
         var card = ['<div class="card arrest_card">'];
-        card.push('<span class="date_item" title="' + row['Date'] + '">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</span>');
+        card.push('<span class="date_item" title="' + row['Date'] + '">' 
+            + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</span>');
         card.push('<span class="name_item">' + row['Name'] + '</span>');
         card.push("<br />");
-        card.push('<span class="crime_item" style="background-color:#bbb;"><a href="Player.html#' + row['Name'] + '">' + row['Name'] + "</a> </span>");
-        card.push('<span class="team_item ' + row['Team'] + '" style="background-color:#' + row['Team_hex_color'] + ';"><a href="Team.html#' + row['Team'] + '" style="color:#' + row['Team_hex_alt_color'] + ';" >' + row['Team_preffered_name'] + '</a></span>');
+        
+        card.push('<span class="crime_item" style="background-color:#bbb;">');
+            card.push('<a href="' + this.getPlayerLink(row['Name']) + '">' + row['Name'] + "</a> </span>");
+        
+        card.push('<span class="team_item ' + row['Team'] + '" style="background-color:#' + row['Team_hex_color'] + ';">');
+            card.push('<a href="' + this.getTeamLink(row['Team']) 
+                + '" style="color:#' + row['Team_hex_alt_color'] + ';" >' 
+                + row['Team_preffered_name'] + '</a></span>');
         card.push('<br />');
-        card.push('<span class="description_item">Crime: <a href="Crime.html#' + row['Category'] + '">' + row['Category'] + '</a></span>'); // .substring(0,n)
+
+        card.push('<span class="description_item">Crime: <a href="' 
+                + this.getCrimeLink(row['Category']) 
+                + '</a></span>'); // .substring(0,n)
         card.push('<br />');
+        
         card.push('<span class="description_item">' + row['Description'] + '</span>');
         card.push('<span class="outcome_item">' + row['Outcome'] + '</span>');
         card.push('</div>');
+        
         var card2 = card.join('');
         return card2;
     }
