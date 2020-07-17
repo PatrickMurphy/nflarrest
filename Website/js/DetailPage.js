@@ -134,14 +134,23 @@ class DetailPage {
 		return_text += '<th class="four columns">Description:</th>';
 		return_text += '<th class="three columns">Outcome:</th>';
 		return_text += '</tr>';
-		
+
 		return return_text;
 	}
 
 
 	// should be overloaded
 	renderArrestRow(row) {
-		return '<tr><td class="one column">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td><td class="one column">' + row['Team'] + '</td><td class="two columns"><a href="PlayerCache.html#' + row['Name'] + '">' + row['Name'] + '</a></td><td class="one column"><a href="CrimeCache.html#' + row['Category'] + '">' + row['Category'] + '</a></td><td class="four columns">' + row['Description'] + '</td><td class="three columns">' + row['Outcome'] + '</td></tr>';
+		var return_text = '<tr>';
+		return_text += '<td class="one column">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>';
+		return_text += '<td class="one column">' + row['Team'] + '</td>';
+		return_text += '<td class="two columns"><a href="PlayerCache.html#' + row['Name'] + '">' + row['Name'] + '</a></td>';
+		return_text += '<td class="one column"><a href="CrimeCache.html#' + row['Category'] + '">' + row['Category'] + '</a></td>';
+		return_text += '<td class="four columns">' + row['Description'] + '</td>';
+		return_text += '<td class="three columns">' + row['Outcome'] + '</td>';
+		return_text += '</tr>';
+
+		return return_text;
 	}
 
 	renderArrestCard(row) {
