@@ -57,6 +57,26 @@ class DetailPage {
 		});
 	}
 
+	getLink(Dimension, EntityValue){
+		return Dimension + '.html#' + EntityValue;
+	}
+
+	getCrimeLink(EntityValue){
+		return this.getLink('Crime', EntityValue);
+	}
+
+	getPlayerLink(EntityValue){
+		return this.getLink('Player', EntityValue);
+	}
+
+	getTeamLink(EntityValue){
+		return this.getLink('Team', EntityValue);
+	}
+
+	getPositionLink(EntityValue){
+		return this.getLink('Position', EntityValue);
+	}
+
 	changeTitle(newTitle, s) {
 		var self = s || this;
 		document.title = "NFL Arrest | " + newTitle + " | List of Player Arrests";
@@ -126,13 +146,31 @@ class DetailPage {
 
 	// should be overloaded
 	renderArrestRowHeader() {
-		return '<tr><th class="one column">Date:</th><th class="one column">Team:</th><th class="two columns">Name:</th><th class="one column">Crime:</th><th class="four columns">Description:</th><th class="three columns">Outcome:</th></tr>';
+		var return_text = '<tr>';
+		return_text += '<th class="one column">Date:</th>';
+		return_text += '<th class="one column">Team:</th>';
+		return_text += '<th class="two columns">Name:</th>';
+		return_text += '<th class="one column">Crime:</th>';
+		return_text += '<th class="four columns">Description:</th>';
+		return_text += '<th class="three columns">Outcome:</th>';
+		return_text += '</tr>';
+
+		return return_text;
 	}
 
 
 	// should be overloaded
 	renderArrestRow(row) {
-		return '<tr><td class="one column">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td><td class="one column">' + row['Team'] + '</td><td class="two columns"><a href="PlayerCache.html#' + row['Name'] + '">' + row['Name'] + '</a></td><td class="one column"><a href="CrimeCache.html#' + row['Category'] + '">' + row['Category'] + '</a></td><td class="four columns">' + row['Description'] + '</td><td class="three columns">' + row['Outcome'] + '</td></tr>';
+		var return_text = '<tr>';
+		return_text += '<td class="one column">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>';
+		return_text += '<td class="one column">' + row['Team'] + '</td>';
+		return_text += '<td class="two columns"><a href="PlayerCache.html#' + row['Name'] + '">' + row['Name'] + '</a></td>';
+		return_text += '<td class="one column"><a href="CrimeCache.html#' + row['Category'] + '">' + row['Category'] + '</a></td>';
+		return_text += '<td class="four columns">' + row['Description'] + '</td>';
+		return_text += '<td class="three columns">' + row['Outcome'] + '</td>';
+		return_text += '</tr>';
+
+		return return_text;
 	}
 
 	renderArrestCard(row) {
