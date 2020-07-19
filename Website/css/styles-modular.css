@@ -4,11 +4,81 @@
 	font-family: sans-serif;
 }
 
+body,
+html {
+	background-color: #fff;
+	color: #151414;
+}
+
+a {
+	color: #23292c;
+}
+
+h1,
+h2,
+h3,
+h4 {
+	margin-bottom: 5px;
+}
+
+h3 {
+	font-size: 2.8rem;
+}
+
+h3,
+section {
+	text-align: center;
+}
+
+/* Utility Classes */
 .clear {
 	clear: both;
 	display: block;
 	height: 0px;
 	line-height: 0px;
+}
+
+.show {
+	display: block !important;
+}
+
+.hide {
+	display: none;
+}
+
+.standard_case {
+	text-transform: none;
+}
+
+.upper_case {
+	text-transform: uppercase;
+}
+
+.site-title {
+	line-height: 1.2;
+}
+
+.transparent {
+	/* IE 8 */
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	/* IE 5-7 */
+	filter: alpha(opacity=50);
+	/* Netscape */
+	-moz-opacity: .5;
+	/* Safari 1.x */
+	-khtml-opacity: .5;
+	/* Good browsers */
+	opacity: .5;
+}
+
+.no-border {
+	border: 0px;
+}
+
+.logo {
+	float: left;
+	margin-left: 15px;
+	padding-top: 23px;
 }
 
 .container {
@@ -17,13 +87,9 @@
 	border-right: 1px solid #efefef;
 	border-left: 1px solid #efefef;
 }
+/* End Utility Classes */
 
-body,
-html {
-	/*background-color: #FCFFF5;*/
-	background-color: #fff;
-	color: #151414;
-}
+/* Header */
 
 header {
 	background-color: #f8f8f8;
@@ -43,16 +109,6 @@ header > span {
 	letter-spacing: -1px;
 }
 
-a {
-	color: #23292c;
-}
-
-.logo {
-	float: left;
-	margin-left: 15px;
-	padding-top: 23px;
-}
-
 header a h1:hover {
 	text-decoration: underline;
 	text-decoration-color: rgba(25, 52, 65, 0.41);
@@ -68,48 +124,25 @@ header h1 {
 	line-height: 80px
 }
 
-.site-title {
-	line-height: 1.2;
-}
-
-h3,
-section {
-	text-align: center;
-}
-
-h1,
-h2,
-h3,
-h4 {
-	margin-bottom: 5px;
-}
-
-h3 {
-	font-size: 2.8rem;
-}
-
 header h1 span {
 	color: rgb(255, 118, 0);
 }
+
+/* End Header */
+
 
 #index-description {
 	padding-left: 3px;
 	margin-bottom: .25em;
 }
 
+/* Button Styles */
 button {
 	margin-bottom: 0px;
 	background: #ebebeb !important;
 	border: 1px solid #adadad;
 }
 
-.standard_case {
-	text-transform: none;
-}
-
-.upper_case {
-	text-transform: uppercase;
-}
 
 .button-primary {
 	/*background-color: rgba(0, 12, 25, 0.25) !important;*/
@@ -132,30 +165,18 @@ button {
 .button-small:hover {
 	background-color: rgb(255, 142, 45) !important;
 }
+/* End Button Styles */
 
-#teamSearch,
-#playerSearch {
-	margin-top: 4px;
-}
 
+/* Page Element Styles */
 section {
 	min-height: 35vh;
-}
-
-.dividedSection {
-	border-top: 1px solid rgba(219, 219, 219, 0.76);
-	padding-top: 15px;
-	margin-top: 15px;
 }
 
 aside {
 	padding-left: 2vw;
 	margin-top: 1.75vh;
 	border-top: 1px solid rgba(0, 0, 0, 0.15);
-}
-
-.playerHeadshot {
-	border-radius: 50%;
 }
 
 footer {
@@ -173,6 +194,12 @@ footer a {
 	border-bottom: 1px dotted rgba(25, 52, 65, 0.44);
 }
 
+.dividedSection {
+	border-top: 1px solid rgba(219, 219, 219, 0.76);
+	padding-top: 15px;
+	margin-top: 15px;
+}
+
 .new-super {
 	vertical-align: super;
 	font-size: 9px;
@@ -184,14 +211,6 @@ footer a {
 	color: rgba(255, 255, 255, 0.72);
 }
 
-.show {
-	display: block !important;
-}
-
-.hide {
-	display: none;
-}
-
 #arrest_table td {
 	height: 100px;
 }
@@ -200,33 +219,11 @@ footer a {
 	background-color: rgba(0, 0, 0, 0.08);
 }
 
-#loading-bar {
-	position: absolute;
-	width: 35vw;
-	text-align: center;
-	left: 30.5vw;
-	top: 30vh;
-	font-size: 3em;
-	background-color: rgba(34, 34, 34, 0.45);
-	padding: 2vw;
-	border-radius: 30px;
-	text-shadow: 2px 2px #444;
-	border: 2px solid #777;
-	color: #fff;
-}
 
-.share_buttons {
-	padding-right: 7px;
-}
-
-.twitter_Btn {
-	padding-top: 21px;
-	margin-left: 5px;
-}
-
-.fb_Btn {
-	top: -6px;
-	margin-left: 5px;
+/* Search Styles */
+#teamSearch,
+#playerSearch {
+	margin-top: 4px;
 }
 
 .search-row {
@@ -243,24 +240,41 @@ footer a {
 	color: #2d789d;
 }
 
-.transparent {
-	/* IE 8 */
-	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-	/* IE 5-7 */
-	filter: alpha(opacity=50);
-	/* Netscape */
-	-moz-opacity: .5;
-	/* Safari 1.x */
-	-khtml-opacity: .5;
-	/* Good browsers */
-	opacity: .5;
+
+/* Social Classes */
+.share_buttons {
+	padding-right: 7px;
+}
+
+.twitter_Btn {
+	padding-top: 21px;
+	margin-left: 5px;
+}
+
+.fb_Btn {
+	top: -6px;
+	margin-left: 5px;
 }
 
 
-/* used on index */
-
-.no-border {
-	border: 0px;
+/* Loading Bar Styles */
+#loading-bar {
+	position: absolute;
+	width: 35vw;
+	text-align: center;
+	left: 30.5vw;
+	top: 30vh;
+	font-size: 3em;
+	background-color: rgba(34, 34, 34, 0.45);
+	padding: 2vw;
+	border-radius: 30px;
+	text-shadow: 2px 2px #444;
+	border: 2px solid #777;
+	color: #fff;
 }
 
-#arrest_list {}
+
+/* Page Styles */
+.playerHeadshot {
+	border-radius: 50%;
+}
