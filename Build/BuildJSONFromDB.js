@@ -3,14 +3,14 @@ var fs = require('fs');
 
 
 var filename = 'ArrestsCacheTable_data.js';
-var scriptPath = 'Website/js/data/';
+var scriptPath = '../Website/js/data/';
 
 // Connect to NFL Arrest database
 var mysql_connection = mysql.createConnection({
     host: '127.0.0.1',
     user: 'root',
     password: '',
-    database: 'nflarrest_static'
+    database: 'nflarrest'
 });
 
 
@@ -19,7 +19,8 @@ mysql_connection.connect();
 
 // Select data
 mysql_connection.query("SELECT * FROM arrestscachetable", function (error, results, fields) {
-    var newText = "var ArrestsCacheTable = " + JSON.stringify(results) + ";";
+	var newText = "var ArrestsCacheTable = " + JSON.stringify(results) + ";";
+	//newText += "\r\n" + "module.exports.data = ArrestsCacheTable;";
     fs.writeFile(scriptPath+filename, newText, function(err) {
 	    if(err) {
 	        return console.log(err);
@@ -27,9 +28,6 @@ mysql_connection.query("SELECT * FROM arrestscachetable", function (error, resul
 
 	    console.log("The file was saved!");
 	}); 
-    //Object.keys(results).forEach(function (key) {
-    //    console.log(results[key]['arrest_stats_id']);
-    //});
 });
 
 mysql_connection.end();

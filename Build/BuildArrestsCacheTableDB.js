@@ -5,7 +5,7 @@ var mysql_connection = mysql.createConnection({
     host: '127.0.0.1',
     user: 'root',
     password: '',
-    database: 'nflarrest_static'
+    database: 'nflarrest'
 });
 
 mysql_connection.connect();

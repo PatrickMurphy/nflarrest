@@ -24,6 +24,7 @@ function print_results(result, url){
 mysql_connection.connect();
 
 mysql_connection.query('SELECT DISTINCT(Team) AS id FROM `arrest_stats` ORDER BY id DESC', function (error, results, fields) {
+	//console.log(JSON.stringify(results));
     var teams  = JSON.parse(JSON.stringify(results));
     //console.log(teams);
     mysql_connection.query('SELECT DISTINCT(Category) AS id FROM `arrest_stats` ORDER BY id DESC', function (error, results1, fields) {
