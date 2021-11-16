@@ -166,7 +166,7 @@ function setupArrestOMeter() {
 		$('#arrest_meter_text').html('It has been <b>' + daysSince + '</b> Days since the last arrest.</p>');
 		$('#arrest_meter_subtext').html('Average: <b>' + recordAvg + '</b> Days | Record W/O arrest: <b>' + recordAlltime + '</b> Days');
 		$('.recordHolder').html(recordAlltime);
-		$('.avgRecord').html(recordAvg);
+		$('.avgRecord').html(recordAvg).css({left:((parseInt(recordAvg)/parseInt(recordAlltime)) * 100) + '%'});
 		if (animate) {
 			$('.meter-fg').animate({
 				width: (percent * 100) + '%'
