@@ -27,6 +27,8 @@ $(window).load(function () {
 
 			// first load of top lists
 			load_top_lists('first');
+            
+            $("#updateDateFooter").text("Updated: " + lastUpdate);
 
 			$('#dateRangeJquery').on('dateRangeChanged', function (e) {
 				nflLoadingBar.showLoading();
