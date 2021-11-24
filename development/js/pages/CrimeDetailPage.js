@@ -38,8 +38,8 @@ class CrimeDetailPage extends DetailPage {
         return '<tr><td class="one column">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>'
             + '<td class="two columns"><a href="' + this.getPlayerLink(row['Name']) + '">' + row['Name'] + '</a></td>'
             + '<td class="one column"><a href="' + this.getTeamLink(row['Team']) + '">'
-                + '<span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background-size:100%;'
-                    +'background:url(\'images/NFLTeamLogos.png\') 0px -'+(row['Team_logo_id']*20)+'px;"></span>'
+                + '<span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;'
+                    +'background:url(\'images/NFLTeamLogos.png\') 0px -'+(row['Team_logo_id']*20)+'px;background-size:100% !important;"></span>'
                         + row['Team'] + '</a></td>'
             + '<td class="four columns">' + row['Description'] + '</td>'
             + '<td class="four columns">' + row['Outcome'] + '</td></tr>';
