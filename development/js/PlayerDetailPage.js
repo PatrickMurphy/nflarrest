@@ -10,7 +10,7 @@ class PlayerDetailPage extends DetailPage {
             }, {
             type: 'donut',
             url: 'api/v1/player/topCrimes/',
-            field: 'category',
+            field: 'Crime_category',
             targetElement: '#crimeschart',
             title: 'Crimes'
             }], 'api/v1/player/arrests/');
