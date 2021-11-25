@@ -164,8 +164,8 @@ class DetailPage {
 		var return_text = '<tr>';
 		return_text += '<td class="one column">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>';
 		return_text += '<td class="one column">' + row['Team'] + '</td>';
-		return_text += '<td class="two columns"><a href="PlayerCache.html#' + row['Name'] + '">' + row['Name'] + '</a></td>';
-		return_text += '<td class="one column"><a href="CrimeCache.html#' + row['Category'] + '">' + row['Category'] + '</a></td>';
+		return_text += '<td class="two columns"><a href="Player.html#' + row['Name'] + '">' + row['Name'] + '</a></td>';
+		return_text += '<td class="one column"><a href="Crime.html#' + row['Category'] + '">' + row['Category'] + '</a></td>';
 		return_text += '<td class="four columns">' + row['Description'] + '</td>';
 		return_text += '<td class="three columns">' + row['Outcome'] + '</td>';
 		return_text += '</tr>';
@@ -179,9 +179,9 @@ class DetailPage {
 		card.push('<span class="name_item">' + row['Name'] + '</span>');
 		card.push("<br />");
 		card.push('<span class="crime_item" style="background-color:#' + row['Crime_category_color'] + '">');
-			card.push('<a href="CrimeCache.html#' + row['Category'] + '">' + row['Category'] + "</a> </span>");
+			card.push('<a href="Crime.html#' + row['Category'] + '">' + row['Category'] + "</a> </span>");
 		card.push('<span class="team_item ' + row['Team'] + '" style="background-color:#' + row['Team_hex_color'] + ';">');
-			card.push('<a href="TeamCache.html#' + row['Team'] + '" style="color:#' + row['Team_hex_alt_color'] + ';" >' + row['Team_preffered_name'] + '</a></span>');
+			card.push('<a href="Team.html#' + row['Team'] + '" style="color:#' + row['Team_hex_alt_color'] + ';" >' + row['Team_preffered_name'] + '</a></span>');
 		card.push('<br />');
 		card.push('<span class="description_item">' + row['Description'] + '</span>'); // .substring(0,n)
 		card.push('<span class="outcome_item">' + row['Outcome'] + '</span>');
