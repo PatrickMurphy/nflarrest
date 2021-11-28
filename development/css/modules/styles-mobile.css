@@ -152,12 +152,4 @@
 		line-height: 20px;
 		padding: 2px 7px;
 	}
-    
-    #teamchart, #crimechart, #playerchart, #poschart, #crimeschart, #teamchart {
-            max-height: 200px !important;
-    }
-    
-    .c3-chart-arc text {
-        fill: black;
-    }
 }
