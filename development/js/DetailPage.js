@@ -15,7 +15,7 @@ class DetailPage {
 		if (mobileCheck())
 			this.arrest_view_mode = 1; // if mobile use cards
         
-        loadCSS('css\modules\styles-detailpage.css');
+        loadCSS('css/modules/styles-detailpage.css');
 
 		$('body').append('<div id="loading-bar">Loading...</div>');
 		$('#loading-bar').fadeIn();
