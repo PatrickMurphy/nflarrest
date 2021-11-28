@@ -34,18 +34,6 @@
 	<meta name="msapplication-TileImage" content="/images/favicon/mstile-144x144.png">
 	<meta name="msapplication-config" content="/images/favicon/browserconfig.xml">
 	<meta name="theme-color" content="#e7b736">
-    
-    <style type="text/css">
-        #crimeschart, #teamchart {
-            max-height: 200px !important;
-        }
-        .c3-chart-arc text {
-            fill: black;
-        }
-        .top-list h3 {
-            font-size: 1.2 em;
-        }
-    </style>
 </head>
 
 <body>
@@ -70,7 +58,16 @@
 					<br class="clear" />
 			<section>
 				<aside>
-					<div class="four columns top-list"><h3>Common Crimes</h3><div id="crimeschart"></div></div><div class="four columns top-list">&nbsp;</div><div class="four columns top-list"><h3>Teams Arrested Under</h3><div id="teamchart"></div></div>				</aside>
+					<div class="four columns top-list">
+                        <h3>Common Crimes</h3>
+                        <div id="crimeschart"></div>
+                    </div>
+                    <div class="four columns top-list">&nbsp;</div>
+                    <div class="four columns top-list">
+                        <h3>Teams Arrested Under</h3>
+                        <div id="teamchart"></div>
+                    </div>				
+                </aside>
 				<br class="clear" />
 				<div style="width:98%; margin-left:1%;">
 					<h4 style="text-align:left;">Incidents:</h4>

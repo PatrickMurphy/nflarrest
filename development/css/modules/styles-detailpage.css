@@ -1,0 +1,9 @@
+
+@media (max-width: 640px) {
+    .c3-chart-arc text {
+        fill: black;
+    }
+    .top-list h3 {
+        font-size: 1.2 em;
+    }
+}
