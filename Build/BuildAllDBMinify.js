@@ -15,7 +15,7 @@ var modular_css = true;
 var mysql_connection = mysql.createConnection({
     host: '127.0.0.1',
     user: 'root',
-    password: '',
+    password: 'BinaryStar2021!',
     database: 'nflarrest'
 });
 

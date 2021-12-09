@@ -20,3 +20,5 @@
 /Website/css/vendor/jquery-ui.structure.min.css
 /Website/css/vendor/jquery-ui.theme.min.css
 /Website/css/styles.css
+/ghPages/dbconfig.js
+*/node_modules/

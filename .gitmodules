@@ -1,0 +1,4 @@
+[submodule "ghPages/nflarrest"]
+	path = ghPages/nflarrest
+	url = https://github.com/PatrickMurphy/nflarrest.git
+	branch = gh-pages

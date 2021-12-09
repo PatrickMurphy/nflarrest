@@ -328,7 +328,14 @@ CREATE  VIEW `Arrest_Stats_Player` AS select `arrest_stats`.`Name` AS `Name`,`ar
 --
 DROP TABLE IF EXISTS `LastArrestDateByTeam`;
 
-CREATE  VIEW `LastArrestDateByTeam` AS select `ArrestsDateView`.`Team` AS `Team`,max(`ArrestsDateView`.`Date`) AS `ArrestDate` from `ArrestsDateView` group by `ArrestsDateView`.`Team` desc order by max(`ArrestsDateView`.`Date`);
+CREATE VIEW `LastArrestDateByTeam` AS
+    SELECT 
+        `ArrestsDateView`.`Team` AS `Team`,
+        MAX(`ArrestsDateView`.`Date`) AS `ArrestDate`
+    FROM
+        `ArrestsDateView`
+    GROUP BY `ArrestsDateView`.`Team`
+    ORDER BY MAX(`ArrestsDateView`.`Date`) DESC;
 
 -- --------------------------------------------------------
 --

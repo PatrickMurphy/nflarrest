@@ -50,7 +50,7 @@ var newrecords = [['2021-02-22','SF','Kevin Givens','DT','Charged','Assault','Ac
 	newrecords.push(newrecord);
 	//}
 }*/
-var stmt = `INSERT INTO arrest_stats(Date,Team,Name,Position,Encounter,Category,Description,Outcome,general_category_id,legal_level_id,resolution_category_id)  VALUES ?  `;
+var stmt = "INSERT INTO arrest_stats(Date,Team,Name,Position,Encounter,Category,Description,Outcome,general_category_id,legal_level_id,resolution_category_id)  VALUES ?";
 
 mysql_connection.query(stmt, [newrecords], (err, results, fields) => {
   if (err) {
