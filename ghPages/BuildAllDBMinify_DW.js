@@ -38,6 +38,7 @@ var DataFilePath = 'js/data/';
 
 var DW_stored_procedures = ["sp_dim_day_update", "sp_etl_arrests", "sp_materialize_arrests"];
 var DW_arrests_view = "vwarrestsweb";
+var mysqldump_path = '../Database/backup/lastGHPagesUpdateDump.sql';
 
 var JS_filenames = ['js/nflLoadingBar.js',
     //'js/data/ArrestsCacheTable_data.js',
@@ -188,7 +189,7 @@ function dumpDatabase(callback) {
             password: mysql_user_options.password,
             database: mysql_user_options.database,
         },
-        dumpToFile: './dump.sql',
+        dumpToFile: mysqldump_path,
     });
 
     callback();
