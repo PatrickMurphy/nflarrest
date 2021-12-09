@@ -1,0 +1,68 @@
+.meter-bg,
+.meter-fg {
+	line-height: 25px;
+	height: 25px;
+}
+
+#arrest-o-meter p {
+	margin-bottom: 2px;
+}
+
+#arrest-o-meter h5 {
+	color: #6a6a6a;
+	font-weight: 600;
+	margin-bottom: 3px;
+}
+
+#arrest-o-meter ul {
+	list-style: none;
+	padding: 0px, 10px;
+	margin: 0px;
+}
+
+#arrest-o-meter ul li {
+	padding: 2px;
+}
+
+#arrest-o-meter ul li span {
+	font-weight: bold;
+	float: right;
+	padding-right: 3px;
+}
+
+.meter-bg {
+	position: relative;
+	text-align: left;
+	width: 94%;
+	margin-left: 3%;
+	background-color: rgba(240, 240, 240, 1);
+	border: 1px solid rgba(119, 119, 119, 0.15);
+	border-radius: 8px;
+}
+
+.meter-bg span {
+	font-weight: bold;
+	color: rgba(255, 255, 255, 1);
+	background-color: rgba(75, 75, 75, 0.2);
+	border-radius: 10px;
+	padding: 1px;
+	top: -1px;
+}
+
+.meter-fg {
+	overflow: visible !important;
+	border-radius: 8px;
+	background-color: rgb(3, 143, 239);
+	width: 0px;
+	display: inline-block;
+}
+
+#arrest-o-meter .avgRecord {
+	position: absolute;
+	left: 10.9%;
+}
+
+#arrest-o-meter .recordHolder {
+	position: absolute;
+	right: 1%;
+}
