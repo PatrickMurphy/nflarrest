@@ -46,7 +46,7 @@ var DataController = {
     
     getMostRecentArrest: function(callback){
         var arrest;
-		var self = this;
+		var self = DataController;
         var lastDate = 999999999;
         
 		self.forEach(function(row){
