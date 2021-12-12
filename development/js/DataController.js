@@ -47,10 +47,12 @@ var DataController = {
     getMostRecentArrest: function(callback){
         var arrest;
 		var self = this;
-        var lastDate = 100000000;
+        var lastDate = 999999999;
+        
 		self.forEach(function(row){
 			if(self.dateLimit(row,DataController.options.date_range.getStart(),DataController.options.date_range.getEnd())){
-				if(lastDate > row.daysSince){
+				if(row.daysSince < lastDate){
+                    console.log(row.daysSince + " is less than " + lastDate);
 					arrest = row;
                     lastDate = row.daysSince;
 				}
