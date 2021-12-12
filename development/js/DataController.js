@@ -43,6 +43,23 @@ var DataController = {
 	getActivePlayerArrests: function(callback){
 		callback(['no data']);
 	},
+    
+    getMostRecentArrest: function(callback){
+        var arrest;
+		var self = this;
+        var lastDate = 100000000;
+		self.forEach(function(row){
+			if(self.dateLimit(row,DataController.options.date_range.getStart(),DataController.options.date_range.getEnd())){
+				if(lastDate > row.daysSince){
+					arrest = row;
+                    lastDate = row.daysSince;
+				}
+			}
+		},function(){
+			// finished
+			callback(arrest);
+		});
+    },
 
 	getTeams: function(callback){
 		var return_data = [];
@@ -86,6 +103,7 @@ var DataController = {
 
             if(meter_use_current_day){
                 DataController.options.data[i].daysSince = dateDiffInDays(new Date(r.Date),new Date());
+                r.daysSince = dateDiffInDays(new Date(r.date), new Date());
             }
 
             if(r.DaysToLastArrest > max_days){
