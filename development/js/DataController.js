@@ -12,15 +12,16 @@ var DataController = {
 	},
 
 	forEach: function(rowCallback, finsihedCallback, dateLimit){
+        finsihedCallback = finsihedCallback || function(){};
 		dateLimit = dateLimit || true;
 		for (var i = DataController.options.data.length - 1; i >= 0; i--) {
 			var row = DataController.options.data[i];
 			if(dateLimit){
 				if(this.dateLimit(row,DataController.options.date_range.getStart(),DataController.options.date_range.getEnd())){
-					rowCallback(row);
+					rowCallback(row,i);
 				}
 			}else{
-				rowCallback(row);
+				rowCallback(row,i);
 			}
 		}
 		finsihedCallback();
@@ -78,7 +79,24 @@ var DataController = {
 		  	var utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
 			return Math.floor((utc2 - utc1) / (1000 * 60 * 60 * 24));
 		};
+        
+        DataController.forEach(function(r,i){
+            record_count++;
+            avg_days += r.DaysToLastArrest;
 
+            if(meter_use_current_day){
+                DataController.options.data[i].daysSince = dateDiffInDays(new Date(r.Date),new Date());
+            }
+
+            if(r.DaysToLastArrest > max_days){
+                max_days = r.DaysToLastArrest;
+            }
+
+            if(r.DaysSince < min_days){
+                min_days = r.DaysSince;
+            }
+        });
+/*
 		for (var i = DataController.options.data.length - 1; i >= 0; i--) {
 			var row = DataController.options.data[i];
 			if(this.dateLimit(row,DataController.options.date_range.getStart(),DataController.options.date_range.getEnd())){
@@ -98,7 +116,7 @@ var DataController = {
 				}
 			}
 		}
-
+*/
 		avg_days = avg_days / record_count;
 
 		callback({
