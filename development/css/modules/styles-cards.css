@@ -54,7 +54,7 @@
     right: 5px
 }
 
-.crime_item a {
+.crime_item a, .name_item a {
     color: #fff
 }
 

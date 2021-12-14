@@ -132,8 +132,9 @@ function loadTeamLinks(data) {
 
 function loadingFinished() {
 	console.log('loadfinish');
-	setupArrestOMeter();
-    setupRecentArrestCard();
+    var d = Math.random() > .5;
+	setupArrestOMeter(d);
+    setupRecentArrestCard(!d);
 	nflLoadingBar.hideLoading();
 	listsReturned = false;
 	mainChartReturned = false;
@@ -156,7 +157,7 @@ function loadingFinished() {
 	});
 }
 
-function setupArrestOMeter() {
+function setupArrestOMeter(d) {
 	var animate = true;
 	//$.getJSON('http://nflarrest.com/api/v1/meter', function (data) {
 	data_controller.getArrestMeter(function (data) {
@@ -179,10 +180,14 @@ function setupArrestOMeter() {
 		//for(var record in data['history']){
 		//	$('#record_history_list').append('<li>'+data['history'][record]['date']+'<span>'+data['history'][record]['record']+'</span></li>');
 		//}
+
+        if(!d){
+            $('#arrest-o-meter').hide();
+        }
 	});
 }
 
-function setupRecentArrestCard() {
+function setupRecentArrestCard(d) {
 	data_controller.getMostRecentArrest(function (row) {
         var card = ['<div class="card arrest_card">'];
 		card.push('<span class="date_item" title="' + row['Date'] + '">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</span>');
@@ -199,6 +204,9 @@ function setupRecentArrestCard() {
 		var card2 = card.join('');
 		$('#mostRecentArrestCard').html(card2);
 	});
+    if(!d){
+        $('#recent-arrest-card').hide();
+    }
 }
 
 function evaluateHash(){
