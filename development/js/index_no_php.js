@@ -190,7 +190,7 @@ function setupArrestOMeter(d) {
 function setupRecentArrestCard(d) {
 	data_controller.getMostRecentArrest(function (row) {
         var card = ['<div class="card arrest_card">'];
-		card.push('<span class="date_item" title="' + row['Date'] + '">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</span>');
+		card.push('<span class="date_item" title="' + row['Date'] + '">' + row['DaysSince'] + ' days ago</span>');
 		card.push('<span class="name_item" style="display:inline-block; visibility:visible;"><a href="Player.html#' + row['Name'] + '">' + row['Name'] + '</a> </span>');
 		card.push("<br />");
 		card.push('<span class="crime_item" style="background-color:#' + row['Crime_category_color'] + '">');
