@@ -50,13 +50,8 @@ var DataController = {
         var lastDate = 999999999;
         
 		self.forEach(function(row){
-            console.log(row);
-            console.log(row.daysSince);
-            console.log(lastDate);
 			if(self.dateLimit(row,DataController.options.date_range.getStart(),DataController.options.date_range.getEnd())){
-                console.log('date range cleared');
 				if(row.daysSince < lastDate){
-                    console.log(row.daysSince + " is less than " + lastDate);
 					arrest = row;
                     lastDate = row.daysSince;
 				}
