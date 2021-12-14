@@ -69,18 +69,24 @@
                     </p>
                     <!--<span id="activePlayerArrestRate"></span>-->
                 </div>
-				<div id="arrest-o-meter" class="four columns">
-					<h5>The Arrest-O-Meter:</h5>
-					<div class="row meter-bg">
-						<div class="meter-fg">&nbsp;</div>
-						<span class="avgRecord">7</span>
-						<span class="recordHolder">64</span>
-					</div>
-					<p id="arrest_meter_text">It has been <b>?</b> Days since the last arrest.</p>
-					<p id="arrest_meter_subtext">Average: <b>7</b> Days | Record W/O arrest: <b>64</b> Days</p><!--
-					<a href="ArrestMeter.html" class="button arrest-o-meterDetailsBtn standard_case">Arrest-O-Meter Details</a>
-					<br class="hide-mobile" />
-					<a href="RecentArrestsByTeam.html" class="button standard_case">Recent Arrests by Team</a>-->
+				<div class="four columns">
+                    <div id="arrest-o-meter">
+                        <h5>The Arrest-O-Meter:</h5>
+                        <div class="row meter-bg">
+                            <div class="meter-fg">&nbsp;</div>
+                            <span class="avgRecord">7</span>
+                            <span class="recordHolder">64</span>
+                        </div>
+                        <p id="arrest_meter_text">It has been <b>?</b> Days since the last arrest.</p>
+                        <p id="arrest_meter_subtext">Average: <b>7</b> Days | Record W/O arrest: <b>64</b> Days</p><!--
+                        <a href="ArrestMeter.html" class="button arrest-o-meterDetailsBtn standard_case">Arrest-O-Meter Details</a>
+                        <br class="hide-mobile" />
+                        <a href="RecentArrestsByTeam.html" class="button standard_case">Recent Arrests by Team</a>-->
+                    </div>
+                    <div id="recent-arrest-card"><!--style="display: none;"-->
+                        <h5>Most Recent Arrest:</h5>
+                        <div id="mostRecentArrestCard"></div>
+                    </div>
 				</div>
 				<div class="four columns share_buttons">
 					<!--<button class="button hide standard_case hide-mobile" id="newsletterDisplayBtn">Join Newsletter</button>

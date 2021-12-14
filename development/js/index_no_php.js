@@ -133,6 +133,7 @@ function loadTeamLinks(data) {
 function loadingFinished() {
 	console.log('loadfinish');
 	setupArrestOMeter();
+    setupRecentArrestCard();
 	nflLoadingBar.hideLoading();
 	listsReturned = false;
 	mainChartReturned = false;
@@ -178,6 +179,25 @@ function setupArrestOMeter() {
 		//for(var record in data['history']){
 		//	$('#record_history_list').append('<li>'+data['history'][record]['date']+'<span>'+data['history'][record]['record']+'</span></li>');
 		//}
+	});
+}
+
+function setupRecentArrestCard() {
+	data_controller.getMostRecentArrest(function (row) {
+        var card = ['<div class="card arrest_card">'];
+		card.push('<span class="date_item" title="' + row['Date'] + '">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</span>');
+		card.push('<span class="name_item">' + row['Name'] + '</span>');
+		card.push("<br />");
+		card.push('<span class="crime_item" style="background-color:#' + row['Crime_category_color'] + '">');
+			card.push('<a href="Crime.html#' + row['Category'] + '">' + row['Category'] + "</a> </span>");
+		card.push('<span class="team_item ' + row['Team'] + '" style="background-color:#' + row['Team_hex_color'] + ';">');
+			card.push('<a href="Team.html#' + row['Team'] + '" style="color:#' + row['Team_hex_alt_color'] + ';" >' + row['Team_preffered_name'] + '</a></span>');
+		card.push('<br />');
+		card.push('<span class="description_item">' + row['Description'] + '</span>'); // .substring(0,n)
+		card.push('<span class="outcome_item">' + row['Outcome'] + '</span>');
+		card.push('</div>');
+		var card2 = card.join('');
+		$('#mostRecentArrestCard').html(card2);
 	});
 }
 
