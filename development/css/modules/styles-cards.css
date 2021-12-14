@@ -44,11 +44,12 @@
 }
 
 .name_item {
-    font-size: .9em;
+    font-size: 1.1em;
     position: relative;
     top: 4px;  
     left: 50%;
     transform: translateX(-50%);
+    background-color: darkslategrey;
 }
 
 .crime_item {
