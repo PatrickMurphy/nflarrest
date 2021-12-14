@@ -2,11 +2,13 @@
 var fs = require('fs');
 var mysql = require('mysql');
 var node_minify = require('node-minify');
-var git = require('simple-git');
+var gits = require('simple-git');
 var readline = require('readline');
 var mysqldump = require('mysqldump');
 var dbConfig = require('./dbconfig');
 var readline = readline.createInterface(process.stdin, process.stdout);
+
+var git = gits('./nflarrest/');
 
 // --- Script Arguments --- //
 var runOption_Environment_enum = ["development", "production"];
@@ -62,8 +64,6 @@ var CSS_filenames = ['css/styles-modular.css',
     'css/modules/styles-kpi.css',
     'css/modules/styles-mobile.css'
 ];
-
-var git = git ('./nflarrest/');
 
 function getEnvPath(path) {
     return path_global + runOption_Environments[runOption_Environment].path + path;
