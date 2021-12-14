@@ -7,7 +7,22 @@ var DataController = {
 	init: function(dateRange, callback){
 		DataController.options.date_range = dateRange;
 		DataController.options.data = ArrestsCacheTable;
+        
+		// a and b are javascript Date objects
+		var dateDiffInDays = function(a, b) {
+		  	// Discard the time and time-zone information
+		  	var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+		  	var utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+			return Math.floor((utc2 - utc1) / (1000 * 60 * 60 * 24));
+		};
 
+        DataController.forEach(function(r,i){
+            if(meter_use_current_day){
+                DataController.options.data[i].daysSince = dateDiffInDays(new Date(r.Date),new Date());
+                r.daysSince = dateDiffInDays(new Date(r.Date), new Date());
+            }
+        });
+        
 		callback(this);
 	},
 
@@ -89,23 +104,10 @@ var DataController = {
 		var max_days = -1;
 		var record_count = 0;
 		var min_days = 9000000000;
-
-		// a and b are javascript Date objects
-		var dateDiffInDays = function(a, b) {
-		  	// Discard the time and time-zone information
-		  	var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
-		  	var utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
-			return Math.floor((utc2 - utc1) / (1000 * 60 * 60 * 24));
-		};
         
         DataController.forEach(function(r,i){
             record_count++;
             avg_days += r.DaysToLastArrest;
-
-            if(meter_use_current_day){
-                DataController.options.data[i].daysSince = dateDiffInDays(new Date(r.Date),new Date());
-                r.daysSince = dateDiffInDays(new Date(r.Date), new Date());
-            }
 
             if(r.DaysToLastArrest > max_days){
                 max_days = r.DaysToLastArrest;
