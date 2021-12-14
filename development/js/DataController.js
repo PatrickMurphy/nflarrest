@@ -109,7 +109,7 @@ var DataController = {
 
             if(meter_use_current_day){
                 DataController.options.data[i].daysSince = dateDiffInDays(new Date(r.Date),new Date());
-                r.daysSince = dateDiffInDays(new Date(r.date), new Date());
+                r.daysSince = dateDiffInDays(new Date(r.date.toString()), new Date());
             }
 
             if(r.DaysToLastArrest > max_days){
