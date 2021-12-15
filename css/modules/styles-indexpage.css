@@ -57,3 +57,9 @@
 .donate {
     margin-bottom: 0.05rem !important;
 }
+
+#kpi-window-header h5 {
+	color: #6a6a6a;
+	font-weight: 600;
+	margin-bottom: 3px;
+}
