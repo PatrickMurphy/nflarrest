@@ -192,7 +192,7 @@ function setupArrestOMeter(d) {
 
 function setupRecentArrestCard(d) {
 	data_controller.getMostRecentArrest(function (row) {
-        var card = ['<div class="card arrest_card">'];
+        /*var card = ['<div class="card arrest_card">'];
 		card.push('<span class="date_item" title="' + row['Date'] + '">' + row['DaysSince'] + ' days ago</span>');
 		card.push('<span class="name_item" style="display:inline-block; visibility:visible;"><a href="Player.html#' + row['Name'] + '">' + row['Name'] + '</a> </span>');
 		card.push("<br />");
@@ -204,8 +204,9 @@ function setupRecentArrestCard(d) {
 		card.push('<span class="description_item">' + row['Description'] + '</span>'); // .substring(0,n)
 		card.push('<span class="outcome_item">' + row['Outcome'] + '</span>');
 		card.push('</div>');
-		var card2 = card.join('');
-		$('#mostRecentArrestCard').html(card2);
+		var card2 = card.join('');*/
+        var card = new ArrestCard(row);
+		$('#mostRecentArrestCard').html(card.getHTML());
 	});
     if(!d){
         $('#recent-arrest-card').hide();
