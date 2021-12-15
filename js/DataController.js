@@ -7,20 +7,36 @@ var DataController = {
 	init: function(dateRange, callback){
 		DataController.options.date_range = dateRange;
 		DataController.options.data = ArrestsCacheTable;
+        
+		// a and b are javascript Date objects
+		var dateDiffInDays = function(a, b) {
+		  	// Discard the time and time-zone information
+		  	var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+		  	var utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+			return Math.floor((utc2 - utc1) / (1000 * 60 * 60 * 24));
+		};
 
+        DataController.forEach(function(r,i){
+            if(meter_use_current_day){
+                DataController.options.data[i].daysSince = dateDiffInDays(new Date(r.Date),new Date());
+                r.daysSince = dateDiffInDays(new Date(r.Date), new Date());
+            }
+        });
+        
 		callback(this);
 	},
 
 	forEach: function(rowCallback, finsihedCallback, dateLimit){
+        finsihedCallback = finsihedCallback || function(){};
 		dateLimit = dateLimit || true;
 		for (var i = DataController.options.data.length - 1; i >= 0; i--) {
 			var row = DataController.options.data[i];
 			if(dateLimit){
 				if(this.dateLimit(row,DataController.options.date_range.getStart(),DataController.options.date_range.getEnd())){
-					rowCallback(row);
+					rowCallback(row,i);
 				}
 			}else{
-				rowCallback(row);
+				rowCallback(row,i);
 			}
 		}
 		finsihedCallback();
@@ -42,6 +58,24 @@ var DataController = {
 	getActivePlayerArrests: function(callback){
 		callback(['no data']);
 	},
+    
+    getMostRecentArrest: function(callback){
+        var arrest;
+		var self = DataController;
+        var lastDate = 999999999;
+        
+		self.forEach(function(row){
+			if(self.dateLimit(row,DataController.options.date_range.getStart(),DataController.options.date_range.getEnd())){
+				if(row.daysSince < lastDate){
+					arrest = row;
+                    lastDate = row.daysSince;
+				}
+			}
+		},function(){
+			// finished
+			callback(arrest);
+		});
+    },
 
 	getTeams: function(callback){
 		var return_data = [];
@@ -70,15 +104,20 @@ var DataController = {
 		var max_days = -1;
 		var record_count = 0;
 		var min_days = 9000000000;
+        
+        DataController.forEach(function(r,i){
+            record_count++;
+            avg_days += r.DaysToLastArrest;
 
-		// a and b are javascript Date objects
-		var dateDiffInDays = function(a, b) {
-		  	// Discard the time and time-zone information
-		  	var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
-		  	var utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
-			return Math.floor((utc2 - utc1) / (1000 * 60 * 60 * 24));
-		};
+            if(r.DaysToLastArrest > max_days){
+                max_days = r.DaysToLastArrest;
+            }
 
+            if(r.DaysSince < min_days){
+                min_days = r.DaysSince;
+            }
+        });
+/*
 		for (var i = DataController.options.data.length - 1; i >= 0; i--) {
 			var row = DataController.options.data[i];
 			if(this.dateLimit(row,DataController.options.date_range.getStart(),DataController.options.date_range.getEnd())){
@@ -98,7 +137,7 @@ var DataController = {
 				}
 			}
 		}
-
+*/
 		avg_days = avg_days / record_count;
 
 		callback({

@@ -132,7 +132,9 @@ function loadTeamLinks(data) {
 
 function loadingFinished() {
 	console.log('loadfinish');
-	setupArrestOMeter();
+    var d = Math.random() > .5;
+	setupArrestOMeter(d);
+    setupRecentArrestCard(!d);
 	nflLoadingBar.hideLoading();
 	listsReturned = false;
 	mainChartReturned = false;
@@ -155,7 +157,7 @@ function loadingFinished() {
 	});
 }
 
-function setupArrestOMeter() {
+function setupArrestOMeter(d) {
 	var animate = true;
 	//$.getJSON('http://nflarrest.com/api/v1/meter', function (data) {
 	data_controller.getArrestMeter(function (data) {
@@ -178,7 +180,33 @@ function setupArrestOMeter() {
 		//for(var record in data['history']){
 		//	$('#record_history_list').append('<li>'+data['history'][record]['date']+'<span>'+data['history'][record]['record']+'</span></li>');
 		//}
+
+        if(!d){
+            $('#arrest-o-meter').hide();
+        }
 	});
+}
+
+function setupRecentArrestCard(d) {
+	data_controller.getMostRecentArrest(function (row) {
+        var card = ['<div class="card arrest_card">'];
+		card.push('<span class="date_item" title="' + row['Date'] + '">' + row['DaysSince'] + ' days ago</span>');
+		card.push('<span class="name_item" style="display:inline-block; visibility:visible;"><a href="Player.html#' + row['Name'] + '">' + row['Name'] + '</a> </span>');
+		card.push("<br />");
+		card.push('<span class="crime_item" style="background-color:#' + row['Crime_category_color'] + '">');
+        card.push('<a href="Crime.html#' + row['Category'] + '">' + row['Category'] + "</a> </span>");
+		card.push('<span class="team_item ' + row['Team'] + '" style="background-color:#' + row['Team_hex_color'] + ';">');
+        card.push('<a href="Team.html#' + row['Team'] + '" style="color:#' + row['Team_hex_alt_color'] + ';" >' + row['Team_preffered_name'] + '</a></span>');
+		card.push('<br />');
+		card.push('<span class="description_item">' + row['Description'] + '</span>'); // .substring(0,n)
+		card.push('<span class="outcome_item">' + row['Outcome'] + '</span>');
+		card.push('</div>');
+		var card2 = card.join('');
+		$('#mostRecentArrestCard').html(card2);
+	});
+    if(!d){
+        $('#recent-arrest-card').hide();
+    }
 }
 
 function evaluateHash(){
