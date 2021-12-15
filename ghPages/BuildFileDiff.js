@@ -1,26 +1,41 @@
 var dft = require('diff-file-tree')
 
+var filterFunction = function(p){
+    if(p.indexOf("\\.git") > -1){
+        return true;
+    }else if(p.indexOf("\\development") > -1){
+        return true;
+    }else if(p.indexOf("\\devProjects") > -1){
+        return true;
+    }else if(p.indexOf("\\archived\\") > -1){
+        return true;
+    }else if(p.indexOf("\\Archived\\") > -1){
+        return true;
+    }else if(p.indexOf("\\Broken") > -1){
+        return true;
+    }else if(p.indexOf("\\CNAME") > -1){
+        return true;
+    }else if(p.indexOf("\\js\\data") > -1){
+        return true;
+    }else if(p.indexOf("\\js\\compressed") > -1){
+        return true;
+    }else if(p.indexOf(".min.css") > -1){
+        return true;
+    }
+    return false;
+};
+
+var displayLog = function(changes){
+    //console.log(changes);
+    for(var i = 0; i < changes.length; i++){
+        var change = changes[i];
+        console.log(change.change + " | " + change.path);
+    }
+};
+
 async function main(){
-    var changes = await dft.diff('./nflarrest/development/', './nflarrest/', {filter: function(p){
-        //console.log(p);
-        if(p.indexOf("\\.git") > -1){
-            return true;
-        }else if(p.indexOf("\\development") > -1){
-            return true;
-        }else if(p.indexOf("\\devProjects") > -1){
-            return true;
-        }else if(p.indexOf("\\CNAME") > -1){
-            return true;
-        }else if(p.indexOf("\\js\\data") > -1){
-            return true;
-        }else if(p.indexOf("\\js\\compressed") > -1){
-            return true;
-        }else if(p.indexOf(".min.css") > -1){
-            return true;
-        }
-        return false;
-    }});
-    console.log(changes);
+    var changes = await dft.diff('./nflarrest/development/', './nflarrest/', {filter: filterFunction});
+    displayLog(changes);
 }
 
 main();

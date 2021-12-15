@@ -34,6 +34,7 @@ var mysql_user_options = dbConfig;
 var path_global = "nflarrest";
 
 var MinFilename_JS = 'index.min.js';
+var MinFilename_Detail_JS = 'DetailPage.min.js';
 var MinFilename_CSS = "styles.min.css";
 var DataFilename_JSON = 'ArrestsCacheTable_data.js';
 var DataFilePath = 'js/data/';
@@ -49,6 +50,20 @@ var JS_filenames = ['js/nflLoadingBar.js',
     'js/index_no_php.js',
     'js/common.js',
     'js/charts/stackedBarChart.js',
+    'js/dateRangeController.js',
+    'js/google-tracking.js',
+    'js/loadCSS.js'
+];
+
+var JS_filenames_detail = [
+    //'js/DetailPage.js',
+    //'js/model/FiltersModel.js',
+    //'js/FiltersControl.js',
+    //'js/charts/donutChart.js',
+    'js/data/lastUpdate_data.js',
+    'js/DataController.js',
+    'js/common.js',
+    'js/charts/timeSeriesChart.js',
     'js/dateRangeController.js',
     'js/google-tracking.js',
     'js/loadCSS.js'
@@ -76,6 +91,14 @@ function getJSFiles() {
         jsFiles.push(getEnvPath(JS_filenames[i]));
     }
     return jsFiles;
+}
+
+function getJSFilesDetail() {
+    var jsFiles2 = [];
+    for (var i = 0; i < JS_filenames_detail.length; i++) {
+        jsFiles2.push(getEnvPath(JS_filenames_detail[i]));
+    }
+    return jsFiles2;
 }
 
 function getCSSFiles() {
@@ -144,7 +167,15 @@ function minifyJS(callback) {
             output: getEnvPath('js/compressed/' + MinFilename_JS),
             callback: function(err, min) {
                 console.log('Success::     Minify Homepage JS: ' + MinFilename_JS);
-                callback();
+                node_minify.minify({
+                    compressor: 'uglifyjs',
+                    input: getJSFilesDetail(),
+                    output: getEnvPath('js/compressed/' + MinFilename_Detail_JS),
+                    callback: function(err, min) {
+                        console.log('Success::     Minify Homepage JS Detail Page: ' + MinFilename_Detail_JS);
+                        callback();
+                    }
+                });
             }
         });
     }
