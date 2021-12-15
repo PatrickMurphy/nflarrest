@@ -86,7 +86,8 @@
 	/* Arrest-O-Meter 
 	------------------ */
 	#arrest-o-meter {
-		width: 50%;
+		width: 80%;
+        margin: auto;
 	}
 	#arrest-o-meter h5 {
 		font-size: 1em;
