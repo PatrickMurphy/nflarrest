@@ -176,7 +176,7 @@ class DetailPage {
 	}
 
 	renderArrestCard(row) {
-		var card = ['<div class="card arrest_card">'];
+		/*var card = ['<div class="card arrest_card">'];
 		card.push('<span class="date_item" title="' + row['Date'] + '">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</span>');
 		card.push('<span class="name_item">' + row['Name'] + '</span>');
 		card.push("<br />");
@@ -189,8 +189,9 @@ class DetailPage {
 		card.push('<span class="outcome_item">' + row['Outcome'] + '</span>');
 		card.push('</div>');
 		var card2 = card.join('');
-		//console.log(card2);
-		return card2;
+		//console.log(card2);*/
+        var c = new ArrestCard(row);
+		return c.getHTML();
 	}
 
 	getDonutData(url, param, chartID, callback) {

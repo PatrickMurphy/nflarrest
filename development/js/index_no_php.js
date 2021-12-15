@@ -205,7 +205,7 @@ function setupRecentArrestCard(d) {
 		card.push('<span class="outcome_item">' + row['Outcome'] + '</span>');
 		card.push('</div>');
 		var card2 = card.join('');*/
-        var card = new ArrestCard(row);
+        var card = new ArrestCard(row,{showName:true});
 		$('#mostRecentArrestCard').html(card.getHTML());
 	});
     if(!d){
