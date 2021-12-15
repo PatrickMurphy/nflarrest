@@ -5,7 +5,7 @@ var last_start_pos = 0,
 	listsReturnCount = 0,
 	listsReturned = false,
 	ytdChart = false,
-	mainChartStyleID = 0
+	mainChartStyleID = 0,
 	detail_page_active = true;
 
 //removed for es6 var nflLoadingBar;
@@ -183,6 +183,9 @@ function setupArrestOMeter(d) {
 
         if(!d){
             $('#arrest-o-meter').hide();
+        }else{            
+            //set arrestometerorrecent
+            ga('set', 'dimension1', "Recent");
         }
 	});
 }
@@ -206,6 +209,9 @@ function setupRecentArrestCard(d) {
 	});
     if(!d){
         $('#recent-arrest-card').hide();
+    }else{            
+        //set arrestometerorrecent
+        ga('set', 'dimension1', "ArrestOMeter");
     }
 }
 
