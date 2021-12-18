@@ -1,4 +1,4 @@
-var TeamPage;
+var DetailPageInstance;
 class TeamDetailPage extends DetailPage {
     constructor(pageID) {
         super(pageID, 'Team', [{
@@ -80,5 +80,5 @@ class TeamDetailPage extends DetailPage {
 
 }
 $(window).load(function () {
-    TeamPage = new TeamDetailPage(update_hash());
+    DetailPageInstance = new TeamDetailPage(update_hash());
 });

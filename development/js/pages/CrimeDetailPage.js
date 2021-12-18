@@ -1,4 +1,4 @@
-var CrimePage;
+var DetailPageInstance;
 class CrimeDetailPage extends DetailPage {
     constructor(pageID) {
         super(pageID, 'Crime', [{
@@ -66,5 +66,5 @@ class CrimeDetailPage extends DetailPage {
 
 }
 $(window).load(function () {
-    CrimePage = new CrimeDetailPage(update_hash());
+    DetailPageInstance = new CrimeDetailPage(update_hash());
 });

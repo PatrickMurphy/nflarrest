@@ -55,7 +55,7 @@ class DetailPage {
 				*/
 
 				self.renderView();
-                setTimeout(self.resizeCharts(), 5000);
+                setTimeout(self.resizeCharts, 5000);
 			})
 		});
 	}
@@ -96,8 +96,8 @@ class DetailPage {
 	}
     
     resizeCharts(){
-        for(var i = 0; i < this.charts.length; i++){
-            this.charts[i].chart.resize();
+        for(var i = 0; i < DetailPageInstance.charts.length; i++){
+            DetailPageInstance.charts[i].chart.resize();
         }
     }
 

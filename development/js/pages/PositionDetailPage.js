@@ -1,4 +1,4 @@
-var PositionPage;
+var DetailPageInstance;
 class PositionDetailPage extends DetailPage {
     constructor(pageID) {
         super(pageID, 'Position', [{
@@ -101,5 +101,5 @@ class PositionDetailPage extends DetailPage {
 }
 
 $(window).load(function () {
-    PositionPage = new PositionDetailPage(update_hash());
+    DetailPageInstance = new PositionDetailPage(update_hash());
 });
