@@ -67,4 +67,5 @@ class CrimeDetailPage extends DetailPage {
 }
 $(window).load(function () {
     CrimePage = new CrimeDetailPage(update_hash());
+    CrimePage.resizeCharts();
 });
