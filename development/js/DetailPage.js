@@ -91,7 +91,14 @@ class DetailPage {
 		this.changeTitle();
 		this.setupCharts();
 		this.renderArrests();
+        this.resizeCharts();
 	}
+    
+    resizeCharts(){
+        for(var i = 0; i < self.charts.length; i++){
+            self.charts[i].resize();
+        }
+    }
 
 	checkLoadingFinished() {
 		if (++this.callbackReturns == (1 + this.chartOptions.length)) { // 1 for arrests plus each chart
