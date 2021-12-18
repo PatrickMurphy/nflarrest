@@ -40,5 +40,4 @@ class PlayerDetailPage extends DetailPage {
 }
 $(window).load(function () {
     DetailPageInstance = new PlayerDetailPage(update_hash());
-    DetailPageInstance.resizeCharts();
 });

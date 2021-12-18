@@ -81,5 +81,4 @@ class TeamDetailPage extends DetailPage {
 }
 $(window).load(function () {
     DetailPageInstance = new TeamDetailPage(update_hash());
-    DetailPageInstance.resizeCharts();
 });

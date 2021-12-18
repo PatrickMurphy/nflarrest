@@ -102,5 +102,4 @@ class PositionDetailPage extends DetailPage {
 
 $(window).load(function () {
     DetailPageInstance = new PositionDetailPage(update_hash());
-    DetailPageInstance.resizeCharts();
 });

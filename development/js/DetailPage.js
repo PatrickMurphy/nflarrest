@@ -53,6 +53,10 @@ class DetailPage {
 				reload_top_lists();
 			});
 				*/
+                    
+                    setTimeout(() => {
+                        self.resizeCharts();
+                    },1500);
 
 				self.renderView();
 			})
