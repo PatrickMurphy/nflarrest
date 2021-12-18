@@ -1,4 +1,4 @@
-var PlayerPage;
+var DetailPageInstance;
 class PlayerDetailPage extends DetailPage {
     constructor(pageID) {
         super(pageID, 'Player', [{
@@ -39,5 +39,5 @@ class PlayerDetailPage extends DetailPage {
 
 }
 $(window).load(function () {
-    PlayerPage = new PlayerDetailPage(update_hash());
+    DetailPageInstance = new PlayerDetailPage(update_hash());
 });

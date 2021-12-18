@@ -1,4 +1,4 @@
-var PositionPage;
+var DetailPageInstance;
 class PositionDetailPage extends DetailPage {
     constructor(pageID) {
         super(pageID, 'Position', [{
@@ -70,7 +70,7 @@ class PositionDetailPage extends DetailPage {
     }
     
     renderArrestCard(row) {
-        var card = ['<div class="card arrest_card">'];
+        /*var card = ['<div class="card arrest_card">'];
         card.push('<span class="date_item" title="' + row['Date'] + '">' 
             + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</span>');
         card.push('<span class="name_item">' + row['Name'] + '</span>');
@@ -95,10 +95,14 @@ class PositionDetailPage extends DetailPage {
         card.push('</div>');
         
         var card2 = card.join('');
-        return card2;
+        return card2;*/
+        
+        var c = new ArrestCard(row);
+        return c.getHTML(c.Column_Player, c.Column_Team);
     }
 
 }
+
 $(window).load(function () {
-    PositionPage = new PositionDetailPage(update_hash());
+    DetailPageInstance = new PositionDetailPage(update_hash());
 });

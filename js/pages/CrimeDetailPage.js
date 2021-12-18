@@ -1,4 +1,4 @@
-var CrimePage;
+var DetailPageInstance;
 class CrimeDetailPage extends DetailPage {
     constructor(pageID) {
         super(pageID, 'Crime', [{
@@ -47,7 +47,7 @@ class CrimeDetailPage extends DetailPage {
 
 
     renderArrestCard(row) {
-        var card = ['<div class="card arrest_card">'];
+        /*var card = ['<div class="card arrest_card">'];
         card.push('<span class="date_item" title="' + row['Date'] + '">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</span>');
         card.push('<span class="name_item">' + row['Name'] + '</span>');
         card.push("<br />");
@@ -59,11 +59,12 @@ class CrimeDetailPage extends DetailPage {
         card.push('<span class="description_item">' + row['Description'] + '</span>');
         card.push('<span class="outcome_item">' + row['Outcome'] + '</span>');
         card.push('</div>');
-        var card2 = card.join('');
-        return card2;
+        var card2 = card.join('');*/
+        var c = new ArrestCard(row);
+        return c.getHTML();
     }
 
 }
 $(window).load(function () {
-    CrimePage = new CrimeDetailPage(update_hash());
+    DetailPageInstance = new CrimeDetailPage(update_hash());
 });

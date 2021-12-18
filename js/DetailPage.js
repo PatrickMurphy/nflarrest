@@ -53,6 +53,10 @@ class DetailPage {
 				reload_top_lists();
 			});
 				*/
+                    
+                    setTimeout(() => {
+                        self.resizeCharts();
+                    },1500);
 
 				self.renderView();
 			})
@@ -91,7 +95,14 @@ class DetailPage {
 		this.changeTitle();
 		this.setupCharts();
 		this.renderArrests();
+        this.resizeCharts();
 	}
+    
+    resizeCharts(){
+        for(var i = 0; i < this.charts.length; i++){
+            this.charts[i].chart.resize();
+        }
+    }
 
 	checkLoadingFinished() {
 		if (++this.callbackReturns == (1 + this.chartOptions.length)) { // 1 for arrests plus each chart
@@ -176,7 +187,7 @@ class DetailPage {
 	}
 
 	renderArrestCard(row) {
-		var card = ['<div class="card arrest_card">'];
+		/*var card = ['<div class="card arrest_card">'];
 		card.push('<span class="date_item" title="' + row['Date'] + '">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</span>');
 		card.push('<span class="name_item">' + row['Name'] + '</span>');
 		card.push("<br />");
@@ -189,8 +200,9 @@ class DetailPage {
 		card.push('<span class="outcome_item">' + row['Outcome'] + '</span>');
 		card.push('</div>');
 		var card2 = card.join('');
-		//console.log(card2);
-		return card2;
+		//console.log(card2);*/
+        var c = new ArrestCard(row);
+		return c.getHTML();
 	}
 
 	getDonutData(url, param, chartID, callback) {
