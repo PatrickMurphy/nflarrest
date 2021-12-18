@@ -55,6 +55,7 @@ class DetailPage {
 				*/
 
 				self.renderView();
+                setTimeout(this.resizeCharts(), 5000);
 			})
 		});
 	}

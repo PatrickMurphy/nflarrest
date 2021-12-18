@@ -99,6 +99,7 @@ class PositionDetailPage extends DetailPage {
     }
 
 }
+
 $(window).load(function () {
     PositionPage = new PositionDetailPage(update_hash());
 });
