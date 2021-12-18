@@ -95,8 +95,8 @@ class DetailPage {
 	}
     
     resizeCharts(){
-        for(var i = 0; i < self.charts.length; i++){
-            self.charts[i].resize();
+        for(var i = 0; i < this.charts.length; i++){
+            this.charts[i].resize();
         }
     }
 
