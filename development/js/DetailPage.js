@@ -260,3 +260,7 @@ class DetailPage {
 	}
 
 }
+
+$(window).load(function () {
+    DetailPageInstance.resizeCharts();
+});
