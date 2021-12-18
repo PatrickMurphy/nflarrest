@@ -55,7 +55,7 @@ class DetailPage {
 				*/
 
 				self.renderView();
-                setTimeout(this.resizeCharts(), 5000);
+                setTimeout(self.resizeCharts(), 5000);
 			})
 		});
 	}
