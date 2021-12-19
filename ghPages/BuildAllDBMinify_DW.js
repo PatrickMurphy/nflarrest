@@ -1,5 +1,6 @@
 // --- Include Refrenced Packages --- //
 var fs = require('fs');
+var UglifyJS = require("uglify-js");
 var mysql = require('mysql');
 var node_minify = require('node-minify');
 var gits = require('simple-git');
@@ -7,6 +8,23 @@ var readline = require('readline');
 var mysqldump = require('mysqldump');
 var dbConfig = require('./dbconfig');
 var readline = readline.createInterface(process.stdin, process.stdout);
+var shell = require('shelljs');
+
+function runNode(path, cb1, cb){
+	shell.exec('node '+ path, function(code, stdout, stderr){
+		cb(code, stdout, stderr, cb1);
+	});
+}
+
+function nodeCB(code, stdout, stderr, cb) {
+	if(code !== 0){
+		console.log('Program stderr:', stderr);
+		shell.exit(1);
+	}else{	
+        //console.log('Prod Dev File Diff: ',stdout);
+		cb();
+	}
+}
 
 var git = gits('./nflarrest/');
 
@@ -45,6 +63,7 @@ var mysqldump_path = '../Database/backup/lastGHPagesUpdateDump.sql';
 
 var JS_filenames = ['js/nflLoadingBar.js',
     //'js/data/ArrestsCacheTable_data.js',
+    'js/modules/ArrestCard.Module.js',
     'js/data/lastUpdate_data.js',
     'js/DataController.js',
     'js/index_no_php.js',
@@ -56,11 +75,12 @@ var JS_filenames = ['js/nflLoadingBar.js',
 ];
 
 var JS_filenames_detail = [
-    //'js/DetailPage.js',
-    //'js/model/FiltersModel.js',
-    //'js/FiltersControl.js',
-    //'js/charts/donutChart.js',
+    'js/DetailPage.js',
+    'js/model/FiltersModel.js',
+    'js/FiltersControl.js',
+    'js/charts/donutChart.js',
     'js/data/lastUpdate_data.js',
+    'js/modules/ArrestCard.Module.js',
     'js/DataController.js',
     'js/common.js',
     'js/charts/timeSeriesChart.js',
@@ -157,27 +177,31 @@ function minifyHomepage(callback) {
     });
 }
 
-
 function minifyJS(callback) {
     // Using UglifyJS
     if (runOption_Generate_JS_Flag) {
-        node_minify.minify({
-            compressor: 'uglifyjs',
-            input: getJSFiles(),
-            output: getEnvPath('js/compressed/' + MinFilename_JS),
-            callback: function(err, min) {
-                console.log('Success::     Minify Homepage JS: ' + MinFilename_JS);
-                node_minify.minify({
-                    compressor: 'uglifyjs',
-                    input: getJSFilesDetail(),
-                    output: getEnvPath('js/compressed/' + MinFilename_Detail_JS),
-                    callback: function(err, min) {
-                        console.log('Success::     Minify Homepage JS Detail Page: ' + MinFilename_Detail_JS);
-                        callback();
-                    }
-                });
-            }
-        });
+        var files1 = getJSFiles();
+        var files2 = getJSFilesDetail();
+        
+        var fileObj1 = {};
+        var fileObj2 = {};
+        
+        for(var i = 0; i < files1.length; i++){
+            var key = files1[i].slice(files1[i].lastIndexOf('/')+1,files1[i].length);
+            fileObj1[key] = fs.readFileSync(files1[i], "utf8");
+        }
+        
+        for(var j = 0; j < files2.length; j++){
+            var key = files2[j].slice(files2[j].lastIndexOf('/')+1,files2[j].length);
+            fileObj2[key] = fs.readFileSync(files2[j], "utf8");
+        }
+        
+        fs.writeFileSync(getEnvPath('js/compressed/'+ MinFilename_JS), UglifyJS.minify(fileObj1).code);
+        console.log('Success::     Minify Homepage JS: ' + MinFilename_JS);
+        fs.writeFileSync(getEnvPath('js/compressed/'+ MinFilename_Detail_JS), UglifyJS.minify(fileObj2).code);
+        console.log('Success::     Minify Homepage JS Detail Page: ' + MinFilename_Detail_JS);
+        
+        callback();
     }
 }
 
@@ -249,8 +273,10 @@ function main() {
                     cacheUpdateDate(function() {
                         minifyHomepage(function() {
                             dumpDatabase(function() {
-                                // determine if process should publish ghpages changes
-                                checkPublish();
+                                runNode("BuildFileDiff.js", function(){
+                                    // determine if process should publish ghpages changes
+                                    checkPublish();
+                                }, nodeCB);
                             });
                         });
                     });
@@ -271,8 +297,12 @@ function checkPublish() {
     }
 }
 
-function promptConfirmPublish() {
-    readline.question("GIT:          Publish changes? [yes]/no: ", function(answer) {
+async function promptConfirmPublish() {
+    var StatusResult = await git.status();
+    console.log(StatusResult.files);
+    var allFiles = runOption_publish_AllFiles ? ' ~~!!WARNING ALL FILES SET!!~~ ' : '';
+    
+    readline.question("GIT:          Publish changes? " + allFiles + " [yes]/no: ", function(answer) {
         if (answer === "no") {
             console.log("GIT:          Not Publishing");
             readline.close();
