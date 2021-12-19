@@ -38,9 +38,6 @@ $(window).load(function () {
 
 			$('#loadMoreLists').click(load_top_lists);
 
-			// remove for static
-			//renderActivePlayerArrests();
-			
 			if(detail_page_active){
 				data_controller.getTeams(loadTeamLinks);
 			}else{
@@ -104,23 +101,6 @@ function addChartButtonListeners() {
 		window.location.hash = "ByDivision";
 		changeTopChart();
 		googleTracking.sendTrackEvent('mainChart', 'switchToByDivision');
-	});
-}
-
-function renderActivePlayerArrests() {
-	//$.getJSON('http://nflarrest.com/api/overall/activePlayerArrests.php', function (data) {
-	data_controller.getActivePlayerArrests(function(data){
-		var html_text = '<span class="kpi">' +
-			'<span class="kpi-value-large">' + (data[0].percent * 100).toFixed(2) + '%</span>' +
-			'<span class="kpi-description-smaller">Active Players Arrested</span>' +
-			'<span>' +
-			'<span style="display:inline-block;"><span class="kpi-value-small">' + data[0].arrested + '</span>' +
-			'<span class="kpi-description-x-small">arrested</span></span>' +
-			'<span style="display:inline-block;margin-left:.5em;"><span class="kpi-value-small">' + data[0].active + '</span>' +
-			'<span class="kpi-description-x-small">active</span>' +
-			'</span></span>';
-
-		$('#activePlayerArrestRate').html(html_text);
 	});
 }
 
@@ -192,20 +172,7 @@ function setupArrestOMeter(d) {
 
 function setupRecentArrestCard(d) {
 	data_controller.getMostRecentArrest(function (row) {
-        /*var card = ['<div class="card arrest_card">'];
-		card.push('<span class="date_item" title="' + row['Date'] + '">' + row['DaysSince'] + ' days ago</span>');
-		card.push('<span class="name_item" style="display:inline-block; visibility:visible;"><a href="Player.html#' + row['Name'] + '">' + row['Name'] + '</a> </span>');
-		card.push("<br />");
-		card.push('<span class="crime_item" style="background-color:#' + row['Crime_category_color'] + '">');
-        card.push('<a href="Crime.html#' + row['Category'] + '">' + row['Category'] + "</a> </span>");
-		card.push('<span class="team_item ' + row['Team'] + '" style="background-color:#' + row['Team_hex_color'] + ';">');
-        card.push('<a href="Team.html#' + row['Team'] + '" style="color:#' + row['Team_hex_alt_color'] + ';" >' + row['Team_preffered_name'] + '</a></span>');
-		card.push('<br />');
-		card.push('<span class="description_item">' + row['Description'] + '</span>'); // .substring(0,n)
-		card.push('<span class="outcome_item">' + row['Outcome'] + '</span>');
-		card.push('</div>');
-		var card2 = card.join('');*/
-        var card = new ArrestCard(row,{showName:true});
+        var card = new ArrestCard(row,{showName:true,standalone:true});
 		$('#mostRecentArrestCard').html(card.getHTML());
 	});
     if(!d){

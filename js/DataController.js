@@ -23,6 +23,18 @@ var DataController = {
             }
         });
         
+        // sort data on init
+        function compare( a, b ) {
+          if ( a.daysSince < b.daysSince ){
+            return 1;
+          }
+          if ( a.daysSince > b.daysSince ){
+            return -1;
+          }
+          return 0;
+        }
+        DataController.options.data.sort(compare);
+        
 		callback(this);
 	},
 
