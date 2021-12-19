@@ -172,7 +172,7 @@ function setupArrestOMeter(d) {
 
 function setupRecentArrestCard(d) {
 	data_controller.getMostRecentArrest(function (row) {
-        var card = new ArrestCard(row,{showName:true});
+        var card = new ArrestCard(row,{showName:true,standalone:true});
 		$('#mostRecentArrestCard').html(card.getHTML());
 	});
     if(!d){
