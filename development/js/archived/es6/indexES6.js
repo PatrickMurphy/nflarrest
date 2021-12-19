@@ -36,9 +36,22 @@ class IndexPage {
         };
 
         // loop through, add the button listeners
+        for(var i = 0; i<this.MainChartOptions.buttons.length; i++){
+            $(this.MainChartOptions.buttons[i].element).click(() =>
+                var button = this.MainChartOptions.buttons[i];
+                ytdChart = button.ytdChart;
+                mainChartStyleID = button.id;
+                window.location.hash = button.short_title;
+                changeTopChart();
+                googleTracking.sendTrackEvent('mainChart', 'switchTo'+button.short_title);
+            );
+        }
         // date range init
     }
 }
+
+
+
 $(window).load(function () {
     IndexPage = new IndexPage();
 });
