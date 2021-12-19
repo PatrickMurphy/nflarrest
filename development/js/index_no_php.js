@@ -1,3 +1,4 @@
+var DEBUG = false;
 var dateRangeNFL,
 	mainChartReturned = false;
 

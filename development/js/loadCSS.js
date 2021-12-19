@@ -34,7 +34,8 @@ class StyleSheetManager {
         // for each stylesheet in list, call loadCSS method
 		for(var i = 0; i < stylelist.length; i++){
 			success = this.loadCSS(stylelist[i]);
-			console.log(stylelist[i] + ' Loaded');
+            if(DEBUG)
+                console.log(stylelist[i] + ' Loaded');
 		}
 
 		return success;
@@ -46,7 +47,8 @@ var StyleSheetManagerInstance = new StyleSheetManager();
 // adapter function for any refrences we don't find for loadCSS(url)
 function loadCSS(url){
     // provide warning to developer if refrence still exists
-    console.warn('Deprecated loadCSS('+url+') function called!');
+    if(DEBUG)
+        console.warn('Deprecated loadCSS('+url+') function called!');
     
     // pass argument to es6 function to ensure functionality for end user
     StyleSheetManagerInstance.loadCSS(url);
