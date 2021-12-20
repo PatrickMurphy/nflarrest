@@ -227,7 +227,7 @@ class IndexPage extends WebPage {
         if (typeof (stackedBarChart.stackedChart) != "undefined")
             stackedBarChart.stackedChart.destroy();
         
-        this.getOverallChartData(function (newData) {
+        this.getOverallChartData((newData) => {
             stackedBarChart.init({
                 data: newData,
                 targetElement: '#chart',
