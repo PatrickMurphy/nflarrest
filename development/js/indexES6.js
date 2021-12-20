@@ -61,36 +61,35 @@ class IndexPage extends WebPage {
             ReturnStatus: false
         }
         
-        var self = this;
-        dateRangeController.init(function (newDateRange) {
-            self.dateRangeNFL = newDateRange;
+        dateRangeController.init((newDateRange) => {
+            this.dateRangeNFL = newDateRange;
             dateRangeNFL = newDateRange; // backup adapter
-            DataController.init(dateRangeNFL, function (newDataController) {
+            DataController.init(dateRangeNFL, (newDataController) => {
                 //nflLoadingBar.reset();
-                self.data_controller = newDataController;
+                this.data_controller = newDataController;
                 data_controller = newDataController; // backup adapter
-                self.evaluateHash();
-                self.changeTopChart();
+                this.evaluateHash();
+                this.changeTopChart();
                 // first load of top lists
-                self.load_top_lists('first');
-                self.RenderUpdateDate();    
+                this.load_top_lists('first');
+                this.RenderUpdateDate();    
                 
-                $('#dateRangeJquery').on('dateRangeChanged', function (e) {
-                    self.LoadingBar.showLoading();
-                    self.setupChart();
-                    self.reload_top_lists();
+                $('#dateRangeJquery').on('dateRangeChanged', (e) => {
+                    this.LoadingBar.showLoading();
+                    this.setupChart();
+                    this.reload_top_lists();
                 });
 
-                $('#loadMoreLists').click(self.load_top_lists);
+                $('#loadMoreLists').click(this.load_top_lists);
 
-                if(self.detail_page_active){
-                    self.data_controller.getTeams(self.RenderTeamLinks);
+                if(this.detail_page_active){
+                    this.data_controller.getTeams(this.RenderTeamLinks);
                 }else{
                     $('#bottomTeamLinks').hide();
                 }
 
-                self.addChartButtonListeners();
-                self.setupNewsletter();
+                this.addChartButtonListeners();
+                this.setupNewsletter();
             });
         });
         
@@ -104,7 +103,8 @@ class IndexPage extends WebPage {
     
     RenderTeamLinks(data){
         $.each(data, (key, val) => {
-            $('#bottomTeamLinks').append('<a href="' + this.getPageLink("team", val.Team) + '"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -' + (val.Team_logo_id * 20) + 'px;background-size:100%;"></span> ' + val.Team_preffered_name + '</a> ');
+            var teamlink = this.getPageLink("team", val.Team);
+            $('#bottomTeamLinks').append('<a href="' + teamlink + '"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -' + (val.Team_logo_id * 20) + 'px;background-size:100%;"></span> ' + val.Team_preffered_name + '</a> ');
         });
     }
     
