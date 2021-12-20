@@ -117,7 +117,6 @@ class IndexPage extends WebPage {
         if (replace) {
             this.last_start_pos = 0;
         }
-        var self = this;
         var items = [];
         if (data.length > 0) {
             $.each(data, (key, val) => {
@@ -282,7 +281,7 @@ class IndexPage extends WebPage {
         var d = Math.random() > .5;
         this.setupArrestOMeter(d);
         this.setupRecentArrestCard(!d);
-        this.LoadingBarManager.hideLoading();
+        this.LoadingBar.hideLoading();
         
         this.Lists.ReturnStatus = false;
         this.MainChart.ReturnStatus = false;
