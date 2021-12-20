@@ -33,12 +33,12 @@ var nflLoadingBar = {
 	
 	init: function initialize_loadingbar(){
 		console.warn('Deprecated nflLoadingBar.init() function called!');
-		LoadingBarManagerInstance.reset();
+		//LoadingBarManagerInstance.reset();
 	},
 
 	reset: function(){
         console.warn('Deprecated nflLoadingBar.reset() function called!');
-		LoadingBarManagerInstance.reset();
+		//LoadingBarManagerInstance.reset();
 	},
 	
 	hideLoading: function() {
