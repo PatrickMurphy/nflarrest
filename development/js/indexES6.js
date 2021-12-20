@@ -101,15 +101,18 @@ class IndexPage extends WebPage {
         $("#updateDateFooter").text("Updated: " + lastUpdate);
     }
     
-    RenderTeamLinks(data){
-        $.each(data, (key, val) => {
-            var teamlink = this.getPageLink("team", val.Team);
-            $('#bottomTeamLinks').append('<a href="' + teamlink + '"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -' + (val.Team_logo_id * 20) + 'px;background-size:100%;"></span> ' + val.Team_preffered_name + '</a> ');
-        });
-    }
-    
     getPageLink(page,value){
         return (page.charAt(0).toUpperCase() + page.slice(1)) + ".html#" + value;
+    }
+    
+    RenderTeamLinks(data){
+        $.each(data, (key, val) => {
+            //var teamlink = this.getPageLink("team", val.Team);
+            var page = "team";
+            var value = val.Team;
+            var teamlink = (page.charAt(0).toUpperCase() + page.slice(1)) + ".html#" + value;
+            $('#bottomTeamLinks').append('<a href="' + teamlink + '"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -' + (val.Team_logo_id * 20) + 'px;background-size:100%;"></span> ' + val.Team_preffered_name + '</a> ');
+        });
     }
     
     load_top_list(data, page, prefix, list, values, replace) {
