@@ -10,7 +10,7 @@ class LoadingBarManager {
 	}
 
 	reset(){
-		$(this.options.targetEl).html('<div id="'+ this.options.loadingElID +'">'+ this.options.message +'</div>');
+		$(this.options.targetEl).append('<div id="'+ this.options.loadingElID +'">'+ this.options.message +'</div>');
 		this.showLoading();
 	}
 	
