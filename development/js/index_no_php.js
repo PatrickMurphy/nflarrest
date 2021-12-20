@@ -9,18 +9,20 @@ var last_start_pos = 0,
 	mainChartStyleID = 0,
 	detail_page_active = true;
 
-//removed for es6 var nflLoadingBar;
+//removed for es6 
+var nflLoadingBar;
 
 // controller to load data from DB or pre-queried json
 var data_controller;
 
 $(window).load(function () {
-	//removed for es6 nflLoadingBar = new LoadingBarManager();
-	nflLoadingBar.init();
+	//removed for es6 
+    nflLoadingBar = new LoadingBarManager();
+	//nflLoadingBar.init();
 	dateRangeController.init(function (newDateRange) {
 		dateRangeNFL = newDateRange;
 		DataController.init(dateRangeNFL, function (newDataController) {
-			//nflLoadingBar.reset();
+			nflLoadingBar.reset();
 			data_controller = newDataController;
 
 			evaluateHash();
