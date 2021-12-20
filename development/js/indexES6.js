@@ -15,6 +15,7 @@ var data_controller;
 var IndexPageInstance;
 class IndexPage extends WebPage {
     constructor() {
+        super();
         this.data_controller = undefined;
         this.dateRangeNFL = undefined;
         this.detail_page_active = true;
