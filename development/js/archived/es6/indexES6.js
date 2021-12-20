@@ -1,5 +1,5 @@
 var IndexPage;
-class IndexPage {
+class IndexPage extends WebPage {
     constructor() {
         this.MainChartOptions = {
             buttons: [{
