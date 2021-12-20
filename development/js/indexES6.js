@@ -103,8 +103,8 @@ class IndexPage extends WebPage {
     }
     
     RenderTeamLinks(data){
-        $.each(data, function (key, val) {
-            $('#bottomTeamLinks').append('<a href="' + getPageLink("team", val.Team) + '"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -' + (val.Team_logo_id * 20) + 'px;background-size:100%;"></span> ' + val.Team_preffered_name + '</a> ');
+        $.each(data, (key, val) => {
+            $('#bottomTeamLinks').append('<a href="' + this.getPageLink("team", val.Team) + '"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -' + (val.Team_logo_id * 20) + 'px;background-size:100%;"></span> ' + val.Team_preffered_name + '</a> ');
         });
     }
     
