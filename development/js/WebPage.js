@@ -18,6 +18,16 @@ class WebPage {
         // override
     }
     
+    checkLoadingFinished() {
+		// override
+	}
+    
+    loadingFinished(){
+        this.LoadingBar.hideLoading();
+        this.Utilities.setupFacebook();
+        this.Utilities.setupTwitter();
+    }
+    
     getDetailPageLink(page,value){
         return (page.charAt(0).toUpperCase() + page.slice(1)) + ".html#" + value;
     }

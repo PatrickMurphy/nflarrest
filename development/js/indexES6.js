@@ -114,6 +114,11 @@ class IndexPage extends WebPage {
         });
     }
     
+    // jquery handler function that calls class function
+    load_top_lists_Handler(event){
+       IndexPageInstance.load_top_lists('not first', false);
+    }
+    
     load_top_list(data, page, prefix, list, values, replace) {
         replace = replace || false;
         if (replace) {
@@ -141,12 +146,7 @@ class IndexPage extends WebPage {
             $(list).append(items.join(""));
         }
     }
-    
-    // jquery handler function that calls class function
-    load_top_lists_Handler(event){
-       IndexPageInstance.load_top_lists('not first', false);
-    }
-    
+        
     load_top_lists(first, replace) {
         first = first || 'not first';
         replace = replace || false;
@@ -177,21 +177,27 @@ class IndexPage extends WebPage {
             this.Lists.ReturnStatus = true;
             this.Lists.ReturnCount = 0;
             this.last_start_pos = this.last_start_pos + 5;
+            
             this.checkLoadingFinished();
         });
-    }
-    
-    checkLoadingFinished(){
-        if (this.MainChart.ReturnStatus === true && this.Lists.ReturnStatus === true) {
-            this.MainChart.ReturnStatus = false;
-            this.Lists.ReturnStatus = false;
-            this.loadingFinished();
-        }
     }
     
     reload_top_lists() {
         this.last_start_pos = 0;
         this.load_top_lists('not first', true);
+    }
+    
+    checkLoadingFinished(){
+        if (this.MainChart.ReturnStatus === true && this.Lists.ReturnStatus === true) {
+            this.Lists.ReturnStatus = false;
+            this.MainChart.ReturnStatus = false;
+            var d = Math.random() > .5;
+
+            this.setupArrestOMeter(d);
+            this.setupRecentArrestCard(!d);
+            
+            this.loadingFinished();
+        }
     }
     
     // jquery handler function that calls class function
@@ -299,18 +305,6 @@ class IndexPage extends WebPage {
                 this.MainChart.StyleID = 0;
             }
         }
-    }
-    
-    loadingFinished(){
-        var d = Math.random() > .5;
-        this.setupArrestOMeter(d);
-        this.setupRecentArrestCard(!d);
-        this.LoadingBar.hideLoading();
-        
-        this.Lists.ReturnStatus = false;
-        this.MainChart.ReturnStatus = false;
-        this.Utilities.setupFacebook();
-        this.Utilities.setupTwitter();
     }
     
     setupArrestOMeter(d){

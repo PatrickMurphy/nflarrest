@@ -19,8 +19,6 @@ class DetailPage extends WebPage{
         
         this.StyleManager.loadCSS('css/modules/styles-detailpage.css');
 
-		//$('body').append('<div id="loading-bar">Loading...</div>');
-		//$('#loading-bar').fadeIn();
 		$(window).on('hashchange', function () {
 			self.renderView()
 		});
@@ -67,7 +65,6 @@ class DetailPage extends WebPage{
 	}
 
 	renderView() {
-		//$('#loading-bar').fadeIn();
 		this.LoadingBar.showLoading();
         this.pageID = update_hash(this.pageID);
 		this.changeTitle();
@@ -85,10 +82,7 @@ class DetailPage extends WebPage{
 	checkLoadingFinished() {
 		if (++this.callbackReturns == (1 + this.chartOptions.length)) { // 1 for arrests plus each chart
 			this.callbackReturns = 0;
-			//$('#loading-bar').fadeOut();
-            this.LoadingBar.hideLoading();
-			this.Utilities.setupFacebook();
-			this.Utilities.setupTwitter();
+			this.loadingFinished();
 		}
 	}
 
