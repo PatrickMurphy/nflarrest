@@ -152,8 +152,7 @@ class IndexPage extends WebPage {
         if (first != 'first') {
             this.Utilities.googleTracking.sendTrackEvent('TopLists', 'Load Next Page');
         }
-        //var url = 'http://nflarrest.com/api/overall/topLists.php?limit=5&start_pos=' + last_start_pos + '&start_date=' + dateRangeNFL.getStart() + '&end_date=' + dateRangeNFL.getEnd();
-        //$.getJSON(url, function (data) {
+        
         data_controller.getTopLists(this.last_start_pos, dateRangeNFL.getStart(), dateRangeNFL.getEnd(), (data) => {
             var crimes_list = data[0],
                 players_list = data[1],
@@ -370,7 +369,6 @@ class IndexPage extends WebPage {
         if(detail_page_active){
             $(".top-list ol li").click(function () {
                 window.location = $(this).find("a").attr("href");
-                console.log($(this).find("a").attr("href"));
                 return false;
             });
         }
