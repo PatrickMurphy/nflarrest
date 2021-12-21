@@ -17,10 +17,10 @@ class DetailPage extends WebPage{
 		if (mobileCheck())
 			this.arrest_view_mode = 1; // if mobile use cards
         
-        loadCSS('css/modules/styles-detailpage.css');
+        this.StyleManager.loadCSS('css/modules/styles-detailpage.css');
 
-		$('body').append('<div id="loading-bar">Loading...</div>');
-		$('#loading-bar').fadeIn();
+		//$('body').append('<div id="loading-bar">Loading...</div>');
+		//$('#loading-bar').fadeIn();
 		$(window).on('hashchange', function () {
 			self.renderView()
 		});
@@ -92,8 +92,9 @@ class DetailPage extends WebPage{
 	}
 
 	renderView() {
-		$('#loading-bar').fadeIn();
-		this.pageID = update_hash(this.pageID);
+		//$('#loading-bar').fadeIn();
+		this.LoadingBar.showLoading();
+        this.pageID = update_hash(this.pageID);
 		this.changeTitle();
 		this.setupCharts();
 		this.renderArrests();
@@ -109,7 +110,8 @@ class DetailPage extends WebPage{
 	checkLoadingFinished() {
 		if (++this.callbackReturns == (1 + this.chartOptions.length)) { // 1 for arrests plus each chart
 			this.callbackReturns = 0;
-			$('#loading-bar').fadeOut();
+			//$('#loading-bar').fadeOut();
+            this.LoadingBar.hideLoading();
 			setupFacebook();
 			setupTwitter();
 		}
