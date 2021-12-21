@@ -47,18 +47,10 @@ class DetailPage extends WebPage{
 				$('#dateRangeJquery').on('dateRangeChanged', function (e) {
 					self.renderView();
 				});
-
-				/*
-			$('#dateRangeJquery').on('dateRangeChanged', function (e) {
-				nflLoadingBar.showLoading();
-				setupChart();
-				reload_top_lists();
-			});
-				*/
-                    
-                    setTimeout(() => {
-                        self.resizeCharts();
-                    },1500);
+                
+                setTimeout(() => {
+                    self.resizeCharts();
+                },1500);
 
 				self.renderView();
 			})
@@ -112,8 +104,8 @@ class DetailPage extends WebPage{
 			this.callbackReturns = 0;
 			//$('#loading-bar').fadeOut();
             this.LoadingBar.hideLoading();
-			setupFacebook();
-			setupTwitter();
+			this.Utilities.setupFacebook();
+			this.Utilities.setupTwitter();
 		}
 	}
 
