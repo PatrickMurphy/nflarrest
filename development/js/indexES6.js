@@ -190,18 +190,21 @@ class IndexPage extends WebPage {
        var i = event.data.param1;
        console.log(i);
        console.log(IndexPageInstance);
-        IndexPageInstance.MainChart.ytdChart = IndexPageInstance.MainChart.buttons[i].ytdChart;
-        IndexPageInstance.MainChart.StyleID = IndexPageInstance.MainChart.buttons[i].id;   
-        IndexPageInstance.Utilities.SetHash(IndexPageInstance.MainChart.buttons[i].short_title);
+       console.log(event.data.btn);
+       
+       var theBtn = event.data.btn;
+        IndexPageInstance.MainChart.ytdChart = theBtn.ytdChart;
+        IndexPageInstance.MainChart.StyleID = theBtn.id;   
+        IndexPageInstance.Utilities.SetHash(theBtn.short_title);
         IndexPageInstance.changeTopChart();
-        IndexPageInstance.Utilities.googleTracking.sendTrackEvent('mainChart', 'switchTo'+IndexPageInstance.MainChart.buttons[i].short_title);
+        IndexPageInstance.Utilities.googleTracking.sendTrackEvent('mainChart', 'switchTo'+theBtn.short_title);
     }
     
     /* ---==== Chart Methods ====--- */
     addChartButtonListeners(){
         // loop through, add the button listeners
         for(var i = 0; i<this.MainChart.buttons.length; i++){
-            $(this.MainChart.buttons[i].element).click({param1: i}, this.setMainChartHandler);
+            $(this.MainChart.buttons[i].element).click({param1: i,btn: this.MainChart.buttons[i]}, this.setMainChartHandler);
         }
     }
     
@@ -266,6 +269,15 @@ class IndexPage extends WebPage {
         }
     }
     /* ---==== End Chart Methods ====--- */
+    
+    
+    /* ---==== Setter/Getter Methods ====--- */
+    setMainChartYTD(ytd){
+        this.MainChart.ytdChart = ytd;
+    }
+    setMainChartStyleID(id){
+        this.MainChart.StyleID = id;
+    }
     
     /* ---==== Other Methods ====--- */
     evaluateHash(){
