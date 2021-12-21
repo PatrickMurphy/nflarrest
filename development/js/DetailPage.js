@@ -1,6 +1,7 @@
 var DEBUG = false;
-class DetailPage {
+class DetailPage extends WebPage{
 	constructor(pageID, pageTitle, chartOptions, arrestsUrl) {
+        super();
 		this.pageID = pageID; // SEA
 		this.pageTitle = pageTitle; // Team
 		this.arrestsUrl = arrestsUrl; // api/team/arrests.php?id=
