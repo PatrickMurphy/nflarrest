@@ -188,6 +188,7 @@ class IndexPage extends WebPage {
     
    setMainChart(event){
        var i = event.data.param1;
+       console.log(i,event,this);
         this.MainChart.ytdChart = this.MainChart.buttons[i].ytdChart;
         this.MainChart.StyleID = this.MainChart.buttons[i].id;   
         this.Utilities.SetHash(this.MainChart.buttons[i].short_title);
