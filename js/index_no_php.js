@@ -1,3 +1,4 @@
+var DEBUG = false;
 var dateRangeNFL,
 	mainChartReturned = false;
 
@@ -190,6 +191,10 @@ function evaluateHash(){
 			mainChartStyleID = 1;
 		} else if (window.location.hash == "#BySeason") {
 			mainChartStyleID = 2;
+		} else if (window.location.hash == "#ByDayOfWeek") {
+			mainChartStyleID = 3;
+		} else if (window.location.hash == "#ByDivision") {
+			mainChartStyleID = 4;
 		} else {
 			mainChartStyleID = 0;
 		}

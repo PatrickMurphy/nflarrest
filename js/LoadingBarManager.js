@@ -1,7 +1,6 @@
 /*----------------
 Todo: replace references
 ------------------*/
-/*
 class LoadingBarManager {
 	constructor(){
 		this.options = {targetEl: 'body',
@@ -11,7 +10,7 @@ class LoadingBarManager {
 	}
 
 	reset(){
-		$(this.options.targetEl).html('<div id="'+ this.options.loadingElID +'">'+ this.options.message +'</div>');
+		$(this.options.targetEl).append('<div id="'+ this.options.loadingElID +'">'+ this.options.message +'</div>');
 		this.showLoading();
 	}
 	
@@ -23,8 +22,37 @@ class LoadingBarManager {
 		$('#'+ this.options.loadingElID).fadeIn();
 	}
 }
-*/
 
+//var LoadingBarManagerInstance = new LoadingBarManager();
+var nflLoadingBar = {
+	options: {
+		targetEl: 'body',
+		loadingElID: 'loading-bar',
+		message: 'Loading...'
+	},
+	
+	init: function initialize_loadingbar(){
+		console.warn('Deprecated nflLoadingBar.init() function called!');
+		//LoadingBarManagerInstance.reset();
+	},
+
+	reset: function(){
+        console.warn('Deprecated nflLoadingBar.reset() function called!');
+		//LoadingBarManagerInstance.reset();
+	},
+	
+	hideLoading: function() {
+        console.warn('Deprecated nflLoadingBar.hideLoading() function called!');
+		LoadingBarManagerInstance.hideLoading();
+	},
+	
+	showLoading: function() {
+        console.warn('Deprecated nflLoadingBar.showLoading() function called!');
+		LoadingBarManagerInstance.showLoading();
+	}
+};
+
+/*
 var nflLoadingBar = {
 	options: {
 		targetEl: 'body',
@@ -49,3 +77,4 @@ var nflLoadingBar = {
 		$('#'+ nflLoadingBar.options.loadingElID).fadeIn();
 	}
 };
+*/

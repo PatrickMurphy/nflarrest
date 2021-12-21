@@ -1,3 +1,4 @@
+var DEBUG = false;
 class DetailPage {
 	constructor(pageID, pageTitle, chartOptions, arrestsUrl) {
 		this.pageID = pageID; // SEA
