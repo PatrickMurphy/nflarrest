@@ -183,17 +183,26 @@ class IndexPage extends WebPage {
         this.load_top_lists('not first', true);
     }
     
+   /* setMainChart(i){
+        this.MainChart.ytdChart = this.MainChart.buttons[i].ytdChart;
+        this.MainChart.StyleID = this.MainChart.buttons[i].id;   
+        this.Utilities.SetHash(this.MainChart.buttons[i].short_title);
+        this.changeTopChart();
+        this.Utilities.googleTracking.sendTrackEvent('mainChart', 'switchTo'+this.MainChart.buttons[i].short_title);
+    }*/
+    
     /* ---==== Chart Methods ====--- */
     addChartButtonListeners(){
         // loop through, add the button listeners
-        for(var i = 0; i<this.MainChart.buttons.length; i++){
+        var self= this;
+        for(var i = 0; i<self.MainChart.buttons.length; i++){
             //var button = this.MainChart.buttons[i];
-            $(this.MainChart.buttons[i].element).click(() => {            
-                this.MainChart.ytdChart = this.MainChart.buttons[i].ytdChart;
-                this.MainChart.StyleID = this.MainChart.buttons[i].id;   
-                this.Utilities.SetHash(this.MainChart.buttons[i].short_title);
-                this.changeTopChart();
-                this.Utilities.googleTracking.sendTrackEvent('mainChart', 'switchTo'+this.MainChart.buttons[i].short_title);
+            $(self.MainChart.buttons[i].element).click(() => {            
+                self.MainChart.ytdChart = self.MainChart.buttons[i].ytdChart;
+                self.MainChart.StyleID = self.MainChart.buttons[i].id;   
+                self.Utilities.SetHash(self.MainChart.buttons[i].short_title);
+                self.changeTopChart();
+                self.Utilities.googleTracking.sendTrackEvent('mainChart', 'switchTo'+self.MainChart.buttons[i].short_title);
             });
         }
     }
