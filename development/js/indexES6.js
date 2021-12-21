@@ -187,8 +187,8 @@ class IndexPage extends WebPage {
     addChartButtonListeners(){
         // loop through, add the button listeners
         for(var i = 0; i<this.MainChart.buttons.length; i++){
+            var button = this.MainChart.buttons[i];
             $(this.MainChart.buttons[i].element).click(() => {
-                var button = this.MainChart.buttons[i];
                                                               
                 this.MainChart.ytdChart = button.ytdChart;
                 this.MainChart.StyleID = button.id;   
