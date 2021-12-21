@@ -187,24 +187,28 @@ class IndexPage extends WebPage {
     }
     
    setMainChartHandler(event){
-       var i = event.data.param1;
+       var i = event.data.btnID;
        console.log(i);
        console.log(IndexPageInstance);
        console.log(event.data.btn);
        
        var theBtn = event.data.btn;
-        IndexPageInstance.MainChart.ytdChart = theBtn.ytdChart;
-        IndexPageInstance.MainChart.StyleID = theBtn.id;   
-        IndexPageInstance.Utilities.SetHash(theBtn.short_title);
-        IndexPageInstance.changeTopChart();
-        IndexPageInstance.Utilities.googleTracking.sendTrackEvent('mainChart', 'switchTo'+theBtn.short_title);
+       IndexPageInstance.setMainChart(theBtn);
+    }
+    
+    setMainChart(theBtn){
+        this.MainChart.ytdChart = theBtn.ytdChart;
+        this.MainChart.StyleID = theBtn.id;   
+        this.Utilities.SetHash(theBtn.short_title);
+        this.changeTopChart();
+        this.Utilities.googleTracking.sendTrackEvent('mainChart', 'switchTo'+theBtn.short_title);
     }
     
     /* ---==== Chart Methods ====--- */
     addChartButtonListeners(){
         // loop through, add the button listeners
         for(var i = 0; i<this.MainChart.buttons.length; i++){
-            $(this.MainChart.buttons[i].element).click({param1: i,btn: this.MainChart.buttons[i]}, this.setMainChartHandler);
+            $(this.MainChart.buttons[i].element).click({btnID: i, btn: this.MainChart.buttons[i]}, this.setMainChartHandler);
         }
     }
     
