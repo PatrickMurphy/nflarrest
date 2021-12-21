@@ -16,51 +16,54 @@ var IndexPageInstance;
 class IndexPage extends WebPage {
     constructor() {
         super();
+        
+        // define class member variables
         this.data_controller = undefined;
         this.dateRangeNFL = undefined;
-        this.detail_page_active = true;
         this.last_start_pos = 0;
+        this.detail_page_active = true; // option
         this.MainChart = {
             ytdChart: false,
             StyleID:0,
             ReturnStatus: false,
             
             buttons: [{
-                title: 'By Team',
-                short_title: 'ByTeam',
-                id: 0,
-                ytdChart: false,
-                element: '#mainChartByTeamBtn'
-            }, {
-                title: 'By Year',
-                short_title: 'ByYear',
-                id: 1,
-                ytdChart: true,
-                element: '#mainChartByYearBtn'
-            }, {
-                title: 'By Season',
-                short_title: 'BySeason',
-                id: 2,
-                ytdChart: false,
-                element: '#mainChartBySeasonBtn'
-            }, {
-                title: 'By Day',
-                short_title: 'ByDayOfWeek',
-                id: 3,
-                ytdChart: true,
-                element: '#mainChartByConfBtn'
-            }, {
-                title: 'By Division',
-                short_title: 'ByDivision',
-                id: 4,
-                ytdChart: true,
-                element: '#mainChartByConfDivBtn'
-            }]
+                    title: 'By Team',
+                    short_title: 'ByTeam',
+                    id: 0,
+                    ytdChart: false,
+                    element: '#mainChartByTeamBtn'
+                }, {
+                    title: 'By Year',
+                    short_title: 'ByYear',
+                    id: 1,
+                    ytdChart: true,
+                    element: '#mainChartByYearBtn'
+                }, {
+                    title: 'By Season',
+                    short_title: 'BySeason',
+                    id: 2,
+                    ytdChart: false,
+                    element: '#mainChartBySeasonBtn'
+                }, {
+                    title: 'By Day',
+                    short_title: 'ByDayOfWeek',
+                    id: 3,
+                    ytdChart: true,
+                    element: '#mainChartByConfBtn'
+                }, {
+                    title: 'By Division',
+                    short_title: 'ByDivision',
+                    id: 4,
+                    ytdChart: true,
+                    element: '#mainChartByConfDivBtn'
+                }]
         };
         this.Lists = {
             ReturnStatus: false
-        }
+        };
         
+        // run constructor logic
         dateRangeController.init((newDateRange) => {
             this.dateRangeNFL = newDateRange;
             dateRangeNFL = newDateRange; // backup adapter
@@ -101,10 +104,6 @@ class IndexPage extends WebPage {
         $("#updateDateFooter").text("Updated: " + lastUpdate);
     }
     
-    getPageLink(page,value){
-        return (page.charAt(0).toUpperCase() + page.slice(1)) + ".html#" + value;
-    }
-    
     RenderTeamLinks(data){
         $.each(data, (key, val) => {
             //var teamlink = this.getPageLink("team", val.Team);
@@ -123,7 +122,7 @@ class IndexPage extends WebPage {
         var items = [];
         if (data.length > 0) {
             $.each(data, (key, val) => {
-                var link = "<a href=\"" + this.getPageLink(page, val[values[0]]) + "\">";
+                var link = "<a href=\"" + this.getDetailPageLink(page, val[values[0]]) + "\">";
                 var link_end = '</a>';
                 if (page == '' || !this.detail_page_active) {
                     link = '';

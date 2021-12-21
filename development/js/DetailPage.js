@@ -29,7 +29,9 @@ class DetailPage extends WebPage{
 			self.dateRangeNFL = newDateRange;
 			DataController.init(self.dateRangeNFL, function (newDataController) {
 				self.data_controller = newDataController;
-				var page_dimension = self.pageTitle.toLowerCase();
+				
+                /* ==== Filters Code ==== */
+                var page_dimension = self.pageTitle.toLowerCase();
 				var filters_options = {
 					presets: {},
 					date_range_object: self.dateRangeNFL
@@ -43,6 +45,7 @@ class DetailPage extends WebPage{
 					// todo not working, using the hash change global for now
 					self.renderView();
 				});
+                /* ==== End Filters Code ==== */
 
 				$('#dateRangeJquery').on('dateRangeChanged', function (e) {
 					self.renderView();
@@ -55,26 +58,6 @@ class DetailPage extends WebPage{
 				self.renderView();
 			})
 		});
-	}
-
-	getLink(Dimension, EntityValue){
-		return Dimension + '.html#' + EntityValue;
-	}
-
-	getCrimeLink(EntityValue){
-		return this.getLink('Crime', EntityValue);
-	}
-
-	getPlayerLink(EntityValue){
-		return this.getLink('Player', EntityValue);
-	}
-
-	getTeamLink(EntityValue){
-		return this.getLink('Team', EntityValue);
-	}
-
-	getPositionLink(EntityValue){
-		return this.getLink('Position', EntityValue);
 	}
 
 	changeTitle(newTitle, s) {

@@ -13,4 +13,28 @@ class WebPage {
 		this.StyleManager = new StyleSheetManager();
 		this.LoadingBar = new LoadingBarManager();
 	}
+    
+    renderView(){
+        // override
+    }
+    
+    getDetailPageLink(page,value){
+        return (page.charAt(0).toUpperCase() + page.slice(1)) + ".html#" + value;
+    }
+
+	getCrimeLink(EntityValue){
+		return this.getDetailPageLink('Crime', EntityValue);
+	}
+
+	getPlayerLink(EntityValue){
+		return this.getDetailPageLink('Player', EntityValue);
+	}
+
+	getTeamLink(EntityValue){
+		return this.getDetailPageLink('Team', EntityValue);
+	}
+
+	getPositionLink(EntityValue){
+		return this.getDetailPageLink('Position', EntityValue);
+	}
 }
