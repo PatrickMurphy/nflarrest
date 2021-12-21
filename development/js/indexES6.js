@@ -186,21 +186,22 @@ class IndexPage extends WebPage {
         this.load_top_lists('not first', true);
     }
     
-   setMainChart(event){
+   setMainChartHandler(event){
        var i = event.data.param1;
-       console.log(i,event,this);
-        this.MainChart.ytdChart = this.MainChart.buttons[i].ytdChart;
-        this.MainChart.StyleID = this.MainChart.buttons[i].id;   
-        this.Utilities.SetHash(this.MainChart.buttons[i].short_title);
-        this.changeTopChart();
-        this.Utilities.googleTracking.sendTrackEvent('mainChart', 'switchTo'+this.MainChart.buttons[i].short_title);
+       console.log(i);
+       console.log(IndexPageInstance);
+        IndexPageInstance.MainChart.ytdChart = IndexPageInstance.MainChart.buttons[i].ytdChart;
+        IndexPageInstance.MainChart.StyleID = IndexPageInstance.MainChart.buttons[i].id;   
+        IndexPageInstance.Utilities.SetHash(IndexPageInstance.MainChart.buttons[i].short_title);
+        IndexPageInstance.changeTopChart();
+        IndexPageInstance.Utilities.googleTracking.sendTrackEvent('mainChart', 'switchTo'+IndexPageInstance.MainChart.buttons[i].short_title);
     }
     
     /* ---==== Chart Methods ====--- */
     addChartButtonListeners(){
         // loop through, add the button listeners
         for(var i = 0; i<this.MainChart.buttons.length; i++){
-            $(this.MainChart.buttons[i].element).click({param1: i}, this.setMainChart);
+            $(this.MainChart.buttons[i].element).click({param1: i}, this.setMainChartHandler);
         }
     }
     
