@@ -23,7 +23,7 @@ class LoadingBarManager {
 	}
 }
 
-var LoadingBarManagerInstance = new LoadingBarManager();
+//var LoadingBarManagerInstance = new LoadingBarManager();
 var nflLoadingBar = {
 	options: {
 		targetEl: 'body',
