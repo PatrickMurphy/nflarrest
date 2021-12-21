@@ -148,32 +148,34 @@ class IndexPage extends WebPage {
         replace = replace || false;
 
         $('.list-no-data-msg-item').remove();
+        
+        var ref = IndexPageInstance;
 
         if (first != 'first') {
-            //this.Utilities.googleTracking.sendTrackEvent('TopLists', 'Load Next Page');
+            ref.Utilities.googleTracking.sendTrackEvent('TopLists', 'Load Next Page');
         }
         console.log(this, this.last_start_pos);
-        data_controller.getTopLists(this.last_start_pos, dateRangeNFL.getStart(), dateRangeNFL.getEnd(), (data) => {
+        data_controller.getTopLists(ref.last_start_pos, dateRangeNFL.getStart(), dateRangeNFL.getEnd(), (data) => {
             var crimes_list = data[0],
                 players_list = data[1],
                 positions_list = data[2];
 
-            if ((crimes_list.length + players_list.length + positions_list.length) <= 0 && this.last_start_pos == 0) {
+            if ((crimes_list.length + players_list.length + positions_list.length) <= 0 && ref.last_start_pos == 0) {
                 console.warn('no data returned');
             }
 
-            this.load_top_list(crimes_list, 'crime', 'top_crime_', '#top_crimes_list', ['Category', 'arrest_count'], replace);
-            this.load_top_list(players_list, 'player', 'top_player_', '#top_players_list', ['Name', 'arrest_count'], replace);
-            this.load_top_list(positions_list, 'position', 'top_pos_', '#top_positions_list', ['Position', 'arrest_count'], replace);
+            ref.load_top_list(crimes_list, 'crime', 'top_crime_', '#top_crimes_list', ['Category', 'arrest_count'], replace);
+            ref.load_top_list(players_list, 'player', 'top_player_', '#top_players_list', ['Name', 'arrest_count'], replace);
+            ref.load_top_list(positions_list, 'position', 'top_pos_', '#top_positions_list', ['Position', 'arrest_count'], replace);
 
             // set returns
-            this.Lists.ReturnStatus = true;
-            this.Lists.ReturnCount = 0;
-            this.last_start_pos = this.last_start_pos + 5;
-            if (this.MainChart.ReturnStatus === true && this.Lists.ReturnStatus === true) {
-                this.MainChart.ReturnStatus = false;
-                this.Lists.ReturnStatus = false;
-                this.loadingFinished();
+            ref.Lists.ReturnStatus = true;
+            ref.Lists.ReturnCount = 0;
+            ref.last_start_pos = ref.last_start_pos + 5;
+            if (ref.MainChart.ReturnStatus === true && ref.Lists.ReturnStatus === true) {
+                ref.MainChart.ReturnStatus = false;
+                ref.Lists.ReturnStatus = false;
+                ref.loadingFinished();
             }
         });
     }
