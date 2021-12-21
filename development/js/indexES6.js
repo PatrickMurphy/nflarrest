@@ -80,7 +80,7 @@ class IndexPage extends WebPage {
                     this.reload_top_lists();
                 });
 
-                $('#loadMoreLists').click(this.load_top_lists);
+                $('#loadMoreLists').click(this.load_top_lists_Handler);
 
                 if(this.detail_page_active){
                     this.data_controller.getTeams(this.RenderTeamLinks);
@@ -143,14 +143,19 @@ class IndexPage extends WebPage {
         }
     }
     
+    // jquery handler function that calls class function
+    load_top_lists_Handler(event){
+       IndexPageInstance.load_top_list();
+    }
+    
+    
     load_top_lists(first, replace) {
         first = first || 'not first';
         replace = replace || false;
 
         $('.list-no-data-msg-item').remove();
         
-        var ref = IndexPageInstance;
-        
+        //var ref = IndexPageInstance;
 
         if (first != 'first') {
             this.Utilities.googleTracking.sendTrackEvent('TopLists', 'Load Next Page');
@@ -186,16 +191,12 @@ class IndexPage extends WebPage {
         this.load_top_lists('not first', true);
     }
     
-   setMainChartHandler(event){
-       var i = event.data.btnID;
-       console.log(i);
-       console.log(IndexPageInstance);
-       console.log(event.data.btn);
-       
-       var theBtn = event.data.btn;
-       IndexPageInstance.setMainChart(theBtn);
+    // jquery handler function that calls class function
+    setMainChartHandler(event){
+       IndexPageInstance.setMainChart(event.data.btn);
     }
     
+    // class function to set necessary vars to change top chart
     setMainChart(theBtn){
         this.MainChart.ytdChart = theBtn.ytdChart;
         this.MainChart.StyleID = theBtn.id;   
