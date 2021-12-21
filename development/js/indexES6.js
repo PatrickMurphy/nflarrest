@@ -177,12 +177,16 @@ class IndexPage extends WebPage {
             this.Lists.ReturnStatus = true;
             this.Lists.ReturnCount = 0;
             this.last_start_pos = this.last_start_pos + 5;
-            if (this.MainChart.ReturnStatus === true && this.Lists.ReturnStatus === true) {
-                this.MainChart.ReturnStatus = false;
-                this.Lists.ReturnStatus = false;
-                this.loadingFinished();
-            }
+            this.checkLoadingFinished();
         });
+    }
+    
+    checkLoadingFinished(){
+        if (this.MainChart.ReturnStatus === true && this.Lists.ReturnStatus === true) {
+            this.MainChart.ReturnStatus = false;
+            this.Lists.ReturnStatus = false;
+            this.loadingFinished();
+        }
     }
     
     reload_top_lists() {
@@ -251,11 +255,7 @@ class IndexPage extends WebPage {
             });
             
             this.MainChart.ReturnStatus = true;
-            if (this.Lists.ReturnStatus === true && this.MainChart.ReturnStatus === true) {
-                this.MainChart.ReturnStatus = false;
-                this.Lists.ReturnStatus = false;
-                this.loadingFinished();
-            }
+            this.checkLoadingFinished();
         });
     }
     
