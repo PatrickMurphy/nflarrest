@@ -186,27 +186,20 @@ class IndexPage extends WebPage {
         this.load_top_lists('not first', true);
     }
     
-   /* setMainChart(i){
+   setMainChart(event){
+       var i = event.data.param1;
         this.MainChart.ytdChart = this.MainChart.buttons[i].ytdChart;
         this.MainChart.StyleID = this.MainChart.buttons[i].id;   
         this.Utilities.SetHash(this.MainChart.buttons[i].short_title);
         this.changeTopChart();
         this.Utilities.googleTracking.sendTrackEvent('mainChart', 'switchTo'+this.MainChart.buttons[i].short_title);
-    }*/
+    }
     
     /* ---==== Chart Methods ====--- */
     addChartButtonListeners(){
         // loop through, add the button listeners
         for(var i = 0; i<this.MainChart.buttons.length; i++){
-            //var button = this.MainChart.buttons[i];
-            document.getElementById(this.MainChart.buttons[i].element.substring(1)).addEventListener("click", () => {            
-                this.MainChart.ytdChart = this.MainChart.buttons[i].ytdChart;
-                this.MainChart.StyleID = this.MainChart.buttons[i].id;   
-                this.Utilities.SetHash(this.MainChart.buttons[i].short_title);
-                this.changeTopChart();
-                this.Utilities.googleTracking.sendTrackEvent('mainChart', 'switchTo'+this.MainChart.buttons[i].short_title);
-            });
-            //$(this.MainChart.buttons[i].element).click();
+            $(this.MainChart.buttons[i].element).click({param1: i}, this.setMainChart);
         }
     }
     
