@@ -187,14 +187,13 @@ class IndexPage extends WebPage {
     addChartButtonListeners(){
         // loop through, add the button listeners
         for(var i = 0; i<this.MainChart.buttons.length; i++){
-            var button = this.MainChart.buttons[i];
-            $(this.MainChart.buttons[i].element).click(() => {
-                                                              
-                this.MainChart.ytdChart = button.ytdChart;
-                this.MainChart.StyleID = button.id;   
-                this.Utilities.SetHash(button.short_title);
+            //var button = this.MainChart.buttons[i];
+            $(this.MainChart.buttons[i].element).click(() => {            
+                this.MainChart.ytdChart = this.MainChart.buttons[i].ytdChart;
+                this.MainChart.StyleID = this.MainChart.buttons[i].id;   
+                this.Utilities.SetHash(this.MainChart.buttons[i].short_title);
                 this.changeTopChart();
-                this.Utilities.googleTracking.sendTrackEvent('mainChart', 'switchTo'+button.short_title);
+                this.Utilities.googleTracking.sendTrackEvent('mainChart', 'switchTo'+this.MainChart.buttons[i].short_title);
             });
         }
     }
