@@ -341,7 +341,7 @@ class IndexPage extends WebPage {
     }
     
     setupNewsletter(){
-        $('#newsletterForm').submit(function (e) {
+        $('#newsletterForm').submit((e) => {
             e.preventDefault();
             $.ajax({
                 url: 'http://patrickmurphywebdesign.com/Projects/emails/emailList.php',
@@ -351,17 +351,17 @@ class IndexPage extends WebPage {
                 }
             });
             $('#newsletterForm').html('<p>Thanks for Subscribing! Expect Emails when Players are arrested or when records are broken!</p>');
-            googleTracking.sendTrackEvent('Email List', 'Subscribe');
+            this.Utilities.googleTracking.sendTrackEvent('Email List', 'Subscribe');
         });
-        $('#newsletterForm input[name=email]').focus(function () {
-            googleTracking.sendTrackEvent('Email List', 'Focus');
+        $('#newsletterForm input[name=email]').focus(() => {
+            this.Utilities.googleTracking.sendTrackEvent('Email List', 'Focus');
         });
         
         // button for mobile to show the newsletter form
-        $('#newsletterDisplayBtn').click(function () {
+        $('#newsletterDisplayBtn').click(() => {
             $('#newsletterContainer').css('display', 'block');
             $('#newsletterDisplayBtn').css('display', 'none');
-            googleTracking.sendTrackEvent('Email List', 'MobileShowForm');
+            this.Utilities.googleTracking.sendTrackEvent('Email List', 'MobileShowForm');
         });
     }
     
