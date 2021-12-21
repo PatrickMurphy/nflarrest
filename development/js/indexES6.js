@@ -152,7 +152,7 @@ class IndexPage extends WebPage {
         if (first != 'first') {
             //this.Utilities.googleTracking.sendTrackEvent('TopLists', 'Load Next Page');
         }
-        
+        console.log(this, this.last_start_pos);
         data_controller.getTopLists(this.last_start_pos, dateRangeNFL.getStart(), dateRangeNFL.getEnd(), (data) => {
             var crimes_list = data[0],
                 players_list = data[1],
