@@ -10,7 +10,6 @@ class DetailPage extends WebPage{
 		this.data_controller;
 
 		this.callbackReturns = 0;
-		this.charts = [];
 
 		var self = this;
 
@@ -23,32 +22,16 @@ class DetailPage extends WebPage{
 			self.renderView()
 		});
 
-		dateRangeController.init(function (newDateRange) {
+		dateRangeController.init(newDateRange => {
 			self.dateRangeNFL = newDateRange;
-			DataController.init(self.dateRangeNFL, function (newDataController) {
+			DataController.init(self.dateRangeNFL, newDataController => {
 				self.data_controller = newDataController;
 				
-                /* ==== Filters Code ==== */
-                var page_dimension = self.pageTitle.toLowerCase();
-				var filters_options = {
-					presets: {},
-					date_range_object: self.dateRangeNFL
-				};
-
-				filters_options['presets'][page_dimension] = {};
-				filters_options['presets'][page_dimension][page_dimension] = self.pageID;
-				self.FilterControl = new FiltersControl(filters_options);
-				$(self.FilterControl.options.dialog_element).on('FilterDialogChanged', function () {
-					console.log('render view filter');
-					// todo not working, using the hash change global for now
-					self.renderView();
-				});
-                /* ==== End Filters Code ==== */
-
-				$('#dateRangeJquery').on('dateRangeChanged', function (e) {
-					self.renderView();
-				});
+                self.setupFilters();
                 
+				$('#dateRangeJquery').on('dateRangeChanged', self.renderView);
+                
+                // resize charts after everything loaded
                 setTimeout(() => {
                     self.resizeCharts();
                 },1500);
@@ -221,5 +204,4 @@ class DetailPage extends WebPage{
 			});
 		}
 	}
-
 }
