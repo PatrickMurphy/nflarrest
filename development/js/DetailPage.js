@@ -18,11 +18,21 @@ class DetailPage extends WebPage{
         
         this.StyleManager.loadCSS('css/modules/styles-detailpage.css');
 
-		$(window).on('hashchange', function () {
-			self.renderView()
-		});
+		$(window).on('hashchange', () => this.renderView());
 
-		dateRangeController.init(newDateRange => {
+        this.DateRangeControl = new DateRangeControl();
+        this.data_controller = new DataController(this.DateRangeControl);
+        this.setupFilters();
+        $('#dateRangeJquery').on('dateRangeChanged', this.renderView);
+        
+        // resize charts after everything loaded
+        setTimeout(() => {
+            this.resizeCharts();
+        },1500);
+        
+        this.renderView();
+        
+		/*dateRangeController.init(newDateRange => {
 			self.dateRangeNFL = newDateRange;
 			DataController.init(self.dateRangeNFL, newDataController => {
 				self.data_controller = newDataController;
@@ -38,7 +48,7 @@ class DetailPage extends WebPage{
 
 				self.renderView();
 			})
-		});
+		});*/
 	}
 
 	changeTitle(newTitle, s) {
