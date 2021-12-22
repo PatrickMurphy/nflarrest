@@ -248,9 +248,11 @@ class IndexPage extends WebPage {
     
     setupChart(){
         // todo stacked bar es6
-        if(this.charts.length > 0 && this.charts[0].hasOwnProperty('stackedChart'))
-            if (typeof (this.charts[0].stackedChart) != "undefined")
-                this.charts[0].stackedChart.destroy();
+        if(this.charts.length > 0)
+            if(this.charts[0] !== null)
+                if(this.charts[0].hasOwnProperty('stackedChart'))
+                    if (typeof (this.charts[0].stackedChart) != "undefined")
+                        this.charts[0].stackedChart.destroy();
         
         this.getOverallChartData((newData) => {
             this.charts[0] = stackedBarChart.init({
