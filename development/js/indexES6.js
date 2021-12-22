@@ -248,8 +248,11 @@ class IndexPage extends WebPage {
     
     setupChart(){
         // todo stacked bar es6
+        //this.charts[0] = stackedBarChart;
+        
+        // if set destroy
         if(this.charts.length > 0)
-            if(this.charts[0] !== null)
+            if(typeof (this.charts[0]) != "undefined")
                 if(this.charts[0].hasOwnProperty('stackedChart'))
                     if (typeof (this.charts[0].stackedChart) != "undefined")
                         this.charts[0].stackedChart.destroy();
