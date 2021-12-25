@@ -160,9 +160,10 @@
 }
 */
 class DateRangeControl {
-    constructor(){
+    constructor(parent){
         this.start_date = '2000-01-01';
         this.end_date = '';
+        this.parent = parent;
         
         this.setHash();
         
@@ -213,7 +214,7 @@ class DateRangeControl {
         
         $("#dateRangeJquery").daterangepicker("setRange", rng);
         $('#dateRangeJquery').on('change', this.changeDateRange);
-        $("#dateRangeJquery").on('open', () => this.Utilities.googleTracking.sendTrackEvent('DateRange', 'OpenDialog'));
+        $("#dateRangeJquery").on('open', () => this.parent.Utilities.googleTracking.sendTrackEvent('DateRange', 'OpenDialog'));
     }
     
     open() {
@@ -225,7 +226,7 @@ class DateRangeControl {
     }
 
     resetTime(softReset) {
-        this.Utilities.googleTracking.sendTrackEvent('DateRange', 'Reset');
+        this.parent.Utilities.googleTracking.sendTrackEvent('DateRange', 'Reset');
         softReset = softReset || false;
         var start = '2000-01-01',
             end = this.getToday();
@@ -300,15 +301,15 @@ class DateRangeControl {
         if (window.CustomEvent) {
             var event = new Event('dateRangeChanged');
             $('#dateRangeJquery').trigger('dateRangeChanged');
-            this.Utilities.googleTracking.sendTrackEvent('DateRange', 'DateChanged');
+            this.parent.Utilities.googleTracking.sendTrackEvent('DateRange', 'DateChanged');
         }
     }
 
     setCookie(cname, cvalue, exdays) {
-        return this.Utilities.setCookieValue(cname, cvalue, exdays);
+        return this.parent.Utilities.setCookieValue(cname, cvalue, exdays);
     }
 
     getCookie(cname) {
-        return this.Utilities.getCookieValue(cname);
+        return this.parent.Utilities.getCookieValue(cname);
     }
 }
