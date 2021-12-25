@@ -404,7 +404,7 @@ class DataController {
 		for (var i = this.data.length - 1; i >= 0; i--) {
 			var row = this.data[i];
 			if(dateLimit){
-				if(this.dateLimit(row,this.date_range.getStart(),this.date_range.getEnd())){
+				if(this.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd())){
 					rowCallback(row,i);
 				}
 			}else{
@@ -436,7 +436,7 @@ class DataController {
         var lastDate = 999999999;
         
 		this.forEach((row) => {
-			if(this.dateLimit(row,this.date_range.getStart(),this.date_range.getEnd())){
+			if(this.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd())){
 				if(row.daysSince < lastDate){
 					arrest = row;
                     lastDate = row.daysSince;
@@ -491,7 +491,7 @@ class DataController {
 /*
 		for (var i = this.data.length - 1; i >= 0; i--) {
 			var row = this.data[i];
-			if(this.dateLimit(row,this.date_range.getStart(),this.date_range.getEnd())){
+			if(this.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd())){
 				record_count++;
 				avg_days += row.DaysToLastArrest;
 
@@ -534,7 +534,7 @@ class DataController {
 
 		for (var i = this.data.length - 1; i >= 0; i--) {
 			var row = this.data[i];
-			if(filterFunc(row) && this.dateLimit(row,this.date_range.getStart(),this.date_range.getEnd())){
+			if(filterFunc(row) && this.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd())){
 				return_map = this.incrementMap(return_map, row[column]);
 			}
 		}
@@ -594,7 +594,7 @@ class DataController {
 
 		for (var i = this.data.length - 1; i >= 0; i--) {
 			var row = this.data[i];
-			if(this.dateLimit(row,this.date_range.getStart(),this.date_range.getEnd())){
+			if(this.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd())){
 				bar_stacks_count = this.incrementMap(bar_stacks_count, (row[bar_column]+row[stacks_column]));
 				bar_count = this.incrementMap(bar_count, row[bar_column]);
 				stacks_count = this.incrementMap(stacks_count, row[stacks_column]);
@@ -656,7 +656,7 @@ class DataController {
 
 		for (var i = this.data.length - 1; i >= 0; i--) {
 			var row = this.data[i];
-			if(this.dateLimit(row,this.date_range.getStart(),this.date_range.getEnd())){
+			if(this.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd())){
 				crime_map = this.incrementMap(crime_map, row.Category);
 				player_map = this.incrementMap(player_map, row.Name);
 				position_map = this.incrementMap(position_map, row.Position);
@@ -701,7 +701,7 @@ class DataController {
 	getArrests(filterFunc, callback){
 		var arrests = [];
 		this.forEach((row) => {
-			if(this.dateLimit(row,this.date_range.getStart(),this.date_range.getEnd())){
+			if(this.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd())){
 				if(filterFunc(row)){
 					arrests.push(row);
 				}
