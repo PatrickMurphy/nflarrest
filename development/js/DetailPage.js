@@ -21,7 +21,7 @@ class DetailPage extends WebPage{
 		$(window).on('hashchange', () => this.renderView());
 
         this.DateRangeControl = new DateRangeControl(this);// pass this as parent arg
-        this.data_controller = new DataController(this.DateRangeControl);
+        this.data_controller = new DataController(this.DateRangeControl, this);
         this.setupFilters();
         $('#dateRangeJquery').on('dateRangeChanged', this.renderView);
         
