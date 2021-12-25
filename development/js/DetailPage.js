@@ -22,7 +22,7 @@ class DetailPage extends WebPage{
 
         this.DateRangeControl = new DateRangeControl(this);// pass this as parent arg
         this.data_controller = new DataController(this.DateRangeControl, this);
-        this.setupFilters();
+        //this.setupFilters();
         $('#dateRangeJquery').on('dateRangeChanged', this.renderView);
         
         // resize charts after everything loaded
