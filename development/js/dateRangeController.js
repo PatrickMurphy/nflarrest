@@ -213,7 +213,7 @@ class DateRangeControl {
         };
         
         $("#dateRangeJquery").daterangepicker("setRange", rng);
-        $('#dateRangeJquery').on('change', this.changeDateRange);
+        $('#dateRangeJquery').on('change', () => {this.changeDateRange(this)});
         $("#dateRangeJquery").on('open', () => this.parent.Utilities.googleTracking.sendTrackEvent('DateRange', 'OpenDialog'));
     }
     
@@ -275,7 +275,7 @@ class DateRangeControl {
         }
     }
 
-    changeDateRange() {
+    changeDateRange(self) {
         var data = JSON.parse($('#dateRangeJquery').val());
         //console.log(data);
         //console.log(data.start);
@@ -289,7 +289,7 @@ class DateRangeControl {
             start = end;
             end = temp;
         }
-        this.setDates(start, end);
+        self.setDates(start, end);
     }
 
     setDates(start, end) {
