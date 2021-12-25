@@ -63,6 +63,35 @@ class IndexPage extends WebPage {
             ReturnStatus: false
         };
         
+        this.DateRangeControl = new DateRangeControl(this);// pass this as parent arg
+        this.dateRangeNFL = this.DateRangeControl;
+        dateRangeNFL = this.DateRangeControl;
+        this.data_controller = new DataController(this.DateRangeControl, this);
+        data_controller = this.data_controller;
+        this.evaluateHash();
+        this.changeTopChart();
+        // first load of top lists
+        this.load_top_lists('first');
+        this.RenderUpdateDate();    
+
+        $('#dateRangeJquery').on('dateRangeChanged', (e) => {
+            this.LoadingBar.showLoading();
+            this.setupChart();
+            this.reload_top_lists();
+        });
+
+        $('#loadMoreLists').click(this.load_top_lists_Handler);
+
+        if(this.detail_page_active){
+            this.data_controller.getTeams(this.RenderTeamLinks);
+        }else{
+            $('#bottomTeamLinks').hide();
+        }
+
+        this.addChartButtonListeners();
+        this.setupNewsletter();
+        
+        /* 
         // run constructor logic
         dateRangeController.init((newDateRange) => {
             this.dateRangeNFL = newDateRange;
@@ -95,7 +124,7 @@ class IndexPage extends WebPage {
                 this.setupNewsletter();
             });
         });
-        
+        */
         this.fixTopListLinks();
     }
     
