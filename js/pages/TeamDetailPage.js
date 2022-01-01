@@ -39,8 +39,7 @@ class TeamDetailPage extends DetailPage {
                 }
 
                 return true;
-            }, function (data) {
-                console.log(data);
+            }, (data) => {
                 superChange(data[0].Team_preffered_name + ' <span style="display:inline-block;width:20px;height:20px;background:url(\'images/NFLTeamLogos.png\') 0px -'+data[0]['Team_logo_id']*20+'px;background-size:100%;"></span>', self)
             });
     }
