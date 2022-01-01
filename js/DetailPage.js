@@ -1,87 +1,40 @@
 var DEBUG = false;
-class DetailPage {
+class DetailPage extends WebPage{
 	constructor(pageID, pageTitle, chartOptions, arrestsUrl) {
-		this.pageID = pageID; // SEA
+        super();
+		this.data_controller;
+        
+        this.pageID = pageID; // SEA
 		this.pageTitle = pageTitle; // Team
 		this.arrestsUrl = arrestsUrl; // api/team/arrests.php?id=
 		this.chartOptions = chartOptions; // [{url:'',field:'',targetElement:'',title:''}]
 		this.arrest_view_mode = 0; // 0 = table, 1 = card (Mobile Default)
-		this.data_controller;
-
+		
 		this.callbackReturns = 0;
-		this.charts = [];
 
 		var self = this;
 
+        // if mobile use cards
 		if (mobileCheck())
-			this.arrest_view_mode = 1; // if mobile use cards
+			this.arrest_view_mode = 1; 
         
-        loadCSS('css/modules/styles-detailpage.css');
+        this.StyleManager.loadCSS('css/modules/styles-detailpage.css');
 
-		$('body').append('<div id="loading-bar">Loading...</div>');
-		$('#loading-bar').fadeIn();
-		$(window).on('hashchange', function () {
-			self.renderView()
-		});
+		$(window).on('hashchange', () => {this.renderView(this)});
 
-		dateRangeController.init(function (newDateRange) {
-			self.dateRangeNFL = newDateRange;
-			DataController.init(self.dateRangeNFL, function (newDataController) {
-				self.data_controller = newDataController;
-				var page_dimension = self.pageTitle.toLowerCase();
-				var filters_options = {
-					presets: {},
-					date_range_object: self.dateRangeNFL
-				};
-
-				filters_options['presets'][page_dimension] = {};
-				filters_options['presets'][page_dimension][page_dimension] = self.pageID;
-				self.FilterControl = new FiltersControl(filters_options);
-				$(self.FilterControl.options.dialog_element).on('FilterDialogChanged', function () {
-					console.log('render view filter');
-					// todo not working, using the hash change global for now
-					self.renderView();
-				});
-
-				$('#dateRangeJquery').on('dateRangeChanged', function (e) {
-					self.renderView();
-				});
-
-				/*
-			$('#dateRangeJquery').on('dateRangeChanged', function (e) {
-				nflLoadingBar.showLoading();
-				setupChart();
-				reload_top_lists();
-			});
-				*/
-                    
-                    setTimeout(() => {
-                        self.resizeCharts();
-                    },1500);
-
-				self.renderView();
-			})
-		});
-	}
-
-	getLink(Dimension, EntityValue){
-		return Dimension + '.html#' + EntityValue;
-	}
-
-	getCrimeLink(EntityValue){
-		return this.getLink('Crime', EntityValue);
-	}
-
-	getPlayerLink(EntityValue){
-		return this.getLink('Player', EntityValue);
-	}
-
-	getTeamLink(EntityValue){
-		return this.getLink('Team', EntityValue);
-	}
-
-	getPositionLink(EntityValue){
-		return this.getLink('Position', EntityValue);
+        this.DateRangeControl = new DateRangeControl(this);// pass this as parent arg
+        this.data_controller = new DataController(this.DateRangeControl, this);
+        
+        //this.setupFilters();
+        
+        $('#dateRangeJquery').on('dateRangeChanged', ()=> {this.renderView(this)});
+        
+        // resize charts after everything loaded
+        setTimeout(() => {
+            this.resizeCharts();
+        },1500);
+        
+        this.renderView(this);
 	}
 
 	changeTitle(newTitle, s) {
@@ -90,13 +43,13 @@ class DetailPage {
 		$('#pageTitle').html(self.pageTitle + ": " + newTitle);
 	}
 
-	renderView() {
-		$('#loading-bar').fadeIn();
-		this.pageID = update_hash(this.pageID);
-		this.changeTitle();
-		this.setupCharts();
-		this.renderArrests();
-        this.resizeCharts();
+	renderView(self) {
+		self.LoadingBar.showLoading();
+        self.pageID = update_hash(self.pageID);
+		self.changeTitle();
+		self.setupCharts();
+		self.renderArrests();
+        self.resizeCharts();
 	}
     
     resizeCharts(){
@@ -108,15 +61,13 @@ class DetailPage {
 	checkLoadingFinished() {
 		if (++this.callbackReturns == (1 + this.chartOptions.length)) { // 1 for arrests plus each chart
 			this.callbackReturns = 0;
-			$('#loading-bar').fadeOut();
-			setupFacebook();
-			setupTwitter();
+			this.loadingFinished();
 		}
 	}
 
 	renderArrests() {
 		var self = this;
-		self.data_controller.getArrests(function(row){
+		self.data_controller.getArrests((row) => {
 				if(self.pageTitle == 'Team'){
 					if(row['Team'] != self.pageID){
 						return false;
@@ -135,7 +86,7 @@ class DetailPage {
 					}
 				}
 				return true;
-			}, function (data) {
+			}, (data) => {
 				var row,
 					items = [];
 
@@ -195,7 +146,7 @@ class DetailPage {
 	getDonutData(url, param, chartID, callback) {
 		var self = this;
 
-		var filterFunction = function (row) {
+		var filterFunction = (row) => {
 				if(self.pageTitle == 'Team'){
 					if(row['Team'] != self.pageID){
 						return false;
@@ -217,7 +168,7 @@ class DetailPage {
 				return true;
 			};
 
-		var callbackFunc = function (data) {
+		var callbackFunc = (data) => {
 				var theData = [];
 				var index, i = 0;
 				var otherArray = ['Other', 0];
@@ -240,7 +191,7 @@ class DetailPage {
 		var self = this;
 		for (var chartID in self.chartOptions) {
 			var chartOption = self.chartOptions[chartID];
-			self.getDonutData(chartOption.url + self.pageID, chartOption.field, chartID, function (newData, cID) {
+			self.getDonutData(chartOption.url + self.pageID, chartOption.field, chartID, (newData, cID) => {
 				self.charts.push(new DonutChart({
 					data: newData,
 					targetElement: self.chartOptions[cID].targetElement,
@@ -249,5 +200,4 @@ class DetailPage {
 			});
 		}
 	}
-
 }

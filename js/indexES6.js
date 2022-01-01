@@ -16,93 +16,90 @@ var IndexPageInstance;
 class IndexPage extends WebPage {
     constructor() {
         super();
+        
+        // define class member variables
+        //this.dateRangeNFL = undefined;
         this.data_controller = undefined;
-        this.dateRangeNFL = undefined;
-        this.detail_page_active = true;
         this.last_start_pos = 0;
+        this.detail_page_active = true; // option
         this.MainChart = {
             ytdChart: false,
             StyleID:0,
             ReturnStatus: false,
             
             buttons: [{
-                title: 'By Team',
-                short_title: 'ByTeam',
-                id: 0,
-                ytdChart: false,
-                element: '#mainChartByTeamBtn'
-            }, {
-                title: 'By Year',
-                short_title: 'ByYear',
-                id: 1,
-                ytdChart: true,
-                element: '#mainChartByYearBtn'
-            }, {
-                title: 'By Season',
-                short_title: 'BySeason',
-                id: 2,
-                ytdChart: false,
-                element: '#mainChartBySeasonBtn'
-            }, {
-                title: 'By Day',
-                short_title: 'ByDayOfWeek',
-                id: 3,
-                ytdChart: true,
-                element: '#mainChartByConfBtn'
-            }, {
-                title: 'By Division',
-                short_title: 'ByDivision',
-                id: 4,
-                ytdChart: true,
-                element: '#mainChartByConfDivBtn'
-            }]
+                    title: 'By Team',
+                    short_title: 'ByTeam',
+                    id: 0,
+                    ytdChart: false,
+                    element: '#mainChartByTeamBtn'
+                }, {
+                    title: 'By Year',
+                    short_title: 'ByYear',
+                    id: 1,
+                    ytdChart: true,
+                    element: '#mainChartByYearBtn'
+                }, {
+                    title: 'By Season',
+                    short_title: 'BySeason',
+                    id: 2,
+                    ytdChart: false,
+                    element: '#mainChartBySeasonBtn'
+                }, {
+                    title: 'By Day',
+                    short_title: 'ByDayOfWeek',
+                    id: 3,
+                    ytdChart: true,
+                    element: '#mainChartByConfBtn'
+                }, {
+                    title: 'By Division',
+                    short_title: 'ByDivision',
+                    id: 4,
+                    ytdChart: true,
+                    element: '#mainChartByConfDivBtn'
+                }]
         };
+        
         this.Lists = {
             ReturnStatus: false
-        }
+        };
         
-        dateRangeController.init((newDateRange) => {
-            this.dateRangeNFL = newDateRange;
-            dateRangeNFL = newDateRange; // backup adapter
-            DataController.init(dateRangeNFL, (newDataController) => {
-                //nflLoadingBar.reset();
-                this.data_controller = newDataController;
-                data_controller = newDataController; // backup adapter
-                this.evaluateHash();
-                this.changeTopChart();
-                // first load of top lists
-                this.load_top_lists('first');
-                this.RenderUpdateDate();    
-                
-                $('#dateRangeJquery').on('dateRangeChanged', (e) => {
-                    this.LoadingBar.showLoading();
-                    this.setupChart();
-                    this.reload_top_lists();
-                });
+        this.DateRangeControl = new DateRangeControl(this);// pass this as parent arg
+        //this.dateRangeNFL = this.DateRangeControl;
+        //dateRangeNFL = this.DateRangeControl;
+        
+        this.data_controller = new DataController(this.DateRangeControl, this);
+        //data_controller = this.data_controller;
+        
+        this.evaluateHash();
+        this.changeTopChart();
+        
+        // first load of top lists
+        this.load_top_lists('first');
+        this.RenderUpdateDate();    
 
-                $('#loadMoreLists').click(this.load_top_lists_Handler);
-
-                if(this.detail_page_active){
-                    this.data_controller.getTeams(this.RenderTeamLinks);
-                }else{
-                    $('#bottomTeamLinks').hide();
-                }
-
-                this.addChartButtonListeners();
-                this.setupNewsletter();
-            });
+        $('#dateRangeJquery').on('dateRangeChanged', (e) => {
+            this.LoadingBar.showLoading();
+            this.setupChart();
+            this.reload_top_lists();
         });
-        
+
+        $('#loadMoreLists').click(this.load_top_lists_Handler);
+
+        if(this.detail_page_active){
+            this.data_controller.getTeams(this.RenderTeamLinks);
+        }else{
+            $('#bottomTeamLinks').hide();
+        }
+
+        this.addChartButtonListeners();
+        this.setupNewsletter();
         this.fixTopListLinks();
     }
     
     RenderUpdateDate(){
         // included in min file is lastUpdate var
         $("#updateDateFooter").text("Updated: " + lastUpdate);
-    }
-    
-    getPageLink(page,value){
-        return (page.charAt(0).toUpperCase() + page.slice(1)) + ".html#" + value;
     }
     
     RenderTeamLinks(data){
@@ -115,6 +112,11 @@ class IndexPage extends WebPage {
         });
     }
     
+    // jquery handler function that calls class function
+    load_top_lists_Handler(event){
+       IndexPageInstance.load_top_lists('not first', false);
+    }
+    
     load_top_list(data, page, prefix, list, values, replace) {
         replace = replace || false;
         if (replace) {
@@ -123,7 +125,7 @@ class IndexPage extends WebPage {
         var items = [];
         if (data.length > 0) {
             $.each(data, (key, val) => {
-                var link = "<a href=\"" + this.getPageLink(page, val[values[0]]) + "\">";
+                var link = "<a href=\"" + this.getDetailPageLink(page, val[values[0]]) + "\">";
                 var link_end = '</a>';
                 if (page == '' || !this.detail_page_active) {
                     link = '';
@@ -142,12 +144,7 @@ class IndexPage extends WebPage {
             $(list).append(items.join(""));
         }
     }
-    
-    // jquery handler function that calls class function
-    load_top_lists_Handler(event){
-       IndexPageInstance.load_top_lists('not first', false);
-    }
-    
+        
     load_top_lists(first, replace) {
         first = first || 'not first';
         replace = replace || false;
@@ -161,7 +158,7 @@ class IndexPage extends WebPage {
         }
         
         //console.log(this, this.last_start_pos);
-        this.data_controller.getTopLists(this.last_start_pos, dateRangeNFL.getStart(), dateRangeNFL.getEnd(), (data) => {
+        this.data_controller.getTopLists(this.last_start_pos, this.DateRangeControl.getStart(), this.DateRangeControl.getEnd(), (data) => {
             var crimes_list = data[0],
                 players_list = data[1],
                 positions_list = data[2];
@@ -178,17 +175,27 @@ class IndexPage extends WebPage {
             this.Lists.ReturnStatus = true;
             this.Lists.ReturnCount = 0;
             this.last_start_pos = this.last_start_pos + 5;
-            if (this.MainChart.ReturnStatus === true && this.Lists.ReturnStatus === true) {
-                this.MainChart.ReturnStatus = false;
-                this.Lists.ReturnStatus = false;
-                this.loadingFinished();
-            }
+            
+            this.checkLoadingFinished();
         });
     }
     
     reload_top_lists() {
         this.last_start_pos = 0;
         this.load_top_lists('not first', true);
+    }
+    
+    checkLoadingFinished(){
+        if (this.MainChart.ReturnStatus === true && this.Lists.ReturnStatus === true) {
+            this.Lists.ReturnStatus = false;
+            this.MainChart.ReturnStatus = false;
+            var d = Math.random() > .5;
+
+            this.setupArrestOMeter(d);
+            this.setupRecentArrestCard(!d);
+            
+            this.loadingFinished();
+        }
     }
     
     // jquery handler function that calls class function
@@ -239,11 +246,17 @@ class IndexPage extends WebPage {
     
     setupChart(){
         // todo stacked bar es6
-        if (typeof (stackedBarChart.stackedChart) != "undefined")
-            stackedBarChart.stackedChart.destroy();
+        //this.charts[0] = stackedBarChart;
+        
+        // if set destroy
+        if(this.charts.length > 0)
+            if(typeof (this.charts[0]) != "undefined")
+                if(this.charts[0].hasOwnProperty('stackedChart'))
+                    if (typeof (this.charts[0].stackedChart) != "undefined")
+                        this.charts[0].stackedChart.destroy();
         
         this.getOverallChartData((newData) => {
-            stackedBarChart.init({
+            this.charts[0] = stackedBarChart.init({
                 data: newData,
                 targetElement: '#chart',
                 targetExpandBtn: '#details_summary_btn',
@@ -252,11 +265,7 @@ class IndexPage extends WebPage {
             });
             
             this.MainChart.ReturnStatus = true;
-            if (this.Lists.ReturnStatus === true && this.MainChart.ReturnStatus === true) {
-                this.MainChart.ReturnStatus = false;
-                this.Lists.ReturnStatus = false;
-                this.loadingFinished();
-            }
+            this.checkLoadingFinished();
         });
     }
     
@@ -300,18 +309,6 @@ class IndexPage extends WebPage {
                 this.MainChart.StyleID = 0;
             }
         }
-    }
-    
-    loadingFinished(){
-        var d = Math.random() > .5;
-        this.setupArrestOMeter(d);
-        this.setupRecentArrestCard(!d);
-        this.LoadingBar.hideLoading();
-        
-        this.Lists.ReturnStatus = false;
-        this.MainChart.ReturnStatus = false;
-        this.Utilities.setupFacebook();
-        this.Utilities.setupTwitter();
     }
     
     setupArrestOMeter(d){

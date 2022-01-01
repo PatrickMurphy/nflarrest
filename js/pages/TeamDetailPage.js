@@ -19,7 +19,7 @@ class TeamDetailPage extends DetailPage {
     changeTitle() {
         var superChange = super.changeTitle;
         var self = this;
-        self.data_controller.getArrests(function(row){
+        self.data_controller.getArrests((row) => {
                 if(self.pageTitle == 'Team'){
                     if(row['Team'] != self.pageID){
                         return false;
@@ -40,11 +40,9 @@ class TeamDetailPage extends DetailPage {
 
                 return true;
             }, function (data) {
+                console.log(data);
                 superChange(data[0].Team_preffered_name + ' <span style="display:inline-block;width:20px;height:20px;background:url(\'images/NFLTeamLogos.png\') 0px -'+data[0]['Team_logo_id']*20+'px;background-size:100%;"></span>', self)
             });
-        //$.getJSON('api/v1/team/arrests/' + this.pageID + '?limit=1', function (data) {
-          //  superChange(data[0].Team_preffered_name + ' <span style="display:inline-block;width:20px;height:20px;background:url(\'images/NFLTeamLogos.png\') 0px -'+data[0]['Team_logo_id']*20+'px;background-size:100%;"></span>', self);
-        //});
     }
 
     // Override DetailPage method
@@ -61,20 +59,6 @@ class TeamDetailPage extends DetailPage {
     }
 
     renderArrestCard(row) {
-        /*var card = ['<div class="card arrest_card">'];
-        card.push('<span class="date_item" title="' + row['Date'] + '">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</span>');
-        card.push('<span class="name_item">' + row['Name'] + '</span>');
-        card.push("<br />");
-        card.push('<span class="crime_item" style="background-color:#'+row['Crime_category_color']+';"><a href="Crime.html#' + row['Category'] + '">' + row['Category'] + "</a> </span>");
-        card.push('<span class="team_item" style="background-color:#' + row['Team_hex_color'] + ';"><a href="Player.html#' + row['Name'] + '" style="color:#' + row['Team_hex_alt_color'] + ';" >' + row['Name'] + '</a></span>');
-        card.push('<br />');
-        //card.push('<span class="description_item">Crime: <a href="crime/' + row['Category'] + '">' + row['Category'] + '</a></span>'); // .substring(0,n)
-        card.push('<br />');
-        card.push('<span class="description_item">' + row['Description'] + '</span>');
-        card.push('<span class="outcome_item">' + row['Outcome'] + '</span>');
-        card.push('</div>');
-        var card2 = card.join('');
-        return card2;*/
         var c = new ArrestCard(row);
         return c.getHTML(c.Column_Crime, c.Column_Player);
     }
