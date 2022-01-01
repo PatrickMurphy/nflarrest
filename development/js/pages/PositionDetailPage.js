@@ -19,7 +19,7 @@ class PositionDetailPage extends DetailPage {
     changeTitle() {
         var superChange = super.changeTitle;
         var self = this;
-        self.data_controller.getArrests(function(row){
+        self.data_controller.getArrests((row) => {
             if(self.pageTitle == 'Team'){
                 if(row['Team'] != self.pageID){
                     return false;
@@ -39,7 +39,7 @@ class PositionDetailPage extends DetailPage {
             }
 
             return true;
-        }, function (data) {
+        }, (data) => {
             superChange(data[0].Position_name, self);
         });
     }
