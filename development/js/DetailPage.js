@@ -2,19 +2,21 @@ var DEBUG = false;
 class DetailPage extends WebPage{
 	constructor(pageID, pageTitle, chartOptions, arrestsUrl) {
         super();
-		this.pageID = pageID; // SEA
+		this.data_controller;
+        
+        this.pageID = pageID; // SEA
 		this.pageTitle = pageTitle; // Team
 		this.arrestsUrl = arrestsUrl; // api/team/arrests.php?id=
 		this.chartOptions = chartOptions; // [{url:'',field:'',targetElement:'',title:''}]
 		this.arrest_view_mode = 0; // 0 = table, 1 = card (Mobile Default)
-		this.data_controller;
-
+		
 		this.callbackReturns = 0;
 
 		var self = this;
 
+        // if mobile use cards
 		if (mobileCheck())
-			this.arrest_view_mode = 1; // if mobile use cards
+			this.arrest_view_mode = 1; 
         
         this.StyleManager.loadCSS('css/modules/styles-detailpage.css');
 
@@ -22,7 +24,9 @@ class DetailPage extends WebPage{
 
         this.DateRangeControl = new DateRangeControl(this);// pass this as parent arg
         this.data_controller = new DataController(this.DateRangeControl, this);
+        
         //this.setupFilters();
+        
         $('#dateRangeJquery').on('dateRangeChanged', ()=> {this.renderView(this)});
         
         // resize charts after everything loaded
@@ -31,24 +35,6 @@ class DetailPage extends WebPage{
         },1500);
         
         this.renderView(this);
-        
-		/*dateRangeController.init(newDateRange => {
-			self.dateRangeNFL = newDateRange;
-			DataController.init(self.dateRangeNFL, newDataController => {
-				self.data_controller = newDataController;
-				
-                self.setupFilters();
-                
-				$('#dateRangeJquery').on('dateRangeChanged', self.renderView);
-                
-                // resize charts after everything loaded
-                setTimeout(() => {
-                    self.resizeCharts();
-                },1500);
-
-				self.renderView();
-			})
-		});*/
 	}
 
 	changeTitle(newTitle, s) {

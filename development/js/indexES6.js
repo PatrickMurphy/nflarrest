@@ -18,8 +18,8 @@ class IndexPage extends WebPage {
         super();
         
         // define class member variables
-        this.data_controller = undefined;
         this.dateRangeNFL = undefined;
+        this.data_controller = undefined;
         this.last_start_pos = 0;
         this.detail_page_active = true; // option
         this.MainChart = {
@@ -59,6 +59,7 @@ class IndexPage extends WebPage {
                     element: '#mainChartByConfDivBtn'
                 }]
         };
+        
         this.Lists = {
             ReturnStatus: false
         };
@@ -66,10 +67,13 @@ class IndexPage extends WebPage {
         this.DateRangeControl = new DateRangeControl(this);// pass this as parent arg
         this.dateRangeNFL = this.DateRangeControl;
         dateRangeNFL = this.DateRangeControl;
+        
         this.data_controller = new DataController(this.DateRangeControl, this);
         data_controller = this.data_controller;
+        
         this.evaluateHash();
         this.changeTopChart();
+        
         // first load of top lists
         this.load_top_lists('first');
         this.RenderUpdateDate();    
@@ -90,41 +94,6 @@ class IndexPage extends WebPage {
 
         this.addChartButtonListeners();
         this.setupNewsletter();
-        
-        /* 
-        // run constructor logic
-        dateRangeController.init((newDateRange) => {
-            this.dateRangeNFL = newDateRange;
-            dateRangeNFL = newDateRange; // backup adapter
-            DataController.init(dateRangeNFL, (newDataController) => {
-                //nflLoadingBar.reset();
-                this.data_controller = newDataController;
-                data_controller = newDataController; // backup adapter
-                this.evaluateHash();
-                this.changeTopChart();
-                // first load of top lists
-                this.load_top_lists('first');
-                this.RenderUpdateDate();    
-                
-                $('#dateRangeJquery').on('dateRangeChanged', (e) => {
-                    this.LoadingBar.showLoading();
-                    this.setupChart();
-                    this.reload_top_lists();
-                });
-
-                $('#loadMoreLists').click(this.load_top_lists_Handler);
-
-                if(this.detail_page_active){
-                    this.data_controller.getTeams(this.RenderTeamLinks);
-                }else{
-                    $('#bottomTeamLinks').hide();
-                }
-
-                this.addChartButtonListeners();
-                this.setupNewsletter();
-            });
-        });
-        */
         this.fixTopListLinks();
     }
     
