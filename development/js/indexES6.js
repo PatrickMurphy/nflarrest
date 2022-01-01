@@ -18,7 +18,7 @@ class IndexPage extends WebPage {
         super();
         
         // define class member variables
-        this.dateRangeNFL = undefined;
+        //this.dateRangeNFL = undefined;
         this.data_controller = undefined;
         this.last_start_pos = 0;
         this.detail_page_active = true; // option
@@ -65,7 +65,7 @@ class IndexPage extends WebPage {
         };
         
         this.DateRangeControl = new DateRangeControl(this);// pass this as parent arg
-        this.dateRangeNFL = this.DateRangeControl;
+        //this.dateRangeNFL = this.DateRangeControl;
         //dateRangeNFL = this.DateRangeControl;
         
         this.data_controller = new DataController(this.DateRangeControl, this);

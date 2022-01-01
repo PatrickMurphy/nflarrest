@@ -67,7 +67,7 @@ class DetailPage extends WebPage{
 
 	renderArrests() {
 		var self = this;
-		self.data_controller.getArrests(function(row){
+		self.data_controller.getArrests((row) => {
 				if(self.pageTitle == 'Team'){
 					if(row['Team'] != self.pageID){
 						return false;
@@ -86,7 +86,7 @@ class DetailPage extends WebPage{
 					}
 				}
 				return true;
-			}, function (data) {
+			}, (data) => {
 				var row,
 					items = [];
 
@@ -146,7 +146,7 @@ class DetailPage extends WebPage{
 	getDonutData(url, param, chartID, callback) {
 		var self = this;
 
-		var filterFunction = function (row) {
+		var filterFunction = (row) => {
 				if(self.pageTitle == 'Team'){
 					if(row['Team'] != self.pageID){
 						return false;
@@ -168,7 +168,7 @@ class DetailPage extends WebPage{
 				return true;
 			};
 
-		var callbackFunc = function (data) {
+		var callbackFunc = (data) => {
 				var theData = [];
 				var index, i = 0;
 				var otherArray = ['Other', 0];
@@ -191,7 +191,7 @@ class DetailPage extends WebPage{
 		var self = this;
 		for (var chartID in self.chartOptions) {
 			var chartOption = self.chartOptions[chartID];
-			self.getDonutData(chartOption.url + self.pageID, chartOption.field, chartID, function (newData, cID) {
+			self.getDonutData(chartOption.url + self.pageID, chartOption.field, chartID, (newData, cID) => {
 				self.charts.push(new DonutChart({
 					data: newData,
 					targetElement: self.chartOptions[cID].targetElement,
