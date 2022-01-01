@@ -66,10 +66,10 @@ class IndexPage extends WebPage {
         
         this.DateRangeControl = new DateRangeControl(this);// pass this as parent arg
         this.dateRangeNFL = this.DateRangeControl;
-        dateRangeNFL = this.DateRangeControl;
+        //dateRangeNFL = this.DateRangeControl;
         
         this.data_controller = new DataController(this.DateRangeControl, this);
-        data_controller = this.data_controller;
+        //data_controller = this.data_controller;
         
         this.evaluateHash();
         this.changeTopChart();
