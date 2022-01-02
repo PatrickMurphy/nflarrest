@@ -40,7 +40,8 @@ class DateRangeControl {
             datepickerOptions: {
                 minDate: new Date('2000-01-01'),
                 maxDate: 0
-            }
+            },
+            numberOfMonths : 1
         });
     }
     

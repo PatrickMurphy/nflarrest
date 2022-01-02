@@ -9,10 +9,8 @@ var last_start_pos = 0,
 	mainChartStyleID = 0,
 	detail_page_active = true;
 
-var data_controller;
-
-
 var IndexPageInstance;
+
 class IndexPage extends WebPage {
     constructor() {
         super();
