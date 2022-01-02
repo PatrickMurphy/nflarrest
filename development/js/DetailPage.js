@@ -15,7 +15,7 @@ class DetailPage extends WebPage {
 		var self = this;
 
         // if mobile use cards
-		if (mobileCheck())
+		if (this.Utilities.mobileCheck())
 			this.arrest_view_mode = 1; 
         
         this.StyleManager.loadCSS('css/modules/styles-detailpage.css');
