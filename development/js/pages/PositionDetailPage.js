@@ -1,7 +1,7 @@
 var DetailPageInstance;
 class PositionDetailPage extends DetailPage {
-    constructor(pageID) {
-        super(pageID, 'Position', [{
+    constructor() {
+        super('Position', [{
             type: 'donut',
             url: 'api/v1/position/topTeams/',
             field: 'Team',
@@ -72,5 +72,5 @@ class PositionDetailPage extends DetailPage {
 }
 
 $(window).load(function () {
-    DetailPageInstance = new PositionDetailPage(update_hash());
+    DetailPageInstance = new PositionDetailPage();
 });
