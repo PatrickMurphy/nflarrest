@@ -12,7 +12,7 @@ var weatherMultiChart = {
 		$.extend(true, this.options, options);
 
 		var thisChart = this;
-		console.log('Initialize Chart:  ' + this.options.targetElement);
+		//console.log('Initialize Chart:  ' + this.options.targetElement);
 
 		thisChart.options.$targetElement = $(this.options.targetElement);
 

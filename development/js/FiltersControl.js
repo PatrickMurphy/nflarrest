@@ -56,7 +56,7 @@ class FiltersControl {
 		loadCSS('css/vendor/chosen.min.css');
 
 		$(self.options.dialog_element_container).load(self.options.dialog_content_url, function () {
-			console.log("Load was performed.");
+			//console.log("Load was performed.");
 			self.setupView();
 			self.renderView();
 		});
@@ -75,8 +75,8 @@ class FiltersControl {
 					case 'player':
 						this.options.hidden_panels.push(option_sub_key);
 						break;
-					default:
-						console.log('unknown preset');
+					//default:
+						//console.log('unknown preset');
 				}
 			}
 		}
@@ -130,7 +130,7 @@ class FiltersControl {
 
 		$('#filters-apply-button').click(function () {
 			self.apply();
-			console.log(self.options.dialog_element);
+			//console.log(self.options.dialog_element);
 			$(self.options.dialog_element).trigger('FilterDialogChanged');
 			$(window).trigger('hashchange');
 			self.hide();
@@ -190,7 +190,7 @@ class FiltersControl {
 		var button_id_name = button_id_end.substring(0, button_id_end.lastIndexOf('-'));
 		// todo: got half of the reqs for GA events
 		// rename ids based on these rules
-		console.log(button_id, button_id_end, button_id_name);
+		//console.log(button_id, button_id_end, button_id_name);
 		self.renderView();
 	}
 

@@ -17,7 +17,7 @@ var stackedBarChart = {
 		$.extend(true, this.options, options);
 
 		var thisChart = this;
-		console.log('Initialize Chart:  ' + this.options.targetElement);
+		//console.log('Initialize Chart:  ' + this.options.targetElement);
 
 		thisChart.options.$targetElement = $(this.options.targetElement);
 		thisChart.options.$expandBtnElement = $(this.options.targetExpandBtn);
@@ -115,7 +115,7 @@ var stackedBarChart = {
 					var newID = id.replace('/', '');
 					newID = newID.split(' ').join('');
 					var legendItem = d3.select('.customLegend-item-'+newID);
-					console.log(legendItem);
+					//console.log(legendItem);
 					legendItem.classed("transparent", !legendItem.classed("transparent"));
 					googleTracking.sendTrackEvent('mainChart', 'legendClick');
 			});

@@ -29,7 +29,7 @@ class Utilities {
 	}
 
 	setupFacebook() {
-		console.log('FB Setup');
+		//console.log('FB Setup');
 		window.fbAsyncInit = function () {
 			FB.init({
 				appId: '563956043742586',
@@ -62,7 +62,7 @@ class Utilities {
 	}
 
 	setupTwitter() {
-		console.log('twitter setup');
+		//console.log('twitter setup');
 		window.twttr = (function (d, s, id) {
 			var js, fjs = d.getElementsByTagName(s)[0],
 				t = window.twttr || {};
@@ -89,7 +89,7 @@ class Utilities {
 						opt_pagePath = extractParamFromUri(intent_event.target.src, 'url');
 					}
 					this.gaEvent('send', 'social', 'twitter', 'tweet', opt_pagePath);
-					console.log('thanks for sharing', opt_pagePath);
+					//console.log('thanks for sharing', opt_pagePath);
 				}
 			});
 		});
