@@ -39,9 +39,9 @@ class DateRangeControl {
             presetRanges: presets,
             datepickerOptions: {
                 minDate: new Date('2000-01-01'),
-                maxDate: 0
-            },
-            numberOfMonths : 1
+                maxDate: 0,
+                numberOfMonths : 1
+            }
         });
     }
     
