@@ -35,7 +35,7 @@ class DateRangeControl {
             dateEnd: () => moment()
         }];
 
-        var monthCount = this.Utilities.mobileCheck() ? 1 : 2;
+        var monthCount = this.parent.Utilities.mobileCheck() ? 1 : 2;
         $("#dateRangeJquery").daterangepicker({
             presetRanges: presets,
             datepickerOptions: {
