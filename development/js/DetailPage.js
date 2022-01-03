@@ -35,6 +35,7 @@ class DetailPage extends WebPage {
         },1500);
         
         this.renderView(this);
+        this.RenderUpdateDate();
 	}
 
 	changeTitle(newTitle, s) {
@@ -51,6 +52,11 @@ class DetailPage extends WebPage {
 		self.renderArrests();
         self.resizeCharts();
 	}
+    
+    RenderUpdateDate(){
+        // included in min file is lastUpdate var
+        $("#updateDateFooter").text("Updated: " + lastUpdate);
+    }
     
     resizeCharts(){
         for(var i = 0; i < this.charts.length; i++){
