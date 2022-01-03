@@ -210,6 +210,9 @@ class DataController {
 		var sortDESC = function(a, b) {
 		  return b.arrest_count - a.arrest_count;
 		};
+        var sortASC = function(a, b) {
+		  return a.arrest_count - b.arrest_count;
+		};
 
 		for (var i = this.data.length - 1; i >= 0; i--) {
 			var row = this.data[i];
@@ -227,7 +230,14 @@ class DataController {
 
 		if(bar_order_by_direction == 'DESC' && bar_order_by_column == bar_column){
 			bar_order.sort(sortDESC);
-		}
+		}else if (bar_order_by_direction == 'ASC' && bar_order_by_column == bar_column){
+            bar_order.sort(sortASC);
+        }else if (bar_order_by_direction == 'ASC'){
+            bar_order.sort((a, b) => {
+		      return a[bar_order_by_column] - b[bar_order_by_column];
+		    });
+        }
+        
 
 		var bar_groups = [];
 		Object.keys(stacks_count).forEach((key) => {
