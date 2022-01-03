@@ -51,12 +51,12 @@ var stackedBarChart = {
             ],
 						order: 'asc',
             type: 'bar',
-            onclick: function (d, i) {
+            onclick: (d, i) => {
                 // redirect to
                 if(typeof mainChartStyleID != "undefined"){
                     if(mainChartStyleID == 0 && detail_page_active){
-                        this.parent.Utilities.googleTracking.sendTrackEvent('mainChart','teamLink');
-                                        setTimeout(function(){
+                        stackedBarChart.parent.Utilities.googleTracking.sendTrackEvent('mainChart','teamLink');
+                                        setTimeout(()=>{
                         window.location.href = "Team.html#"+stackedBarChart.options.data.columns[0][d['index']+1];
                                         }, 100);
                     }
@@ -105,24 +105,24 @@ var stackedBarChart = {
 					stackedBarChart.stackedChart.focus(id);
 					if(isFirstHover){
 						isFirstHover = false;
-						this.parent.Utilities.googleTracking.sendTrackEvent('mainChart', 'legendMouseover');
+						stackedBarChart.parent.Utilities.googleTracking.sendTrackEvent('mainChart', 'legendMouseover');
 					}
 			})
 			.on('mouseout', function (id) {
 					stackedBarChart.stackedChart.revert();
 			})
-			.on('click', function (id) {
+			.on('click', (id) => {
 					stackedBarChart.stackedChart.toggle(id);
 					var newID = id.replace('/', '');
 					newID = newID.split(' ').join('');
 					var legendItem = d3.select('.customLegend-item-'+newID);
 					//console.log(legendItem);
 					legendItem.classed("transparent", !legendItem.classed("transparent"));
-					this.parent.Utilities.googleTracking.sendTrackEvent('mainChart', 'legendClick');
+					stackedBarChart.parent.Utilities.googleTracking.sendTrackEvent('mainChart', 'legendClick');
 			});
 	},
 
-	toggleExpand: function(){
+	toggleExpand: () => {
 		// toggle sizing
 		stackedBarChart.options.$targetElement.toggleClass('expanded');
 
@@ -136,18 +136,18 @@ var stackedBarChart = {
 				stackedBarChart.options.$expandBtnElement.html('Expand');
 		}
 
-		this.parent.Utilities.googleTracking.sendTrackEvent('mainChart', 'expand toggle');
+		stackedBarChart.parent.Utilities.googleTracking.sendTrackEvent('mainChart', 'expand toggle');
 		// re-render
 		stackedBarChart.renderChart();
 	},
-	hideAllCategories: function(){
+	hideAllCategories: ()=>{
 		stackedBarChart.stackedChart.hide();
-        this.parent.Utilities.googleTracking.sendTrackEvent('mainChart','hideAll');
+        stackedBarChart.parent.Utilities.googleTracking.sendTrackEvent('mainChart','hideAll');
 		$('.customLegend-item').addClass('transparent');
 	},
-	showAllCategories: function(){
+	showAllCategories: ()=>{
 		stackedBarChart.stackedChart.show();
-        this.parent.Utilities.googleTracking.sendTrackEvent('mainChart','showAll');
+        stackedBarChart.parent.Utilities.googleTracking.sendTrackEvent('mainChart','showAll');
 		$('.customLegend-item').removeClass('transparent');
 	}
 };
