@@ -12,7 +12,8 @@ var stackedBarChart = {
 		zoomEnabled: false
 	},
 
-	init: function(options){
+	init: function(options,parent){
+        this.parent = parent;
         this.options.data = {};
 		$.extend(true, this.options, options);
 
@@ -54,7 +55,7 @@ var stackedBarChart = {
                 // redirect to
                 if(typeof mainChartStyleID != "undefined"){
                     if(mainChartStyleID == 0 && detail_page_active){
-                        googleTracking.sendTrackEvent('mainChart','teamLink');
+                        this.parent.Utilities.googleTracking.sendTrackEvent('mainChart','teamLink');
                                         setTimeout(function(){
                         window.location.href = "Team.html#"+stackedBarChart.options.data.columns[0][d['index']+1];
                                         }, 100);
@@ -104,7 +105,7 @@ var stackedBarChart = {
 					stackedBarChart.stackedChart.focus(id);
 					if(isFirstHover){
 						isFirstHover = false;
-						googleTracking.sendTrackEvent('mainChart', 'legendMouseover');
+						this.parent.Utilities.googleTracking.sendTrackEvent('mainChart', 'legendMouseover');
 					}
 			})
 			.on('mouseout', function (id) {
@@ -117,7 +118,7 @@ var stackedBarChart = {
 					var legendItem = d3.select('.customLegend-item-'+newID);
 					//console.log(legendItem);
 					legendItem.classed("transparent", !legendItem.classed("transparent"));
-					googleTracking.sendTrackEvent('mainChart', 'legendClick');
+					this.parent.Utilities.googleTracking.sendTrackEvent('mainChart', 'legendClick');
 			});
 	},
 
@@ -135,18 +136,18 @@ var stackedBarChart = {
 				stackedBarChart.options.$expandBtnElement.html('Expand');
 		}
 
-		googleTracking.sendTrackEvent('mainChart', 'expand toggle');
+		this.parent.Utilities.googleTracking.sendTrackEvent('mainChart', 'expand toggle');
 		// re-render
 		stackedBarChart.renderChart();
 	},
 	hideAllCategories: function(){
 		stackedBarChart.stackedChart.hide();
-        googleTracking.sendTrackEvent('mainChart','hideAll');
+        this.parent.Utilities.googleTracking.sendTrackEvent('mainChart','hideAll');
 		$('.customLegend-item').addClass('transparent');
 	},
 	showAllCategories: function(){
 		stackedBarChart.stackedChart.show();
-        googleTracking.sendTrackEvent('mainChart','showAll');
+        this.parent.Utilities.googleTracking.sendTrackEvent('mainChart','showAll');
 		$('.customLegend-item').removeClass('transparent');
 	}
 };

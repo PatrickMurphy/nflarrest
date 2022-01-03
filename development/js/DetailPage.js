@@ -196,7 +196,7 @@ class DetailPage extends WebPage {
 					data: newData,
 					targetElement: self.chartOptions[cID].targetElement,
 					chartTitle: self.chartOptions[cID].title
-				}));
+				},self));
 			});
 		}
 	}

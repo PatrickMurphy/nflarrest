@@ -8,7 +8,8 @@ var weatherMultiChart = {
 		zoomEnabled: true
 	},
 
-	init: function(options){
+	init: function(options,parent){
+        this.parent = parent;
 		$.extend(true, this.options, options);
 
 		var thisChart = this;

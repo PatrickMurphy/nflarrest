@@ -1,6 +1,7 @@
 class DonutChart {
-	constructor(opt) {
+	constructor(opt,parent) {
 		this.chart = undefined;
+        this.parent = parent;
 		this.options = {
 			targetElement: '#theElementSelector',
 			chartTitle: 'default',

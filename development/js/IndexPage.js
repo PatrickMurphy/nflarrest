@@ -260,7 +260,7 @@ class IndexPage extends WebPage {
                 targetExpandBtn: '#details_summary_btn',
                 hideBtn: '#hideAll_btn',
                 showBtn: '#showAll_btn'
-            });
+            },this);
             
             this.MainChart.ReturnStatus = true;
             this.checkLoadingFinished();
