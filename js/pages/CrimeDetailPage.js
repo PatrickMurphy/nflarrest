@@ -1,7 +1,7 @@
 var DetailPageInstance;
 class CrimeDetailPage extends DetailPage {
-    constructor(pageID) {
-        super(pageID, 'Crime', [{
+    constructor() {
+        super('Crime', [{
             type: 'donut',
             url: 'api/v1/crime/topTeams/',
             field: 'Team',
@@ -66,5 +66,5 @@ class CrimeDetailPage extends DetailPage {
 
 }
 $(window).load(function () {
-    DetailPageInstance = new CrimeDetailPage(update_hash());
+    DetailPageInstance = new CrimeDetailPage();
 });

@@ -1,10 +1,10 @@
 var DEBUG = false;
-class DetailPage extends WebPage{
-	constructor(pageID, pageTitle, chartOptions, arrestsUrl) {
+class DetailPage extends WebPage {
+	constructor(pageTitle, chartOptions, arrestsUrl) {
         super();
 		this.data_controller;
         
-        this.pageID = pageID; // SEA
+        this.pageID = this.Utilities.update_hash(); // SEA
 		this.pageTitle = pageTitle; // Team
 		this.arrestsUrl = arrestsUrl; // api/team/arrests.php?id=
 		this.chartOptions = chartOptions; // [{url:'',field:'',targetElement:'',title:''}]
@@ -15,7 +15,7 @@ class DetailPage extends WebPage{
 		var self = this;
 
         // if mobile use cards
-		if (mobileCheck())
+		if (this.Utilities.mobileCheck())
 			this.arrest_view_mode = 1; 
         
         this.StyleManager.loadCSS('css/modules/styles-detailpage.css');
@@ -45,7 +45,7 @@ class DetailPage extends WebPage{
 
 	renderView(self) {
 		self.LoadingBar.showLoading();
-        self.pageID = update_hash(self.pageID);
+        self.pageID = this.Utilities.update_hash(self.pageID);
 		self.changeTitle();
 		self.setupCharts();
 		self.renderArrests();
@@ -196,7 +196,7 @@ class DetailPage extends WebPage{
 					data: newData,
 					targetElement: self.chartOptions[cID].targetElement,
 					chartTitle: self.chartOptions[cID].title
-				}));
+				},self));
 			});
 		}
 	}

@@ -10,11 +10,12 @@ var timeSeriesChart = {
 		ajaxURL: '/api/'
 	},
 
-	init: function(options){
+	init: function(options,parent){
 		$.extend(true, this.options, options);
+        this.parent = parent;
 
 		var thisChart = this;
-		console.log('Initialize Chart:  ' + this.options.targetElement);
+		//console.log('Initialize Chart:  ' + this.options.targetElement);
 
 		thisChart.options.$targetElement = $(this.options.targetElement);
 		thisChart.options.$expandBtnElement = $(this.options.targetExpandBtn);
@@ -84,7 +85,7 @@ var timeSeriesChart = {
 	},
 
 	addColumn: function(id){
-		googleTracking.sendTrackEvent('TimeChart', 'addCompare ' + id);
+		this.parent.Utilities.googleTracking.sendTrackEvent('TimeChart', 'addCompare ' + id);
 		var url = timeSeriesChart.buildAjaxURL(id);
 		$.getJSON(url, function(data){
 			var formattedData = timeSeriesChart.fillDates(id, data),
@@ -191,7 +192,7 @@ var timeSeriesChart = {
 				timeSeriesChart.options.$expandBtnElement.html('Expand');
 		}
 
-		googleTracking.sendTrackEvent('mainChart', 'expand toggle');
+		this.parent.Utilities.googleTracking.sendTrackEvent('mainChart', 'expand toggle');
 		// re-render
 		timeSeriesChart.renderChart();
 	}

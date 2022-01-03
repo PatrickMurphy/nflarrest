@@ -35,11 +35,13 @@ class DateRangeControl {
             dateEnd: () => moment()
         }];
 
+        var monthCount = this.parent.Utilities.mobileCheck() ? 1 : 2;
         $("#dateRangeJquery").daterangepicker({
             presetRanges: presets,
             datepickerOptions: {
                 minDate: new Date('2000-01-01'),
-                maxDate: 0
+                maxDate: 0,
+                numberOfMonths : monthCount
             }
         });
     }

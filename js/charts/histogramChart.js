@@ -8,12 +8,13 @@ var histogramChart = {
 		zoomEnabled: false
 	},
 
-	init: function(options){
+	init: function(options,parent){
         this.options.data = {};
+        this.parent = parent;
 		$.extend(true, this.options, options);
 
 		var thisChart = this;
-		console.log('Initialize Chart:  ' + this.options.targetElement);
+		//console.log('Initialize Chart:  ' + this.options.targetElement);
 
 		thisChart.options.$targetElement = $(this.options.targetElement);
 
@@ -70,7 +71,7 @@ var histogramChart = {
 					histogramChart.histChart.focus(id);
 					if(isFirstHover){
 						isFirstHover = false;
-						googleTracking.sendTrackEvent('mainChart', 'legendMouseover');
+						this.parent.Utilities.googleTracking.sendTrackEvent('mainChart', 'legendMouseover');
 					}
 			})
 			.on('mouseout', function (id) {
@@ -81,9 +82,9 @@ var histogramChart = {
 					var newID = id.replace('/', '');
 					newID = newID.split(' ').join('');
 					var legendItem = d3.select('.customLegend-item-'+newID);
-					console.log(legendItem);
+					//console.log(legendItem);
 					legendItem.classed("transparent", !legendItem.classed("transparent"));
-					googleTracking.sendTrackEvent('mainChart', 'legendClick');
+					this.parent.Utilities.googleTracking.sendTrackEvent('mainChart', 'legendClick');
 			});
 	}
 };

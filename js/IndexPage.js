@@ -9,10 +9,8 @@ var last_start_pos = 0,
 	mainChartStyleID = 0,
 	detail_page_active = true;
 
-var data_controller;
-
-
 var IndexPageInstance;
+
 class IndexPage extends WebPage {
     constructor() {
         super();
@@ -157,7 +155,7 @@ class IndexPage extends WebPage {
             this.Utilities.googleTracking.sendTrackEvent('TopLists', 'Load Next Page');
         }
         
-        //console.log(this, this.last_start_pos);
+        ////console.log(this, this.last_start_pos);
         this.data_controller.getTopLists(this.last_start_pos, this.DateRangeControl.getStart(), this.DateRangeControl.getEnd(), (data) => {
             var crimes_list = data[0],
                 players_list = data[1],
@@ -262,7 +260,7 @@ class IndexPage extends WebPage {
                 targetExpandBtn: '#details_summary_btn',
                 hideBtn: '#hideAll_btn',
                 showBtn: '#showAll_btn'
-            });
+            },this);
             
             this.MainChart.ReturnStatus = true;
             this.checkLoadingFinished();
