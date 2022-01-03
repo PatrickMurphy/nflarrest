@@ -273,7 +273,7 @@ class IndexPage extends WebPage {
         } else if (this.MainChart.StyleID == 1) {
             this.data_controller.getOverallChart("Crime","Year", "Year", "ASC", callback);
         } else if (this.MainChart.StyleID == 3) {
-            this.data_controller.getOverallChart("Crime","Day", "Day", "ASC", callback);
+            this.data_controller.getOverallChart("Crime","Day", "DayOrder", "ASC", callback);
         } else if (this.MainChart.StyleID == 2) {
             this.data_controller.getOverallChart("SeasonState","Season", "Season", "ASC", callback);
         } else if (this.MainChart.StyleID == 4) {
