@@ -14,6 +14,7 @@ class ArrestCard {
         var col1 = col1 || {column: 'Category', color:'Crime_category_color', url:'Crime.html', display: 'Category'};
         var col2 = col2 || {column: 'Team', color:'Team_hex_color', url:'Team.html', display: 'Team_preffered_name', color2: 'Team_hex_alt_color', useColor2: true};
         var showNameVal = this.options.showName ? ' style="display:inline-block; visibility:visible;"' : '';
+        this.options.momentDate = this.row['DaysSince']>99;
         var dateVal = this.options.momentDate ? moment(row['Date'], "YYYY-MM-DD").fromNow() : this.row['DaysSince'] + ' days ago';
         var standaloneVal = this.options.standalone ? " standalone_card" : '';
         var card = ['<div class="card arrest_card ' + standaloneVal + '">'];
