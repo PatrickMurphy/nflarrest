@@ -201,6 +201,7 @@ class DataController {
 		var bar_stacks_count = {};
 		var bar_count = {};
 		var stacks_count = {};
+        var bar_attributes = {};
 
 		var bar_stacks_measure = [];
 		var legends_categories = [];
@@ -210,6 +211,9 @@ class DataController {
 		var sortDESC = function(a, b) {
 		  return b.arrest_count - a.arrest_count;
 		};
+        var sortASC = function(a, b) {
+		  return a.arrest_count - b.arrest_count;
+		};
 
 		for (var i = this.data.length - 1; i >= 0; i--) {
 			var row = this.data[i];
@@ -217,17 +221,27 @@ class DataController {
 				bar_stacks_count = this.incrementMap(bar_stacks_count, (row[bar_column]+row[stacks_column]));
 				bar_count = this.incrementMap(bar_count, row[bar_column]);
 				stacks_count = this.incrementMap(stacks_count, row[stacks_column]);
+                bar_attributes[row[bar_column]] = row[bar_order_by_column];
 			}
 		}
 
 		var bar_order = [];
 		Object.keys(bar_count).forEach((key) => {
-			bar_order.push({'bar': key, 'arrest_count': bar_count[key]});
+            var bartmp = {'bar': key, 'arrest_count': bar_count[key]};
+            bartmp[bar_order_by_column] = bar_attributes[key];
+            bar_order.push(bartmp);
 		});
 
 		if(bar_order_by_direction == 'DESC' && bar_order_by_column == bar_column){
 			bar_order.sort(sortDESC);
-		}
+		}/*else if (bar_order_by_direction == 'ASC' && bar_order_by_column == bar_column){
+            bar_order.sort(sortASC);
+        }*/else if (bar_order_by_direction == 'ASC' && bar_order_by_column == 'Day_of_Week_int'){
+            bar_order.sort((a, b) => {
+		      return a[bar_order_by_column] - b[bar_order_by_column];
+		    });
+        }
+        
 
 		var bar_groups = [];
 		Object.keys(stacks_count).forEach((key) => {

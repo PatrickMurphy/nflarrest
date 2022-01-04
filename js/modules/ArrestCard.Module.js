@@ -2,6 +2,7 @@ class ArrestCard {
     constructor(row,options){
         this.row = row;
         this.options = options || {showName:false,momentDate:false,standalone:false};
+        this.options.momentDate = this.row['DaysSince']>99;
         this.Column_Team = {column: 'Team', color:'Team_hex_color', url:'Team.html', display: 'Team_preffered_name', color2: 'Team_hex_alt_color', useColor2: true};
         this.Column_Crime = {column: 'Category', color:'Crime_category_color', url:'Crime.html', display: 'Category'};
         this.Column_Player = {column: 'Name', color:'Team_hex_color', url:'Player.html', display: 'Name', color2: 'Team_hex_alt_color', useColor2: true};
@@ -14,7 +15,7 @@ class ArrestCard {
         var col1 = col1 || {column: 'Category', color:'Crime_category_color', url:'Crime.html', display: 'Category'};
         var col2 = col2 || {column: 'Team', color:'Team_hex_color', url:'Team.html', display: 'Team_preffered_name', color2: 'Team_hex_alt_color', useColor2: true};
         var showNameVal = this.options.showName ? ' style="display:inline-block; visibility:visible;"' : '';
-        var dateVal = this.options.momentDate ? moment(row['Date'], "YYYY-MM-DD").fromNow() : this.row['DaysSince'] + ' days ago';
+        var dateVal = this.options.momentDate ? moment(this.row['Date'], "YYYY-MM-DD").fromNow() : this.row['DaysSince'] + ' days ago';
         var standaloneVal = this.options.standalone ? " standalone_card" : '';
         var card = ['<div class="card arrest_card ' + standaloneVal + '">'];
 		card.push('<span class="date_item" title="' + this.row['Date'] + '">' + dateVal + '</span>');
