@@ -1,4 +1,4 @@
-var isFirstHover = true;
+/*var isFirstHover = true;
 var stackedBarChart = {
 	stackedChart: undefined,
 	options: {
@@ -151,3 +151,142 @@ var stackedBarChart = {
 		$('.customLegend-item').removeClass('transparent');
 	}
 };
+*/
+class StackedBarChart extends Chart {
+    constructor(opt,parent){
+        super(opt,'bar',parent);
+        this.isFirstHover = true;
+        
+		this.options.$targetElement = $(this.options.targetElement);
+		this.options.$expandBtnElement = $(this.options.targetExpandBtn);
+		this.options.$showBtnElement = $(this.options.showBtn);
+		this.options.$hideBtnElement = $(this.options.hideBtn);
+
+		this.options.$expandBtnElement.off('click');
+		this.options.$expandBtnElement.click(this.toggleExpand);
+		this.options.$hideBtnElement.click(this.hideAllCategories);
+		this.options.$showBtnElement.click(this.showAllCategories);
+        
+        this.renderChart();
+    }
+    
+    getBottomPadding(){
+        var bottomPadding = 0;
+        if($( document ).width() < 800){
+            bottomPadding = 20;
+		}else{
+			bottomPadding = 6;
+		}
+        return bottomPadding;
+    }
+    
+    renderCustomLegend(){
+        $('.customLegend').remove();
+        d3.select('.chart-container').insert('div', '.chart-options').attr('class', 'customLegend').selectAll('span')
+            .data(this.options.data.groups)
+            .enter().append('span')
+			.attr('data-id', function (id) { return id; })
+			.attr('class', function (id) {
+				var newID = id.replace('/', '');
+				newID = newID.split(' ').join('');
+				return 'customLegend-item customLegend-item-' + newID; })
+			.html(function (id) { return "<span class=\"customLegend-item-color\" style=\"background-color:"+ this.chart.color(id) +";\"></span> " + id; })
+			.on('mouseover', function (id) {
+                this.chart.focus(id);
+                if(this.isFirstHover){
+                    this.isFirstHover = false;
+                    this.parent.Utilities.googleTracking.sendTrackEvent('mainChart', 'legendMouseover');
+                }
+			})
+			.on('mouseout', function (id) {
+                this.chart.revert();
+			})
+			.on('click', (id) => {
+                this.chart.toggle(id);
+                var newID = id.replace('/', '');
+                newID = newID.split(' ').join('');
+                var legendItem = d3.select('.customLegend-item-'+newID);
+                //console.log(legendItem);
+                legendItem.classed("transparent", !legendItem.classed("transparent"));
+                this.parent.Utilities.googleTracking.sendTrackEvent('mainChart', 'legendClick');
+        });
+    }
+    
+    toggleExpand(){
+        // toggle sizing
+		this.options.$targetElement.toggleClass('expanded');
+
+		// toggle button state
+		this.options.isExpanded = !this.options.isExpanded;
+
+		// toggle button text
+		if(this.options.isExpanded){
+				this.options.$expandBtnElement.html('Collapse');
+		}else{
+				this.options.$expandBtnElement.html('Expand');
+		}
+
+		this.parent.Utilities.googleTracking.sendTrackEvent('mainChart', 'expand toggle');
+		// re-render
+		this.renderChart();
+    }
+    hideAllCategories(){
+		this.chart.hide();
+        this.parent.Utilities.googleTracking.sendTrackEvent('mainChart','hideAll');
+		$('.customLegend-item').addClass('transparent');
+	}
+	showAllCategories(){
+		this.chart.show();
+        this.parent.Utilities.googleTracking.sendTrackEvent('mainChart','showAll');
+		$('.customLegend-item').removeClass('transparent');
+	}
+    
+    renderChart(){
+        var bottomPadding = this.getBottomPadding();
+        
+        var chartObj = {
+            bindto:this.options.targetElement,
+            data: {
+                empty: { label: { text: "No Data Available for this Date Range" }   },
+                x : 'x',
+                columns: this.options.data.columns,
+                groups: [this.options.data.groups],
+                order: 'asc',
+                type: 'bar',
+                onclick: (d, i) => {
+                    // redirect to
+                    if(typeof this.parent.MainChart.StyleID != "undefined"){
+                        if(this.parent.MainChart.StyleID == 0 && this.parent.detail_page_active){
+                            this.parent.Utilities.googleTracking.sendTrackEvent('mainChart','teamLink');
+                            setTimeout(()=>{
+                                window.location.href = "Team.html#"+this.options.data.columns[0][d['index']+1];
+                            }, 100);
+                        }
+                    }
+                }
+            },
+            zoom: {
+                enabled: this.options.zoomEnabled
+            },
+            padding: {
+                bottom: bottomPadding
+            },
+            legend: {
+                show: !this.options.customLegend
+            },
+            axis: {
+                x: {
+                    type: 'category'
+                }
+            },
+            color: {
+                pattern: ["#1F77B4","#FF7F0E","#2CA02C","#D62728","#9467BD","#8C564B","#E377C2","#7F7F7F","#BCBD22","#17BECF","#154F78","#B0580A","#248224","#7D1717"]
+            }
+        };
+
+		this.chart = c3.generate(chartObj);
+		if(this.options.customLegend){
+			this.renderCustomLegend();
+		}
+    }
+}

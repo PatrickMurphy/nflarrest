@@ -1,32 +1,22 @@
-class DonutChart {
+class DonutChart extends Chart {
 	constructor(opt,parent) {
-		this.chart = undefined;
-        this.parent = parent;
-		this.options = {
-			targetElement: '#theElementSelector',
-			chartTitle: 'default',
-			data: {}
-		};
-		$.extend(true, this.options, opt);
-		this.options.$targetElement = $(this.options.targetElement);
-
+        super(opt,'donut',parent);
 		this.renderChart();
 	}
 
 	renderChart() {
-		var self = this;
-		this.chart = c3.generate({
-			bindto: self.options.targetElement,
+		var chartObj = {
+			bindto: this.options.targetElement,
 			data: {
-				columns: self.options.data,
-				type: 'donut'
+				columns: this.options.data,
+				type: this.chartType
 			},
-			donut: {
-				title: self.options.chartTitle
-			},
+            donut: {title: this.options.chartTitle},
 			color: {
-				pattern: ['#1F77B4', '#FF7F0E', '#2CA02C', '#D62728', '#9467BD', '#8C564B', '#E377C2', '#7F7F7F', '#BCBD22', '#17BECF', '#154F78', '#B0580A', '#248224', '#7D1717']
+				pattern: this.defaultColorPattern
 			}
-		});
+		};
+        
+		this.chart = c3.generate(chartObj);
 	}
 }
