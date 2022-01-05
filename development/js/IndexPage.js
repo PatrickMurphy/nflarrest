@@ -254,7 +254,7 @@ class IndexPage extends WebPage {
                         this.charts[0].stackedChart.destroy();
         
         this.getOverallChartData((newData) => {
-            this.charts[0] = stackedBarChart.init({
+            this.charts[0] = new StackedBarChart({
                 data: newData,
                 targetElement: '#chart',
                 targetExpandBtn: '#details_summary_btn',
