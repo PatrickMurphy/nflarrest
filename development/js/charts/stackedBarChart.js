@@ -163,9 +163,9 @@ class StackedBarChart extends Chart {
 		this.options.$hideBtnElement = $(this.options.hideBtn);
 
 		this.options.$expandBtnElement.off('click');
-		this.options.$expandBtnElement.click(this.toggleExpand);
-		this.options.$hideBtnElement.click(this.hideAllCategories);
-		this.options.$showBtnElement.click(this.showAllCategories);
+		this.options.$expandBtnElement.click(()=>{this.toggleExpand});
+		this.options.$hideBtnElement.click(()=>{this.hideAllCategories});
+		this.options.$showBtnElement.click(()=>{this.showAllCategories});
         
         this.renderChart();
     }
