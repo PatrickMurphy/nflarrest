@@ -166,8 +166,6 @@ class StackedBarChart extends Chart {
 		this.options.$expandBtnElement.click(()=>{this.toggleExpand});
 		this.options.$hideBtnElement.click(()=>{this.hideAllCategories});
 		this.options.$showBtnElement.click(()=>{this.showAllCategories});
-        
-        this.renderChart();
     }
     
     getBottomPadding(){
