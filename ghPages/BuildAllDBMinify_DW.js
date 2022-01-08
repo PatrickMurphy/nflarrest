@@ -3,13 +3,19 @@ var fs = require('fs');
 var UglifyJS = require("uglify-js");
 var mysql = require('mysql');
 var node_minify = require('node-minify');
-var gits = require('simple-git');
+var simple_git = require('simple-git');
 var readline = require('readline');
+var readlinesync = require('readline-sync');
 var mysqldump = require('mysqldump');
 var dbConfig = require('./dbconfig');
-var readline = readline.createInterface(process.stdin, process.stdout);
 var shell = require('shelljs');
 
+// --- Setup imported objects --- //
+var git = simple_git('./nflarrest/');
+var mysql_user_options = dbConfig;
+
+
+// --- Add Run Node Process Functions --- //
 function runNode(path, cb1, cb){
 	shell.exec('node '+ path, function(code, stdout, stderr){
 		cb(code, stdout, stderr, cb1);
@@ -20,37 +26,32 @@ function nodeCB(code, stdout, stderr, cb) {
 	if(code !== 0){
 		console.log('Program stderr:', stderr);
 		shell.exit(1);
-	}else{	
-        //console.log('Prod Dev File Diff: ',stdout);
+	}else{
 		cb();
 	}
 }
 
-var git = gits('./nflarrest/');
+// --- Setup Enum Variables --- //
+var runOption_Environment_Details_enum = [{Environment: "development", path: "/development/"}, {Environment: "production", path: "/"}];
+var runOption_Environment_Names_enum = ["development", "production"];
 
 // --- Script Arguments --- //
-var runOption_Environment_enum = ["development", "production"];
-var runOption_Environment = 0;
-var runOption_Generate_CSS_Flag = true;
-var runOption_Generate_JS_Flag = true;
-var runOption_UseModular_CSS_Flag = true;
-var runOption_publish = false;
-var runOption_publish_AllFiles = false;
+var runOption_Environment           = 0;
+var runOption_Generate_CSS_Flag     = true;
+var runOption_Generate_JS_Flag      = true;
+var runOption_UseModular_CSS_Flag   = true;
+var runOption_publish_Flag          = false;
+var runOption_publish_mode_AllFiles = false;
+var runOption_publish_mode_Update   = false;
+var runOption_Commit_Message_Flag   = false;
+var runOption_Release_Flag          = false;
 
-
-var runOption_Environments = [{
-    Environment: "development",
-    path: "/development/"
-}, {
-    Environment: "production",
-    path: "/"
-}];
+// --- User Input Variables --- //
+var runOption_UserInput_Version = 'x.x.x';
+var runOption_UserInput_Commit_MSG = '';
 
 // --- Script Parameters --- //
-var mysql_user_options = dbConfig;
-
 var path_global = "nflarrest";
-
 var MinFilename_JS = 'index.min.js';
 var MinFilename_Detail_JS = 'DetailPage.min.js';
 var MinFilename_CSS = "styles.min.css";
@@ -61,33 +62,45 @@ var DW_stored_procedures = ["sp_dim_day_update", "sp_etl_arrests", "sp_materiali
 var DW_arrests_view = "vwarrestsweb";
 var mysqldump_path = '../Database/backup/lastGHPagesUpdateDump.sql';
 
-var JS_filenames = ['js/nflLoadingBar.js',
-    //'js/data/ArrestsCacheTable_data.js',
+var cacheUglifyJSFileName1 = "./cacheJSMinifyNamesIndex.json";
+var cacheUglifyJSFileName2 = "./cacheJSMinifyNamesDetailPage.json";
+var JS_filenames_index = ['js/LoadingBarManager.js',
     'js/modules/ArrestCard.Module.js',
     'js/data/lastUpdate_data.js',
     'js/DataController.js',
-    'js/index_no_php.js',
-    'js/common.js',
+    'js/Utilities.js',
+    'js/GoogleAnalyticsManager.js',
+    'js/WebPage.js',
+    //'js/charts/Chart.js',
+    'js/IndexPage.js',
     'js/charts/stackedBarChart.js',
-    'js/dateRangeController.js',
-    'js/google-tracking.js',
-    'js/loadCSS.js'
+    'js/DateRangeControl.js',
+    'js/StyleSheetManager.js'
 ];
 
+// any files that are new that have not been added to production environment, these files need to be moved to production before prod release
+var JS_filenames_index_development = ['js/charts/Chart.js'];
+
 var JS_filenames_detail = [
+    'js/LoadingBarManager.js',
+    'js/Utilities.js',
+    'js/GoogleAnalyticsManager.js',
+    'js/WebPage.js',
     'js/DetailPage.js',
     'js/model/FiltersModel.js',
     'js/FiltersControl.js',
-    'js/charts/donutChart.js',
+    //'js/charts/Chart.js',
+    'js/charts/DonutChart.js',
     'js/data/lastUpdate_data.js',
     'js/modules/ArrestCard.Module.js',
     'js/DataController.js',
-    'js/common.js',
     'js/charts/timeSeriesChart.js',
-    'js/dateRangeController.js',
-    'js/google-tracking.js',
-    'js/loadCSS.js'
+    'js/DateRangeControl.js',
+    'js/StyleSheetManager.js'
 ];
+
+// any files that are new that have not been added to production environment, these files need to be moved to production before prod release
+var JS_filenames_detail_development = ['js/charts/Chart.js'];
 
 var CSS_filenames = ['css/styles-modular.css',
     'css/modules/styles-indexpage.css',
@@ -100,33 +113,110 @@ var CSS_filenames = ['css/styles-modular.css',
     'css/modules/styles-mobile.css'
 ];
 
-function getEnvPath(path) {
-    return path_global + runOption_Environments[runOption_Environment].path + path;
+// any files that are new that have not been added to production environment, these files need to be moved to production before prod release
+var CSS_filenames_development = [];
+
+function main_is_development_env(){
+    return runOption_Environment_Details_enum[runOption_Environment].Environment === 'development';
 }
 
+function main_get_env(){
+    return runOption_Environment_Details_enum[runOption_Environment];
+}
+
+function getEnvPath(path) {
+    return path_global + main_get_env().path + path;
+}
 
 function getJSFiles() {
     var jsFiles = [];
-    for (var i = 0; i < JS_filenames.length; i++) {
-        jsFiles.push(getEnvPath(JS_filenames[i]));
+    
+    if(main_is_development_env()){
+        for (var i = 0; i < JS_filenames_index_development.length; i++) {
+            jsFiles.push(getEnvPath(JS_filenames_index_development[i]));
+        }
     }
+    
+    for (var i = 0; i < JS_filenames_index.length; i++) {
+        jsFiles.push(getEnvPath(JS_filenames_index[i]));
+    }
+    
     return jsFiles;
 }
 
 function getJSFilesDetail() {
     var jsFiles2 = [];
+    
+    if(main_is_development_env()){
+        for (var i = 0; i < JS_filenames_detail_development.length; i++) {
+            jsFiles2.push(getEnvPath(JS_filenames_detail_development[i]));
+        }
+    }
+    
     for (var i = 0; i < JS_filenames_detail.length; i++) {
         jsFiles2.push(getEnvPath(JS_filenames_detail[i]));
     }
+    
     return jsFiles2;
 }
 
 function getCSSFiles() {
     var cssFiles = [];
+    
+    if(main_is_development_env()){
+        for (var i = 0; i < CSS_filenames_development.length; i++) {
+            cssFiles.push(getEnvPath(CSS_filenames_development[i]));
+        }
+    }
+    
     for (var i = 0; i < CSS_filenames.length; i++) {
         cssFiles.push(getEnvPath(CSS_filenames[i]));
     }
+    
     return cssFiles;
+}
+
+// ------- MYSQL Functions ------- //
+function dumpDatabase(callback) {
+    console.log('MYSQL:          DUMP SQL');
+    mysqldump({
+        connection: {
+            host: mysql_user_options.host,
+            user: mysql_user_options.user,
+            password: mysql_user_options.password,
+            database: mysql_user_options.database,
+        },
+        dumpToFile: mysqldump_path,
+    });
+
+    callback();
+}
+
+function insertBuildRelease(mysql,desc,version){
+    var envdbid = runOption_Environment+1;
+    var reldate = new Date();
+    var build_release_version = version || "x.x.x";
+    var build_release_type_id = 1;
+    
+    if(runOption_Environment_Details_enum[runOption_Environment].Environment == "development"){
+        build_release_type_id = runOption_Release_Flag ? 2 : 3;
+    }
+    
+    var release = {build_environment_id: envdbid,
+        build_release_type_id:build_release_type_id,
+        build_release_version: build_release_version, 
+        build_release_description:desc,
+        build_release_date:reldate.toISOString().split('T')[0]
+    };
+    
+    var strQuery = "INSERT INTO nflarrestdw.build_release SET ?";
+    mysql.query(strQuery, release, (error2, results2, fields2) => {
+        if (error2) {
+            console.log(error2);
+        }
+        console.log("Success::     MYSQL INSERT Build Release::  InsertID: " + results2.insertId);
+    });
+    mysql.end();
 }
 
 // use stored_procedures array for sp
@@ -134,9 +224,10 @@ function call_sp(sp, mysql, callback) {
     mysql.query("CALL " + sp + "()", function(error2, results2, fields2) {
         if (error2) {
             console.log(error2);
+        }else{
+            console.log("Success::       " + sp + "() Proc::  Rows Affected: " + results2.affectedRows);
+            callback();
         }
-        console.log("Success::     " + sp + "() Proc::  Rows Affected: " + results2.affectedRows);
-        callback();
     });
 }
 
@@ -150,7 +241,7 @@ function cacheArrestsDateViewJS(mysql, callback) {
             if (err) {
                 return console.log("Error:: " + err);
             }
-            console.log("Success::     JS Data Table " + DataFilename_JSON + " saved.");
+            console.log("Success::       JS Data Table " + DataFilename_JSON + " saved.");
             callback();
         });
     });
@@ -164,11 +255,14 @@ function cacheUpdateDate(callback) {
         if (err) {
             return console.log("Error:: " + err);
         }
-        console.log("Success::     JS Data Table " + "lastUpdate_data.js" + " saved.");
+        console.log("Success::       JS Data Table " + "lastUpdate_data.js" + " saved.");
         callback();
     });
 }
 
+// ------- End MYSQL Functions ------- //
+
+// ------- Minify Functions ------- //
 function minifyHomepage(callback) {
     minifyJS(function() {
         minifyCSS(function() {
@@ -196,10 +290,15 @@ function minifyJS(callback) {
             fileObj2[key] = fs.readFileSync(files2[j], "utf8");
         }
         
-        fs.writeFileSync(getEnvPath('js/compressed/'+ MinFilename_JS), UglifyJS.minify(fileObj1).code);
-        console.log('Success::     Minify Homepage JS: ' + MinFilename_JS);
-        fs.writeFileSync(getEnvPath('js/compressed/'+ MinFilename_Detail_JS), UglifyJS.minify(fileObj2).code);
-        console.log('Success::     Minify Homepage JS Detail Page: ' + MinFilename_Detail_JS);
+        var opts1 = readCacheJSMinifyNames(cacheUglifyJSFileName1);
+        
+        fs.writeFileSync(getEnvPath('js/compressed/'+ MinFilename_JS), UglifyJS.minify(fileObj1,opts1).code);
+        //writeCacheJSMinifyNames(JSON.stringify(opts1.nameCache), cacheUglifyJSFileName1);
+        console.log('Success::       Minify Homepage JS: ' + MinFilename_JS);
+        
+        fs.writeFileSync(getEnvPath('js/compressed/'+ MinFilename_Detail_JS), UglifyJS.minify(fileObj2,opts1).code);
+        writeCacheJSMinifyNames(JSON.stringify(opts1.nameCache), cacheUglifyJSFileName1);
+        console.log('Success::       Minify Homepage JS Detail Page: ' + MinFilename_Detail_JS);
         
         callback();
     }
@@ -215,7 +314,7 @@ function minifyCSS(callback) {
                 input: getCSSFiles(),
                 output: getEnvPath('css/' + MinFilename_CSS),
                 callback: function(err, min) {
-                    console.log('Success::     CSS Minify finished Modular: ' + MinFilename_CSS);
+                    console.log('Success::       CSS Minify finished Modular: ' + MinFilename_CSS);
                     callback();
                 }
             });
@@ -226,7 +325,7 @@ function minifyCSS(callback) {
                 input: [getEnvPath('css/styles.css')],
                 output: getEnvPath('css/' + MinFilename_CSS),
                 callback: function(err, min) {
-                    console.log('Success::     CSS Minify finished non modular: ' + MinFilename_CSS);
+                    console.log('Success::       CSS Minify finished non modular: ' + MinFilename_CSS);
                     callback();
                 }
             });
@@ -234,113 +333,122 @@ function minifyCSS(callback) {
     }
 }
 
-
-function dumpDatabase(callback) {
-    console.log('MYSQL:     DUMP SQL');
-    mysqldump({
-        connection: {
-            host: mysql_user_options.host,
-            user: mysql_user_options.user,
-            password: mysql_user_options.password,
-            database: mysql_user_options.database,
-        },
-        dumpToFile: mysqldump_path,
-    });
-
-    callback();
+function writeCacheJSMinifyNames(cache,filename){
+    fs.writeFileSync(filename, cache, "utf8");
 }
 
-function main() {
-    console.log("ENVIRONMENT:  " + runOption_Environments[runOption_Environment].Environment);
-
-    var mysql_connection = mysql.createConnection({
-        host: '127.0.0.1',
-        user: 'root',
-        password: 'BinaryStar2021!',
-        database: 'nflarrestdw'
-    });
-    mysql_connection.connect();
-    console.log("MYSQL:        Connected");
-
-    mysql_connection.on('error', function(err) {
-        console.log("[mysql error]", err);
-    });
-
-    call_sp("sp_day_dim_update", mysql_connection, function() {
-        call_sp("sp_etl_arrests", mysql_connection, function() {
-            call_sp("sp_materialize_arrests", mysql_connection, function() {
-                cacheArrestsDateViewJS(mysql_connection, function() {
-                    cacheUpdateDate(function() {
-                        minifyHomepage(function() {
-                            dumpDatabase(function() {
-                                runNode("BuildFileDiff.js", function(){
-                                    // determine if process should publish ghpages changes
-                                    checkPublish();
-                                }, nodeCB);
-                            });
-                        });
-                    });
-                    mysql_connection.end();
-                });
-            });
-        });
-    });
+function readCacheJSMinifyNames(filename, firstRun){
+    firstRun = firstRun || '';
+    
+    var options = {
+        nameCache: JSON.parse(fs.readFileSync(filename, "utf8"))
+    };
+    /*
+    if(true){// switch if file does not exist?
+        options.nameCache = JSON.parse(fs.readFileSync(filename, "utf8"));
+    }
+    */
+    return options;
 }
+// ------- End Minfiy Functions ------- //
 
 
-function checkPublish() {
-    if (runOption_publish) {
-        promptConfirmPublish();
+// ------- Publish (GIT) Functions ------- //
+function checkPublish(mysql) {
+    if (runOption_publish_Flag) {
+        promptConfirmPublish(mysql);
     } else {
         console.log("GIT:          Not Publishing (tip: add arg 'publish' to publish)");
-        readline.close();
     }
 }
 
-async function promptConfirmPublish() {
+async function displayGitStatus(){
+    // get git status result and print it
     var StatusResult = await git.status();
-    console.log(StatusResult.files);
-    var allFiles = runOption_publish_AllFiles ? ' ~~!!WARNING ALL FILES SET!!~~ ' : '';
-    
-    readline.question("GIT:          Publish changes? " + allFiles + " [yes]/no: ", function(answer) {
-        if (answer === "no") {
-            console.log("GIT:          Not Publishing");
-            readline.close();
-        } else {
-            console.log("GIT:          Publishing...");
-            publishGHPages();
-        }
-    });
+    var SRFiles = [];
+    for(var i = 0; i < StatusResult.files.length; i++){
+        // todo add if dev statment
+        SRFiles.push(StatusResult.files[i].working_dir + ": " + StatusResult.files[i].path);
+    }
+    console.log('');
+    console.log("----------------  Files Modified Locally  --------------");
+    console.log(SRFiles);
 }
 
-function publishGHPages() {
+function read_input_version(){
+    var versionNumAnswer = 'x.x.x';
+    if(runOption_Release_Flag){
+        versionNumAnswer = readlinesync.question("GIT:          Release Version: ");
+        console.log("GIT:          Version set to: "+versionNumAnswer);
+        return versionNumAnswer;
+    }
+}
+
+function read_input_commit_msg(){
+    if(runOption_Commit_Message_Flag){
+        var answer2 = readlinesync.question("GIT:          Commit Message: ");
+        if (answer2 === "no" || answer2  === 'quit') {
+            console.log("GIT:          Not Publishing");
+        } else {
+            console.log("GIT:          Commit Message set to: "+answer2);
+            return answer2;
+        }
+    }
+}
+
+async function promptConfirmPublish(mysql) {
+    await displayGitStatus();
+    
+    runOption_UserInput_Version = read_input_version();
+    
+    // if commit message set in args
+    runOption_UserInput_Commit_MSG = read_input_commit_msg();
+    
+    // setup all file message or no message
+    var allFiles = runOption_publish_mode_AllFiles ? ' ~~!!WARNING ALL FILES SET!!~~ ' : '';
+    if (main_ask_bool_input(mysql,"GIT:          Publish changes? " + allFiles + " [yes]/no: ", 1)) {
+        console.log("GIT:          Publishing...");
+        publishGHPages(mysql);
+    } else { // said no to publish
+        console.log("GIT:          Not Publishing");
+    }
+}
+
+function publishGHPages(mysql) {
     //Git add ., Git commit -m "update x", git push;
-    if (runOption_publish_AllFiles) {
+    if (runOption_publish_mode_AllFiles) {
         var addAllPath = '.';
-        if (runOption_Environment == runOption_Environment_enum.indexOf("development")) {
-            addAllPath += runOption_Environments[runOption_Environment].path;
+        if (runOption_Environment == runOption_Environment_Names_enum.indexOf("development")) {
+            addAllPath += runOption_Environment_Details_enum[runOption_Environment].path;
         }
         git.add(addAllPath, function(p1, p2, p3) {
             console.log('GIT File Add: all changes');
             var datenow = new Date();
-            var msg = "AUTO COMMIT: " + (datenow.toLocaleDateString('en-US')) + " Build Process " + datenow.getHours() + ":" + datenow.getMinutes();
+            var theMsg = runOption_Commit_Message_Flag ? runOption_UserInput_Commit_MSG : "Commit";
+            var hours = datenow.getHours()>9 ? datenow.getHours() : "0"+datenow.getHours();
+            var mins = datenow.getMinutes()>9 ? datenow.getMinutes() : "0"+datenow.getMinutes();
+            var date = datenow.toLocaleDateString('en-US');
+            var env = runOption_Environment_Details_enum[runOption_Environment].Environment;
+            
+            var msg = `BUILD ${env}: ${theMsg} || ${date} ${hours}:${mins}`;
+            
             git.commit(msg, function() {
                 git.push();
-                readline.close();
+                insertBuildRelease(mysql,msg,runOption_UserInput_Version);
             });
         });
     } else {
-        git.add('.' + runOption_Environments[runOption_Environment].path + 'js/data/ArrestsCacheTable_data.js', function(p1, p2, p3) {
-            git.add('.' + runOption_Environments[runOption_Environment].path + 'js/compressed/index.min.js', function(p1, p2, p3) {
-                git.add('.' + runOption_Environments[runOption_Environment].path + 'css/styles.min.css', function(p1, p2, p3) {
-                    git.add('.' + runOption_Environments[runOption_Environment].path + 'js/data/lastUpdate_data.js', function(p1, p2, p3) {
+        git.add('.' + runOption_Environment_Details_enum[runOption_Environment].path + 'js/data/ArrestsCacheTable_data.js', function(p1, p2, p3) {
+            git.add('.' + runOption_Environment_Details_enum[runOption_Environment].path + 'js/compressed/index.min.js', function(p1, p2, p3) {
+                git.add('.' + runOption_Environment_Details_enum[runOption_Environment].path + 'css/styles.min.css', function(p1, p2, p3) {
+                    git.add('.' + runOption_Environment_Details_enum[runOption_Environment].path + 'js/data/lastUpdate_data.js', function(p1, p2, p3) {
                         console.log('GIT File Add: ArrestsCacheTable_data.js, index.min.js, and styles.min.css, lastUpdate_data.js');
                         var datenow = new Date();
                         var msg = "AUTO COMMIT: " + (datenow.toLocaleDateString('en-US')) + " Build Process " + datenow.getHours() + ":" + datenow.getMinutes();
                         git.commit(msg, function() {
                             git.push();
                             gitCheckoutBranch();
-                            readline.close();
+                            insertBuildRelease(mysql,msg,runOption_UserInput_Version);
                         });
                     });
                 });
@@ -353,38 +461,191 @@ function gitCheckoutBranch(b) {
     b = b || "gh-pages";
     git.checkout(b);
 }
+// ------- End Publish (GIT) Functions ------- //
 
-// Handle Script arguments
+
+// ------- Set Run Options ------- //
 process.argv.forEach(function(val, index, array) {
     // Environment: development, production
     // Minify Options: only-js, only-css
     // Use Modular CSS: modular-css
+    if(index == 0){
+        console.log(' ');
+        console.log(' ');
+        console.log(' ');
+        console.log(' ');
+        console.log(' ');
+        console.log(' ');
+        console.log(' ');
+        console.log(' ');
+        console.log('Run Options Setup: ------------------------ ');
+    }
+    
     if (val === "allfiles") {
-        runOption_publish_AllFiles = true;
+        console.log('Run Option Set: Publish Mode = All Files');
+        runOption_publish_mode_AllFiles = true;
+    }
+    
+    if (val === "update") {
+        console.log('Run Option Set: Publish Mode = Update Only');
+        runOption_publish_mode_Update = true;
+        runOption_publish_mode_AllFiles = false;
     }
 
-    if (val === "development") {
-        runOption_Environment = runOption_Environment_enum.indexOf("development");
+    if (val === "env-development") {
+        console.log('Run Option Set: Environment = Development');
+        runOption_Environment = runOption_Environment_Names_enum.indexOf("development");
     }
-    if (val === "production") {
-        runOption_Environment = runOption_Environment_enum.indexOf("production");
+    if (val === "env-production") {
+        console.log('Run Option Set: Environment = Production');
+        runOption_Environment = runOption_Environment_Names_enum.indexOf("production");
     }
 
     if (val === "publish") {
-        runOption_publish = true;
+        console.log('Run Option Set: Publish Flag = True');
+        runOption_publish_Flag = true;
+    }
+    
+    if (val === "release") {
+        console.log('Run Option Set: Release Flag = True');
+        console.log('Run Option Set: Commit Message Flag = True');
+        runOption_Release_Flag = true;
+        runOption_Commit_Message_Flag = true;
     }
 
     if (val === "only-js") {
+        console.log('Run Option Set: Minfiy Only JS = True');
         runOption_Generate_CSS_Flag = false;
         runOption_Generate_JS_Flag = true;
     }
     if (val === "only-css") {
+        console.log('Run Option Set: Minfiy Only CSS = True');
         runOption_Generate_JS_Flag = false;
         runOption_Generate_CSS_Flag = true;
     }
     if (val === "modular-css") {
+        console.log('Run Option Set: Minfiy Modular CSS = True');
         runOption_Generate_CSS_Flag = true;
         runOption_UseModular_CSS_Flag = true;
     }
+    
+    if (val === "msg" || val === "message" || val === "commit-message") {
+        console.log('Run Option Set: Commit Message Flag = True');
+        runOption_Commit_Message_Flag = true;
+    }
 });
+
+function main_ask_bool_input(mysql_connection, question, security_level){
+    // Security Level -1 = blank, yes or y
+    // Security Level 1 = strict "Yes"
+    // Security Level 2 = any text-case "yes"
+    // Security Level 3 = any text-case not "no"
+    // Security Level 4 = strict "No"
+    security_level = security_level || -1;
+    
+    console.log('');
+    console.log('--------------====== Question =====-----');
+    var input_answer = readlinesync.question(question);
+    
+    var ret_val = false; // default false
+    
+    if ((input_answer === '' || input_answer.toLowerCase() === 'yes' || input_asnwer.toLowerCase() === 'y') && security_level == -1){ // if empty and security set to negitive 1
+        ret_val = true;
+    }else if(input_answer === 'Yes' && security_level == 1){ // strict "Yes"
+        ret_val = true;
+    }else if (input_answer.toLowerCase() === 'yes' && security_level == 2){ // "yes" any case
+        ret_val = true;
+    }else if (input_answer.toLowerCase() !== 'no' && security_level == 3){ // any form of "no" ("No", "no", "nO", "NO")
+        ret_val = true;
+    }else if (input_answer !== 'No' && security_level == 4){ // strictly "No"
+        ret_val = true;
+    }
+    
+    if(!ret_val){
+        mysql_connection.end();
+    }
+    
+    return ret_val;
+}
+
+function main_mysql_stored_procs(mysql_connection, callback){
+    if(main_ask_bool_input(mysql_connection, "MYSQL:          Run Stored Procedures? (dimDay, etl_arrests, mat_arrests) [yes]/no: ", -1)){
+        call_sp("sp_day_dim_update", mysql_connection, () => {
+            call_sp("sp_etl_arrests", mysql_connection, () => {
+                call_sp("sp_materialize_arrests", mysql_connection, () => {
+                    callback();
+                });
+            });
+        });
+    }
+}
+
+function main_mysql_cache_data(mysql_connection, callback){
+    if(main_ask_bool_input(mysql_connection, "MYSQL:          Cache Data? (mat_arrests, update_date) [yes]/no: ", -1)){
+        cacheArrestsDateViewJS(mysql_connection, function() {
+            cacheUpdateDate(function() {
+                callback();
+            });
+        });
+    }
+}
+function main_minify_files(mysql_connection, callback){
+    if(main_ask_bool_input(mysql_connection, "BUILD:          Minify JS/CSS? (index_min.js, detail_page_min.js, style.min.css) [yes]/no: ", -1)){
+        minifyHomepage(function() {
+            callback();
+        });
+    }
+}
+
+function main_mysql_dump_db(mysql_connection, callback){
+    if(main_ask_bool_input(mysql_connection, "MYSQL:          Dump DB Schema/Data to file? [yes]/no: ", -1))
+    dumpDatabase(function() {
+        callback();
+    });
+}
+
+// if release set display file diff between prod and dev folders
+function main_runNode_BuildFileDiff(mysql_connection, callback){
+    if(runOption_Release_Flag){
+        console.log('Files Modified in Development, not reflected in Production: ');
+        runNode("BuildFileDiff.js", function(){
+            callback();    
+        }, nodeCB);
+    }else{
+        callback();
+    }
+}
+
+function main() {
+    console.log(' ');
+    console.log(' ');
+    console.log('Begin Main ----------------------');
+    console.log("ENVIRONMENT:    " + runOption_Environment_Details_enum[runOption_Environment].Environment);
+
+    var mysql_connection = mysql.createConnection({
+        host: mysql_user_options.host,
+        user: mysql_user_options.user,
+        password: mysql_user_options.password,
+        database: mysql_user_options.database
+    });
+    mysql_connection.connect();
+    console.log("MYSQL:          Connected");
+
+    mysql_connection.on('error', function(err) {
+        console.log("[mysql error]", err);
+    });
+
+    main_mysql_stored_procs(mysql_connection,function(){
+        main_mysql_cache_data(mysql_connection, function(){
+            main_minify_files(mysql_connection, function(){
+                main_mysql_dump_db(mysql_connection, function(){
+                   main_runNode_BuildFileDiff(mysql_connection, function(){
+                        checkPublish(mysql_connection);   
+                   });
+                });
+            });
+        });
+    });
+}
+
 main();
