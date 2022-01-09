@@ -55,9 +55,7 @@ class DetailPage extends WebPage {
 		self.renderArrests();
         self.resizeCharts();
         if(self.arrest_data_all.length <= (self.arrest_view_mode == 0 ? 3 : 6)){
-            for(var i = 0; i < this.charts.length; i++){
-                $(this.charts[i].options.targetElement).hide();
-            }
+            $('aside').hide();
         }
 	}
     
