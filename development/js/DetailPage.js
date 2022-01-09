@@ -161,7 +161,8 @@ class DetailPage extends WebPage {
                 autoHideNext: true,
                 showNavigator: true,
                 className: 'paginationjs-theme-yellow paginationjs-big',
-                pageSize: self.arrest_view_mode == 0 ? 15 : 5 // 15 for desktop, 5 mobile
+                pageSize: self.arrest_view_mode == 0 ? 15 : 5, // 15 for desktop, 5 mobile
+                pageRange: self.arrest_view_mode == 0 ? 2 : 1
                 //,afterRender: () => {$('#pagination-control1').pagination('go', $('#pagination-control').pagination('getSelectedPageNum'))}
             });
             // notify check Loading Finished
