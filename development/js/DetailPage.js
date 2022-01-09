@@ -145,7 +145,12 @@ class DetailPage extends WebPage {
                 $('#arrest_cards').after('<div id="pagination-control"></div>');
             }
             
-            $('#pagination-control, #pagination-control1').pagination({
+            $('#pagination-control1').pagination({
+                dataSource: Array.from(self.arrest_data_all.keys()),
+                callback: paginationTemplateFunc,
+                className: 'paginationjs-theme-yellow paginationjs-big'
+            });
+            $('#pagination-control').pagination({
                 dataSource: Array.from(self.arrest_data_all.keys()),
                 callback: paginationTemplateFunc,
                 className: 'paginationjs-theme-yellow paginationjs-big'
