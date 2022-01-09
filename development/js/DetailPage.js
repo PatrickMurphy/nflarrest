@@ -154,6 +154,9 @@ class DetailPage extends WebPage {
             $('#pagination-control').pagination({
                 dataSource: Array.from(self.arrest_data_all.keys()),
                 callback: paginationTemplateFunc,
+                autoHidePrevious: true,
+                autoHideNext: true,
+                showNavigator: true,
                 className: 'paginationjs-theme-yellow paginationjs-big',
                 pageSize: self.arrest_view_mode == 0 ? 15 : 5 // 15 for desktop, 5 mobile
                 //,afterRender: () => {$('#pagination-control1').pagination('go', $('#pagination-control').pagination('getSelectedPageNum'))}
