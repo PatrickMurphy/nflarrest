@@ -97,7 +97,7 @@ class DetailPage extends WebPage {
 				return true;
 			};
         
-        var getTemplateFunc = (data, pagination) => {
+        var paginationTemplateFunc = (data, pagination) => {
             // for each data item display row or card
             var items = [];
             
