@@ -11,6 +11,8 @@ class DetailPage extends WebPage {
 		this.arrest_view_mode = 0; // 0 = table, 1 = card (Mobile Default)
 		
 		this.callbackReturns = 0;
+        
+        this.arrest_data_all = [];
 
 		var self = this;
 
@@ -73,7 +75,8 @@ class DetailPage extends WebPage {
 
 	renderArrests() {
 		var self = this;
-		self.data_controller.getArrests((row) => {
+        
+        var filterFunction = (row) => {
 				if(self.pageTitle == 'Team'){
 					if(row['Team'] != self.pageID){
 						return false;
@@ -92,27 +95,74 @@ class DetailPage extends WebPage {
 					}
 				}
 				return true;
-			}, (data) => {
-				var row,
-					items = [];
+			};
+        
+        var getTemplateFunc = (data, pagination) => {
+            // for each data item display row or card
+            var items = [];
+            
+            // if arrest view desktop add table header rows
+            if (self.arrest_view_mode == 0) {
+                items.push(self.renderArrestRowHeader());
+            }
+            
+            for (var rowID in data) {
+                var thisDataIndex = data[rowID];
+                var row = self.arrest_data_all[thisDataIndex];
+                if (self.arrest_view_mode == 0) {
+                    items.push(self.renderArrestRow(row));
+                } else if (self.arrest_view_mode == 1) {
+                    items.push(self.renderArrestCard(row));
+                }
+            }
+            
+            if (self.arrest_view_mode == 0) {
+                $('#arrest_table').html(items.join(""));
+            } else if (self.arrest_view_mode == 1) {
+                $('#arrest_cards').html(items.join(""));
+            }
+        };
+        
+        var callbackData = (data) => {
+            self.arrest_data_all = data;
+            //var row,
+              //  items = [];
 
-				$('body > div.container > section > div > h4').html(data.length + ' Incidents:');
-				if (self.arrest_view_mode == 0) {
-					items.push(self.renderArrestRowHeader());
-				}
+            // update incident count title
+            var incidentSelector = '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
+            $(incidentSelector).html(data.length + ' Incidents:');
+            
+            
+/*
+            // for each data item display row or card
+            for (var rowID in data) {
+                row = data[rowID];
+                if (self.arrest_view_mode == 0) {
+                    items.push(self.renderArrestRow(row));
+                } else if (self.arrest_view_mode == 1) {
+                    items.push(self.renderArrestCard(row));
+                }
+            }*/
 
-				for (var rowID in data) {
-					row = data[rowID];
-					if (self.arrest_view_mode == 0) {
-						items.push(self.renderArrestRow(row));
-					} else if (self.arrest_view_mode == 1) {
-						items.push(self.renderArrestCard(row));
-					}
-				}
-
-				$('#arrest_table').html(items.join(""));
-				self.checkLoadingFinished();
-		});
+            // if add html elements for each display mode
+            if (self.arrest_view_mode == 0) {
+                $(incidentSelector).after('<table id="arrest_table"></table>');// add arrest table
+                $('#arrest_table').after('<div id="pagination-control"></div>');
+                //$('#arrest_table').html(items.join(""));
+            } else if (self.arrest_view_mode == 1) {
+                $(incidentSelector).after('<div id="arrest_cards"></div>');
+                $('#arrest_cards').after('<div id="pagination-control"></div>');
+            }
+            
+            $('#pagination-control').pagination({
+                dataSource: data.keys(),
+                callback: paginationTemplateFunc
+            });
+            // notify check Loading Finished
+            self.checkLoadingFinished();
+		};
+        
+		self.data_controller.getArrests(filterFunction, callbackData);
 	}
 
 	// should be overloaded
