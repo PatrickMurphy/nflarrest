@@ -55,8 +55,8 @@
 		</header>
 		<br class="clear" />
 		<h3 id="pageTitle" class="eight columns">Team: </h3>
-					<span class="single_share three columns">Share this team: <a href="https://twitter.com/share" class="twitter-share-button" data-text="Explore the arrest records of Football Players, find the most common crimes for your football team.">Tweet</a><div class="fb-share-button fb_Btn"  data-layout="button_count"></div></span>
-						<br class="clear" />
+        <span class="single_share three columns">Share this team: <a href="https://twitter.com/share" class="twitter-share-button" data-text="Explore the arrest records of Football Players, find the most common crimes for your football team.">Tweet</a><div class="fb-share-button fb_Btn"  data-layout="button_count"></div></span>
+        <br class="clear" />
 			<section>
 				<aside>
 					<div class="four columns top-list">
@@ -70,10 +70,8 @@
                     </div>				
                 </aside>
 				<br class="clear" />
-				<div style="width:98%; margin-left:1%;">
-					<h4 style="text-align:left;">Incidents:</h4>
-					<table id="arrest_table">
-					</table>
+				<div style="width:98%; margin-left:1%;" id="arrest_details_container">
+					<h4 style="text-align:left;" id="arrest_details_incident_count">Incidents:</h4>
 				</div>
 			</section>
 			<br class="clear" />
@@ -95,6 +93,7 @@
 	<script src="js/vendor/d3.min.js"></script>
 	<script src="js/vendor/c3.js"></script>
 	<script src="js/vendor/jquery.comiseo.daterangepicker.min.js"></script>
+    <script src="js/vendor/pagination.min.js"></script>
     
     <!-- === SITE SPECIFIC JS Sources === -->
     <script src="js/data/ArrestsCacheTable_data.js"></script>
