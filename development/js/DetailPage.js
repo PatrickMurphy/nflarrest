@@ -156,7 +156,8 @@ class DetailPage extends WebPage {
             
             $('#pagination-control').pagination({
                 dataSource: Array.from(self.arrest_data_all.keys()),
-                callback: paginationTemplateFunc
+                callback: paginationTemplateFunc,
+                className: 'paginationjs-theme-yellow paginationjs-big'
             });
             // notify check Loading Finished
             self.checkLoadingFinished();
