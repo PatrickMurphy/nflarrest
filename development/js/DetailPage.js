@@ -135,27 +135,27 @@ class DetailPage extends WebPage {
 
             // if add html elements for each display mode
             if (self.arrest_view_mode == 0) {
-                $(incidentSelector).after('<div id="pagination-control1"></div>');
-                $('#pagination-control1').after('<table id="arrest_table"></table>');// add arrest table
+                //$(incidentSelector).after('<div id="pagination-control1"></div>');
+                $(incidentSelector).after('<table id="arrest_table"></table>');// add arrest table
                 $('#arrest_table').after('<div id="pagination-control"></div>');
                 //$('#arrest_table').html(items.join(""));
             } else if (self.arrest_view_mode == 1) {
-                $(incidentSelector).after('<div id="pagination-control1"></div>');
-                $('#pagination-control1').after('<div id="arrest_cards"></div>');
+                //$(incidentSelector).after('<div id="pagination-control1"></div>');
+                $(incidentSelector).after('<div id="arrest_cards"></div>');
                 $('#arrest_cards').after('<div id="pagination-control"></div>');
             }
             
-            $('#pagination-control1').pagination({
+    /*        $('#pagination-control1').pagination({
                 dataSource: Array.from(self.arrest_data_all.keys()),
                 callback: paginationTemplateFunc,
                 className: 'paginationjs-theme-yellow paginationjs-big'
                 ,afterRender: () => {$('#pagination-control').pagination('go', $('#pagination-control1').pagination('getSelectedPageNum'))}
-            });
+            });*/
             $('#pagination-control').pagination({
                 dataSource: Array.from(self.arrest_data_all.keys()),
                 callback: paginationTemplateFunc,
                 className: 'paginationjs-theme-yellow paginationjs-big'
-                ,afterRender: () => {$('#pagination-control1').pagination('go', $('#pagination-control').pagination('getSelectedPageNum'))}
+                //,afterRender: () => {$('#pagination-control1').pagination('go', $('#pagination-control').pagination('getSelectedPageNum'))}
             });
             // notify check Loading Finished
             self.checkLoadingFinished();
