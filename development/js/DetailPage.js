@@ -21,6 +21,7 @@ class DetailPage extends WebPage {
 			this.arrest_view_mode = 1; 
         
         this.StyleManager.loadCSS('css/modules/styles-detailpage.css');
+        this.StyleManager.loadCSS('css/vendor/pagination.css');
 
 		$(window).on('hashchange', () => {this.renderView(this)});
 
