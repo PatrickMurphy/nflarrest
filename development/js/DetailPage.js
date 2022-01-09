@@ -149,13 +149,13 @@ class DetailPage extends WebPage {
                 dataSource: Array.from(self.arrest_data_all.keys()),
                 callback: paginationTemplateFunc,
                 className: 'paginationjs-theme-yellow paginationjs-big'
-                ,afterRender: () => {$('#pagination-control').pagination($('#pagination-control1').pagination().getSelectedPageNum())}
+                ,afterRender: () => {$('#pagination-control').pagination('go', $('#pagination-control1').pagination('getSelectedPageNum'))}
             });
             $('#pagination-control').pagination({
                 dataSource: Array.from(self.arrest_data_all.keys()),
                 callback: paginationTemplateFunc,
                 className: 'paginationjs-theme-yellow paginationjs-big'
-                ,afterRender: () => {$('#pagination-control1').pagination($('#pagination-control').pagination().getSelectedPageNum())}
+                ,afterRender: () => {$('#pagination-control1').pagination('go', $('#pagination-control').pagination('getSelectedPageNum'))}
             });
             // notify check Loading Finished
             self.checkLoadingFinished();
