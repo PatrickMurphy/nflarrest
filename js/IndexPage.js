@@ -74,7 +74,6 @@ class IndexPage extends WebPage {
         
         // first load of top lists
         this.load_top_lists('first');
-        this.RenderUpdateDate();    
 
         $('#dateRangeJquery').on('dateRangeChanged', (e) => {
             this.LoadingBar.showLoading();
@@ -93,11 +92,6 @@ class IndexPage extends WebPage {
         this.addChartButtonListeners();
         this.setupNewsletter();
         this.fixTopListLinks();
-    }
-    
-    RenderUpdateDate(){
-        // included in min file is lastUpdate var
-        $("#updateDateFooter").text("Updated: " + lastUpdate);
     }
     
     RenderTeamLinks(data){

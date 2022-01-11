@@ -38,7 +38,6 @@ class DetailPage extends WebPage {
         },1500);
         
         this.renderView(this);
-        this.RenderUpdateDate();
 	}
 
 	changeTitle(newTitle, s) {
@@ -58,11 +57,6 @@ class DetailPage extends WebPage {
             $('aside').hide();
         }
 	}
-    
-    RenderUpdateDate(){
-        // included in min file is lastUpdate var
-        $("#updateDateFooter").text("Updated: " + lastUpdate);
-    }
     
     resizeCharts(){
         for(var i = 0; i < this.charts.length; i++){
@@ -157,6 +151,9 @@ class DetailPage extends WebPage {
             $('#pagination-control').pagination({
                 dataSource: Array.from(self.arrest_data_all.keys()),
                 callback: paginationTemplateFunc,
+                afterRender: function() {
+                    self.Utilities.googleTracking.sendTrackEvent('DetailPageArrests', 'Change Page');
+                },
                 autoHidePrevious: true,
                 autoHideNext: true,
                 showNavigator: true,
