@@ -157,6 +157,9 @@ class DetailPage extends WebPage {
             $('#pagination-control').pagination({
                 dataSource: Array.from(self.arrest_data_all.keys()),
                 callback: paginationTemplateFunc,
+                afterRender: function() {
+                    self.Utilities.googleTracking.sendTrackEvent('DetailPageArrests', 'Change Page');
+                },
                 autoHidePrevious: true,
                 autoHideNext: true,
                 showNavigator: true,
