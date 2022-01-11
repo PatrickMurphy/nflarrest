@@ -38,7 +38,6 @@ class DetailPage extends WebPage {
         },1500);
         
         this.renderView(this);
-        this.RenderUpdateDate();
 	}
 
 	changeTitle(newTitle, s) {
@@ -58,11 +57,6 @@ class DetailPage extends WebPage {
             $('aside').hide();
         }
 	}
-    
-    RenderUpdateDate(){
-        // included in min file is lastUpdate var
-        $("#updateDateFooter").text("Updated: " + lastUpdate);
-    }
     
     resizeCharts(){
         for(var i = 0; i < this.charts.length; i++){

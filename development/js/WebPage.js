@@ -14,10 +14,17 @@ class WebPage {
 		this.LoadingBar = new LoadingBarManager();
         
         this.charts = [];
+        
+        this.RenderUpdateDate();    
 	}
     
     renderView(){
         // override
+    }
+    
+    RenderUpdateDate(){
+        // included in min file is lastUpdate var
+        $("#updateDateFooter").text("Updated: " + lastUpdate);
     }
     
     checkLoadingFinished() {
