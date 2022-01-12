@@ -7,6 +7,7 @@ class LoadingBarManager {
 	}
 
 	reset(){
+        // if element already exists, show loading else, create item
         if ($('#'+this.options.loadingElID).length ) {
             this.showLoading();
         }else{
