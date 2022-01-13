@@ -133,6 +133,10 @@
 		float: none;
 		margin-left: auto;
 	}
+    .dateRangeControl {
+        float: none;
+        margin-right: auto;
+    }
 	#bottomTeamLinks a {
 		margin-top: 3px;
 		font-size: .9em;
