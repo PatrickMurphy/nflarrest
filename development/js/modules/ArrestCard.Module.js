@@ -17,10 +17,10 @@ class ArrestCard {
     
     // Include Column dimension definitions, used in init
     addDimensions(){
-        this.Dimension_Team    =   {dimension_id: 0, dimension_name: 'team',        data_column: 'Team',        color:'Team_hex_color',         url:'Team.html',        display: 'Team_preffered_name', color2: 'Team_hex_alt_color', useColor2: true};
-        this.Dimension_Player  =   {dimension_id: 2, dimension_name: 'player',      data_column: 'Name',        color:'Team_hex_color',         url:'Player.html',      display: 'Name',                color2: 'Team_hex_alt_color', useColor2: true};
-        this.Dimension_Position=   {dimension_id: 3, dimension_name: 'position',    data_column: 'Position',    color:'Team_hex_color',         url:'Position.html',    display: 'Position',            color2: 'Team_hex_alt_color', useColor2: true};
-        this.Dimension_Crime   =   {dimension_id: 1, dimension_name: 'crime',       data_column: 'Category',    color:'Crime_category_color',   url:'Crime.html',       display: 'Category'};
+        this.Dimension_Team    =   {dimension_id: 0, dimension_name: 'Team',        data_column: 'Team',        color:'Team_hex_color',         url:'Team.html',        display: 'Team_preffered_name', color2: 'Team_hex_alt_color', useColor2: true};
+        this.Dimension_Player  =   {dimension_id: 2, dimension_name: 'Player',      data_column: 'Name',        color:'Team_hex_color',         url:'Player.html',      display: 'Name',                color2: 'Team_hex_alt_color', useColor2: true};
+        this.Dimension_Position=   {dimension_id: 3, dimension_name: 'Position',    data_column: 'Position',    color:'Team_hex_color',         url:'Position.html',    display: 'Position',            color2: 'Team_hex_alt_color', useColor2: true};
+        this.Dimension_Crime   =   {dimension_id: 1, dimension_name: 'Crime',       data_column: 'Category',    color:'Crime_category_color',   url:'Crime.html',       display: 'Category'};
     }
     
     /*buildSpan(col, cssClasses, css, link, title){
@@ -75,7 +75,7 @@ class ArrestCard {
 		card.push('<br />'); // linebreak
 		card.push('<span class="description_item">' + this.row['Description'] + '</span>'); // span: col, class
         if(detail_column.hasOwnProperty('data_column')){
-            card.push('<br /><span class="arrest_card_detail_links"><a href="' + detail_column.url + '#' + this.row[detail_column.data_column] + '">'+ this.row[detail_column.data_column] +'</a></span>');
+            card.push('<br /><span class="arrest_card_detail_links">'+detail_column.dimension_name+': <a href="' + detail_column.url + '#' + this.row[detail_column.data_column] + '">'+ this.row[detail_column.data_column] +'</a></span>');
         }
 		card.push('<span class="outcome_item">' + this.row['Outcome'] + '</span>'); // span: col, class
 		card.push('</div>');

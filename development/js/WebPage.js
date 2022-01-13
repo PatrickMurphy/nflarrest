@@ -24,7 +24,7 @@ class WebPage {
     
     RenderUpdateDate(){
         // included in min file is lastUpdate var
-        $("#updateDateFooter").text("Updated: " + lastUpdate + ' V' + lastVersion);
+        $("#updateDateFooter").text("Updated: " + lastUpdate + ' v' + lastVersion);
     }
     
     checkLoadingFinished() {
