@@ -75,7 +75,7 @@ class ArrestCard {
 		card.push('<br />'); // linebreak
 		card.push('<span class="description_item">' + this.row['Description'] + '</span>'); // span: col, class
         if(detail_column.hasOwnProperty('data_column')){
-            card.push('<span class="arrest_card_detail_links"><a href="' + detail_column.url + '#' + this.row[detail_column.data_column] + '">'+ this.row[detail_column.data_column] +'</a></span>');
+            card.push('<br /><span class="arrest_card_detail_links"><a href="' + detail_column.url + '#' + this.row[detail_column.data_column] + '">'+ this.row[detail_column.data_column] +'</a></span>');
         }
 		card.push('<span class="outcome_item">' + this.row['Outcome'] + '</span>'); // span: col, class
 		card.push('</div>');
