@@ -66,7 +66,7 @@ class PositionDetailPage extends DetailPage {
     
     renderArrestCard(row) {
         var c = new ArrestCard(row);
-        return c.getHTML(c.Column_Player, c.Column_Team);
+        return c.getHTML(c.Dimension_Player, c.Dimension_Team,c.Dimension_Crime);
     }
 
 }

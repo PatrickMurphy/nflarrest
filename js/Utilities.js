@@ -37,15 +37,15 @@ class Utilities {
 				version: 'v2.4'
 			});
 			FB.Event.subscribe('edge.create', function (targetUrl) {
-				this.gaEvent('send', 'social', 'facebook', 'like', targetUrl);
+                this.googleTracking.sendTrackEvent('facebook', 'like');
 			});
 
 			FB.Event.subscribe('edge.remove', function (targetUrl) {
-				this.gaEvent('send', 'social', 'facebook', 'unlike', targetUrl);
+                this.googleTracking.sendTrackEvent('facebook', 'unlike');
 			});
 
 			FB.Event.subscribe('message.send', function (targetUrl) {
-				this.gaEvent('send', 'social', 'facebook', 'send', targetUrl);
+                this.googleTracking.sendTrackEvent('facebook', 'send');
 			});
 		};
 
@@ -88,8 +88,7 @@ class Utilities {
 					if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
 						opt_pagePath = extractParamFromUri(intent_event.target.src, 'url');
 					}
-					this.gaEvent('send', 'social', 'twitter', 'tweet', opt_pagePath);
-					//console.log('thanks for sharing', opt_pagePath);
+                    this.googleTracking.sendTrackEvent('twitter', 'tweet');
 				}
 			});
 		});
