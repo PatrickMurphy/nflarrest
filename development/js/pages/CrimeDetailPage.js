@@ -48,7 +48,7 @@ class CrimeDetailPage extends DetailPage {
 
     renderArrestCard(row) {
         var c = new ArrestCard(row);
-        return c.getHTML(c.Column_Team,c.Column_Player);
+        return c.getHTML(c.Dimension_Team,c.Dimension_Player);
     }
 
 }

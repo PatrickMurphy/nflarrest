@@ -7,7 +7,7 @@ class ArrestCard {
         this.options.momentDate = this.row['DaysSince']>99;
         
         // Include Column dimension definitions
-        this.addColumnOptions();
+        this.addDimensions();
         
         // ensure wrow data has team_preffered_name to make sure it is a correct response
         if(!this.row.hasOwnProperty('Team_preffered_name')){
@@ -16,11 +16,11 @@ class ArrestCard {
     }
     
     // Include Column dimension definitions, used in init
-    addColumnOptions(){
-        this.Column_Team = {column: 'Team', color:'Team_hex_color', url:'Team.html', display: 'Team_preffered_name', color2: 'Team_hex_alt_color', useColor2: true};
-        this.Column_Crime = {column: 'Category', color:'Crime_category_color', url:'Crime.html', display: 'Category'};
-        this.Column_Player = {column: 'Name', color:'Team_hex_color', url:'Player.html', display: 'Name', color2: 'Team_hex_alt_color', useColor2: true};
-        this.Column_Position = {column: 'Position', color:'Team_hex_color', url:'Position.html', display: 'Position', color2: 'Team_hex_alt_color', useColor2: true};
+    addDimensions(){
+        this.Dimension_Team    =   {dimension_id: 0, dimension_name: 'team',        data_column: 'Team',        color:'Team_hex_color',         url:'Team.html',        display: 'Team_preffered_name', color2: 'Team_hex_alt_color', useColor2: true};
+        this.Dimension_Player  =   {dimension_id: 2, dimension_name: 'player',      data_column: 'Name',        color:'Team_hex_color',         url:'Player.html',      display: 'Name',                color2: 'Team_hex_alt_color', useColor2: true};
+        this.Dimension_Position=   {dimension_id: 3, dimension_name: 'position',    data_column: 'Position',    color:'Team_hex_color',         url:'Position.html',    display: 'Position',            color2: 'Team_hex_alt_color', useColor2: true};
+        this.Dimension_Crime   =   {dimension_id: 1, dimension_name: 'crime',       data_column: 'Category',    color:'Crime_category_color',   url:'Crime.html',       display: 'Category'};
     }
     
     /*buildSpan(col, cssClasses, css, link, title){
@@ -55,8 +55,8 @@ class ArrestCard {
     }*/
     
     getHTML(col1,col2,detail_column){
-        var col1 = col1 || this.Column_Crime;
-        var col2 = col2 || this.Column_Team;
+        var col1 = col1 || this.Dimension_Crime;
+        var col2 = col2 || this.Dimension_Team;
         var detail_column = detail_column || {};
         
         var card_show_name_css_val = this.options.showName ? ' style="display:inline-block; visibility:visible;"' : '';
@@ -69,11 +69,14 @@ class ArrestCard {
 		card.push('<span class="name_item"'+card_show_name_css_val+'><a href="Player.html#' + this.row['Name'] + '">' + this.row['Name'] + '</a> </span>');  // span: col, class, css, link, title
 		card.push("<br />"); // linebreak
 		card.push('<span class="crime_item" style="background-color:#' + this.row[col1.color] + '">');
-        card.push('<a href="' +col1.url + '#' + this.row[col1.column] + '">' + this.row[col1.display] + "</a> </span>");
-		card.push('<span class="team_item ' + this.row[col2.column] + '" style="background-color:#' + this.row[col2.color] + ';">');
-        card.push('<a href="' + col2.url + '#' + this.row[col2.column] + '" ' + col2_color_css_val + ' >' + this.row[col2.display] + '</a></span>');
+        card.push('<a href="' +col1.url + '#' + this.row[col1.data_column] + '">' + this.row[col1.display] + "</a> </span>");
+		card.push('<span class="team_item ' + this.row[col2.data_column] + '" style="background-color:#' + this.row[col2.color] + ';">');
+        card.push('<a href="' + col2.url + '#' + this.row[col2.data_column] + '" ' + col2_color_css_val + ' >' + this.row[col2.display] + '</a></span>');
 		card.push('<br />'); // linebreak
 		card.push('<span class="description_item">' + this.row['Description'] + '</span>'); // span: col, class
+        if(detail_column.hasOwnProperty('data_column')){
+            card.push('<span class="arrest_card_detail_links"><a href="' + detail_column.url + '#' + this.row[detail_column.data_column] + '">'+ this.row[detail_column.data_column] +'</a></span>');
+        }
 		card.push('<span class="outcome_item">' + this.row['Outcome'] + '</span>'); // span: col, class
 		card.push('</div>');
 		var card2 = card.join('');
