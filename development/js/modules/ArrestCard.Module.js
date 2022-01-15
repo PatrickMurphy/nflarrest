@@ -72,11 +72,11 @@ class ArrestCard {
         card.push('<a href="' +col1.url + '#' + this.row[col1.data_column] + '">' + this.row[col1.display] + "</a> </span>");
 		card.push('<span class="team_item ' + this.row[col2.data_column] + '" style="background-color:#' + this.row[col2.color] + ';">');
         card.push('<a href="' + col2.url + '#' + this.row[col2.data_column] + '" ' + col2_color_css_val + ' >' + this.row[col2.display] + '</a></span>');
-		card.push('<br />'); // linebreak
-		card.push('<span class="description_item">' + this.row['Description'] + '</span>'); // span: col, class
         if(detail_column.hasOwnProperty('data_column')){
             card.push('<br /><span class="arrest_card_detail_links">'+detail_column.dimension_name+': <a href="' + detail_column.url + '#' + this.row[detail_column.data_column] + '">'+ this.row[detail_column.data_column] +'</a></span>');
         }
+		card.push('<br />'); // linebreak
+		card.push('<span class="description_item">' + this.row['Description'] + '</span>'); // span: col, class
 		card.push('<span class="outcome_item">' + this.row['Outcome'] + '</span>'); // span: col, class
 		card.push('</div>');
 		var card2 = card.join('');
