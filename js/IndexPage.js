@@ -15,11 +15,14 @@ class IndexPage extends WebPage {
     constructor() {
         super();
         
+        
         // define class member variables
         //this.dateRangeNFL = undefined;
         this.data_controller = undefined;
         this.last_start_pos = 0;
         this.detail_page_active = true; // option
+        
+        this.StyleManager.loadCSS('css/modules/styles-indexpage.css');
         this.MainChart = {
             ytdChart: false,
             StyleID:0,
