@@ -51,6 +51,7 @@ class WebPage {
         $(this.FilterControl.options.dialog_element).on('FilterDialogChanged', this.renderView);
     }
     
+    // extract to non framework class
     getDetailPageLink(page,value){
         return (page.charAt(0).toUpperCase() + page.slice(1)) + ".html#" + value;
     }
