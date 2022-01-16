@@ -40,7 +40,7 @@
 
 @media (max-width: 640px) {
     .dateRangeControl {
-        float: none;
-        margin-right: auto;
+        float: none !important;
+        margin-right: auto !important;
     }
 }
