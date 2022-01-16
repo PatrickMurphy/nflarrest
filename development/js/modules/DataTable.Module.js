@@ -1,16 +1,18 @@
 class DataTable {
     // construct object
-	constructor(data, parent) {
+	constructor(parent, data, options) {
         this.parent = parent;
         // set object attributes
 		this.data = data;
+        this.options = options || {targetElement:'#arrest_table'};
+        
 		this.display_data = this.data;
 		this.current_page = 0;
 		this.row_limit = 15;
 		this.arrest_view_mobile = false;
 
         // if the device is mobile use mobile view style
-		if(mobileCheck())
+		if(this.parent.utilities.mobileCheck())
 			this.arrest_view_mobile = true;
 
         // render view first time
@@ -63,7 +65,7 @@ class DataTable {
 			items.push(this.renderArrestRow(row));
 		}
 
-		$('#arrest_table').html(items.join(""));
+		$(this.options.targetElement).html(items.join(""));
 	}
 
 	// should be overloaded
