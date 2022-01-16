@@ -1,6 +1,7 @@
 class DataTable {
     // construct object
-	constructor(data) {
+	constructor(data, parent) {
+        this.parent = parent;
         // set object attributes
 		this.data = data;
 		this.display_data = this.data;

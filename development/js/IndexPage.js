@@ -340,8 +340,8 @@ class IndexPage extends WebPage {
     }
     
     setupRecentArrestCard(d){
-        this.data_controller.getMostRecentArrest(function (row) {
-            var card = new ArrestCard(row,{showName:true,standalone:true});
+        this.data_controller.getMostRecentArrest((row) => {
+            var card = new ArrestCard(this, row,{showName:true,standalone:true});
             $('#mostRecentArrestCard').html(card.getHTML());
         });
         

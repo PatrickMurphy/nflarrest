@@ -58,7 +58,7 @@ class TeamDetailPage extends DetailPage {
     }
 
     renderArrestCard(row) {
-        var c = new ArrestCard(row);
+        var c = new ArrestCard(this,row);
         return c.getHTML(c.Dimension_Crime, c.Dimension_Player);
     }
 

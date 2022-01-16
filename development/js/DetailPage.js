@@ -199,7 +199,7 @@ class DetailPage extends WebPage {
 	}
 
 	renderArrestCard(row) {
-        var c = new ArrestCard(row);
+        var c = new ArrestCard(this, row);
 		return c.getHTML();
 	}
 
