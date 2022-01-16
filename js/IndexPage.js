@@ -90,7 +90,7 @@ class IndexPage extends WebPage {
         }
 
         this.addChartButtonListeners();
-        this.setupNewsletter();
+        //this.setupNewsletter();
         this.fixTopListLinks();
     }
     
@@ -351,11 +351,11 @@ class IndexPage extends WebPage {
         }
     }
     
-    setupNewsletter(){
+    /*setupNewsletter(){
         $('#newsletterForm').submit((e) => {
             e.preventDefault();
             $.ajax({
-                url: 'http://patrickmurphywebdesign.com/Projects/emails/emailList.php',
+                url: 'https://patrickmurphywebdesign.com/Projects/emails/emailList.php',
                 type: 'POST',
                 data: {
                     'email': $('input[name=email]').val()
@@ -375,7 +375,7 @@ class IndexPage extends WebPage {
             this.Utilities.googleTracking.sendTrackEvent('Email List', 'MobileShowForm');
         });
     }
-    
+    */
     fixTopListLinks(){
         // add click listener to li so that entire element is clickable rather than just the link
         if(detail_page_active){

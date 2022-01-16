@@ -28,32 +28,6 @@
 	cursor: pointer;
 }
 
-#newsletterDisplayBtn {
-	display: none;
-}
-
-#newsletterContainer {
-	display: block;
-}
-
-#newsletterContainer h5 {
-	color: #6a6a6a;
-	font-weight: 600;
-	margin-bottom: 3px;
-}
-
-#newsletterForm input[type="email"] {
-	display: inline-block;
-}
-
-#newsletterForm input[type="submit"] {
-	padding: 0px;
-	width: 15%;
-	background: #c77522;
-	color: #242424;
-	display: inline-block;
-}
-
 .donate {
     margin-bottom: 0.05rem !important;
 }
@@ -62,4 +36,11 @@
 	color: #6a6a6a;
 	font-weight: 600;
 	margin-bottom: 3px;
+}
+
+@media (max-width: 640px) {
+    .dateRangeControl {
+        float: none;
+        margin-right: auto;
+    }
 }
