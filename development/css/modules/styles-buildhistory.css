@@ -1,0 +1,8 @@
+.BuildReleaseContainer {
+    width:90%;
+    border: 1px solid #eb8f00;
+    border-radius: 8px;
+}
+.BuildReleaseContainerHeader {
+    background: #eb8f004d;
+}
