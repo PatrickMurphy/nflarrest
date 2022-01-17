@@ -14,25 +14,34 @@ var dummyFieldForTesting = {
     "build_release_detail_commitfiles": "development/js/compressed/DetailPage.min.js, development/js/compressed/index.min.js, development/js/data/ReleaseHistory_data.js, development/js/data/lastUpdate_data.js",
     "build_release_detail_commitfiles_json": "['development/js/compressed/DetailPage.min.js', 'development/js/compressed/index.min.js', 'development/js/data/ReleaseHistory_data.js', 'development/js/data/lastUpdate_data.js']"
 };
-$(document).ready(function () {
-    $('#historyContainer').html(''); // clear html of loading msg
-    $.each(ReleaseHistoryCacheTable, function (key, value) {
-        var headerTag = value['build_environment_name'] === "Development" ? 'h3' : 'h2';
-        var envStyleClass = value['build_environment_name'] === "Development" ? '' : ' button-small';
-        var str =   `<div class="BuildReleaseContainer">
-                        <div class="BuildReleaseContainerHeader">
-                            <${headerTag}>${value['build_release_version']}</${headerTag}>
-                            <p class="BuildReleaseDate"><b>Date</b>: ${value['build_release_date']}</p>
-                            <p class="BuildReleaseEnvironment${envStyleClass}">${value['build_environment_name']}</p>
-                        </div>
-                        <div class="BuildReleaseContainerBody">
-                            <p>${value['build_release_description']}</p>
-                            <p><b>Files Changed Count</b>: ${value['build_release_detail_filecount']}</p>
-                            <p><b>Files Changed</b>: ${value['build_release_detail_commitfiles']}</p>
-                            <p><b>Commit Hash</b>: <a href="https://github.com/PatrickMurphy/nflarrest/commit/${value['build_release_detail_commithash']}">${value['build_release_detail_commithash']}</a></p>
-                        </div>
-                </div>`;
 
-        $('#historyContainer').append(str);
-    });
+class BuildHistoryPage extends WebPage {
+	constructor() {
+        super();
+        
+        $('#historyContainer').html(''); // clear html of loading msg
+        $.each(ReleaseHistoryCacheTable, function (key, value) {
+            var headerTag = value['build_environment_name'] === "Development" ? 'h3' : 'h2';
+            var envStyleClass = value['build_environment_name'] === "Development" ? '' : ' button-small';
+            var str =   `<div class="BuildReleaseContainer">
+                            <div class="BuildReleaseContainerHeader">
+                                <${headerTag}>${value['build_release_version']}</${headerTag}>
+                                <p class="BuildReleaseDate"><b>Date</b>: ${value['build_release_date']}</p>
+                                <p class="BuildReleaseEnvironment${envStyleClass}">${value['build_environment_name']}</p>
+                            </div>
+                            <div class="BuildReleaseContainerBody">
+                                <p>${value['build_release_description']}</p>
+                                <p><b>Files Changed Count</b>: ${value['build_release_detail_filecount']}</p>
+                                <p><b>Files Changed</b>: ${value['build_release_detail_commitfiles']}</p>
+                                <p><b>Commit Hash</b>: <a href="https://github.com/PatrickMurphy/nflarrest/commit/${value['build_release_detail_commithash']}">${value['build_release_detail_commithash']}</a></p>
+                            </div>
+                    </div>`;
+
+            $('#historyContainer').append(str);
+        });
+    }
+};
+
+$(document).ready(function () {
+    var page = new BuildHistoryPage();
 });
