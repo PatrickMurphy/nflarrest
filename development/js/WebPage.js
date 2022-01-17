@@ -29,7 +29,7 @@ class WebPage {
     
     RenderUpdateDate(){
         // included in min file is lastUpdate var
-        $("#updateDateFooter").text("Updated: " + lastUpdate + ' v' + lastVersion);
+        $("#updateDateFooter").text("Updated: " + lastUpdate + ' <a href="/BuildHistory.html">v' + lastVersion + "</a>");
     }
     
     checkLoadingFinished() {
