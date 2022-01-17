@@ -35,7 +35,7 @@ class BuildHistoryPage extends WebPage {
                             </div>
                             <div class="BuildReleaseContainerBody">
                                 <p>${value['build_release_description']}</p>
-                                <p><b>Files Changed Count</b>: <a href="javascript:document.getElementById('filesChanged${value['build_release_id']}').style.display = 'none';">${value['build_release_detail_filecount']}</a></p>
+                                <p><b>Files Changed Count</b>: <a href="#" onClick="document.getElementById('filesChanged${value['build_release_id']}').style.display='block';">${value['build_release_detail_filecount']}</a></p>
                                 <p style="display:none;" id="filesChanged${value['build_release_id']}"><b>Files Changed</b>: ${value['build_release_detail_commitfiles']}</p>
                                 </div>
                     </div>`;
