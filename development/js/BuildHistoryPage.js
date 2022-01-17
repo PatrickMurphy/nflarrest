@@ -25,10 +25,10 @@ class BuildHistoryPage extends WebPage {
             var headerTag = value['build_environment_name'] === "Development" ? 'h3' : 'h2';
             var envStyleClass = value['build_environment_name'] === "Development" ? '' : ' button-small';
             var str =   `<div class="BuildReleaseContainer">
-                            <div class="BuildReleaseContainerHeader">
-                                <${headerTag}>${value['build_release_version']}</${headerTag}>
-                                <p class="BuildReleaseDate"><b>Date</b>: ${value['build_release_date']}</p>
-                                <p class="BuildReleaseEnvironment${envStyleClass}">${value['build_environment_name']}</p>
+                            <div class="BuildReleaseContainerHeader row">
+                                <${headerTag} class="three columns">${value['build_release_version']}</${headerTag}>
+                                <p class="BuildReleaseDate three columns"><b>Date</b>: ${value['build_release_date']}</p>
+                                <p class="BuildReleaseEnvironment six columns ${envStyleClass}">${value['build_environment_name']}</p>
                             </div>
                             <div class="BuildReleaseContainerBody">
                                 <p>${value['build_release_description']}</p>
