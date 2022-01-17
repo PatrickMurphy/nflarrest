@@ -1,3 +1,4 @@
+/*
 var dummyFieldForTesting = {
     "build_release_id": 84,
     "build_environment_id": 1,
@@ -14,7 +15,7 @@ var dummyFieldForTesting = {
     "build_release_detail_commitfiles": "development/js/compressed/DetailPage.min.js, development/js/compressed/index.min.js, development/js/data/ReleaseHistory_data.js, development/js/data/lastUpdate_data.js",
     "build_release_detail_commitfiles_json": "['development/js/compressed/DetailPage.min.js', 'development/js/compressed/index.min.js', 'development/js/data/ReleaseHistory_data.js', 'development/js/data/lastUpdate_data.js']"
 };
-
+*/
 class BuildHistoryPage extends WebPage {
 	constructor() {
         super(true);
