@@ -30,7 +30,7 @@ class BuildHistoryPage extends WebPage {
                                 <a class="four columns" href="https://github.com/PatrickMurphy/nflarrest/commit/${value['build_release_detail_commithash']}">
                                     <${headerTag}>${value['build_release_version']}</${headerTag}>
                                 </a>
-                                <p class="BuildReleaseDate four columns"><b>Date</b>: ${value['build_release_date'].substring(0,9)}</p>
+                                <p class="BuildReleaseDate four columns"><b>Date</b>: ${value['build_release_date'].substring(0,10)}</p>
                                 <p class="BuildReleaseEnvironment four columns ${envStyleClass}">${value['build_environment_name']}</p>
                             </div>
                             <div class="BuildReleaseContainerBody">

@@ -5,13 +5,13 @@
 }
 .BuildReleaseContainerHeader {
     background: #eb8f004d;
-    height: 3em;
+    height: 3.5em;
 }
 
 .BuildReleaseEnvironmentProduction, .BuildReleaseEnvironmentDevelopment {
-    height: 3em;
+    height: 3.5em;
     display: inline-block;
-    line-height: 3em;
+    line-height: 3.5em;
     border-radius: 3px;
     color:#fff;
     font-weight: 700;
