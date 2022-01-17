@@ -1,4 +1,4 @@
-var DEBUG = false;
+// can these be removed? -----------------
 var dateRangeNFL,
 	mainChartReturned = false;
 
@@ -8,6 +8,8 @@ var last_start_pos = 0,
 	ytdChart = false,
 	mainChartStyleID = 0,
 	detail_page_active = true;
+
+// ----------------------------------------
 
 var IndexPageInstance;
 

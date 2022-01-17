@@ -1,4 +1,3 @@
-var DEBUG = false;
 class DetailPage extends WebPage {
 	constructor(pageTitle, chartOptions, arrestsUrl) {
         super();

@@ -6,7 +6,7 @@ Dependencies:
 	- nflLoadingBar.js
 	- google-tracking.js
 -------------------------------------------------*/
-
+var DEBUG = false;
 class WebPage {
 	constructor(){
 		this.Utilities = new Utilities();
