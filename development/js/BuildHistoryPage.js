@@ -24,19 +24,24 @@ class BuildHistoryPage extends WebPage {
         $('#historyContainer').html(''); // clear html of loading msg
         $.each(ReleaseHistoryCacheTable, function (key, value) {
             var headerTag = value['build_environment_name'] === "Development" ? 'h3' : 'h2';
-            var envStyleClass = value['build_environment_name'] === "Development" ? '' : ' button-small';
+            var envStyleClass = value['build_environment_name'] === "Development" ? 'BuildReleaseEnvironmentDevelopment' : 'BuildReleaseEnvironmentProduction';
             var str =   `<div class="BuildReleaseContainer">
                             <div class="BuildReleaseContainerHeader row">
                                 <a class="four columns" href="https://github.com/PatrickMurphy/nflarrest/commit/${value['build_release_detail_commithash']}">
                                     <${headerTag}>${value['build_release_version']}</${headerTag}>
                                 </a>
-                                <p class="BuildReleaseDate four columns"><b>Date</b>: ${value['build_release_date']}</p>
+                                <p class="BuildReleaseDate four columns"><b>Date</b>: ${value['build_release_date'].substring(0,9)}</p>
                                 <p class="BuildReleaseEnvironment four columns ${envStyleClass}">${value['build_environment_name']}</p>
                             </div>
                             <div class="BuildReleaseContainerBody">
                                 <p>${value['build_release_description']}</p>
-                                <p><b>Files Changed Count</b>: <a href="#" onClick="document.getElementById('filesChanged${value['build_release_id']}').style.display='block';">${value['build_release_detail_filecount']}</a></p>
-                                <p style="display:none;" id="filesChanged${value['build_release_id']}"><b>Files Changed</b>: ${value['build_release_detail_commitfiles']}</p>
+                                <p>
+                                    <b>Files Changed</b>: 
+                                    <a href="#" onClick="document.getElementById('filesChanged${value['build_release_id']}').style.display='block';">${value['build_release_detail_filecount']}</a>
+                                </p>
+                                <p style="display:none;" id="filesChanged${value['build_release_id']}">
+                                    <b>Files Changed</b>: ${value['build_release_detail_commitfiles']}
+                                </p>
                                 </div>
                     </div>`;
 

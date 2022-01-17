@@ -5,4 +5,21 @@
 }
 .BuildReleaseContainerHeader {
     background: #eb8f004d;
+    height: 3em;
+}
+
+.BuildReleaseEnvironmentProduction, .BuildReleaseEnvironmentDevelopment {
+    height: 3em;
+    display: inline-block;
+    line-height: 3em;
+    border-radius: 3px;
+    color:#fff;
+    font-weight: 700;
+}
+.BuildReleaseEnvironmentProduction {
+    background: #b76513;
+    
+}
+.BuildReleaseEnvironmentDevelopment {
+    background: #6c5934;
 }
