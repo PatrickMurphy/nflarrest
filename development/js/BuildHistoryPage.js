@@ -35,6 +35,7 @@ class BuildHistoryPage extends WebPage {
                             </div>
                             <div class="BuildReleaseContainerBody">
                                 <p>${value['build_release_description']}</p>
+                                <p><b>Arrest Count</b>: ${value['build_release_detail_ArrestCount']}</p>
                                 <p>
                                     <b>Files Changed</b>: 
                                     <a href="#" onClick="document.getElementById('filesChanged${value['build_release_id']}').style.display='block';">${value['build_release_detail_filecount']}</a>
