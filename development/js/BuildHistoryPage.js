@@ -17,7 +17,7 @@ var dummyFieldForTesting = {
 
 class BuildHistoryPage extends WebPage {
 	constructor() {
-        super();
+        super(true);
         
         $('#historyContainer').html(''); // clear html of loading msg
         $.each(ReleaseHistoryCacheTable, function (key, value) {

@@ -7,11 +7,16 @@ Dependencies:
 	- google-tracking.js
 -------------------------------------------------*/
 var DEBUG = false;
+
 class WebPage {
-	constructor(){
+	constructor(hideLoadingBar){
 		this.Utilities = new Utilities();
 		this.StyleManager = new StyleSheetManager();
 		this.LoadingBar = new LoadingBarManager();
+        
+        if(hideLoadingBar){
+            this.LoadingBar.hideLoading();
+        }
         
         this.charts = [];
         
