@@ -35,7 +35,7 @@ class BuildHistoryPage extends WebPage {
             var devIndent = '----';
             var versionLink = `<li><a href="#v${value['build_release_version'].replace('.','-')}" ${styleBold}>V${value['build_release_version']}</a></li>`;
             if(value['build_environment_name'] === 'Development'){
-                var versionLink = `<li><a href="#v${value['build_release_version'].replace('.','-')}">V${devIndent+value['build_release_version']}</a></li>`;
+                var versionLink = `<li><a href="#v${value['build_release_version'].replace('.','-')}">${devIndent+"V"+value['build_release_version']}</a></li>`;
             }
             //if(lastItemWasProd){
               //  versionLink += value['build_release_version'] + ' <ol><li';
