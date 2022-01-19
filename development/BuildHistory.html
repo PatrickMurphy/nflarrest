@@ -38,7 +38,7 @@
 
 <body>
 	<div class="container">
-		<header>
+		<header class="row">
 			<a href="https://nflarrest.com" class="logo"><img src="images/logo-transparent.png" alt="NFL Arrest Logo" height="30" /></a>
 			<a href="https://nflarrest.com">
 				<h1 style="margin-top:0px;">
@@ -46,20 +46,28 @@
 				</h1>
 			</a>
 		</header>
-		<br class="clear" />
-		<h3 id="pageTitle" class="eight columns">Build Release History</h3>
-        <br class="clear" />
-        <form action="https://www.paypal.com/cgi-bin/webscr" class="donate" method="post" target="_top">
-            <input type="hidden" name="cmd" value="_s-xclick">
-            <input type="hidden" name="hosted_button_id" value="G8DZ4DLRQVD8Y">
-            <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-            <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-        </form>
-        <section>
-            <div id="historyContainer">
-                <p>table of releases coming soon...</p>
-            </div>
-        </section>
+        <div id="PageHeader" class="row">
+            <br class="clear" />
+            <h3 id="pageTitle" class="eight columns">Build Release History</h3>
+            <br class="clear" />
+            <form action="https://www.paypal.com/cgi-bin/webscr" class="donate" method="post" target="_top">
+                <input type="hidden" name="cmd" value="_s-xclick">
+                <input type="hidden" name="hosted_button_id" value="G8DZ4DLRQVD8Y">
+                <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                <img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+            </form>
+        </div>
+        <div class="pageBody">
+            <aside>
+                <p>Versions:</p>
+                <ol id="BuildHistoryVersionList"><li>Loading...</li></ol>
+            </aside>
+            <section>
+                <div id="historyContainer">
+                    <p>table of releases coming soon...</p>
+                </div>
+            </section>
+        </div>
         <br class="clear" />
         <footer>&copy; 2016 <a href="https://patrickmurphy.dev">Patrick Murphy</a> | <a href="https://www.usatoday.com/sports/nfl/arrests/">Data Source</a> | <span id="updateDateFooter">Updated: </span> |
             <form action="https://www.paypal.com/cgi-bin/webscr" class="donate" method="post" target="_top">

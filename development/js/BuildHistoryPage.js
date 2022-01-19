@@ -21,8 +21,29 @@ class BuildHistoryPage extends WebPage {
         super(true);
         
         this.StyleManager.loadCSS('css/modules/styles-buildhistory.css');
+        $('#BuildHistoryVersionList').html(''); // clear version list
         $('#historyContainer').html(''); // clear html of loading msg
+        
+        var lastItemWasProd = false;
+        if(ReleaseHistoryCacheTable[0]['build_environment_name'] === 'Production'){
+            lastItemWasProd = true;
+        }
+        
         $.each(ReleaseHistoryCacheTable, function (key, value) {
+            // add version link
+            var styleBold = 'style="font-weight:bold;"';
+            var devIndent = '    ';
+            var versionLink = `<li><a href="#v${value['build_release_version'].replace('.','-')}" ${styleBold}>${value['build_release_version']}</a></li>`;
+            if(value['build_environment_name'] === 'Development'){
+                var versionLink = `<li><a href="#v${value['build_release_version'].replace('.','-')}">${devIndent+value['build_release_version']}</a></li>`;
+            }
+            //if(lastItemWasProd){
+              //  versionLink += value['build_release_version'] + ' <ol><li';
+            //}
+            
+            // add link
+            //versionLink += `<a href="#v${value['build_release_version'].replace('.','-')}">${value['build_release_version']}</a>`;
+            
             var headerTag = value['build_environment_name'] === "Development" ? 'h3' : 'h2';
             var envStyleClass = value['build_environment_name'] === "Development" ? 'BuildReleaseEnvironmentDevelopment' : 'BuildReleaseEnvironmentProduction';
             var str =   `<div class="BuildReleaseContainer">
@@ -47,6 +68,7 @@ class BuildHistoryPage extends WebPage {
                     </div>`;
 
             $('#historyContainer').append(str);
+            $('#BuildHistoryVersionList').append(versionLink);
         });
     }
 };
