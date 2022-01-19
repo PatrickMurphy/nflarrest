@@ -33,9 +33,9 @@ class BuildHistoryPage extends WebPage {
             // add version link
             var styleBold = 'style="font-weight:bold;"';
             var devIndent = '----';
-            var versionLink = `<li><a href="#v${value['build_release_version'].replace('.','-')}" ${styleBold}>V${value['build_release_version']}</a></li>`;
+            var versionLink = `<li><a href="#v${value['build_release_version']}" ${styleBold}>V${value['build_release_version']}</a></li>`;
             if(value['build_environment_name'] === 'Development'){
-                var versionLink = `<li><a href="#v${value['build_release_version'].replace('.','-')}">${devIndent+"V"+value['build_release_version']}</a></li>`;
+                var versionLink = `<li><a href="#v${value['build_release_version']}">${devIndent+"V"+value['build_release_version']}</a></li>`;
             }
             //if(lastItemWasProd){
               //  versionLink += value['build_release_version'] + ' <ol><li';
@@ -46,7 +46,7 @@ class BuildHistoryPage extends WebPage {
             
             var headerTag = value['build_environment_name'] === "Development" ? 'h3' : 'h2';
             var envStyleClass = value['build_environment_name'] === "Development" ? 'BuildReleaseEnvironmentDevelopment' : 'BuildReleaseEnvironmentProduction';
-            var str =   `<div class="BuildReleaseContainer">
+            var str =   `<div class="BuildReleaseContainer" id="v${value['build_release_version']}">
                             <div class="BuildReleaseContainerHeader row">
                                 <a class="four columns" href="https://github.com/PatrickMurphy/nflarrest/commit/${value['build_release_detail_commithash']}">
                                     <${headerTag}>${value['build_release_version']}</${headerTag}>
