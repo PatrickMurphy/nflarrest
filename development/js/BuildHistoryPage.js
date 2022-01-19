@@ -32,7 +32,7 @@ class BuildHistoryPage extends WebPage {
         $.each(ReleaseHistoryCacheTable, function (key, value) {
             // add version link
             var styleBold = 'style="font-weight:bold;"';
-            var devIndent = '    ';
+            var devIndent = '----';
             var versionLink = `<li><a href="#v${value['build_release_version'].replace('.','-')}" ${styleBold}>V${value['build_release_version']}</a></li>`;
             if(value['build_environment_name'] === 'Development'){
                 var versionLink = `<li><a href="#v${value['build_release_version'].replace('.','-')}">V${devIndent+value['build_release_version']}</a></li>`;
