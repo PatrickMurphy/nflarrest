@@ -2,16 +2,25 @@
     width:90%;
     border: 1px solid #eb8f00;
     border-radius: 8px;
+    margin-bottom: 1.5em;
 }
 .BuildReleaseContainerHeader {
     background: #eb8f004d;
-    height: 3.5em;
+    height: 2em;
+}
+
+.BuildReleaseContainerHeader h2 {
+    font-size: 2em;
+    font-weight: bold;
+}
+.BuildReleaseContainerHeader h3 {
+    font-size: 1.8em;
 }
 
 .BuildReleaseEnvironmentProduction, .BuildReleaseEnvironmentDevelopment {
-    height: 3.5em;
+    height: 2em;
     display: inline-block;
-    line-height: 3.5em;
+    line-height: 2em;
     border-radius: 3px;
     color:#fff;
     font-weight: 700;
@@ -22,4 +31,8 @@
 }
 .BuildReleaseEnvironmentDevelopment {
     background: #6c5934;
+}
+
+.BuildReleaseContainer p {
+    margin-bottom: .25em; 
 }
