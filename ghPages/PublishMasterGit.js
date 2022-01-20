@@ -106,6 +106,8 @@ function read_input_version(){
         versionNumAnswer = readlinesync.question("GIT:          Release Version: ");
         console.log("GIT:          Version set to: "+versionNumAnswer);
         return versionNumAnswer;
+    }else{
+        return versionNumAnswer;
     }
 }
 
@@ -118,6 +120,8 @@ function read_input_commit_msg(){
             console.log("GIT:          Commit Message set to: "+answer2);
             return answer2;
         }
+    }else{
+        return '';
     }
 }
 
@@ -174,7 +178,6 @@ function publishGHPages(mysql) {
                         var msg = "AUTO COMMIT: " + (datenow.toLocaleDateString('en-US')) + " Build Process " + datenow.getHours() + ":" + datenow.getMinutes();
                         git.commit(msg, function() {
                             git.push();
-                            gitCheckoutBranch();
                             insertBuildRelease(mysql,msg,runOption_UserInput_Version);
                         });
                     });
@@ -184,10 +187,6 @@ function publishGHPages(mysql) {
     }
 }
 
-function gitCheckoutBranch(b) {
-    b = b || "gh-pages";
-    git.checkout(b);
-}
 // ------- End Publish (GIT) Functions ------- //
 
 
