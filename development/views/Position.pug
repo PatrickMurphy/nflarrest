@@ -1,0 +1,18 @@
+extends layouts/page-layout.pug
+
+block content
+    br.clear
+    h3#pageTitle.eight.columns Team: 
+    br.clear
+    section
+      aside
+        .four.columns.top-list
+          h3 Top Team
+          #teamchart
+        .four.columns.top-list
+        .four.columns.top-list
+          h3 Top Crimes
+          #crimechart
+      br.clear
+      #arrest_details_container(style='width:98%; margin-left:1%;')
+        h4#arrest_details_incident_count(style='text-align:left;') Incidents:

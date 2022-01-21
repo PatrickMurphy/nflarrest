@@ -1,0 +1,13 @@
+doctype html 
+html(lang="en") 
+    head 
+        title NFL Arrest | #{pageTitle}
+        meta(name="description", content=pageTitle)
+        include ../PageBlocks/Head_MetaData.pug
+        include ../PageBlocks/Head_Favicon.pug
+    body
+        .container
+            include ../PageBlocks/Body_Header.pug
+            block content
+            include ../PageBlocks/Body_Footer.pug
+            +DetailPageFooter(pageTitle)
