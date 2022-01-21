@@ -1,0 +1,16 @@
+extends layouts/page-layout.pug
+
+block content 
+    br.clear
+    section
+      aside
+        .four.columns.top-list
+          h3 Common Crimes
+          #crimeschart
+        .four.columns.top-list &nbsp;
+        .four.columns.top-list
+          h3 Teams Arrested Under
+          #teamchart
+      br.clear
+      #arrest_details_container(style='width:98%; margin-left:1%;')
+        h4#arrest_details_incident_count(style='text-align:left;') Incidents:

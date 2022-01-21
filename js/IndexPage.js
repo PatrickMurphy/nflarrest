@@ -1,4 +1,4 @@
-var DEBUG = false;
+// can these be removed? -----------------
 var dateRangeNFL,
 	mainChartReturned = false;
 
@@ -8,6 +8,8 @@ var last_start_pos = 0,
 	ytdChart = false,
 	mainChartStyleID = 0,
 	detail_page_active = true;
+
+// ----------------------------------------
 
 var IndexPageInstance;
 
@@ -340,8 +342,8 @@ class IndexPage extends WebPage {
     }
     
     setupRecentArrestCard(d){
-        this.data_controller.getMostRecentArrest(function (row) {
-            var card = new ArrestCard(row,{showName:true,standalone:true});
+        this.data_controller.getMostRecentArrest((row) => {
+            var card = new ArrestCard(this, row,{showName:true,standalone:true});
             $('#mostRecentArrestCard').html(card.getHTML());
         });
         

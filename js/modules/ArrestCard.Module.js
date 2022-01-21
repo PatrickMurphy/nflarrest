@@ -1,5 +1,6 @@
 class ArrestCard {
-    constructor(row,options){
+    constructor(parent, row, options){
+        this.parent = parent;
         this.row = row;
         
         // Set Options Values

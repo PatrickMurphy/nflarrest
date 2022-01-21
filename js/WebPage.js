@@ -6,12 +6,17 @@ Dependencies:
 	- nflLoadingBar.js
 	- google-tracking.js
 -------------------------------------------------*/
+var DEBUG = false;
 
 class WebPage {
-	constructor(){
+	constructor(hideLoadingBar){
 		this.Utilities = new Utilities();
 		this.StyleManager = new StyleSheetManager();
 		this.LoadingBar = new LoadingBarManager();
+        
+        if(hideLoadingBar){
+            this.LoadingBar.hideLoading();
+        }
         
         this.charts = [];
         
@@ -24,7 +29,7 @@ class WebPage {
     
     RenderUpdateDate(){
         // included in min file is lastUpdate var
-        $("#updateDateFooter").text("Updated: " + lastUpdate + ' v' + lastVersion);
+        $("#updateDateFooter").html("Updated: " + lastUpdate + ' <a href="BuildHistory.html">v' + lastVersion + "</a>");
     }
     
     checkLoadingFinished() {
