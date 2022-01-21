@@ -9,6 +9,7 @@ var readlinesync = require('readline-sync');
 var mysqldump = require('mysqldump');
 var dbConfig = require('./dbconfig');
 var shell = require('shelljs');
+var pug = require('pug');
 
 // --- Setup imported objects --- //
 var git = simple_git('./nflarrest/');
@@ -16,12 +17,14 @@ var mysql_user_options = dbConfig;
 
 
 // --- Add Run Node Process Functions --- //
+// spawn node child process
 function runNode(path, cb1, cb) {
     shell.exec('node ' + path, function (code, stdout, stderr) {
         cb(code, stdout, stderr, cb1);
     });
 }
 
+// standard default callback for node child process
 function nodeCB(code, stdout, stderr, cb) {
     if (code !== 0) {
         console.log('Program stderr:', stderr);
@@ -77,6 +80,7 @@ var MinFilename_CSS = "styles.min.css";
 var DataFilename_JSON = 'ArrestsCacheTable_data.js';
 var DataFilename_ReleaseHistory = 'ReleaseHistory_data.js';
 var DataFilePath = 'js/data/';
+var PUGFilePath = 'views/';
 
 var DW_stored_procedures = ["sp_dim_day_update", "sp_etl_arrests", "sp_materialize_arrests"];
 var DW_arrests_view = "vwarrestsweb";
@@ -137,6 +141,9 @@ var CSS_filenames = ['css/styles-modular.css',
 // any files that are new that have not been added to production environment, these files need to be moved to production before prod release
 var CSS_filenames_development = [];
 
+// --------- PUG Variables ----------- //
+var PUG_fn_generateDetailPageCrime,PUG_fn_generateDetailPagePlayer,PUG_fn_generateDetailPageTeam,PUG_fn_generateDetailPagePosition;
+
 function main_is_development_env() {
     return runOption_Environment_Details_enum[runOption_Environment].Environment === 'development';
 }
@@ -196,6 +203,46 @@ function getCSSFiles() {
 
     return cssFiles;
 }
+
+// ------- PUG Functions ----------//
+function setupPUG() {
+    PUG_fn_generateDetailPageCrime = pug.compileFile(getEnvPath(PUGFilePath + 'Crime.pug'));
+    PUG_fn_generateDetailPagePlayer = pug.compileFile(getEnvPath(PUGFilePath + 'Player.pug'));
+    PUG_fn_generateDetailPageTeam = pug.compileFile(getEnvPath(PUGFilePath + 'Team.pug'));
+    PUG_fn_generateDetailPagePosition = pug.compileFile(getEnvPath(PUGFilePath + 'Position.pug'));
+}
+
+function exportPUGViews(){
+    var pageData = {pageTitle:'Crime',pageDesc:"The page where you can read about crimes."};
+    fs.writeFile(getEnvPath('Crime.html'), PUG_fn_generateDetailPageCrime(pageData), function (err) {
+        if (err) {
+            return console.log("Error:: " + err);
+        }
+        console.log("Success::       PUG Crime Output saved.");
+    });
+    pageData = {pageTitle:'Player',pageDesc:"The page where you can read about crimes by each NFL Player arrested."};
+    fs.writeFile(getEnvPath('Player.html'), PUG_fn_generateDetailPagePlayer(pageData), function (err) {
+        if (err) {
+            return console.log("Error:: " + err);
+        }
+        console.log("Success::       PUG Player Output saved.");
+    });
+    pageData = {pageTitle:'Team',pageDesc:"The page where you can read about NFL Arrests by team."};
+    fs.writeFile(getEnvPath('Team.html'), PUG_fn_generateDetailPageTeam(pageData), function (err) {
+        if (err) {
+            return console.log("Error:: " + err);
+        }
+        console.log("Success::       PUG Team Output saved.");
+    });
+    pageData = {pageTitle:'Position',pageDesc:"The page where you can read about NFL crimes by position."};
+    fs.writeFile(getEnvPath('Position.html'), PUG_fn_generateDetailPagePosition(pageData), function (err) {
+        if (err) {
+            return console.log("Error:: " + err);
+        }
+        console.log("Success::       PUG Position Output saved.");
+    });
+}
+
 
 // ------- MYSQL Functions ------- //
 function dumpDatabase(callback) {
@@ -812,6 +859,9 @@ function main() {
     mysql_connection.on('error', function (err) {
         console.log("[mysql error]", err);
     });
+    
+    setupPUG();
+    exportPUGViews();
 
     getLatestVersion(mysql_connection, function (r) {
         if (main_is_development_env()) {
