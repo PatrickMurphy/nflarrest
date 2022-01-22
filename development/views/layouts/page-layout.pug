@@ -2,12 +2,13 @@ doctype html
 html(lang="en") 
     head 
         title NFL Arrest | #{pageTitle}
-        meta(name="description", content=pageTitle)
+        meta(name="description", content=pageDesc)
         include ../PageBlocks/Head_MetaData.pug
         include ../PageBlocks/Head_Favicon.pug
     body
         .container
-            include ../PageBlocks/Body_Header.pug
+            include ../PageBlocks/MX_Body_Header.pug
+            +BodyHeader("Detail")
             block content
-            include ../PageBlocks/Body_Footer.pug
-            +DetailPageFooter(pageTitle)
+            include ../PageBlocks/MX_Body_Footer.pug
+            +BodyFooter("Detail", pageTitle)

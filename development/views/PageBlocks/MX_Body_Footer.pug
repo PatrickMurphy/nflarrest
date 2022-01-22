@@ -1,0 +1,8 @@
+mixin BodyFooter(pageType="detail",pageTitle="Team")
+    br.clear
+    footer 
+        span &copy; 2016 <a href="https://patrickmurphy.dev">Patrick Murphy</a> | <a href="https://www.usatoday.com/sports/nfl/arrests/">Data Source</a> | <span id="updateDateFooter">Updated: </span> |
+        include DonateButton.pug
+    include LoadingBar.pug
+    include MX_DetailPage_Scripts.pug
+    +DetailPageScripts(pageTitle)

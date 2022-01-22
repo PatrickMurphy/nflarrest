@@ -1,9 +1,4 @@
-mixin DetailPageFooter(page)
-    br.clear
-    footer 
-        span &copy; 2016 <a href="https://patrickmurphy.dev">Patrick Murphy</a> | <a href="https://www.usatoday.com/sports/nfl/arrests/">Data Source</a> | <span id="updateDateFooter">Updated: </span> |
-        include ../Elements/DonateButton.pug
-    div#loading-bar Loading...
+mixin DetailPageScripts(pageTitle="Team")
     script(src="https://code.jquery.com/jquery-2.1.4.min.js")
     script(src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js")
     script(src="js/vendor/jquery-ui.min.js")
@@ -13,4 +8,4 @@ mixin DetailPageFooter(page)
     script(src="js/vendor/pagination.min.js")
     script(src="js/data/ArrestsCacheTable_data.js")
     script(src="js/compressed/DetailPage.min.js")
-    script(src="js/pages/" + page + "DetailPage.js")
+    script(src="js/pages/" + pageTitle + "DetailPage.js")
