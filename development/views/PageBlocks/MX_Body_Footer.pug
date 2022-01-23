@@ -1,8 +1,9 @@
-mixin BodyFooter(pageType="detail",pageTitle="Team")
+mixin BodyFooter(pageType="Detail",pageTitle="Team",showLoadingBar=true)
     br.clear
     footer 
-        span &copy; 2016 <a href="https://patrickmurphy.dev">Patrick Murphy</a> | <a href="https://www.usatoday.com/sports/nfl/arrests/">Data Source</a> | <span id="updateDateFooter">Updated: </span> |
+        span &copy; 2022 <a href="https://patrickmurphy.dev">Patrick Murphy</a> | <a href="https://www.usatoday.com/sports/nfl/arrests/">Data Source</a> | <span id="updateDateFooter">Updated: </span> |
         include DonateButton.pug
-    include LoadingBar.pug
-    include MX_DetailPage_Scripts.pug
-    +DetailPageScripts(pageTitle)
+    if showLoadingBar
+        include LoadingBar.pug
+    include MX_JS_Include_Scripts.pug
+    +JSIncludeScripts(pageType,pageTitle)

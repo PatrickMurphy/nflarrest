@@ -1,14 +1,16 @@
 mixin BodyHeader(pageType="Detail")
     header
-          a.logo(href='https://nflarrest.com')
+        a.logo(href='https://nflarrest.com')
             img(src='images/logo-transparent.png' alt='NFL Arrest Logo' height='30')
-          a(href='https://nflarrest.com')
-            h1.site-title
-              | NFL
-              span Arrest
-              | .com
-          include MX_ShareButtons.pug
-          +ShareButtons('https://nflarrest.com')
-          include DateRangeControl.pug
+        a(href='https://nflarrest.com')
+        h1.site-title
+            | NFL
+            span Arrest
+            | .com
+        if pageType == "Detail"
+            include MX_ShareButtons.pug
+            +ShareButtons('https://nflarrest.com')
+            include DateRangeControl.pug
     br.clear
-    h3#pageTitle.eight.columns PageTitle Loading...
+    if pageType == "Detail"
+        h3#pageTitle.eight.columns PageTitle Loading...
