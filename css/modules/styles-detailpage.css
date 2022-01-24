@@ -1,4 +1,21 @@
+#shareButtons {float:right;}
+
+#pageTitle {
+    line-height: calc(38px + ((1px + 0.3vw)*2));
+    text-align: left;
+    padding-left: .5em;
+    font-size: 36px;
+}
+
+#arrest_details_incident_count, #DetailPageTitleRow {
+    border-bottom: 1px solid #eee;
+}
+
 @media (max-width: 640px) {
+    #pageTitle {
+        font-size: 24px;
+        line-height: calc(24px + ((1px + 0.3vw)*2));
+    }
     #teamchart, #crimechart, #playerchart, #poschart, #crimeschart, #teamchart {
         max-height: 260px !important;
     }

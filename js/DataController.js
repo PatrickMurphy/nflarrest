@@ -1,11 +1,20 @@
-var meter_use_current_day = true;
 class DataController {
     constructor(DateRangeControl, parent){
         this.DateRangeControl = DateRangeControl;
         this.parent = parent;
         this.data = ArrestsCacheTable;
-               
-		// a and b are javascript Date objects
+        
+        // initialize Data updates
+        this.PreProcessData();
+    }
+    
+    PreProcessData(){
+        this.PreProcessData_DaysSince();
+        this.PreProcessData_SortOrder();
+    }
+    
+    PreProcessData_DaysSince(){
+        // a and b are javascript Date objects
 		var dateDiffInDays = function(a, b) {
 		  	// Discard the time and time-zone information
 		  	var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
@@ -15,26 +24,22 @@ class DataController {
         
         // for each arrest calc daysSince
         this.forEach((r,i) => {
-            if(meter_use_current_day){
-                this.data[i].daysSince = dateDiffInDays(new Date(r.Date),new Date());
-                r.daysSince = dateDiffInDays(new Date(r.Date), new Date());
-            }
+            this.data[i].DaysSince = dateDiffInDays(new Date(r.Date),new Date());
         });
-        
-        
+    }
+    
+    PreProcessData_SortOrder(){
         // sort data on init
         function compare( a, b ) {
-          if ( a.daysSince < b.daysSince ){
+          if ( a.DaysSince < b.DaysSince ){
             return 1;
           }
-          if ( a.daysSince > b.daysSince ){
+          if ( a.DaysSince > b.DaysSince ){
             return -1;
           }
           return 0;
         }
         this.data.sort(compare);
-        
-		//callback(this);
     }
     
 	forEach(rowCallback, finsihedCallback, dateLimit){
@@ -76,9 +81,9 @@ class DataController {
         
 		this.forEach((row) => {
 			if(this.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd())){
-				if(row.daysSince < lastDate){
+				if(row.DaysSince < lastDate){
 					arrest = row;
-                    lastDate = row.daysSince;
+                    lastDate = row.DaysSince;
 				}
 			}
 		},()=>{
@@ -88,18 +93,12 @@ class DataController {
     }
 
 	getTeams(callback){
-		var return_data = [];
 		var result = [];
 		var map = new Map();
 		
 		for (var i = this.data.length - 1; i >= 0; i--) {
-			var row = this.data[i];
-			return_data.push({'Team': row.Team, 'Team_preffered_name': row.Team_preffered_name, 'Team_logo_id': row.Team_logo_id});
-		}
-
-
-		for (var i = return_data.length - 1; i >= 0; i--) {
-			var item = return_data[i];
+            var row = this.data[i];
+			var item = {'Team': row.Team, 'Team_preffered_name': row.Team_preffered_name, 'Team_logo_id': row.Team_logo_id};
 		    if(!map.has(item.Team)){
 		        map.set(item.Team, true);    // set any value to Map
 		        result.push(item);

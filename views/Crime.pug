@@ -1,4 +1,4 @@
-extends layouts/page-layout.pug
+extends layouts/detailPage-layout.pug
 
 block content
     br.clear
@@ -14,5 +14,4 @@ block content
           h3 Top Positions
           #poschart
       br.clear
-      #arrest_details_container(style='width:98%; margin-left:1%;')
-        h4#arrest_details_incident_count(style='text-align:left;') Incidents:
+      include PageBlocks/ArrestDetailsContainer.pug
