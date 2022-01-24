@@ -15,7 +15,7 @@ var IndexPageInstance;
 
 class IndexPage extends WebPage {
     constructor() {
-        super();
+        super('Index');
         
         
         // define class member variables

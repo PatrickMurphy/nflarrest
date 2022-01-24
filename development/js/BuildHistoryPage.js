@@ -18,7 +18,7 @@ var dummyFieldForTesting = {
 */
 class BuildHistoryPage extends WebPage {
 	constructor() {
-        super(true);
+        super('BuildHistory',true);
         
         this.StyleManager.loadCSS('css/modules/styles-buildhistory.css');
         $('#BuildHistoryVersionList').html(''); // clear version list

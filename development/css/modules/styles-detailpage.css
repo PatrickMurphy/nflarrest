@@ -1,3 +1,10 @@
+#shareButtons {float:right;}
+
+#pageTitle {
+    line-height: calc(38px + ((1px + 0.3vw)*2));
+    text-align: left;
+}
+
 @media (max-width: 640px) {
     #teamchart, #crimechart, #playerchart, #poschart, #crimeschart, #teamchart {
         max-height: 260px !important;

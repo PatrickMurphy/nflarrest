@@ -9,10 +9,11 @@ Dependencies:
 var DEBUG = false;
 
 class WebPage {
-	constructor(hideLoadingBar){
+	constructor(pageTitle, hideLoadingBar){
 		this.Utilities = new Utilities();
 		this.StyleManager = new StyleSheetManager();
 		this.LoadingBar = new LoadingBarManager();
+        this.pageTitle = pageTitle || 'Default';
         
         if(hideLoadingBar){
             this.LoadingBar.hideLoading();

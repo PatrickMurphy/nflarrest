@@ -1,6 +1,6 @@
 class DetailPage extends WebPage {
 	constructor(pageTitle, chartOptions, arrestsUrl) {
-        super();
+        super(pageTitle);
 		this.data_controller;
         
         this.pageID = this.Utilities.update_hash(); // SEA
