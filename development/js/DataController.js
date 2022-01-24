@@ -23,10 +23,10 @@ class DataController {
         
         // sort data on init
         function compare( a, b ) {
-          if ( a.daysSince < b.daysSince ){
+          if ( a.DaysSince < b.DaysSince ){
             return 1;
           }
-          if ( a.daysSince > b.daysSince ){
+          if ( a.DaysSince > b.DaysSince ){
             return -1;
           }
           return 0;
@@ -75,9 +75,9 @@ class DataController {
         
 		this.forEach((row) => {
 			if(this.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd())){
-				if(row.daysSince < lastDate){
+				if(row.DaysSince < lastDate){
 					arrest = row;
-                    lastDate = row.daysSince;
+                    lastDate = row.DaysSince;
 				}
 			}
 		},()=>{
