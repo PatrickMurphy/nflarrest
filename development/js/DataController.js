@@ -3,8 +3,18 @@ class DataController {
         this.DateRangeControl = DateRangeControl;
         this.parent = parent;
         this.data = ArrestsCacheTable;
-               
-		// a and b are javascript Date objects
+        
+        // initialize Data updates
+        this.PreProcessData();
+    }
+    
+    PreProcessData(){
+        this.PreProcessData_DaysSince();
+        this.PreProcessData_SortOrder();
+    }
+    
+    PreProcessData_DaysSince(){
+        // a and b are javascript Date objects
 		var dateDiffInDays = function(a, b) {
 		  	// Discard the time and time-zone information
 		  	var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
@@ -14,12 +24,11 @@ class DataController {
         
         // for each arrest calc daysSince
         this.forEach((r,i) => {
-            console.log('Arrest: ' + this.data[i].arrest_stats_id + ' orig days since: ' + this.data[i].DaysSince);
-            this.data[i].DaysSince = dateDiffInDays(new Date(r.Date),new Date())+100;
-            console.log('Arrest: ' + this.data[i].arrest_stats_id + ' after days since: ' + this.data[i].DaysSince);
+            this.data[i].DaysSince = dateDiffInDays(new Date(r.Date),new Date());
         });
-        
-        
+    }
+    
+    PreProcessData_SortOrder(){
         // sort data on init
         function compare( a, b ) {
           if ( a.DaysSince < b.DaysSince ){
@@ -31,8 +40,6 @@ class DataController {
           return 0;
         }
         this.data.sort(compare);
-        
-		//callback(this);
     }
     
 	forEach(rowCallback, finsihedCallback, dateLimit){
@@ -86,18 +93,12 @@ class DataController {
     }
 
 	getTeams(callback){
-		var return_data = [];
 		var result = [];
 		var map = new Map();
 		
 		for (var i = this.data.length - 1; i >= 0; i--) {
-			var row = this.data[i];
-			return_data.push({'Team': row.Team, 'Team_preffered_name': row.Team_preffered_name, 'Team_logo_id': row.Team_logo_id});
-		}
-
-
-		for (var i = return_data.length - 1; i >= 0; i--) {
-			var item = return_data[i];
+            var row = this.data[i];
+			var item = {'Team': row.Team, 'Team_preffered_name': row.Team_preffered_name, 'Team_logo_id': row.Team_logo_id};
 		    if(!map.has(item.Team)){
 		        map.set(item.Team, true);    // set any value to Map
 		        result.push(item);
