@@ -14,10 +14,10 @@ class DataController {
         
         // for each arrest calc daysSince
         this.forEach((r,i) => {
-            console.log('Arrest: ' + this.data[i].arrest_stats_id + ' orig days since: ' + this.data[i].daysSince);
-            this.data[i].daysSince = dateDiffInDays(new Date(r.Date),new Date());
-            console.log('Arrest: ' + this.data[i].arrest_stats_id + ' after days since: ' + this.data[i].daysSince);
-            r.daysSince = dateDiffInDays(new Date(r.Date), new Date());
+            console.log('Arrest: ' + this.data[i].arrest_stats_id + ' orig days since: ' + this.data[i].DaysSince);
+            this.data[i].DaysSince = dateDiffInDays(new Date(r.Date),new Date());
+            console.log('Arrest: ' + this.data[i].arrest_stats_id + ' after days since: ' + this.data[i].DaysSince);
+            r.DaysSince = dateDiffInDays(new Date(r.Date), new Date());
         });
         
         
