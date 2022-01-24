@@ -1,4 +1,3 @@
-var meter_use_current_day = true;
 class DataController {
     constructor(DateRangeControl, parent){
         this.DateRangeControl = DateRangeControl;
@@ -15,10 +14,10 @@ class DataController {
         
         // for each arrest calc daysSince
         this.forEach((r,i) => {
-            if(meter_use_current_day){
-                this.data[i].daysSince = dateDiffInDays(new Date(r.Date),new Date());
-                r.daysSince = dateDiffInDays(new Date(r.Date), new Date());
-            }
+            console.log('Arrest: ' + this.data[i].arrest_stats_id + ' orig days since: ' + this.data[i].daysSince);
+            this.data[i].daysSince = dateDiffInDays(new Date(r.Date),new Date());
+            console.log('Arrest: ' + this.data[i].arrest_stats_id + ' after days since: ' + this.data[i].daysSince);
+            r.daysSince = dateDiffInDays(new Date(r.Date), new Date());
         });
         
         
