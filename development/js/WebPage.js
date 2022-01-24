@@ -28,8 +28,9 @@ class WebPage {
     }
     
     RenderUpdateDate(){
+        var displayUpdateDate = lastUpdate.split(',')[0];
         // included in min file is lastUpdate var
-        $("#updateDateFooter").html("Updated: " + lastUpdate + ' <a href="BuildHistory.html">v' + lastVersion + "</a>");
+        $("#updateDateFooter").html("Updated: " + displayUpdateDate + ' <a href="BuildHistory.html">v' + lastVersion + "</a>");
     }
     
     checkLoadingFinished() {
