@@ -10,7 +10,9 @@ mixin BodyHeader(pageType="Detail")
         if pageType == "Detail"
             include MX_ShareButtons.pug
             +ShareButtons('https://nflarrest.com')
-            include DateRangeControl.pug
     br.clear
+    #DateRangeControlRow.row
+        .column
+            include DateRangeControl.pug
     if pageType == "Detail"
         h3#pageTitle.eight.columns PageTitle Loading...
