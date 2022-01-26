@@ -4,12 +4,9 @@ block content
     br.clear
     section
       aside
-        .four.columns.top-list
-          h3 Top Team
-          #teamchart
-        .four.columns.top-list
-        .four.columns.top-list
-          h3 Top Crimes
-          #crimechart
+        include PageBlocks/MX_TopChart.pug
+        +TopChart("Top Team", "teamchart")
+        +TopChartEmpty
+        +TopChart("Top Crimes", "crimechart")
       br.clear
       include PageBlocks/ArrestDetailsContainer.pug
