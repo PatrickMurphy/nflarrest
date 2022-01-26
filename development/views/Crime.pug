@@ -1,12 +1,7 @@
 extends layouts/detailPage-layout.pug
 
-block content
-    br.clear
-    section
-      aside
-        include PageBlocks/MX_TopChart.pug
-        +TopChart("Top Teams", "teamchart")
-        +TopChart("Top Players", "playerchart")
-        +TopChart("Top Positions", "poschart")
-      br.clear
-      include PageBlocks/ArrestDetailsContainer.pug
+block top_charts
+    include PageBlocks/MX_TopChart.pug
+    +TopChart("Top Teams", "teamchart")
+    +TopChart("Top Players", "playerchart")
+    +TopChart("Top Positions", "poschart")

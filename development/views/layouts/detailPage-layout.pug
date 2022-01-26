@@ -9,6 +9,11 @@ html(lang="en")
         .container
             include ../PageBlocks/MX_Body_Header.pug
             +BodyHeader("Detail")
-            block content
+            br.clear
+            section
+                aside
+                    block top_charts
+                br.clear
+                include ../PageBlocks/ArrestDetailsContainer.pug
             include ../PageBlocks/MX_Body_Footer.pug
             +BodyFooter("Detail", pageTitle)
