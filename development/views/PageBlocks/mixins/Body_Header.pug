@@ -1,12 +1,12 @@
 mixin BodyHeader(pageType="Detail")
     header
-        include PageLogoTitle.pug
+        include ../PageLogoTitle.pug
         if pageType == "Detail"
-            include MX_ShareButtons.pug
+            include ShareButtons.pug
             +ShareButtons('https://nflarrest.com')
     br.clear
     if pageType == "Detail"
         #DetailPageTitleRow.row
             h3#pageTitle.six.columns PageTitle Loading...
             #DateRangeControlTitleRow.six.columns
-                include DateRangeControl.pug
+                include ../DateRangeControl.pug

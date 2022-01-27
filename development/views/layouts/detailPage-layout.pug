@@ -7,7 +7,7 @@ html(lang="en")
         include ../PageBlocks/Head_Favicon.pug
     body
         .container
-            include ../PageBlocks/MX_Body_Header.pug
+            include ../PageBlocks/mixins/Body_Header.pug
             +BodyHeader("Detail")
             br.clear
             section
@@ -15,5 +15,5 @@ html(lang="en")
                     block top_charts
                 br.clear
                 include ../PageBlocks/ArrestDetailsContainer.pug
-            include ../PageBlocks/MX_Body_Footer.pug
+            include ../PageBlocks/mixins/Body_Footer.pug
             +BodyFooter("Detail", pageTitle)
