@@ -17,13 +17,46 @@ class ArrestCard {
     }
     
     // Include Column dimension definitions, used in init
-    addDimensions(){
-        this.Dimension_Team    =   {dimension_id: 0, dimension_name: 'Team',        data_column: 'Team',        color:'Team_hex_color',         url:'Team.html',        display: 'Team_preffered_name', color2: 'Team_hex_alt_color', useColor2: true};
-        this.Dimension_Player  =   {dimension_id: 2, dimension_name: 'Player',      data_column: 'Name',        color:'Team_hex_color',         url:'Player.html',      display: 'Name',                color2: 'Team_hex_alt_color', useColor2: true};
-        this.Dimension_Position=   {dimension_id: 3, dimension_name: 'Position',    data_column: 'Position',    color:'Team_hex_color',         url:'Position.html',    display: 'Position',            color2: 'Team_hex_alt_color', useColor2: true};
-        this.Dimension_Crime   =   {dimension_id: 1, dimension_name: 'Crime',       data_column: 'Category',    color:'Crime_category_color',   url:'Crime.html',       display: 'Category'};
+    addDimensions() {
+        this.Dimension_Team = {
+            dimension_id: 0,
+            dimension_name: 'Team',
+            data_column: 'Team',
+            color: 'Team_hex_color',
+            url: 'Team.html',
+            display: 'Team_preffered_name',
+            color2: 'Team_hex_alt_color',
+            useColor2: true
+        };
+        this.Dimension_Player = {
+            dimension_id: 2,
+            dimension_name: 'Player',
+            data_column: 'Name',
+            color: 'Team_hex_color',
+            url: 'Player.html',
+            display: 'Name',
+            color2: 'Team_hex_alt_color',
+            useColor2: true
+        };
+        this.Dimension_Position = {
+            dimension_id: 3,
+            dimension_name: 'Position',
+            data_column: 'Position',
+            color: 'Team_hex_color',
+            url: 'Position.html',
+            display: 'Position',
+            color2: 'Team_hex_alt_color',
+            useColor2: true
+        };
+        this.Dimension_Crime = {
+            dimension_id: 1,
+            dimension_name: 'Crime',
+            data_column: 'Category',
+            color: 'Crime_category_color',
+            url: 'Crime.html',
+            display: 'Category'
+        };
     }
-    
     /*buildSpan(col, cssClasses, css, link, title){
         col = col || 'Name';
         cssClasses = cssClasses || col.toLowerCase() + "_item";

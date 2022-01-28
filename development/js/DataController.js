@@ -76,19 +76,19 @@ class DataController {
 	}
     
     getMostRecentArrest(callback){
-        var arrest;
-        var lastDate = 999999999;
+        var returnRow;
+        var minDaysSince = 999999999;
         
 		this.forEach((row) => {
 			if(this.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd())){
-				if(row.DaysSince < lastDate){
-					arrest = row;
-                    lastDate = row.DaysSince;
+				if(row.DaysSince < minDaysSince){
+					returnRow = row;
+                    minDaysSince = row.DaysSince;
 				}
 			}
 		},()=>{
 			// finished
-			callback(arrest);
+			callback(returnRow);
 		});
     }
 
