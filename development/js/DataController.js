@@ -2,10 +2,27 @@ class DataController {
     constructor(DateRangeControl, parent){
         this.DateRangeControl = DateRangeControl;
         this.parent = parent;
-        this.data = ArrestsCacheTable;
+        this.data = this.ConvertArrayToObjects(ArrestsCacheTableArr);
         
         // initialize Data updates
         this.PreProcessData();
+    }
+    
+    ConvertArrayToObjects(arr){
+        var dataReturn = [];
+        for(var i = 0; i<arr.length; i++){
+            dataReturn.push(this.ConvertArrayToObject(arr[i]));
+        }
+        return dataReturn;
+    }
+    
+    ConvertArrayToObject(row){
+        var returnObj = {};
+        var columns = ['arrest_stats_id', 'Date', 'Team', 'Team_name', 'Team_preffered_name', 'Team_city', 'Team_logo_id', 'Team_Conference', 'Team_Division', 'Team_Conference_Division', 'Team_hex_color', 'Team_hex_alt_color', 'Name', 'Position', 'Position_name', 'Position_type', 'Encounter', 'Category', 'Crime_category', 'Crime_category_color', 'Description', 'Outcome', 'Season', 'ArrestSeasonState', 'general_category_id', 'legal_level_id', 'resolution_category_id', 'Year', 'Month', 'Day', 'Day_of_Week', 'Day_of_Week_int', 'YearToDate', 'DaysSince', 'DaysToLastArrest', 'DaysToLastCrimeArrest', 'DaysToLastTeamArrest'];
+        for (var i = 0; i < row.length; i++){
+            returnObj[columns[i]] = row[i];
+        }
+        return returnObj;
     }
     
     PreProcessData(){
