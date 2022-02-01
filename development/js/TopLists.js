@@ -54,7 +54,7 @@ class TopLists {
             this.parent.Utilities.googleTracking.sendTrackEvent('TopLists', 'Load Next Page');
         }
         
-        ////console.log(this, this.last_start_pos);
+        console.log(this, this.parent);
         this.parent.data_controller.getTopLists(this.last_start_pos, this.parent.DateRangeControl.getStart(), this.parent.DateRangeControl.getEnd(), (data) => {
             var crimes_list = data[0],
                 players_list = data[1],
