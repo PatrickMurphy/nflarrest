@@ -17,7 +17,7 @@
     font-size: 1.8em;
 }
 
-.BuildReleaseEnvironmentProduction, .BuildReleaseEnvironmentDevelopment {
+#BuildReleaseEnvironmentLabel.BuildReleaseEnvironmentProduction, #BuildReleaseEnvironmentLabel.BuildReleaseEnvironmentDevelopment {
     height: 2em;
     display: inline-block;
     line-height: 2em;
@@ -25,13 +25,25 @@
     color:#fff;
     font-weight: 700;
 }
-.BuildReleaseEnvironmentProduction {
+
+#BuildReleaseEnvironmentLabel.BuildReleaseEnvironmentProduction {
     background: #b76513;
     
 }
-.BuildReleaseEnvironmentDevelopment {
+#BuildReleaseEnvironmentLabel.BuildReleaseEnvironmentDevelopment {
     background: #6c5934;
 }
+
+#BuildReleaseContainer.BuildReleaseEnvironmentProduction {
+    
+}
+
+#BuildReleaseContainer.BuildReleaseEnvironmentDevelopment {
+    display: none;
+    width:80%;
+    margin-left: 16%;
+}
+
 
 .BuildReleaseContainer p {
     margin-bottom: .25em; 
