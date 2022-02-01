@@ -35,7 +35,7 @@ class CrimeDetailPage extends DetailPage {
 
     // Override DetailPage method
     renderArrestRow(row) {
-        return '<tr><td class="one column">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>'
+        return '<tr><td class="one column" title="'+row['Date']+'">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>'
             + '<td class="two columns"><a href="' + this.getPlayerLink(row['Name']) + '">' + row['Name'] + '</a></td>' // getDimensionLink methods from webpage.js
             + '<td class="one column"><a href="' + this.getTeamLink(row['Team']) + '">'
                 + '<span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;'
