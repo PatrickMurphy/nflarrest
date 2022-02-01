@@ -264,8 +264,12 @@ class DataController {
 		var bar_groups = [];
 		Object.keys(stacks_count).forEach((key) => {
 			bar_groups.push(key);
-            console.log(bar_groups, key);
+            //console.log(bar_groups, key); // ['Crime']
 		});
+        
+        bar_groups.sort((a, b) => {
+          return stacks_count[b] - stacks_count[a];
+        });
 
 
         // build bar titles
