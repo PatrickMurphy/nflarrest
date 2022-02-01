@@ -267,7 +267,7 @@ class DataController {
             //console.log(bar_groups, key); // ['Crime']
 		});
         
-        bar_groups.sort((a, b) => {
+        bar_groups = bar_groups.sort((a, b) => {
           return stacks_count[b] - stacks_count[a];
         });
 
