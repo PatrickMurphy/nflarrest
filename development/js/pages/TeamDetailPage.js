@@ -51,7 +51,7 @@ class TeamDetailPage extends DetailPage {
 
     // Override DetailPage method
     renderArrestRow(row) {
-        return '<tr><td class="one column" title="'+row['Date']+'">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td><td class="two columns">'
+        return '<tr><td class="one column" '+this.getHTMLDateTitleAttribute()+'>' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td><td class="two columns">'
             +'<a href="Player.html#' + row['Name'] + '">' + row['Name'] + '</a></td>'
             +'<td class="one column"><a href="Crime.html#' + row['Category'] + '">' + row['Category'] + '</a>'
             +'</td><td class="four columns">' + row['Description'] + '</td><td class="four columns">' + row['Outcome'] + '</td></tr>';

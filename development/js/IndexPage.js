@@ -177,6 +177,7 @@ class IndexPage extends WebPage {
         });
     }
     
+    // todo rename load_top_lists_reload()
     reload_top_lists() {
         this.last_start_pos = 0;
         this.load_top_lists('not first', true);
@@ -356,31 +357,7 @@ class IndexPage extends WebPage {
         }
     }
     
-    /*setupNewsletter(){
-        $('#newsletterForm').submit((e) => {
-            e.preventDefault();
-            $.ajax({
-                url: 'https://patrickmurphywebdesign.com/Projects/emails/emailList.php',
-                type: 'POST',
-                data: {
-                    'email': $('input[name=email]').val()
-                }
-            });
-            $('#newsletterForm').html('<p>Thanks for Subscribing! Expect Emails when Players are arrested or when records are broken!</p>');
-            this.Utilities.googleTracking.sendTrackEvent('Email List', 'Subscribe');
-        });
-        $('#newsletterForm input[name=email]').focus(() => {
-            this.Utilities.googleTracking.sendTrackEvent('Email List', 'Focus');
-        });
-        
-        // button for mobile to show the newsletter form
-        $('#newsletterDisplayBtn').click(() => {
-            $('#newsletterContainer').css('display', 'block');
-            $('#newsletterDisplayBtn').css('display', 'none');
-            this.Utilities.googleTracking.sendTrackEvent('Email List', 'MobileShowForm');
-        });
-    }
-    */
+
     fixTopListLinks(){
         // add click listener to li so that entire element is clickable rather than just the link
         if(detail_page_active){
