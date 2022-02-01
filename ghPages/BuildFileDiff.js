@@ -19,6 +19,16 @@ var filterFunction = function(p){
         return true;
     }else if(p.indexOf("\\js\\compressed") > -1){
         return true;
+    }else if(p.indexOf("\\index.html") > -1){
+        return true;
+    }else if(p.indexOf("\\Crime.html") > -1){
+        return true;
+    }else if(p.indexOf("\\Player.html") > -1){
+        return true;
+    }else if(p.indexOf("\\Team.html") > -1){
+        return true;
+    }else if(p.indexOf("\\Position.html") > -1){
+        return true;
     }else if(p.indexOf(".min.css") > -1){
         return true;
     }

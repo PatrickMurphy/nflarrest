@@ -9,7 +9,7 @@ var readlinesync = require('readline-sync');
 var mysqldump = require('mysqldump');
 var dbConfig = require('./dbconfig');
 var shell = require('shelljs');
-var pug = require('pug');
+var BuildPUGViews = require('./BuildPUGViews');
 
 // --- Setup imported objects --- //
 var git = simple_git('./nflarrest/');
@@ -78,6 +78,7 @@ var MinFilename_JS = 'index.min.js';
 var MinFilename_Detail_JS = 'DetailPage.min.js';
 var MinFilename_CSS = "styles.min.css";
 var DataFilename_JSON = 'ArrestsCacheTable_data.js';
+var DataFilename_ARR = 'ArrestsCacheTable_data_array.js';
 var DataFilename_ReleaseHistory = 'ReleaseHistory_data.js';
 var DataFilePath = 'js/data/';
 var PUGFilePath = 'views/';
@@ -97,6 +98,7 @@ var JS_filenames_index = ['js/LoadingBarManager.js',
     'js/WebPage.js',
     'js/charts/Chart.js',
     'js/IndexPage.js',
+    'js/TopLists.js',
     'js/charts/stackedBarChart.js',
     'js/DateRangeControl.js',
     'js/StyleSheetManager.js'
@@ -133,6 +135,7 @@ var CSS_filenames = ['css/styles-modular.css',
     'css/modules/styles-arrestometer.css',
     'css/modules/styles-chart.css',
     'css/modules/styles-cards.css',
+    'css/modules/styles-arrest-table.css',
     'css/modules/styles-kpi.css',
     'css/modules/styles-mobile.css',
     'css/modules/styles-newsletter.css'
@@ -141,8 +144,7 @@ var CSS_filenames = ['css/styles-modular.css',
 // any files that are new that have not been added to production environment, these files need to be moved to production before prod release
 var CSS_filenames_development = [];
 
-// --------- PUG Variables ----------- //
-var PUG_fn_generateDetailPageCrime,PUG_fn_generateDetailPagePlayer,PUG_fn_generateDetailPageTeam,PUG_fn_generateDetailPagePosition;
+var BuildPug = new BuildPUGViews('views/',getEnvPath);
 
 function main_is_development_env() {
     return runOption_Environment_Details_enum[runOption_Environment].Environment === 'development';
@@ -204,44 +206,7 @@ function getCSSFiles() {
     return cssFiles;
 }
 
-// ------- PUG Functions ----------//
-function setupPUG() {
-    PUG_fn_generateDetailPageCrime = pug.compileFile(getEnvPath(PUGFilePath + 'Crime.pug'));
-    PUG_fn_generateDetailPagePlayer = pug.compileFile(getEnvPath(PUGFilePath + 'Player.pug'));
-    PUG_fn_generateDetailPageTeam = pug.compileFile(getEnvPath(PUGFilePath + 'Team.pug'));
-    PUG_fn_generateDetailPagePosition = pug.compileFile(getEnvPath(PUGFilePath + 'Position.pug'));
-}
 
-function exportPUGViews(){
-    var pageData = {pageTitle:'Crime',pageDesc:"The page where you can read about crimes."};
-    fs.writeFile(getEnvPath('Crime.html'), PUG_fn_generateDetailPageCrime(pageData), function (err) {
-        if (err) {
-            return console.log("Error:: " + err);
-        }
-        console.log("Success::       PUG Crime Output saved.");
-    });
-    pageData = {pageTitle:'Player',pageDesc:"The page where you can read about crimes by each NFL Player arrested."};
-    fs.writeFile(getEnvPath('Player.html'), PUG_fn_generateDetailPagePlayer(pageData), function (err) {
-        if (err) {
-            return console.log("Error:: " + err);
-        }
-        console.log("Success::       PUG Player Output saved.");
-    });
-    pageData = {pageTitle:'Team',pageDesc:"The page where you can read about NFL Arrests by team."};
-    fs.writeFile(getEnvPath('Team.html'), PUG_fn_generateDetailPageTeam(pageData), function (err) {
-        if (err) {
-            return console.log("Error:: " + err);
-        }
-        console.log("Success::       PUG Team Output saved.");
-    });
-    pageData = {pageTitle:'Position',pageDesc:"The page where you can read about NFL crimes by position."};
-    fs.writeFile(getEnvPath('Position.html'), PUG_fn_generateDetailPagePosition(pageData), function (err) {
-        if (err) {
-            return console.log("Error:: " + err);
-        }
-        console.log("Success::       PUG Position Output saved.");
-    });
-}
 
 
 // ------- MYSQL Functions ------- //
@@ -395,6 +360,26 @@ function cacheArrestsDateViewJS(mysql, callback) {
                 return console.log("Error:: " + err);
             }
             console.log("Success::       JS Data Table " + DataFilename_JSON + " saved.");
+            callback();
+        });
+    });
+}
+
+function cacheArrestsDateViewArrayJS(mysql, callback) {
+    var SelectQuery = "SELECT * FROM " + DW_arrests_view;
+
+    mysql.query(SelectQuery, function (error, results, fields) {
+        var results2 = [];
+        for(var i = 0; i<results.length;i++){
+            results2.push(Object.values(results[i]));
+        }
+        var newText = "var ArrestsCacheTableArr = " + JSON.stringify(results2) + ";";
+
+        fs.writeFile(getEnvPath(DataFilePath + DataFilename_ARR), newText, function (err) {
+            if (err) {
+                return console.log("Error:: " + err);
+            }
+            console.log("Success::       JS Data Table " + DataFilename_ARR + " arr saved.");
             callback();
         });
     });
@@ -805,10 +790,12 @@ function main_mysql_stored_procs(mysql_connection, callback) {
 function main_mysql_cache_data(mysql_connection, callback) {
     if (main_ask_bool_input(mysql_connection, "MYSQL:          Cache Data? (mat_arrests, update_date) [yes]/no: ", -1)) {
         cacheArrestsDateViewJS(mysql_connection, function () {
-            cacheUpdateDate(mysql_connection, function () {
-                cacheReleaseHistory(mysql_connection, function () {
-                    callback();
-                })
+            cacheArrestsDateViewArrayJS(mysql_connection, function () {
+                cacheUpdateDate(mysql_connection, function () {
+                    cacheReleaseHistory(mysql_connection, function () {
+                        callback();
+                    })
+                });
             });
         });
     }
@@ -860,8 +847,7 @@ function main() {
         console.log("[mysql error]", err);
     });
     
-    setupPUG();
-    exportPUGViews();
+    BuildPug.exportPUGViews();
 
     getLatestVersion(mysql_connection, function (r) {
         if (main_is_development_env()) {
