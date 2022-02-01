@@ -49,13 +49,13 @@ class BuildHistoryPage extends WebPage {
             }
             var headerTag = value['build_environment_name'] === "Development" ? 'h3' : 'h2';
             var envStyleClass = value['build_environment_name'] === "Development" ? 'BuildReleaseEnvironmentDevelopment' : 'BuildReleaseEnvironmentProduction';
-            var str =   `<div class="BuildReleaseContainer ${envStyleClass} ${last_prod_release}" id="v${value['build_release_version']}">
+            var str =   `<div id="BuildReleaseContainer" class="BuildReleaseContainer ${envStyleClass} ${last_prod_release}" id="v${value['build_release_version']}">
                             <div class="BuildReleaseContainerHeader row">
                                 <a class="four columns" href="https://github.com/PatrickMurphy/nflarrest/commit/${value['build_release_detail_commithash']}">
                                     <${headerTag}>${value['build_release_version']}</${headerTag}>
                                 </a>
                                 <p class="BuildReleaseDate four columns"><b>Date</b>: ${value['build_release_date'].substring(0,10)}</p>
-                                <p class="BuildReleaseEnvironment four columns ${envStyleClass}">${value['build_environment_name']}</p>
+                                <p id="BuildReleaseEnvironmentLabel" class="BuildReleaseEnvironment four columns ${envStyleClass}">${value['build_environment_name']}</p>
                             </div>
                             <div class="BuildReleaseContainerBody">
                                 <p>${value['build_release_description']}</p>
