@@ -46,7 +46,7 @@ class BuildHistoryPage extends WebPage {
             
             var headerTag = value['build_environment_name'] === "Development" ? 'h3' : 'h2';
             var envStyleClass = value['build_environment_name'] === "Development" ? 'BuildReleaseEnvironmentDevelopment' : 'BuildReleaseEnvironmentProduction';
-            var str =   `<div class="BuildReleaseContainer" id="v${value['build_release_version']}">
+            var str =   `<div class="BuildReleaseContainer ${envStyleClass}" id="v${value['build_release_version']}">
                             <div class="BuildReleaseContainerHeader row">
                                 <a class="four columns" href="https://github.com/PatrickMurphy/nflarrest/commit/${value['build_release_detail_commithash']}">
                                     <${headerTag}>${value['build_release_version']}</${headerTag}>
@@ -64,8 +64,11 @@ class BuildHistoryPage extends WebPage {
                                 <p style="display:none;" id="filesChanged${value['build_release_id']}">
                                     <b>Files Changed</b>: ${value['build_release_detail_commitfiles']}
                                 </p>
-                                </div>
+                            </div>
                     </div>`;
+            if(value['build_environment_name'] !== 'Development'){
+                str += "<a href='#' class='button'>Show Development Releases</a>"
+            }
 
             $('#historyContainer').append(str);
             $('#BuildHistoryVersionList').append(versionLink);
