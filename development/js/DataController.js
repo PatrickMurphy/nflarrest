@@ -283,7 +283,8 @@ class DataController {
 		column_rows.push(bar_titles);
 
         // use bar groups to preserve sorting
-		Object.keys(bar_groups).forEach((stack_key) => {
+		Object.keys(bar_groups).forEach((stack_id) => {
+            var stack_key = bar_groups[stack_id];
 			var stack_row = [stack_key];
 			bar_order.forEach((bar_obj) => {
 				var bar_key = bar_obj.bar;
