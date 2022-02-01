@@ -85,10 +85,10 @@ class IndexPage extends WebPage {
         $('#dateRangeJquery').on('dateRangeChanged', (e) => {
             this.LoadingBar.showLoading();
             this.setupChart();
-            this.TopLists.reload_top_lists();
+            this.TopLists.reload();
         });
 
-        $('#loadMoreLists').click(this.TopLists.load_top_lists_Handler);
+        $('#loadMoreLists').click(this.TopLists.jQuery_Handler);
 
         if(this.detail_page_active){
             this.data_controller.getTeams(this.RenderTeamLinks);
@@ -197,7 +197,7 @@ class IndexPage extends WebPage {
     }
     
     // todo rename load_top_lists_reload()
-    reload_top_lists() {
+    reload() {
         this.last_start_pos = 0;
         this.load_top_lists('not first', true);
     }

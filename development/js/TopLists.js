@@ -6,13 +6,11 @@ class TopLists {
             ReturnStatus: false
         };
         
-        this.load_top_lists('first');
-        
-        //this.fixTopListLinks();
+        this.load_lists('first');
     }
     
     // jquery handler function that calls class function
-    load_top_lists_Handler(event){
+    jQuery_Handler(event){
        IndexPageInstance.TopLists.load_lists('not first', false);
     }
     
@@ -80,7 +78,7 @@ class TopLists {
     }
     
     // todo rename load_top_lists_reload()
-    reload_top_lists() {
+    reload() {
         this.last_start_pos = 0;
         this.load_lists('not first', true);
     }
