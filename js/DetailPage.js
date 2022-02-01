@@ -38,6 +38,10 @@ class DetailPage extends WebPage {
         
         this.renderView(this);
 	}
+    
+    getHTMLDateTitleAttribute(row){
+        return 'title="'+row['Date'].split('T')[0]+'"';
+    }
 
 	changeTitle(newTitle, s) {
 		var self = s || this;
@@ -186,7 +190,7 @@ class DetailPage extends WebPage {
 	// should be overloaded
 	renderArrestRow(row) {
 		var return_text = '<tr>';
-		return_text += '<td class="one column">' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>';
+		return_text += '<td class="one column" '+this.getHTMLDateTitleAttribute(row)+'>' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>';
 		return_text += '<td class="one column">' + row['Team'] + '</td>';
 		return_text += '<td class="two columns"><a href="Player.html#' + row['Name'] + '">' + row['Name'] + '</a></td>';
 		return_text += '<td class="one column"><a href="Crime.html#' + row['Category'] + '">' + row['Category'] + '</a></td>';

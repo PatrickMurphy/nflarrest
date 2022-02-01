@@ -241,6 +241,8 @@ class DataController {
 			}
 		}
 
+        // build and sort bar order
+        // deterimine order of bars
 		var bar_order = [];
 		Object.keys(bar_count).forEach((key) => {
             var bartmp = {'bar': key, 'arrest_count': bar_count[key]};
@@ -258,22 +260,31 @@ class DataController {
 		    });
         }
         
-
+        // build bar groups
 		var bar_groups = [];
 		Object.keys(stacks_count).forEach((key) => {
 			bar_groups.push(key);
+            //console.log(bar_groups, key); // ['Crime']
 		});
+        
+        bar_groups = bar_groups.sort((a, b) => {
+          return stacks_count[b] - stacks_count[a];
+        });
 
 
+        // build bar titles
 		var bar_titles = ['x'];
 		bar_order.forEach((obj) => {
 			bar_titles.push(obj.bar);
 		});
 
+        // build column rows
 		var column_rows = [];
 		column_rows.push(bar_titles);
 
-		Object.keys(stacks_count).forEach((stack_key) => {
+        // use bar groups to preserve sorting
+		Object.keys(bar_groups).forEach((stack_id) => {
+            var stack_key = bar_groups[stack_id];
 			var stack_row = [stack_key];
 			bar_order.forEach((bar_obj) => {
 				var bar_key = bar_obj.bar;

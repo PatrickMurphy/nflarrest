@@ -1,11 +1,10 @@
 // can these be removed? -----------------
 var dateRangeNFL,
 	mainChartReturned = false;
-
-var last_start_pos = 0,
-	listsReturnCount = 0,
-	listsReturned = false,
-	ytdChart = false,
+//last_start_pos = 0,
+//listsReturnCount = 0,
+//	listsReturned = false,
+var ytdChart = false,
 	mainChartStyleID = 0,
 	detail_page_active = true;
 
@@ -17,14 +16,17 @@ class IndexPage extends WebPage {
     constructor() {
         super('Index');
         
-        
         // define class member variables
         //this.dateRangeNFL = undefined;
         this.data_controller = undefined;
-        this.last_start_pos = 0;
+        this.MeterOrRecent = Math.random() > .5;
+        //this.last_start_pos = 0;
         this.detail_page_active = true; // option
         
+        // load page specific css
         this.StyleManager.loadCSS('css/modules/styles-indexpage.css');
+        
+        // setup main chart
         this.MainChart = {
             ytdChart: false,
             StyleID:0,
@@ -63,30 +65,22 @@ class IndexPage extends WebPage {
                 }]
         };
         
-        this.Lists = {
-            ReturnStatus: false
-        };
-        
         this.DateRangeControl = new DateRangeControl(this);// pass this as parent arg
-        //this.dateRangeNFL = this.DateRangeControl;
-        //dateRangeNFL = this.DateRangeControl;
-        
+
         this.data_controller = new DataController(this.DateRangeControl, this);
-        //data_controller = this.data_controller;
         
+        this.TopLists = new TopLists(this);
+
         this.evaluateHash();
         this.changeTopChart();
-        
-        // first load of top lists
-        this.load_top_lists('first');
-
+  
         $('#dateRangeJquery').on('dateRangeChanged', (e) => {
             this.LoadingBar.showLoading();
             this.setupChart();
-            this.reload_top_lists();
+            this.TopLists.reload();
         });
 
-        $('#loadMoreLists').click(this.load_top_lists_Handler);
+        $('#loadMoreLists').click(this.TopLists.jQuery_Handler);
 
         if(this.detail_page_active){
             this.data_controller.getTeams(this.RenderTeamLinks);
@@ -95,8 +89,21 @@ class IndexPage extends WebPage {
         }
 
         this.addChartButtonListeners();
-        //this.setupNewsletter();
-        this.fixTopListLinks();
+        
+        this.TopLists.fixTopListLinks();
+    }
+    
+    checkLoadingFinished(){
+        if (this.MainChart.ReturnStatus === true && this.TopLists.Lists.ReturnStatus === true) {
+            this.TopLists.Lists.ReturnStatus = false;
+            this.MainChart.ReturnStatus = false;
+            var d = this.MeterOrRecent;
+
+            this.setupArrestOMeter(d);
+            this.setupRecentArrestCard(!d);
+            
+            this.loadingFinished();
+        }
     }
     
     RenderTeamLinks(data){
@@ -109,92 +116,7 @@ class IndexPage extends WebPage {
         });
     }
     
-    // jquery handler function that calls class function
-    load_top_lists_Handler(event){
-       IndexPageInstance.load_top_lists('not first', false);
-    }
-    
-    load_top_list(data, page, prefix, list, values, replace) {
-        replace = replace || false;
-        if (replace) {
-            this.last_start_pos = 0;
-        }
-        var items = [];
-        if (data.length > 0) {
-            $.each(data, (key, val) => {
-                var link = "<a href=\"" + this.getDetailPageLink(page, val[values[0]]) + "\">";
-                var link_end = '</a>';
-                if (page == '' || !this.detail_page_active) {
-                    link = '';
-                    link_end = '';
-                }
-                items.push("<li id='" + prefix + key + "'>" + link + "<span>" + val[values[0]] + "</span><span class='value-cell'>" + val[values[1]] + "</span>" + link_end + "</li>");
-            });
-        } else {
-            if (replace) {
-                items.push('<li class="list-no-data-msg-item">No Data Available for this Date Range</li>');
-            }
-        }
-        if (replace) {
-            $(list).html(items.join(""));
-        } else {
-            $(list).append(items.join(""));
-        }
-    }
-        
-    load_top_lists(first, replace) {
-        first = first || 'not first';
-        replace = replace || false;
-
-        $('.list-no-data-msg-item').remove();
-        
-        //var ref = IndexPageInstance;
-
-        if (first != 'first') {
-            this.Utilities.googleTracking.sendTrackEvent('TopLists', 'Load Next Page');
-        }
-        
-        ////console.log(this, this.last_start_pos);
-        this.data_controller.getTopLists(this.last_start_pos, this.DateRangeControl.getStart(), this.DateRangeControl.getEnd(), (data) => {
-            var crimes_list = data[0],
-                players_list = data[1],
-                positions_list = data[2];
-
-            if ((crimes_list.length + players_list.length + positions_list.length) <= 0 && this.last_start_pos == 0) {
-                console.warn('no data returned');
-            }
-
-            this.load_top_list(crimes_list, 'crime', 'top_crime_', '#top_crimes_list', ['Category', 'arrest_count'], replace);
-            this.load_top_list(players_list, 'player', 'top_player_', '#top_players_list', ['Name', 'arrest_count'], replace);
-            this.load_top_list(positions_list, 'position', 'top_pos_', '#top_positions_list', ['Position', 'arrest_count'], replace);
-
-            // set returns
-            this.Lists.ReturnStatus = true;
-            this.Lists.ReturnCount = 0;
-            this.last_start_pos = this.last_start_pos + 5;
-            
-            this.checkLoadingFinished();
-        });
-    }
-    
-    reload_top_lists() {
-        this.last_start_pos = 0;
-        this.load_top_lists('not first', true);
-    }
-    
-    checkLoadingFinished(){
-        if (this.MainChart.ReturnStatus === true && this.Lists.ReturnStatus === true) {
-            this.Lists.ReturnStatus = false;
-            this.MainChart.ReturnStatus = false;
-            var d = Math.random() > .5;
-
-            this.setupArrestOMeter(d);
-            this.setupRecentArrestCard(!d);
-            
-            this.loadingFinished();
-        }
-    }
-    
+    /* ---==== Chart Methods ====--- */
     // jquery handler function that calls class function
     setMainChartHandler(event){
        IndexPageInstance.setMainChart(event.data.btn);
@@ -209,7 +131,6 @@ class IndexPage extends WebPage {
         this.Utilities.googleTracking.sendTrackEvent('mainChart', 'switchTo'+theBtn.short_title);
     }
     
-    /* ---==== Chart Methods ====--- */
     addChartButtonListeners(){
         // loop through, add the button listeners
         for(var i = 0; i<this.MainChart.buttons.length; i++){
@@ -353,41 +274,6 @@ class IndexPage extends WebPage {
         }else{            
             //set arrestometerorrecent
             ga('set', 'dimension1', "ArrestOMeter");
-        }
-    }
-    
-    /*setupNewsletter(){
-        $('#newsletterForm').submit((e) => {
-            e.preventDefault();
-            $.ajax({
-                url: 'https://patrickmurphywebdesign.com/Projects/emails/emailList.php',
-                type: 'POST',
-                data: {
-                    'email': $('input[name=email]').val()
-                }
-            });
-            $('#newsletterForm').html('<p>Thanks for Subscribing! Expect Emails when Players are arrested or when records are broken!</p>');
-            this.Utilities.googleTracking.sendTrackEvent('Email List', 'Subscribe');
-        });
-        $('#newsletterForm input[name=email]').focus(() => {
-            this.Utilities.googleTracking.sendTrackEvent('Email List', 'Focus');
-        });
-        
-        // button for mobile to show the newsletter form
-        $('#newsletterDisplayBtn').click(() => {
-            $('#newsletterContainer').css('display', 'block');
-            $('#newsletterDisplayBtn').css('display', 'none');
-            this.Utilities.googleTracking.sendTrackEvent('Email List', 'MobileShowForm');
-        });
-    }
-    */
-    fixTopListLinks(){
-        // add click listener to li so that entire element is clickable rather than just the link
-        if(detail_page_active){
-            $(".top-list ol li").click(function () {
-                window.location = $(this).find("a").attr("href");
-                return false;
-            });
         }
     }
 }
