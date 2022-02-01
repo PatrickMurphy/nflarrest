@@ -29,6 +29,7 @@ class BuildHistoryPage extends WebPage {
             lastItemWasProd = true;
         }
         
+        var last_prod_release = undefined;
         $.each(ReleaseHistoryCacheTable, function (key, value) {
             // add version link
             var styleBold = 'style="font-weight:bold;"';
@@ -43,10 +44,12 @@ class BuildHistoryPage extends WebPage {
             
             // add link
             //versionLink += `<a href="#v${value['build_release_version'].replace('.','-')}">${value['build_release_version']}</a>`;
-            
+            if(value['build_environment_name'] !== "Development"){
+                last_prod_release = "Release"+value['build_release_id']
+            }
             var headerTag = value['build_environment_name'] === "Development" ? 'h3' : 'h2';
             var envStyleClass = value['build_environment_name'] === "Development" ? 'BuildReleaseEnvironmentDevelopment' : 'BuildReleaseEnvironmentProduction';
-            var str =   `<div class="BuildReleaseContainer ${envStyleClass}" id="v${value['build_release_version']}">
+            var str =   `<div class="BuildReleaseContainer ${envStyleClass} ${last_prod_release}" id="v${value['build_release_version']}">
                             <div class="BuildReleaseContainerHeader row">
                                 <a class="four columns" href="https://github.com/PatrickMurphy/nflarrest/commit/${value['build_release_detail_commithash']}">
                                     <${headerTag}>${value['build_release_version']}</${headerTag}>
@@ -67,7 +70,7 @@ class BuildHistoryPage extends WebPage {
                             </div>
                     </div>`;
             if(value['build_environment_name'] !== 'Development'){
-                str += "<a href='#' class='button'>Show Development Releases</a>"
+                str += "<a href='#' onClick='document.getElementsByClassName('" + last_prod_release + "').style.display='block';' class='button'>Show Development Releases</a>"
             }
 
             $('#historyContainer').append(str);
