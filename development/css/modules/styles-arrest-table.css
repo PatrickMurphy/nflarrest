@@ -1,0 +1,10 @@
+#arrest_table td {
+	height: 75px;
+}
+#arrest_table tr td:first-child {
+	padding-left: 7px;
+}
+
+#arrest_table tr:nth-child(even) {
+	background-color: rgba(0, 0, 0, 0.08);
+}
