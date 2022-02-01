@@ -71,7 +71,7 @@ class BuildHistoryPage extends WebPage {
                             </div>
                     </div>`;
             if(value['build_environment_name'] !== 'Development'){
-                str += "<a href='#' onClick=\"document.getElementsByClassName('" + last_prod_release + "').style.display='block';\" class=\"button\">Show Development Releases</a>"
+                str += "<a href='#' onClick=\"$('." + last_prod_release + "').show();\" class=\"button\">Show Development Releases</a>"
             }
 
             $('#historyContainer').append(str);
