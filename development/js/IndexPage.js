@@ -19,6 +19,7 @@ class IndexPage extends WebPage {
         // define class member variables
         //this.dateRangeNFL = undefined;
         this.data_controller = undefined;
+        this.MeterOrRecent = Math.random() > .5;
         //this.last_start_pos = 0;
         this.detail_page_active = true; // option
         
@@ -108,7 +109,7 @@ class IndexPage extends WebPage {
         if (this.MainChart.ReturnStatus === true && this.TopLists.Lists.ReturnStatus === true) {
             this.TopLists.Lists.ReturnStatus = false;
             this.MainChart.ReturnStatus = false;
-            var d = Math.random() > .5;
+            var d = this.MeterOrRecent;
 
             this.setupArrestOMeter(d);
             this.setupRecentArrestCard(!d);
