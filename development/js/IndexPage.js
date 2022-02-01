@@ -63,7 +63,6 @@ class IndexPage extends WebPage {
                     element: '#mainChartByConfDivBtn'
                 }]
         };
-        this.TopLists = new TopLists(this);
         
         // ###NEED TO CHANGE
         /*this.Lists = {
@@ -73,6 +72,8 @@ class IndexPage extends WebPage {
         this.DateRangeControl = new DateRangeControl(this);// pass this as parent arg
 
         this.data_controller = new DataController(this.DateRangeControl, this);
+        
+        this.TopLists = new TopLists(this);
 
         this.evaluateHash();
         this.changeTopChart();
