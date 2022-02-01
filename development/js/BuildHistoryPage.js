@@ -63,7 +63,7 @@ class BuildHistoryPage extends WebPage {
                                 <p><b>Arrest Count</b>: ${value['build_release_detail_ArrestCount']}</p>
                                 <p>
                                     <b>Files Changed</b>: 
-                                    <a href="#" onClick="document.getElementById('filesChanged${value['build_release_id']}').style.display='block';">${value['build_release_detail_filecount']}</a>
+                                    <a href="#" onClick="document.getElementById('filesChanged${value['build_release_id']}').style.display='block'; return false;">${value['build_release_detail_filecount']}</a>
                                 </p>
                                 <p style="display:none;" id="filesChanged${value['build_release_id']}">
                                     <b>Files Changed</b>: ${value['build_release_detail_commitfiles']}
@@ -71,7 +71,7 @@ class BuildHistoryPage extends WebPage {
                             </div>
                     </div>`;
             if(value['build_environment_name'] !== 'Development'){
-                str += "<a href='#' onClick=\"$('." + last_prod_release + "').show();\" class=\"button\">Show Development Releases</a>"
+                str += "<a href='#' onClick=\"$('." + last_prod_release + "').show(); return false;\" class=\"button\">Show Development Releases</a>"
             }
 
             $('#historyContainer').append(str);
