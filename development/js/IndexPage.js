@@ -1,11 +1,10 @@
 // can these be removed? -----------------
 var dateRangeNFL,
 	mainChartReturned = false;
-
-var last_start_pos = 0,
-	listsReturnCount = 0,
-	listsReturned = false,
-	ytdChart = false,
+//last_start_pos = 0,
+//listsReturnCount = 0,
+//	listsReturned = false,
+var ytdChart = false,
 	mainChartStyleID = 0,
 	detail_page_active = true;
 
@@ -17,14 +16,16 @@ class IndexPage extends WebPage {
     constructor() {
         super('Index');
         
-        
         // define class member variables
         //this.dateRangeNFL = undefined;
         this.data_controller = undefined;
-        this.last_start_pos = 0;
+        //this.last_start_pos = 0;
         this.detail_page_active = true; // option
         
+        // load page specific css
         this.StyleManager.loadCSS('css/modules/styles-indexpage.css');
+        
+        // setup main chart
         this.MainChart = {
             ytdChart: false,
             StyleID:0,
@@ -62,31 +63,32 @@ class IndexPage extends WebPage {
                     element: '#mainChartByConfDivBtn'
                 }]
         };
+        this.TopLists = new TopLists(this);
         
-        this.Lists = {
+        // ###NEED TO CHANGE
+        /*this.Lists = {
             ReturnStatus: false
-        };
+        };*/
         
         this.DateRangeControl = new DateRangeControl(this);// pass this as parent arg
-        //this.dateRangeNFL = this.DateRangeControl;
-        //dateRangeNFL = this.DateRangeControl;
-        
+
         this.data_controller = new DataController(this.DateRangeControl, this);
-        //data_controller = this.data_controller;
-        
+
         this.evaluateHash();
         this.changeTopChart();
         
+        
+        // ###NEED TO CHANGE
         // first load of top lists
-        this.load_top_lists('first');
+        //this.load_top_lists('first');
 
         $('#dateRangeJquery').on('dateRangeChanged', (e) => {
             this.LoadingBar.showLoading();
             this.setupChart();
-            this.reload_top_lists();
+            this.TopLists.reload_top_lists();
         });
 
-        $('#loadMoreLists').click(this.load_top_lists_Handler);
+        $('#loadMoreLists').click(this.TopLists.load_top_lists_Handler);
 
         if(this.detail_page_active){
             this.data_controller.getTeams(this.RenderTeamLinks);
@@ -95,8 +97,23 @@ class IndexPage extends WebPage {
         }
 
         this.addChartButtonListeners();
-        //this.setupNewsletter();
-        this.fixTopListLinks();
+        
+        // ###NEED TO CHANGE
+        this.TopLists.fixTopListLinks();
+    }
+    
+    // ###NEED TO CHANGE lists
+    checkLoadingFinished(){
+        if (this.MainChart.ReturnStatus === true && this.TopLists.Lists.ReturnStatus === true) {
+            this.TopLists.Lists.ReturnStatus = false;
+            this.MainChart.ReturnStatus = false;
+            var d = Math.random() > .5;
+
+            this.setupArrestOMeter(d);
+            this.setupRecentArrestCard(!d);
+            
+            this.loadingFinished();
+        }
     }
     
     RenderTeamLinks(data){
@@ -109,7 +126,9 @@ class IndexPage extends WebPage {
         });
     }
     
+    /* ---==== Start Top List Methods ====--- */
     // jquery handler function that calls class function
+    /*
     load_top_lists_Handler(event){
        IndexPageInstance.load_top_lists('not first', false);
     }
@@ -183,19 +202,20 @@ class IndexPage extends WebPage {
         this.load_top_lists('not first', true);
     }
     
-    checkLoadingFinished(){
-        if (this.MainChart.ReturnStatus === true && this.Lists.ReturnStatus === true) {
-            this.Lists.ReturnStatus = false;
-            this.MainChart.ReturnStatus = false;
-            var d = Math.random() > .5;
-
-            this.setupArrestOMeter(d);
-            this.setupRecentArrestCard(!d);
-            
-            this.loadingFinished();
+    fixTopListLinks(){
+        // add click listener to li so that entire element is clickable rather than just the link
+        if(this.detail_page_active){
+            $(".top-list ol li").click(function () {
+                window.location = $(this).find("a").attr("href");
+                return false;
+            });
         }
     }
     
+    */ 
+    /* ---==== End Top List Methods ====--- */
+    
+    /* ---==== Chart Methods ====--- */
     // jquery handler function that calls class function
     setMainChartHandler(event){
        IndexPageInstance.setMainChart(event.data.btn);
@@ -210,7 +230,6 @@ class IndexPage extends WebPage {
         this.Utilities.googleTracking.sendTrackEvent('mainChart', 'switchTo'+theBtn.short_title);
     }
     
-    /* ---==== Chart Methods ====--- */
     addChartButtonListeners(){
         // loop through, add the button listeners
         for(var i = 0; i<this.MainChart.buttons.length; i++){
@@ -354,17 +373,6 @@ class IndexPage extends WebPage {
         }else{            
             //set arrestometerorrecent
             ga('set', 'dimension1', "ArrestOMeter");
-        }
-    }
-    
-
-    fixTopListLinks(){
-        // add click listener to li so that entire element is clickable rather than just the link
-        if(detail_page_active){
-            $(".top-list ol li").click(function () {
-                window.location = $(this).find("a").attr("href");
-                return false;
-            });
         }
     }
 }
