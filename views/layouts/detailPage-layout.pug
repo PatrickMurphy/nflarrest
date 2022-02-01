@@ -7,8 +7,13 @@ html(lang="en")
         include ../PageBlocks/Head_Favicon.pug
     body
         .container
-            include ../PageBlocks/MX_Body_Header.pug
+            include ../PageBlocks/mixins/Body_Header.pug
             +BodyHeader("Detail")
-            block content
-            include ../PageBlocks/MX_Body_Footer.pug
+            br.clear
+            section
+                aside
+                    block top_charts
+                br.clear
+                include ../PageBlocks/ArrestDetailsContainer.pug
+            include ../PageBlocks/mixins/Body_Footer.pug
             +BodyFooter("Detail", pageTitle)

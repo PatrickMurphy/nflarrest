@@ -9,6 +9,10 @@
 	margin-left: 1vw;
 }
 
+.MainChartSelection button {
+    margin-right: 4px;
+}
+
 .chart-options {}
 
 .chart-container {

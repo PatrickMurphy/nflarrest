@@ -212,7 +212,7 @@ footer a {
 }
 
 #arrest_table td {
-	height: 100px;
+	height: 75px;
 }
 
 #arrest_table tr:nth-child(even) {

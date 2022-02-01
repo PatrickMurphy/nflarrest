@@ -7,8 +7,8 @@ html(lang="en")
         include ../PageBlocks/Head_Favicon.pug
     body
         .container
-            include ../PageBlocks/MX_Body_Header.pug
+            include ../PageBlocks/mixins/Body_Header.pug
             +BodyHeader("Default")
             block content
-            include ../PageBlocks/MX_Body_Footer.pug
+            include ../PageBlocks/mixins/Body_Footer.pug
             +BodyFooter("Default", pageTitle)
