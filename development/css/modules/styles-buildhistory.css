@@ -38,10 +38,6 @@
     
 }
 
-.hideDevRelBtn {
-    display: none !important;
-}
-
 #BuildReleaseContainer.BuildReleaseEnvironmentDevelopment {
     display: none;
     width:80%;
@@ -51,4 +47,8 @@
 
 .BuildReleaseContainer p {
     margin-bottom: .25em; 
+}
+
+.hideDevRelBtn {
+    display: none;
 }
