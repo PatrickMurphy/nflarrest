@@ -28,7 +28,11 @@ class TopLists {
                     link = '';
                     link_end = '';
                 }
-                items.push("<li id='" + prefix + key + "'>" + link + "<span>" + val[values[0]] + "</span><span class='value-cell'>" + val[values[1]] + "</span>" + link_end + "</li>");
+                var displayValue = val[values[0]];
+                if(values.length > 2){
+                    displayValue = val[values[2]];
+                }
+                items.push("<li id='" + prefix + key + "'>" + link + "<span>" + displayValue + "</span><span class='value-cell'>" + val[values[1]] + "</span>" + link_end + "</li>");
             });
         } else {
             if (replace) {
@@ -66,7 +70,7 @@ class TopLists {
 
             this.load_list(crimes_list, 'crime', 'top_crime_', '#top_crimes_list', ['Category', 'arrest_count'], replace);
             this.load_list(players_list, 'player', 'top_player_', '#top_players_list', ['Name', 'arrest_count'], replace);
-            this.load_list(positions_list, 'position', 'top_pos_', '#top_positions_list', ['Position', 'arrest_count'], replace);
+            this.load_list(positions_list, 'position', 'top_pos_', '#top_positions_list', ['Position', 'arrest_count','Position_name'], replace);
 
             // set returns
             this.Lists.ReturnStatus = true;

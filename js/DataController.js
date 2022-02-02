@@ -309,6 +309,7 @@ class DataController {
 		var crime_map = {};
 		var player_map = {};
 		var position_map = {};
+        var position_name_map = {};
 
 		var crime_arr = [];
 		var player_arr = [];
@@ -320,6 +321,7 @@ class DataController {
 				crime_map = this.incrementMap(crime_map, row.Category);
 				player_map = this.incrementMap(player_map, row.Name);
 				position_map = this.incrementMap(position_map, row.Position);
+                position_name_map[row.Position] = row.Position_name;
 			}
 		}
 
@@ -342,6 +344,7 @@ class DataController {
 		Object.keys(position_map).forEach((key) => {
 			var obj = {};
 			obj['Position'] = key;
+            obj['Position_name'] = position_name_map[key];
 			obj['arrest_count'] = position_map[key];
 			position_arr.push(obj);
 		});
