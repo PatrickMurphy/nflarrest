@@ -71,7 +71,8 @@ class BuildHistoryPage extends WebPage {
                             </div>
                     </div>`;
             if(value['build_environment_name'] !== 'Development'){
-                str += "<a href='#' onClick=\"$('." + last_prod_release + "').toggle(); return false;\" class=\"button\">Show Development Releases</a>"
+                str += "<a href='#' onClick=\"$('.BuildReleaseEnvironmentDevelopment." + last_prod_release + "').show(); $('#showDevRelButton"+last_prod_release+"').hide(); $('#hideDevRelButton"+last_prod_release+"').show(); return false;\" class=\"button\" id=\"showDevRelButton"+last_prod_release+"\">Show Development Releases</a>";
+                str += "<a href='#' onClick=\"$('.BuildReleaseEnvironmentDevelopment." + last_prod_release + "').hide(); $('#showDevRelButton"+last_prod_release+"').show(); $('#hideDevRelButton"+last_prod_release+"').hide(); return false;\" class=\"button\" id=\"hideDevRelButton"+last_prod_release+"\">Hide Development Releases</a>"
             }
 
             $('#historyContainer').append(str);
