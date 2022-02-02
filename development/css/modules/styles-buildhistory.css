@@ -39,7 +39,7 @@
 }
 
 .hideDevRelBtn {
-    display: none;
+    display: none !important;
 }
 
 #BuildReleaseContainer.BuildReleaseEnvironmentDevelopment {
