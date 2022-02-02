@@ -32,6 +32,7 @@ class BuildHistoryPage extends WebPage {
         var last_prod_release = 'ReleaseAheadOfProd';
         $.each(ReleaseHistoryCacheTable, function (key, value) {
             // add version link
+            var ifFirstRels = last_prod_release === 'ReleaseAheadOfProd';
             var styleBold = 'style="font-weight:bold;"';
             var devIndent = '----';
             var versionLink = `<li><a href="#v${value['build_release_version']}" ${styleBold}>V${value['build_release_version']}</a></li>`;
@@ -49,7 +50,17 @@ class BuildHistoryPage extends WebPage {
                 last_prod_release = "Release"+value['build_release_id']
             }
             var headerTag = value['build_environment_name'] === "Development" ? 'h3' : 'h2';
-            var envStyleClass = value['build_environment_name'] === "Development" ? 'BuildReleaseEnvironmentDevelopment' : 'BuildReleaseEnvironmentProduction';
+            var envStyleClass = '';
+            if(value['build_environment_name'] === "Development"){
+                if(ifFirstRels){
+                    envStyleClass = 'BuildReleaseEnvironmentDevelopmentPreRelease';
+                }else{
+                    envStyleClass = 'BuildReleaseEnvironmentDevelopment';
+                }
+            }else{
+                envStyleClass = 'BuildReleaseEnvironmentProduction';
+            }
+            //var envStyleClass = value['build_environment_name'] === "Development" ? 'BuildReleaseEnvironmentDevelopment' : 'BuildReleaseEnvironmentProduction';
             var str =   `<div id="BuildReleaseContainer" class="BuildReleaseContainer ${envStyleClass} ${last_prod_release}">
                             <div class="BuildReleaseContainerHeader row" id="v${value['build_release_version']}">
                                 <a class="four columns" href="https://github.com/PatrickMurphy/nflarrest/commit/${value['build_release_detail_commithash']}">
@@ -71,8 +82,8 @@ class BuildHistoryPage extends WebPage {
                             </div>
                     </div>`;
             if(value['build_environment_name'] !== 'Development'){
-                str += "<a href='#' onClick=\"$('.BuildReleaseEnvironmentDevelopment." + last_prod_release + "').show(); $('#showDevRelButton"+last_prod_release+"').hide(); $('#hideDevRelButton"+last_prod_release+"').show(); return false;\" class=\"button\" id=\"showDevRelButton"+last_prod_release+"\">Show Development Releases</a>";
-                str += "<a href='#' onClick=\"$('.BuildReleaseEnvironmentDevelopment." + last_prod_release + "').hide(); $('#showDevRelButton"+last_prod_release+"').show(); $('#hideDevRelButton"+last_prod_release+"').hide(); return false;\" class=\"button\" id=\"hideDevRelButton"+last_prod_release+"\">Hide Development Releases</a>"
+                str += "<a href='#' onClick=\"$('.BuildReleaseEnvironmentDevelopment." + last_prod_release + "').show(); $('#showDevRelButton"+last_prod_release+"').hide(); $('#hideDevRelButton"+last_prod_release+"').show(); return false;\" class=\"button showDevRelBtn\" id=\"showDevRelButton"+last_prod_release+"\">Show Development Releases</a>";
+                str += "<a href='#' onClick=\"$('.BuildReleaseEnvironmentDevelopment." + last_prod_release + "').hide(); $('#showDevRelButton"+last_prod_release+"').show(); $('#hideDevRelButton"+last_prod_release+"').hide(); return false;\" class=\"button hideDevRelBtn\" id=\"hideDevRelButton"+last_prod_release+"\">Hide Development Releases</a>"
             }
 
             $('#historyContainer').append(str);
@@ -83,5 +94,4 @@ class BuildHistoryPage extends WebPage {
 
 $(document).ready(function () {
     var page = new BuildHistoryPage();
-    $('.ReleaseAheadOfProd').show();
 });
