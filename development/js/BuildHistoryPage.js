@@ -71,7 +71,7 @@ class BuildHistoryPage extends WebPage {
                             </div>
                     </div>`;
             if(value['build_environment_name'] !== 'Development'){
-                str += "<a href='#' onClick=\"$('." + last_prod_release + "').show(); return false;\" class=\"button\">Show Development Releases</a>"
+                str += "<a href='#' onClick=\"$('." + last_prod_release + "').toggle(); return false;\" class=\"button\">Show Development Releases</a>"
             }
 
             $('#historyContainer').append(str);
@@ -82,4 +82,5 @@ class BuildHistoryPage extends WebPage {
 
 $(document).ready(function () {
     var page = new BuildHistoryPage();
+    $('.ReleaseAheadOfProd').show();
 });
