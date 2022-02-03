@@ -15,7 +15,7 @@ class IndexPage extends WebPage {
         this.data_controller = new DataController(this.DateRangeControl, this);
         this.MainChart = new MainChart(this);
         this.TopLists = new TopLists(this);
-        this.MainChart.changeTopChart(); // move here after top list defined
+        
         // if hash set, set chart type
         this.evaluateHash();
 
