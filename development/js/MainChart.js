@@ -107,7 +107,7 @@ class MainChart {
                 showBtn: '#showAll_btn'
             },this);
             
-            this.ReturnStatus = true;
+            this.setReturnStatus(true);
             this.parent.checkLoadingFinished();
         });
     }
