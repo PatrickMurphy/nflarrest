@@ -36,9 +36,9 @@ class MainChart {
                     element: '#mainChartByConfDivBtn'
                 }];
         
-        this.changeTopChart();
-        
         this.addChartButtonListeners();
+        
+        //this.changeTopChart();
     }
     
     /* ---==== Chart Methods ====--- */
