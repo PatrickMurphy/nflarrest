@@ -118,10 +118,6 @@ class DateRangeControl {
 
     changeDateRange(self) {
         var data = JSON.parse($('#dateRangeJquery').val());
-        //console.log(data);
-        //console.log(data.start);
-        //var start = $('#dateRange_start').val(),
-        //end = $('#dateRange_end').val();
         var start = data.start,
             end = data.end;
         // swap dates if in wrong order
