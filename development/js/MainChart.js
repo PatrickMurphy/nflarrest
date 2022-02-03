@@ -38,7 +38,7 @@ class MainChart {
         
         this.addChartButtonListeners();
         
-        //this.changeTopChart();
+        this.changeTopChart();
     }
     
     /* ---==== Chart Methods ====--- */

@@ -58,16 +58,24 @@ class IndexPage extends WebPage {
     }
     
     checkLoadingFinished(){
-        if (this.MainChart.getReturnStatus() && this.TopLists.getReturnStatus()) {
-            // reset loading status
-            this.TopLists.setReturnStatus(false);
-            this.MainChart.setReturnStatus(false);
+        if (typeof this.MainChart !== "undefined"){
+            if(typeof this.TopLists !== "undefined"){
+                if(this.MainChart.getReturnStatus() && this.TopLists.getReturnStatus()) {
+                    // reset loading status
+                    this.TopLists.setReturnStatus(false);
+                    this.MainChart.setReturnStatus(false);
 
-            // update UI
-            this.setupArrestOMeter(this.MeterOrRecent);
-            this.setupRecentArrestCard(!this.MeterOrRecent);
-            
-            this.loadingFinished(); // WebPage.js inherit
+                    // update UI
+                    this.setupArrestOMeter(this.MeterOrRecent);
+                    this.setupRecentArrestCard(!this.MeterOrRecent);
+
+                    this.loadingFinished(); // WebPage.js inherit
+                }
+            }else{
+                console.log('ERROR: TopLists Not Defined');
+            }
+        }else{
+            console.log('ERROR: MainChart Not Defined');
         }
     }
     

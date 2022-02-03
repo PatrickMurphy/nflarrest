@@ -99,6 +99,6 @@ class TopLists {
         return this.ReturnStatus;
     }
     setReturnStatus(statusBool){
-        this.setReturnStatus = statusBool;
+        this.ReturnStatus = statusBool;
     }
 }
