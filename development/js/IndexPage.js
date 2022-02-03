@@ -54,6 +54,8 @@ class IndexPage extends WebPage {
             } else {
                 this.MainChart.setStyleID(0);
             }
+        }else{
+            this.MainChart.setStyleID(0);
         }
     }
     
