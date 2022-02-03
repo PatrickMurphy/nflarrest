@@ -34,8 +34,6 @@ class StyleSheetManager {
         // for each stylesheet in list, call loadCSS method
 		for(var i = 0; i < stylelist.length; i++){
 			success = this.loadCSS(stylelist[i]);
-            if(DEBUG)
-                console.log(stylelist[i] + ' Loaded');
 		}
 
 		return success;
@@ -43,36 +41,3 @@ class StyleSheetManager {
 }
 
 var StyleSheetManagerInstance = new StyleSheetManager();
-
-// adapter function for any refrences we don't find for loadCSS(url)
-function loadCSS(url){
-    // provide warning to developer if refrence still exists
-    if(DEBUG)
-        console.warn('Deprecated loadCSS('+url+') function called!');
-    
-    // pass argument to es6 function to ensure functionality for end user
-    StyleSheetManagerInstance.loadCSS(url);
-}
-
-/*----------------------
-Old Code Replaced with ES6
------------------------*/
-/*
-function loadCSS(url) {
-    (function (d, t) {
-        var g = d.createElement(t),
-            s = d.getElementsByTagName(t)[0];
-        g.href = url;
-        g.rel = 'stylesheet';
-        s.parentNode.insertBefore(g, s);
-    }(document, 'LINK'));
-}
-loadCSS('css/styles.min.css');
-//loadCSS('//fonts.googleapis.com/css?family=Raleway:400,300,500,600');
-loadCSS('css/vendor/normalize.min.css');
-loadCSS('css/vendor/skeleton.min.css');
-loadCSS('css/vendor/c3.css');
-loadCSS('css/vendor/jquery-ui.min.css');
-loadCSS('css/vendor/jquery.comiseo.daterangepicker.css');
-*/
-
