@@ -62,6 +62,7 @@ class IndexPage extends WebPage {
     checkLoadingFinished(){
         if (typeof this.MainChart !== "undefined"){
             if(typeof this.TopLists !== "undefined"){
+                // if both objects defined, check return statuses
                 if(this.MainChart.getReturnStatus() && this.TopLists.getReturnStatus()) {
                     // reset loading status
                     this.TopLists.setReturnStatus(false);
@@ -74,10 +75,10 @@ class IndexPage extends WebPage {
                     this.loadingFinished(); // WebPage.js inherit
                 }
             }else{
-                console.log('ERROR: TopLists Not Defined');
+                //console.log('ERROR: TopLists Not Defined');
             }
         }else{
-            console.log('ERROR: MainChart Not Defined');
+            //console.log('ERROR: MainChart Not Defined');
         }
     }
     
