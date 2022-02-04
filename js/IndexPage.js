@@ -1,108 +1,84 @@
-// can these be removed? -----------------
-var dateRangeNFL,
-	mainChartReturned = false;
-//last_start_pos = 0,
-//listsReturnCount = 0,
-//	listsReturned = false,
-var ytdChart = false,
-	mainChartStyleID = 0,
-	detail_page_active = true;
-
-// ----------------------------------------
-
 var IndexPageInstance;
 
 class IndexPage extends WebPage {
     constructor() {
         super('Index');
         
-        // define class member variables
-        //this.dateRangeNFL = undefined;
-        this.data_controller = undefined;
-        this.MeterOrRecent = Math.random() > .5;
-        //this.last_start_pos = 0;
-        this.detail_page_active = true; // option
-        
         // load page specific css
         this.StyleManager.loadCSS('css/modules/styles-indexpage.css');
         
-        // setup main chart
-        this.MainChart = {
-            ytdChart: false,
-            StyleID:0,
-            ReturnStatus: false,
-            
-            buttons: [{
-                    title: 'By Team',
-                    short_title: 'ByTeam',
-                    id: 0,
-                    ytdChart: false,
-                    element: '#mainChartByTeamBtn'
-                }, {
-                    title: 'By Year',
-                    short_title: 'ByYear',
-                    id: 1,
-                    ytdChart: true,
-                    element: '#mainChartByYearBtn'
-                }, {
-                    title: 'By Season',
-                    short_title: 'BySeason',
-                    id: 2,
-                    ytdChart: false,
-                    element: '#mainChartBySeasonBtn'
-                }, {
-                    title: 'By Day',
-                    short_title: 'ByDayOfWeek',
-                    id: 3,
-                    ytdChart: true,
-                    element: '#mainChartByConfBtn'
-                }, {
-                    title: 'By Division',
-                    short_title: 'ByDivision',
-                    id: 4,
-                    ytdChart: true,
-                    element: '#mainChartByConfDivBtn'
-                }]
-        };
+        // define class member variables
+        this.MeterOrRecent = Math.random() > .5; // use arrest meter or most recent arrest card on page bool
+        this.detail_page_active = true; // option to use detail page or not, always set to true now that they are active
         
-        this.DateRangeControl = new DateRangeControl(this);// pass this as parent arg
-
+        this.DateRangeControl = new DateRangeControl(this);
         this.data_controller = new DataController(this.DateRangeControl, this);
-        
+        this.MainChart = new MainChart(this);
         this.TopLists = new TopLists(this);
-
+        
+        // if hash set, set chart type
         this.evaluateHash();
-        this.changeTopChart();
-  
-        $('#dateRangeJquery').on('dateRangeChanged', (e) => {
-            this.LoadingBar.showLoading();
-            this.setupChart();
-            this.TopLists.reload();
-        });
 
+        // fix top links add link handler for whole element // TODO: Move to top lists class
+        this.TopLists.fixTopListLinks();
+        
+        // add jquery load more lists button handler // TODO: Move to top lists class
         $('#loadMoreLists').click(this.TopLists.jQuery_Handler);
-
+        
+        // display team page links
         if(this.detail_page_active){
             this.data_controller.getTeams(this.RenderTeamLinks);
         }else{
             $('#bottomTeamLinks').hide();
         }
-
-        this.addChartButtonListeners();
         
-        this.TopLists.fixTopListLinks();
+        // on user update date range - change date handler
+        $('#dateRangeJquery').on('dateRangeChanged', (e) => {
+            this.LoadingBar.showLoading();
+            this.MainChart.setupChart();
+            this.TopLists.reload();
+        });
+    }
+    
+    evaluateHash(){
+        // if hash set, set chart type
+        if (window.location.hash) {
+            if (window.location.hash == "#ByYear") {
+                this.MainChart.setStyleID(1);
+            } else if (window.location.hash == "#BySeason") {
+                this.MainChart.setStyleID(2);
+            } else if (window.location.hash == "#ByDayOfWeek") {
+                this.MainChart.setStyleID(3);
+            } else if (window.location.hash == "#ByDivision") {
+                this.MainChart.setStyleID(4);
+            } else {
+                this.MainChart.setStyleID(0);
+            }
+        }else{
+            this.MainChart.setStyleID(0);
+        }
     }
     
     checkLoadingFinished(){
-        if (this.MainChart.ReturnStatus === true && this.TopLists.Lists.ReturnStatus === true) {
-            this.TopLists.Lists.ReturnStatus = false;
-            this.MainChart.ReturnStatus = false;
-            var d = this.MeterOrRecent;
+        if (typeof this.MainChart !== "undefined"){
+            if(typeof this.TopLists !== "undefined"){
+                // if both objects defined, check return statuses
+                if(this.MainChart.getReturnStatus() && this.TopLists.getReturnStatus()) {
+                    // reset loading status
+                    this.TopLists.setReturnStatus(false);
+                    this.MainChart.setReturnStatus(false);
 
-            this.setupArrestOMeter(d);
-            this.setupRecentArrestCard(!d);
-            
-            this.loadingFinished();
+                    // update UI
+                    this.setupArrestOMeter(this.MeterOrRecent);
+                    this.setupRecentArrestCard(!this.MeterOrRecent);
+
+                    this.loadingFinished(); // WebPage.js inherit
+                }
+            }else{
+                //console.log('ERROR: TopLists Not Defined');
+            }
+        }else{
+            //console.log('ERROR: MainChart Not Defined');
         }
     }
     
@@ -116,119 +92,7 @@ class IndexPage extends WebPage {
         });
     }
     
-    /* ---==== Chart Methods ====--- */
-    // jquery handler function that calls class function
-    setMainChartHandler(event){
-       IndexPageInstance.setMainChart(event.data.btn);
-    }
-    
-    // class function to set necessary vars to change top chart
-    setMainChart(theBtn){
-        this.MainChart.ytdChart = theBtn.ytdChart;
-        this.MainChart.StyleID = theBtn.id;   
-        this.Utilities.SetHash(theBtn.short_title);
-        this.changeTopChart();
-        this.Utilities.googleTracking.sendTrackEvent('mainChart', 'switchTo'+theBtn.short_title);
-    }
-    
-    addChartButtonListeners(){
-        // loop through, add the button listeners
-        for(var i = 0; i<this.MainChart.buttons.length; i++){
-            $(this.MainChart.buttons[i].element).click({btnID: i, btn: this.MainChart.buttons[i]}, this.setMainChartHandler);
-        }
-    }
-    
-    changeTopChart(){
-        this.setupChart();
-        this.changeChartButtonStyle();
-    }
-    
-    changeChartButtonStyle(){
-        if (this.MainChart.StyleID == 1) {
-            $('.mainChartBtn').removeClass('button-primary');
-            $('#mainChartByYearBtn').addClass('button-primary');
-        } else if (this.MainChart.StyleID == 0) {
-            $('.mainChartBtn').removeClass('button-primary');
-            $('#mainChartByTeamBtn').addClass('button-primary');
-        } else if (this.MainChart.StyleID == 2) {
-            $('.mainChartBtn').removeClass('button-primary');
-            $('#mainChartBySeasonBtn').addClass('button-primary');
-        } else if (this.MainChart.StyleID == 3) {
-            $('.mainChartBtn').removeClass('button-primary');
-            $('#mainChartByConfBtn').addClass('button-primary');
-        } else if (this.MainChart.StyleID == 4) {
-            $('.mainChartBtn').removeClass('button-primary');
-            $('#mainChartByConfDivBtn').addClass('button-primary');
-        }
-    }
-    
-    setupChart(){
-        // todo stacked bar es6
-        //this.charts[0] = stackedBarChart;
-        
-        // if set destroy
-        if(this.charts.length > 0)
-            if(typeof (this.charts[0]) != "undefined")
-                if(this.charts[0].hasOwnProperty('stackedChart'))
-                    if (typeof (this.charts[0].stackedChart) != "undefined")
-                        this.charts[0].stackedChart.destroy();
-        
-        this.getOverallChartData((newData) => {
-            this.charts[0] = new StackedBarChart({
-                data: newData,
-                targetElement: '#chart',
-                targetExpandBtn: '#details_summary_btn',
-                hideBtn: '#hideAll_btn',
-                showBtn: '#showAll_btn'
-            },this);
-            
-            this.MainChart.ReturnStatus = true;
-            this.checkLoadingFinished();
-        });
-    }
-    
-    getOverallChartData(callback){
-        if (this.MainChart.StyleID == 0) {
-            this.data_controller.getOverallChart("Crime","Team Code", "Team Code", "DESC", callback);
-        } else if (this.MainChart.StyleID == 1) {
-            this.data_controller.getOverallChart("Crime","Year", "Year", "ASC", callback);
-        } else if (this.MainChart.StyleID == 3) {
-            this.data_controller.getOverallChart("Crime","Day", "DayOrder", "ASC", callback);
-        } else if (this.MainChart.StyleID == 2) {
-            this.data_controller.getOverallChart("SeasonState","Season", "Season", "ASC", callback);
-        } else if (this.MainChart.StyleID == 4) {
-            this.data_controller.getOverallChart("Division","Year", "Year", "ASC", callback);
-        }
-    }
-    /* ---==== End Chart Methods ====--- */
-    
-    
-    /* ---==== Setter/Getter Methods ====--- */
-    setMainChartYTD(ytd){
-        this.MainChart.ytdChart = ytd;
-    }
-    setMainChartStyleID(id){
-        this.MainChart.StyleID = id;
-    }
-    
     /* ---==== Other Methods ====--- */
-    evaluateHash(){
-        // if hash set, set chart type
-        if (window.location.hash) {
-            if (window.location.hash == "#ByYear") {
-                this.MainChart.StyleID = 1;
-            } else if (window.location.hash == "#BySeason") {
-                this.MainChart.StyleID = 2;
-            } else if (window.location.hash == "#ByDayOfWeek") {
-                this.MainChart.StyleID = 3;
-            } else if (window.location.hash == "#ByDivision") {
-                this.MainChart.StyleID = 4;
-            } else {
-                this.MainChart.StyleID = 0;
-            }
-        }
-    }
-    
     setupArrestOMeter(d){
         var animate = true;
         this.data_controller.getArrestMeter(function (data) {
@@ -254,7 +118,7 @@ class IndexPage extends WebPage {
 
             // if random display, hide or google track
             if(!d){
-                $('#arrest-o-meter').hide();
+                $('#arrest-meter').hide();
             }else{            
                 //set arrestometerorrecent
                 ga('set', 'dimension1', "Recent");

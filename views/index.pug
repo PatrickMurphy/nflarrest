@@ -4,7 +4,7 @@ html(lang="en")
         meta(charset='utf-8')
         title NFL Arrest - Football Arrest Record Database &amp; Statistics
         include PageBlocks/Head_MetaData.pug
-        meta(name='description' content="Explore every NFL Players arrest record since 2000, find the most common crimes for your rival football team. Find out what players have the most arrests and read the details of each incident! Checkout our Arrest-o-Meter and findout how many days it's been since the last NFL Arrest.")
+        meta(name='description' content="Explore every NFL Players arrest record since 2000, find the most common crimes for your rival football team. Find out what players have the most arrests and read the details of each incident! Checkout our Arrest Meter and findout how many days it's been since the last NFL Arrest.")
         include PageBlocks/Head_Meta_Twitter.pug
         include PageBlocks/Head_Meta_OpenGraph.pug
         include PageBlocks/Head_Favicon.pug
@@ -20,10 +20,8 @@ html(lang="en")
             include PageBlocks/IndexPageDescription.pug
           #kpi-window-header.four.columns
             include PageBlocks/IndexArrestMeterBlock.pug
-          .four.columns.share_buttons.hide-mobile
-            .fb-share-button.fb_Btn(data-href='https://www.nflarrest.com/' data-layout='box_count')
-            a.twitter-share-button.twitter_Btn(href='https://twitter.com/share' data-url='https://nflarrest.com' data-text='Explore the arrest records of Football Players, find the most common crimes for your football team.' data-count='vertical') Tweet
-            include PageBlocks/DonateButton.pug
+          include PageBlocks/mixins/ShareButtons.pug
+          +ShareButtons('Index','https://NflArrest.com/')
         .row.dividedSection
           include PageBlocks/DateRangeControl.pug
           include PageBlocks/IndexMainChartSelectButtons.pug
@@ -31,49 +29,14 @@ html(lang="en")
           #chart.tweleve.columns
         br.clear
         aside
-          .four.columns.top-list
-            h3 Top Crimes
-            span.list-heading
-              | Crime:
-              span # Arrests
-            ol#top_crimes_list
-          .four.columns.top-list
-            h3 Top Players
-            span.list-heading
-              | Name:
-              span # Arrests
-            ol#top_players_list
-          .four.columns.top-list.no-border
-            h3 Top Positions
-            span.list-heading
-              | Position:
-              span # Arrests
-            ol#top_positions_list
+          include PageBlocks/mixins/TopList.pug
+          +TopList('Crime', false)
+          +TopList('Player', false)
+          +TopList('Position', true)
           br.clear
-          .row.control-row
-            button#loadMoreLists.button-small Load More
+          +TopListControlRow
           br
         #bottomTeamLinks
           h4 Teams
-      br.clear
-      footer
-        | Made By 
-        a(href='https://www.patrickmurphy.dev' title='Want to see my Resume?') Patrick Murphy
-        | | 
-        a(href='privacypolicy.htm') Privacy Policy
-        | &#x9;&#x9;&#x9;&#x9;| 
-        a(href='sitemap.xml') Site Map
-        |                 | 
-        span#updateDateFooter Updated: 
-        include PageBlocks/DonateButton.pug
-    include PageBlocks/LoadingBar.pug
-    // Include vendor Javascript Logic
-    script(src='https://code.jquery.com/jquery-2.1.4.min.js')
-    script(src='js/vendor/jquery-ui.min.js')
-    script(src='js/vendor/d3.min.js' async='')
-    script(src='js/vendor/c3.min.js' async='')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js' async='')
-    script(src='js/vendor/jquery.comiseo.daterangepicker.min.js' async='')
-    // non vendor Javascript Logic
-    script(src='js/data/ArrestsCacheTable_data_array.js' async='')
-    script(src='js/compressed/index.min.js' async='')
+      include PageBlocks/mixins/Body_Footer.pug
+      +BodyFooter("Index","Index",true)

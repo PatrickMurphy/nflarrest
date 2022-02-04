@@ -1,4 +1,11 @@
-mixin ShareButtons(url="https://nflarrest.com")
-    #shareButtons
-        a.twitter-share-button.twitter_Btn(href='https://twitter.com/share' data-url=url data-text='Explore the arrest records of Football Players, find the most common crimes for your football team.') Tweet
-        .fb-share-button.fb_Btn(data-href=url data-layout='button_count')
+mixin ShareButtons(pageType="Index",url="https://nflarrest.com")
+    if pageType == 'Detail'
+        #shareButtons
+            a.twitter-share-button.twitter_Btn(href='https://twitter.com/share' data-url=url data-text='Explore the arrest records of Football Players, find the most common crimes for your football team.') Tweet
+            .fb-share-button.fb_Btn(data-href=url data-layout='button_count')
+    if pageType == 'Index'
+        .four.columns.share_buttons.hide-mobile
+                .fb-share-button.fb_Btn(data-href=url data-layout='box_count')
+                a.twitter-share-button.twitter_Btn(href='https://twitter.com/share' data-url=url data-text='Explore the arrest records of Football Players, find the most common crimes for your football team.' data-count='vertical') Tweet
+                include ../DonateButton.pug
+        

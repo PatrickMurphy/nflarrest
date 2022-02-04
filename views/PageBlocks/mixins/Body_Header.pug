@@ -3,7 +3,7 @@ mixin BodyHeader(pageType="Detail")
         include ../PageLogoTitle.pug
         if pageType == "Detail"
             include ShareButtons.pug
-            +ShareButtons('https://nflarrest.com')
+            +ShareButtons(pageType,'https://nflarrest.com')
     br.clear
     if pageType == "Detail"
         #DetailPageTitleRow.row

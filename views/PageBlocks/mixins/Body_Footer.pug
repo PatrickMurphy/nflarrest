@@ -1,8 +1,22 @@
 mixin BodyFooter(pageType="Detail",pageTitle="Team",showLoadingBar=true)
     br.clear
-    footer 
-        span &copy; 2022 <a href="https://patrickmurphy.dev">Patrick Murphy</a> | <a href="https://www.usatoday.com/sports/nfl/arrests/">Data Source</a> | <span id="updateDateFooter">Updated: </span> |
-        include ../DonateButton.pug
+    if pageType == "Index"
+        footer
+            | Made By 
+            a(href='https://www.patrickmurphy.dev' title='Want to see my Resume?') Patrick Murphy
+            |  | 
+            a(href='privacypolicy.htm') Privacy Policy
+            | &#x9;&#x9;&#x9;&#x9;| 
+            a(href='sitemap.xml') Site Map
+            |  | 
+            a(href='Methodology.html') Data Methodology
+            |  | 
+            span#updateDateFooter Updated: 
+            include ../DonateButton.pug
+    if pageType != "Index"
+        footer
+            span <a href="https://nflarrest.com/">NFLArrest Home</a> | &copy; 2022 <a href="https://patrickmurphy.dev">Patrick Murphy</a> | <a href="https://nflarrest.com/Methodology.html">Data Methodology</a> | <span id="updateDateFooter"></span>
+            include ../DonateButton.pug
     if showLoadingBar
         include ../LoadingBar.pug
     include JS_Include_Scripts.pug

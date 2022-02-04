@@ -2,9 +2,7 @@ class TopLists {
     constructor(parent){
         this.parent = parent;
         this.last_start_pos = 0;
-        this.Lists = {
-            ReturnStatus: false
-        };
+        this.ReturnStatus = false;
         
         this.load_lists('first');
     }
@@ -73,8 +71,8 @@ class TopLists {
             this.load_list(positions_list, 'position', 'top_pos_', '#top_positions_list', ['Position', 'arrest_count','Position_name'], replace);
 
             // set returns
-            this.Lists.ReturnStatus = true;
-            this.Lists.ReturnCount = 0;
+            this.setReturnStatus(true);
+            //this.Lists.ReturnCount = 0;
             this.last_start_pos = this.last_start_pos + 5;
             
             this.parent.checkLoadingFinished();
@@ -95,5 +93,12 @@ class TopLists {
                 return false;
             });
         }
+    }
+    
+    getReturnStatus(){
+        return this.ReturnStatus;
+    }
+    setReturnStatus(statusBool){
+        this.ReturnStatus = statusBool;
     }
 }

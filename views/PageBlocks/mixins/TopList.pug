@@ -1,0 +1,11 @@
+mixin TopList(listTitle="Position", noBorder = false)
+  .four.columns.top-list(class={ 'no-border': noBorder == true})
+    h3 Top #{listTitle}s
+    span.list-heading
+      | #{listTitle}:
+      span # Arrests
+    ol(id="top_"+ listTitle.toLowerCase() + "s_list")
+    
+mixin TopListControlRow
+    .row.control-row
+        button#loadMoreLists.button-small Load More

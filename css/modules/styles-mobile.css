@@ -83,22 +83,22 @@
 	#newsletterForm input[type="email"] {
 		width: 80%;
 	}
-	/* Arrest-O-Meter 
+	/* Arrest-Meter 
 	------------------ */
-	#arrest-o-meter {
+	#arrest-meter {
 		width: 80%;
         margin: auto;
 	}
-	#arrest-o-meter h5 {
+	#arrest-meter h5 {
 		font-size: 1em;
 	}
-	#arrest-o-meter p {
+	#arrest-meter p {
 		font-size: .63em
 	}
-	#arrest-o-meter a {
+	#arrest-meter a {
 		font-size: 0.78em;
 	}
-	.arrest-o-meterDetailsBtn {
+	.arrest-meterDetailsBtn {
 		display: none;
 	}
 	.meter-bg,
