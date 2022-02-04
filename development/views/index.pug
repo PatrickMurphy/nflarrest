@@ -38,27 +38,5 @@ html(lang="en")
           br
         #bottomTeamLinks
           h4 Teams
-      br.clear
-      footer
-        | Made By 
-        a(href='https://www.patrickmurphy.dev' title='Want to see my Resume?') Patrick Murphy
-        |  | 
-        a(href='privacypolicy.htm') Privacy Policy
-        | &#x9;&#x9;&#x9;&#x9;| 
-        a(href='sitemap.xml') Site Map
-        |  | 
-        a(href='Methodology.html') Data Methodology
-        |  | 
-        span#updateDateFooter Updated: 
-        include PageBlocks/DonateButton.pug
-    include PageBlocks/LoadingBar.pug
-    // Include vendor Javascript Logic
-    script(src='https://code.jquery.com/jquery-2.1.4.min.js')
-    script(src='js/vendor/jquery-ui.min.js')
-    script(src='js/vendor/d3.min.js' async='')
-    script(src='js/vendor/c3.min.js' async='')
-    script(src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js' async='')
-    script(src='js/vendor/jquery.comiseo.daterangepicker.min.js' async='')
-    // non vendor Javascript Logic
-    script(src='js/data/ArrestsCacheTable_data_array.js' async='')
-    script(src='js/compressed/index.min.js' async='')
+      include PageBlocks/mixins/Body_Footer.pug
+      +BodyFooter("Index","Index",true)
