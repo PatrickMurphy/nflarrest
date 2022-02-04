@@ -5,7 +5,7 @@ mixin TopList(listTitle="Position", noBorder = false)
       | #{listTitle}:
       span # Arrests
     ol(id="top_"+ listTitle.toLowerCase() + "s_list")
-
-//    .four.columns.top-list
-//        h3 #{chartTitle}
-//        div(id=chartID)
+    
+mixin TopListControlRow
+    .row.control-row
+        button#loadMoreLists.button-small Load More

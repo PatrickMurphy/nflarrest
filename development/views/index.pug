@@ -20,10 +20,8 @@ html(lang="en")
             include PageBlocks/IndexPageDescription.pug
           #kpi-window-header.four.columns
             include PageBlocks/IndexArrestMeterBlock.pug
-          .four.columns.share_buttons.hide-mobile
-            .fb-share-button.fb_Btn(data-href='https://www.nflarrest.com/' data-layout='box_count')
-            a.twitter-share-button.twitter_Btn(href='https://twitter.com/share' data-url='https://nflarrest.com' data-text='Explore the arrest records of Football Players, find the most common crimes for your football team.' data-count='vertical') Tweet
-            include PageBlocks/DonateButton.pug
+          include PageBlocks/mixins/ShareButtons.pug
+          +ShareButtons('Index','https://NflArrest.com/')
         .row.dividedSection
           include PageBlocks/DateRangeControl.pug
           include PageBlocks/IndexMainChartSelectButtons.pug
@@ -36,8 +34,7 @@ html(lang="en")
           +TopList('Player', false)
           +TopList('Position', true)
           br.clear
-          .row.control-row
-            button#loadMoreLists.button-small Load More
+          +TopListControlRow
           br
         #bottomTeamLinks
           h4 Teams
