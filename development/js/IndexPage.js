@@ -118,7 +118,7 @@ class IndexPage extends WebPage {
 
             // if random display, hide or google track
             if(!d){
-                $('#arrest-o-meter').hide();
+                $('#arrest-meter').hide();
             }else{            
                 //set arrestometerorrecent
                 ga('set', 'dimension1', "Recent");

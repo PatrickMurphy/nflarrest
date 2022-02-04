@@ -4,21 +4,21 @@
 	height: 25px;
 }
 
-#arrest-o-meter p {
+#arrest-meter p {
 	margin-bottom: 2px;
 }
 
-#arrest-o-meter ul {
+#arrest-meter ul {
 	list-style: none;
 	padding: 0px, 10px;
 	margin: 0px;
 }
 
-#arrest-o-meter ul li {
+#arrest-meter ul li {
 	padding: 2px;
 }
 
-#arrest-o-meter ul li span {
+#arrest-meter ul li span {
 	font-weight: bold;
 	float: right;
 	padding-right: 3px;
@@ -51,12 +51,12 @@
 	display: inline-block;
 }
 
-#arrest-o-meter .avgRecord {
+#arrest-meter .avgRecord {
 	position: absolute;
 	left: 10.9%;
 }
 
-#arrest-o-meter .recordHolder {
+#arrest-meter .recordHolder {
 	position: absolute;
 	right: 1%;
 }
