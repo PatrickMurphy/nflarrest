@@ -31,24 +31,10 @@ html(lang="en")
           #chart.tweleve.columns
         br.clear
         aside
-          .four.columns.top-list
-            h3 Top Crimes
-            span.list-heading
-              | Crime:
-              span # Arrests
-            ol#top_crimes_list
-          .four.columns.top-list
-            h3 Top Players
-            span.list-heading
-              | Name:
-              span # Arrests
-            ol#top_players_list
-          .four.columns.top-list.no-border
-            h3 Top Positions
-            span.list-heading
-              | Position:
-              span # Arrests
-            ol#top_positions_list
+          include PageBlocks/mixins/TopList.pug
+          +TopList('Crime', false)
+          +TopList('Player', false)
+          +TopList('Position', true)
           br.clear
           .row.control-row
             button#loadMoreLists.button-small Load More
@@ -59,11 +45,13 @@ html(lang="en")
       footer
         | Made By 
         a(href='https://www.patrickmurphy.dev' title='Want to see my Resume?') Patrick Murphy
-        | | 
+        |  | 
         a(href='privacypolicy.htm') Privacy Policy
         | &#x9;&#x9;&#x9;&#x9;| 
         a(href='sitemap.xml') Site Map
-        |                 | 
+        |  | 
+        a(href='Methodology.html') Data Methodology
+        |  | 
         span#updateDateFooter Updated: 
         include PageBlocks/DonateButton.pug
     include PageBlocks/LoadingBar.pug
