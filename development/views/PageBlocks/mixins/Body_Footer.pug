@@ -1,9 +1,5 @@
 mixin BodyFooter(pageType="Detail",pageTitle="Team",showLoadingBar=true)
     br.clear
-    if pageType == "Detail"
-        footer
-            span <a href="https://nflarrest.com/">NFLArrest Home</a> | &copy; 2022 <a href="https://patrickmurphy.dev">Patrick Murphy</a> | <a href="https://nflarrest.com/Methodology.html">Data Methodology</a> | <span id="updateDateFooter"></span>
-            include ../DonateButton.pug
     if pageType == "Index"
         footer
             | Made By 
@@ -16,6 +12,10 @@ mixin BodyFooter(pageType="Detail",pageTitle="Team",showLoadingBar=true)
             a(href='Methodology.html') Data Methodology
             |  | 
             span#updateDateFooter Updated: 
+            include ../DonateButton.pug
+    if pageType != "Index"
+        footer
+            span <a href="https://nflarrest.com/">NFLArrest Home</a> | &copy; 2022 <a href="https://patrickmurphy.dev">Patrick Murphy</a> | <a href="https://nflarrest.com/Methodology.html">Data Methodology</a> | <span id="updateDateFooter"></span>
             include ../DonateButton.pug
     if showLoadingBar
         include ../LoadingBar.pug
