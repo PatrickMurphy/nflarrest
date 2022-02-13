@@ -1,24 +1,30 @@
-class ArrestCard {
+class ArrestCard extends Module {
     constructor(parent, row, options){
-        this.parent = parent;
-        this.row = row;
+        super('ArrestCard', parent, row, (options || {showName:false,momentDate:false,standalone:false}));
         
-        // Set Options Values
-        this.options = options || {showName:false,momentDate:false,standalone:false};
+        // set new/overwrite momentDate Options value with boolean value, resolves to true if row DaysSince was greater than 99 days ago
         this.options.momentDate = this.row['DaysSince']>99;
         
         // Include Column dimension definitions
+        // TODO: Extract to data model metadata classes/enums/json
+        this.dimensions = {};
         this.addDimensions();
-        
-        // ensure wrow data has team_preffered_name to make sure it is a correct response
-        if(!this.row.hasOwnProperty('Team_preffered_name')){
+    }
+    
+    validateDataFormat(newData){
+        // Use value team_preffered_name to validate expected data format
+        if(!newData.hasOwnProperty('Team_preffered_name')){
             throw "error: incorrect row definition";
+            return false;
+        }else{
+            return true;
         }
     }
     
     // Include Column dimension definitions, used in init
     addDimensions() {
-        this.Dimension_Team = {
+        // add dimensions map values
+        this.dimensions['Team'] = {
             dimension_id: 0,
             dimension_name: 'Team',
             data_column: 'Team',
@@ -28,7 +34,7 @@ class ArrestCard {
             color2: 'Team_hex_alt_color',
             useColor2: true
         };
-        this.Dimension_Player = {
+        this.dimensions['Player'] = {
             dimension_id: 2,
             dimension_name: 'Player',
             data_column: 'Name',
@@ -38,7 +44,7 @@ class ArrestCard {
             color2: 'Team_hex_alt_color',
             useColor2: true
         };
-        this.Dimension_Position = {
+        this.dimensions['Position'] = {
             dimension_id: 3,
             dimension_name: 'Position',
             data_column: 'Position',
@@ -48,7 +54,7 @@ class ArrestCard {
             color2: 'Team_hex_alt_color',
             useColor2: true
         };
-        this.Dimension_Crime = {
+        this.dimensions['Crime'] = {
             dimension_id: 1,
             dimension_name: 'Crime',
             data_column: 'Category',
@@ -56,41 +62,17 @@ class ArrestCard {
             url: 'Crime.html',
             display: 'Category'
         };
+        
+        // shortcuts
+        this.Dimension_Team = this.dimensions['Team'];
+        this.Dimension_Player = this.dimensions['Player'];
+        this.Dimension_Position = this.dimensions['Position'];
+        this.Dimension_Crime = this.dimensions['Crime'];
     }
-    /*buildSpan(col, cssClasses, css, link, title){
-        col = col || 'Name';
-        cssClasses = cssClasses || col.toLowerCase() + "_item";
-        css = css || 'style=""';
-        link = link || {};
-        title = title || '';
-        
-        var htmlReturnArr = [];
-        
-        htmlReturnArr.push(`<span class="${cssClasses}"${css}>`);
-        if(link.hasOwnProperty('url')){
-            htmlReturnArr.push('<a href="');
-            htmlReturnArr.push(link.url);
-            if(link.hasOwnProperty('hash')){
-                htmlReturnArr.push('#' + link.hash);
-            }
-            htmlReturnArr.push('">'); // end anchor tag either way
-            if(link.hasOwnProperty('title')){
-                htmlReturnArr.push(link.title);
-            }else{
-                htmlReturnArr.push(this.row[col]);
-            }
-            htmlReturnArr.push('</a>');
-        }else{
-            htmlReturnArr.push(this.row[col]);
-        }
-        htmlReturnArr.push(`</span>`);
-        
-        return htmlReturnArr.join('');
-    }*/
     
     getHTML(col1,col2,detail_column){
-        var col1 = col1 || this.Dimension_Crime;
-        var col2 = col2 || this.Dimension_Team;
+        var col1 = col1 || this.dimensions['Crime'];
+        var col2 = col2 || this.dimensions['Team'];
         var detail_column = detail_column || {};
         
         var card_show_name_css_val = this.options.showName ? ' style="display:inline-block; visibility:visible;"' : '';
