@@ -18,18 +18,24 @@ class DataController {
     
     ConvertArrayToObject(row){
         var returnObj = {};
+        // TODO: Remove this arrest specific hard coding
         var columns = ['arrest_stats_id', 'Date', 'Team', 'Team_name', 'Team_preffered_name', 'Team_city', 'Team_logo_id', 'Team_Conference', 'Team_Division', 'Team_Conference_Division', 'Team_hex_color', 'Team_hex_alt_color', 'Name', 'Position', 'Position_name', 'Position_type', 'Encounter', 'Category', 'Crime_category', 'Crime_category_color', 'Description', 'Outcome', 'Season', 'ArrestSeasonState', 'general_category_id', 'legal_level_id', 'resolution_category_id', 'Year', 'Month', 'Day', 'Day_of_Week', 'Day_of_Week_int', 'YearToDate', 'DaysSince', 'DaysToLastArrest', 'DaysToLastCrimeArrest', 'DaysToLastTeamArrest'];
-        for (var i = 0; i < row.length; i++){
-            returnObj[columns[i]] = row[i];
+        // if columns has as many or more column titles as row has values
+        if(columns.length >= row.length){
+            for (var i = 0; i < row.length; i++){
+                returnObj[columns[i]] = row[i];
+            }
         }
         return returnObj;
     }
     
+    // Function called at end of constructor to process the data upon initialization
     PreProcessData(){
         this.PreProcessData_DaysSince();
         this.PreProcessData_SortOrder();
     }
     
+    // Sub-Function of PreProcess Data - Add/Update each row in data collection to add [DaysSince], the number of days elapsed between [Date] and today.
     PreProcessData_DaysSince(){
         // a and b are javascript Date objects
 		var dateDiffInDays = function(a, b) {
@@ -45,6 +51,7 @@ class DataController {
         });
     }
     
+    // Sub-Function of PreProcess Data - Sort the Data
     PreProcessData_SortOrder(){
         // sort data on init
         function compare( a, b ) {
@@ -186,6 +193,7 @@ class DataController {
 
 	getOverallChart(stack,bar,order_col,order_dir,callback){
 		var column_values = {};
+        // TODO: Move this to data model objects
 		column_values['Year'] = 'Year';
 		column_values['Month'] = 'Month';
 		column_values['Day'] = 'Day_of_Week';

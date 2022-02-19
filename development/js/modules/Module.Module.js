@@ -6,6 +6,10 @@ class Module {
         this.setOptions(options);
     }
     
+    renderView(){
+        console.warn("Default Module renderView Function called.");
+    }
+    
     setModuleID(newModuleID){
         this.moduleID = newModuleID;
     }
@@ -24,7 +28,11 @@ class Module {
     
     // function that can be overwritten to provide a boolean 
     validateDataFormat(data){
-        return true; // default data is valid
+        if(data){
+            return true; // default data is valid
+        }else{
+            return false;
+        }
     }
     
     setData(newData){

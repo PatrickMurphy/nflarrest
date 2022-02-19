@@ -1,266 +1,180 @@
 class DetailPage extends WebPage {
-	constructor(pageTitle, chartOptions, arrestsUrl) {
+    // TODO: Remove arrestsUrl parameter
+    constructor(pageTitle, chartOptions, arrestsUrl) {
         super(pageTitle);
-		this.data_controller;
-        
-        this.pageID = this.Utilities.update_hash(); // SEA
-		this.pageTitle = pageTitle; // Team
-		this.arrestsUrl = arrestsUrl; // api/team/arrests.php?id=
-		this.chartOptions = chartOptions; // [{url:'',field:'',targetElement:'',title:''}]
-		this.arrest_view_mode = 0; // 0 = table, 1 = card (Mobile Default)
-		
-		this.callbackReturns = 0;
-        
-        this.arrest_data_all = [];
+        this.arrestsUrl = arrestsUrl; // TODO: Remove this variable and all refrences // example value: api/team/arrests.php?id=
+        this.data_controller; // todo remove this line?
 
-		var self = this;
+        this.pageID = this.Utilities.update_hash(); // get hash value ex: SEA for team.html
+        this.pageTitle = pageTitle; // Team
+        this.chartOptions = chartOptions; // [{url:'',field:'',targetElement:'',title:''}]
 
+        this.arrest_view_mode = 0; // 0 = table, 1 = card (Mobile Default)
         // if mobile use cards
-		if (this.Utilities.mobileCheck())
-			this.arrest_view_mode = 1; 
-        
+        if (this.Utilities.mobileCheck())
+            this.arrest_view_mode = 1;
+
+        this.callbackReturns = 0;
+
+        this.arrest_data_all = [];
+        this.data_row_count = 0;
+
+        var self = this;
         this.StyleManager.loadCSS('css/modules/styles-detailpage.css');
         this.StyleManager.loadCSS('css/vendor/pagination.css');
 
-		$(window).on('hashchange', () => {this.renderView(this)});
+        $(window).on('hashchange', () => {
+            this.renderView(this)
+        });
 
-        this.DateRangeControl = new DateRangeControl(this);// pass this as parent arg
+        this.DateRangeControl = new DateRangeControl(this); // pass this as parent arg
         this.data_controller = new DataController(this.DateRangeControl, this);
-        
+        this.DataTable_ModuleID = this.addModule(new DataTable(this));
+
         //this.setupFilters();
-        
-        $('#dateRangeJquery').on('dateRangeChanged', ()=> {this.renderView(this)});
-        
+
+        $('#dateRangeJquery').on('dateRangeChanged', () => {
+            this.renderView(this)
+        });
+
         // resize charts after everything loaded
         setTimeout(() => {
             this.resizeCharts();
-        },1500);
-        
+        }, 1500);
+
         this.renderView(this);
-	}
-    
-    getHTMLDateTitleAttribute(row){
-        return 'title="'+row['Date'].split('T')[0]+'"';
     }
 
-	changeTitle(newTitle, s) {
-		var self = s || this;
-		document.title = "NFL Arrest | " + newTitle + " | List of Player Arrests";
-		$('#pageTitle').html(self.pageTitle + ": " + newTitle);
-	}
-
-	renderView(self) {
-		self.LoadingBar.showLoading();
-        self.pageID = this.Utilities.update_hash(self.pageID);
-		self.changeTitle();
-		self.setupCharts();
-		self.renderArrests();
-        self.resizeCharts();
-        if(self.arrest_data_all.length <= (self.arrest_view_mode == 0 ? 3 : 6)){
-            $('aside').hide();
+    // ====================================== //
+    // --- WebPage.js Overrides ------------- //
+    // ====================================== //
+    // function that determines if all runtime data has been loaded as well as define what to do when the page is ready to display
+    checkLoadingFinished() {
+        // chart count plus arrest table data pull
+        var total_expected_returns = (1 + this.chartOptions.length);
+        if (++this.callbackReturns == total_expected_returns) {
+            this.callbackReturns = 0;
+            this.loadingFinished();
         }
-	}
-    
-    resizeCharts(){
-        for(var i = 0; i < this.charts.length; i++){
+    }
+
+    // TODO: change name to a new convention of action, not return functions
+    renderView(self) {
+        self.LoadingBar.showLoading();
+        self.pageID = this.Utilities.update_hash(self.pageID);
+        self.changeTitle();
+        self.setupCharts();
+        self.renderModules();
+        self.resizeCharts();
+        if (self.getModule(self.DataTable_ModuleID).getData().length <= (self.arrest_view_mode == 0 ? 3 : 6)) {
+            $('aside').hide();
+        } else {
+            //$('aside').show(); // TODO: Fix display after being hidden
+        }
+    }
+
+    // =========================================== //
+    // --- Render Table & Mobile Card Functions -- //
+    // =========================================== //
+
+    // function to return the tooltip attribute html for date display elements
+    // expects [row] parameter, a js object that contains a date property formatted as a string, if it contains T (Date Format to add time)
+    // return type: string
+    getHTMLDateTitleAttribute(row) {
+        if (typeof row !== 'undefined') {
+            if (row.hasOwnProperty('Date')) {
+                return 'title="' + row['Date'].split('T')[0] + '"';
+            } else {
+                console.warn('DetailPage.getHTMLDateTitleAttribute(row) row had no [Date] value. Row = ' + JSON.toString(row));
+                return '';
+            }
+        }
+    }
+
+    // --=== END Render Table & Mobile Card Functions ===-- //
+
+    // ============================ //
+    // --- Render View Functions -- //
+    // ============================ //
+
+    // function used in render view to change the page document title and ui #pageTitle
+    // expects [newTitle] parameter with the new text
+    // optional [s] parameter that defines the instance of the page
+    // no return
+    // TODO: Rename from changeTitle to setPageTitle
+    changeTitle(newTitle, thisRef) {
+        var self = thisRef || this;
+        document.title = "NFL Arrest | " + newTitle + " | List of Player Arrests";
+        $('#pageTitle').html(self.pageTitle + ": " + newTitle);
+    }
+
+    // function that iterates through each chart elemet and resizes it
+    // no parameters, no return
+    resizeCharts() {
+        for (var i = 0; i < this.charts.length; i++) {
             this.charts[i].chart.resize();
         }
     }
 
-	checkLoadingFinished() {
-		if (++this.callbackReturns == (1 + this.chartOptions.length)) { // 1 for arrests plus each chart
-			this.callbackReturns = 0;
-			this.loadingFinished();
-		}
-	}
+    // initialize charts
+    setupCharts() {
+        var self = this;
+        for (var chartID in self.chartOptions) {
+            var chartOption = self.chartOptions[chartID];
+            self.getDonutData(chartOption.url + self.pageID, chartOption.field, chartID, (newData, cID) => {
+                self.charts.push(new DonutChart({
+                    data: newData,
+                    targetElement: self.chartOptions[cID].targetElement,
+                    chartTitle: self.chartOptions[cID].title
+                }, self));
+            });
+        }
+    }
 
-	renderArrests() {
-		var self = this;
-        
+    // getDonutData retrieves data for a donut/pie chart. called within setupCharts()
+    getDonutData(url, param, chartID, callback) {
+        var self = this;
+
         var filterFunction = (row) => {
-				if(self.pageTitle == 'Team'){
-					if(row['Team'] != self.pageID){
-						return false;
-					}
-				}else if(self.pageTitle == 'Position'){
-					if(row['Position'] != self.pageID){
-						return false;
-					}
-				}else if(self.pageTitle == 'Player'){
-					if(row['Name'] != self.pageID){
-						return false;
-					}
-				}else if(self.pageTitle == 'Crime'){
-					if(row['Category'] != self.pageID){
-						return false;
-					}
-				}
-				return true;
-			};
-        
-        var paginationTemplateFunc = (data, pagination) => {
-            // for each data item display row or card
-            var items = [];
-            
-            // if arrest view desktop add table header rows
-            if (self.arrest_view_mode == 0) {
-                items.push(self.renderArrestRowHeader());
-            }
-            
-            for (var rowID in data) {
-                var thisDataIndex = data[rowID];
-                var row = self.arrest_data_all[thisDataIndex];
-                if (self.arrest_view_mode == 0) {
-                    items.push(self.renderArrestRow(row));
-                } else if (self.arrest_view_mode == 1) {
-                    items.push(self.renderArrestCard(row));
+            if (self.pageTitle == 'Team') {
+                if (row['Team'] != self.pageID) {
+                    return false;
+                }
+            } else if (self.pageTitle == 'Position') {
+                if (row['Position'] != self.pageID) {
+                    return false;
+                }
+            } else if (self.pageTitle == 'Player') {
+                if (row['Name'] != self.pageID) {
+                    return false;
+                }
+            } else if (self.pageTitle == 'Crime') {
+                if (row['Category'] != self.pageID) {
+                    return false;
                 }
             }
-            
-            if (self.arrest_view_mode == 0) {
-                $('#arrest_table').html(items.join(""));
-            } else if (self.arrest_view_mode == 1) {
-                $('#arrest_cards').html(items.join(""));
-            }
+
+            return true;
         };
-        
-        var callbackData = (data) => {
-            self.arrest_data_all = data;
-            //var row,
-              //  items = [];
 
-            // update incident count title
-            var incidentSelector = '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
-            $(incidentSelector).html(data.length + ' Incidents:');
-
-            // if add html elements for each display mode
-            if (self.arrest_view_mode == 0) {
-                //$(incidentSelector).after('<div id="pagination-control1"></div>');
-                $(incidentSelector).after('<table id="arrest_table"></table>');// add arrest table
-                $('#arrest_table').after('<div id="pagination-control"></div>');
-                //$('#arrest_table').html(items.join(""));
-            } else if (self.arrest_view_mode == 1) {
-                //$(incidentSelector).after('<div id="pagination-control1"></div>');
-                $(incidentSelector).after('<div id="arrest_cards"></div>');
-                $('#arrest_cards').after('<div id="pagination-control"></div>');
+        var callbackFunc = (data) => {
+            self.data_row_count += data.length;
+            var theData = [];
+            var index, i = 0;
+            var otherArray = ['Other', 0];
+            for (index in data) {
+                if (++i < 12) {
+                    theData.push([data[index][param], data[index]['arrest_count']]);
+                } else {
+                    otherArray[1] = parseInt(otherArray[1]) + parseInt(data[index]['arrest_count']);
+                }
             }
-            
-    /*        $('#pagination-control1').pagination({
-                dataSource: Array.from(self.arrest_data_all.keys()),
-                callback: paginationTemplateFunc,
-                className: 'paginationjs-theme-yellow paginationjs-big'
-                ,afterRender: () => {$('#pagination-control').pagination('go', $('#pagination-control1').pagination('getSelectedPageNum'))}
-            });*/
-            $('#pagination-control').pagination({
-                dataSource: Array.from(self.arrest_data_all.keys()),
-                callback: paginationTemplateFunc,
-                afterRender: function() {
-                    self.Utilities.googleTracking.sendTrackEvent('DetailPageArrests', 'Change Page');
-                },
-                autoHidePrevious: true,
-                autoHideNext: true,
-                showNavigator: true,
-                className: 'paginationjs-theme-yellow paginationjs-big',
-                pageSize: self.arrest_view_mode == 0 ? 15 : 5, // 15 for desktop, 5 mobile
-                pageRange: self.arrest_view_mode == 0 ? 2 : 1
-                //,afterRender: () => {$('#pagination-control1').pagination('go', $('#pagination-control').pagination('getSelectedPageNum'))}
-            });
-            // notify check Loading Finished
+            theData.push(otherArray);
             self.checkLoadingFinished();
-		};
-        
-		self.data_controller.getArrests(filterFunction, callbackData);
-	}
+            callback(theData, chartID);
+        };
 
-	// should be overloaded
-	renderArrestRowHeader() {
-		var return_text = '<tr>';
-		return_text += '<th class="one column">Date:</th>';
-		return_text += '<th class="one column">Team:</th>';
-		return_text += '<th class="two columns">Name:</th>';
-		return_text += '<th class="one column">Crime:</th>';
-		return_text += '<th class="four columns">Description:</th>';
-		return_text += '<th class="three columns">Outcome:</th>';
-		return_text += '</tr>';
-
-		return return_text;
-	}
-
-
-	// should be overloaded
-	renderArrestRow(row) {
-		var return_text = '<tr>';
-		return_text += '<td class="one column" '+this.getHTMLDateTitleAttribute(row)+'>' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>';
-		return_text += '<td class="one column">' + row['Team'] + '</td>';
-		return_text += '<td class="two columns"><a href="Player.html#' + row['Name'] + '">' + row['Name'] + '</a></td>';
-		return_text += '<td class="one column"><a href="Crime.html#' + row['Category'] + '">' + row['Category'] + '</a></td>';
-		return_text += '<td class="four columns">' + row['Description'] + '</td>';
-		return_text += '<td class="three columns">' + row['Outcome'] + '</td>';
-		return_text += '</tr>';
-
-		return return_text;
-	}
-
-	renderArrestCard(row) {
-        var c = new ArrestCard(this, row);
-		return c.getHTML();
-	}
-
-	getDonutData(url, param, chartID, callback) {
-		var self = this;
-
-		var filterFunction = (row) => {
-				if(self.pageTitle == 'Team'){
-					if(row['Team'] != self.pageID){
-						return false;
-					}
-				}else if(self.pageTitle == 'Position'){
-					if(row['Position'] != self.pageID){
-						return false;
-					}
-				}else if(self.pageTitle == 'Player'){
-					if(row['Name'] != self.pageID){
-						return false;
-					}
-				}else if(self.pageTitle == 'Crime'){
-					if(row['Category'] != self.pageID){
-						return false;
-					}
-				}
-
-				return true;
-			};
-
-		var callbackFunc = (data) => {
-				var theData = [];
-				var index, i = 0;
-				var otherArray = ['Other', 0];
-				for (index in data) {
-					if (++i < 12) {
-						theData.push([data[index][param], data[index]['arrest_count']]);
-					} else {
-						otherArray[1] = parseInt(otherArray[1]) + parseInt(data[index]['arrest_count']);
-					}
-				}
-				theData.push(otherArray);
-				self.checkLoadingFinished();
-				callback(theData, chartID);
-			};			
-
-		self.data_controller.getDonutChart(param, filterFunction, callbackFunc);
-	}
-
-	setupCharts() {
-		var self = this;
-		for (var chartID in self.chartOptions) {
-			var chartOption = self.chartOptions[chartID];
-			self.getDonutData(chartOption.url + self.pageID, chartOption.field, chartID, (newData, cID) => {
-				self.charts.push(new DonutChart({
-					data: newData,
-					targetElement: self.chartOptions[cID].targetElement,
-					chartTitle: self.chartOptions[cID].title
-				},self));
-			});
-		}
-	}
+        self.data_controller.getDonutChart(param, filterFunction, callbackFunc);
+    }
+    // --=== End Render View Functions ===-- // 
 }

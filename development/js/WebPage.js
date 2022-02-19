@@ -15,20 +15,26 @@ class WebPage {
 		this.LoadingBar = new LoadingBarManager();
         this.pageTitle = pageTitle || 'Default';
         
+        // if default hide loading bar parameter is set/true, hide by default
         if(hideLoadingBar){
             this.LoadingBar.hideLoading();
         }
         
+        // add charts array collection
         this.charts = [];
+        this.Modules_HashMap = {};
         
+        // Add Update Date / Version information to page footer
         this.RenderUpdateDate();    
 	}
     
     renderView(){
         // override
+        console.warn('Default WebPage.js renderView() function called, should be overriden within a subclass');
     }
     
     RenderUpdateDate(){
+        // using global lastUpdate built in build script and included in index.min.js and detailpage.min.js
         var displayUpdateDate = lastUpdate.split(',')[0];
         // included in min file is lastUpdate var
         $("#updateDateFooter").html("Updated: " + displayUpdateDate + ' <a href="BuildHistory.html">v' + lastVersion + "</a>");
@@ -36,10 +42,15 @@ class WebPage {
     
     checkLoadingFinished() {
 		// override
+        console.warn('Default WebPage.js checkLoadingFinished() function called, should be overriden within a subclass');
+        // default assume page loaded, no logical test
+        this.loadingFinished();
 	}
     
     loadingFinished(){
         this.LoadingBar.hideLoading();
+        
+        // setup items not necessary for initial display to decrease time for user content load
         this.Utilities.setupFacebook();
         this.Utilities.setupTwitter();
     }
@@ -56,6 +67,55 @@ class WebPage {
         this.FilterControl = new FiltersControl(filters_options);
         
         $(this.FilterControl.options.dialog_element).on('FilterDialogChanged', this.renderView);
+    }
+    
+    // ================ Modules ================ //
+    getModuleCount(){
+        return Object.keys(this.Modules_HashMap).length;
+    }
+    
+    getModules(){
+        return this.Modules_HashMap;
+    }
+    
+    getModule(moduleID){
+        if(this.Modules_HashMap.hasOwnProperty(moduleID)){
+            return this.Modules_HashMap[moduleID];
+        }else{
+            console.error('No Module with the moduleID: ' + moduleID);
+            return false;
+        }
+    }
+    
+    setModules(modulesObj){
+        if(Object.isObject(mObj)){
+            this.Modules_HashMap = mObj;
+        }else{
+            console.warn('WebPage.setModules(mObj): Expected Parameter(mObj) to be of type Object that should be formatted as a HashMap eg: [{"Key": ModuleInstance, "Key2": ModuleInstance2}].');
+        }
+    }
+    
+    addModule(module, moduleID){
+        moduleID = moduleID || ("Module_" + module.getModuleID() + '_' + this.getModuleCount())
+        this.Modules_HashMap[moduleID] = module;
+        return moduleID;
+    }
+    
+    removeModule(moduleID){
+        if(this.Modules_HashMap[moduleID]){
+            delete this.Modules_HashMap[moduleID];
+        }else{
+            console.warn('No such module found', moduleID);
+        }
+    }
+    
+    renderModules(){
+        if(this.getModuleCount() > 0){
+            var moduleIDs = Object.keys(this.Modules_HashMap);
+            for(var i = 0; i < moduleIDs.length; i++){
+                this.Modules_HashMap[moduleIDs[i]].renderView();
+            }
+        }
     }
     
     // extract to non framework class
