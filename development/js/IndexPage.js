@@ -38,8 +38,8 @@ class IndexPage extends WebPage {
         tbl.setRenderRowHeaderFn(() => {
             return '<tr><th class="two columns">Date:</th>'
                 +'<th class="two columns">Player:</th>'
-                +'<th class="two column">Crime:</th>'
-                +'<th class="one columns">Team:</th>'
+                +'<th class="two columns">Crime:</th>'
+                +'<th class="one column">Team:</th>'
                 +'<th class="five columns">Description:</th>'
                 +'</tr>'; //<th class="three columns">Outcome:</th><
         });
@@ -48,7 +48,7 @@ class IndexPage extends WebPage {
                 return '<tr><td class="two columns" ' + this.getHTMLDateTitleAttribute(row) + '>' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>' +
                     '<td class="two columns"><a href="Player.html#' + row['Name'] + '">'+row['Name']+'</a></td>' +
                     '<td class="two columns"><a href="Crime.html#' + row['Category'] + '">' + row['Category'] + '</a></td>' +
-                    '<td class="one columns"><a href="Team.html#' + row['Team'] + '"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -' + (row['Team_logo_id'] * 20) + 'px;background-size:100%;"></span> ' + row['Team'] + '</a></td>' +
+                    '<td class="one column"><a href="Team.html#' + row['Team'] + '"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -' + (row['Team_logo_id'] * 20) + 'px;background-size:100%;"></span> ' + row['Team'] + '</a></td>' +
                     '<td class="five columns">' + row['Description'] + '</td>'
                     // + '<td class="three columns">' + row['Outcome'] + '</td>'
                     +'</tr>';
