@@ -36,7 +36,7 @@ class IndexPage extends WebPage {
         
         var tbl = this.getModule(this.DataTable_ModuleID);
         tbl.setRenderRowHeaderFn(() => {
-            return '<tr><th class="two columns">Date:</th><th class="two columns">Player:</th><th class="two column">Crime:</th><th class="one column">Team:</th><th class="five columns">Description:</th>/tr>'; //<th class="three columns">Outcome:</th><
+            return '<tr><th class="two columns">Date:</th><th class="two columns">Player:</th><th class="two column">Crime:</th><th class="one column">Team:</th><th class="five columns">Description:</th></tr>'; //<th class="three columns">Outcome:</th><
         });
         tbl.setRenderRowFn((row) => {
             if (typeof row !== 'undefined') {
