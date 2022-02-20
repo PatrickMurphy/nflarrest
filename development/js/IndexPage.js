@@ -14,7 +14,7 @@ class IndexPage extends WebPage {
         
         this.DateRangeControl = new DateRangeControl(this);
         this.data_controller = new DataController(this.DateRangeControl, this);
-        this.DataTable_ModuleID = this.addModule(new DataTable(this,[],{targetElement:'arrest_table',TitlePrefix:'Latest '}));
+        this.DataTable_ModuleID = this.addModule(new DataTable(this,[],{targetElement:'arrest_table',TitlePrefix:'Latest ',RowLimit:5}));
         this.MainChart = new MainChart(this);
         this.TopLists = new TopLists(this);
         

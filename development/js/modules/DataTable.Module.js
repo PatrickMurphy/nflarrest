@@ -2,7 +2,9 @@ class DataTable extends Module {
     // construct object
     constructor(parent, data, options) {
         super('DataTable', parent, data, (options || {
-            targetElement: 'arrest_table'
+            targetElement: 'arrest_table',
+            TitlePrefix: '',
+            RowLimit:15
         }));
 
         this.renderRowFn = undefined;
@@ -150,7 +152,7 @@ class DataTable extends Module {
                 autoHideNext: true,
                 showNavigator: true,
                 className: 'paginationjs-theme-yellow paginationjs-big',
-                pageSize: self.parent.arrest_view_mode == 0 ? 15 : 5, // 15 for desktop, 5 mobile
+                pageSize: self.parent.arrest_view_mode == 0 ? self.getOption('RowLimit') : 5, // 15 for desktop, 5 mobile
                 pageRange: self.parent.arrest_view_mode == 0 ? 2 : 1
             });
             // notify check Loading Finished
