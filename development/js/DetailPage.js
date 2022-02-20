@@ -8,24 +8,22 @@ class DetailPage extends WebPage {
         this.pageID = this.Utilities.update_hash(); // get hash value ex: SEA for team.html
         this.pageTitle = pageTitle; // Team
         this.chartOptions = chartOptions; // [{url:'',field:'',targetElement:'',title:''}]
+        
+        this.callbackReturns = 0;
 
+        this.arrest_data_all = [];
+        this.data_row_count = 0;
+        
         this.arrest_view_mode = 0; // 0 = table, 1 = card (Mobile Default)
         // if mobile use cards
         if (this.Utilities.mobileCheck())
             this.arrest_view_mode = 1;
 
-        this.callbackReturns = 0;
-
-        this.arrest_data_all = [];
-        this.data_row_count = 0;
 
         var self = this;
         this.StyleManager.loadCSS('css/modules/styles-detailpage.css');
         this.StyleManager.loadCSS('css/vendor/pagination.css');
 
-        $(window).on('hashchange', () => {
-            this.renderView(this)
-        });
 
         this.DateRangeControl = new DateRangeControl(this); // pass this as parent arg
         this.data_controller = new DataController(this.DateRangeControl, this);
@@ -37,10 +35,14 @@ class DetailPage extends WebPage {
             this.renderView(this)
         });
 
+        $(window).on('hashchange', () => {
+            this.renderView(this)
+        });
+        
         // resize charts after everything loaded
         setTimeout(() => {
             this.resizeCharts();
-        }, 1500);
+        }, 1000);
 
         this.renderView(this);
     }
@@ -66,11 +68,13 @@ class DetailPage extends WebPage {
         self.setupCharts();
         self.renderModules();
         self.resizeCharts();
-        if (self.getModule(self.DataTable_ModuleID).getData().length <= (self.arrest_view_mode == 0 ? 3 : 6)) {
+        var show_chart_arrest_limit = (self.arrest_view_mode == 0 ? 3 : 6);
+        var arrest_count = self.getModule(self.DataTable_ModuleID).getData().length;
+        if (arrest_count <= show_chart_arrest_limit) {
             $('aside').hide();
-        } else {
+        } //else {
             //$('aside').show(); // TODO: Fix display after being hidden
-        }
+        //}
     }
 
     // =========================================== //

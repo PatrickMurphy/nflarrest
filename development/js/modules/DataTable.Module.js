@@ -114,7 +114,7 @@ class DataTable extends Module {
             }
             
             if (self.parent.arrest_view_mode == 0) {
-                $(self.options.targetElement).html(items.join(""));
+                $(self.getOptions()['targetElement']).html(items.join(""));
             } else if (self.parent.arrest_view_mode == 1) {
                 $('#arrest_cards').html(items.join(""));
             }
@@ -132,8 +132,8 @@ class DataTable extends Module {
 
             // if add html elements for each display mode
             if (self.parent.arrest_view_mode == 0) {
-                $(incidentSelector).after('<table id="'+self.options.targetElement+'"></table>');
-                $(self.options.targetElement).after('<div id="pagination-control"></div>');
+                $(incidentSelector).after('<table id="'+self.getOptions()['targetElement']+'"></table>');
+                $(self.getOptions()['targetElement']).after('<div id="pagination-control"></div>');
             } else if (self.parent.arrest_view_mode == 1) {
                 $(incidentSelector).after('<div id="arrest_cards"></div>');
                 $('#arrest_cards').after('<div id="pagination-control"></div>');
