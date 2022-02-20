@@ -154,8 +154,8 @@ class IndexPage extends WebPage {
     
     setupRecentArrestCard(d){
         this.data_controller.getMostRecentArrest((row) => {
-            var card = new ArrestCard(this, row,{showName:true,standalone:true});
-            $('#mostRecentArrestCard').html(card.getHTML());
+            var card = new ArrestCard(this, row,{standalone:true});
+            $('#mostRecentArrestCard').html(card.getHTML(card.Dimension_Crime,card.Dimension_Team,card.Dimension_Player));
         });
         
         // display based on random
