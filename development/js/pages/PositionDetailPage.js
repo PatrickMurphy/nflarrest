@@ -39,7 +39,7 @@ class PositionDetailPage extends DetailPage {
         
         tbl.setRenderCardFn((row) => {
             var c = new ArrestCard(this, row);
-            return c.getHTML(c.Dimension_Player, c.Dimension_Team,c.Dimension_Crime);
+            return c.getHTML(c.Dimension_Player, c.Dimension_Team, c.Dimension_Crime);
         });
         tbl.renderView();
     }

@@ -70,7 +70,7 @@ class ArrestCard extends Module {
         this.Dimension_Crime = this.dimensions['Crime'];
     }
     
-    getHTML(col1,col2,detail_column,detail_column2){
+    getHTML(col1,col2,detail_column2,detail_column){
         var col1 = col1 || this.dimensions['Crime'];
         var col2 = col2 || this.dimensions['Team'];
         var detail_column = detail_column || {};
