@@ -56,6 +56,10 @@ class Module {
         return this.options;
     }
     
+    getOption(optKey){
+        return this.options[optKey];
+    }
+    
     // result functions ==========================================================================
     getHTML(){
         return "<!-- NO HTML Defined for Module: " + this.getModuleID() + " -->";

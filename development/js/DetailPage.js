@@ -14,16 +14,9 @@ class DetailPage extends WebPage {
         this.arrest_data_all = [];
         this.data_row_count = 0;
         
-        this.arrest_view_mode = 0; // 0 = table, 1 = card (Mobile Default)
-        // if mobile use cards
-        if (this.Utilities.mobileCheck())
-            this.arrest_view_mode = 1;
-
-
         var self = this;
         this.StyleManager.loadCSS('css/modules/styles-detailpage.css');
         this.StyleManager.loadCSS('css/vendor/pagination.css');
-
 
         this.DateRangeControl = new DateRangeControl(this); // pass this as parent arg
         this.data_controller = new DataController(this.DateRangeControl, this);
@@ -76,26 +69,6 @@ class DetailPage extends WebPage {
             //$('aside').show(); // TODO: Fix display after being hidden
         //}
     }
-
-    // =========================================== //
-    // --- Render Table & Mobile Card Functions -- //
-    // =========================================== //
-
-    // function to return the tooltip attribute html for date display elements
-    // expects [row] parameter, a js object that contains a date property formatted as a string, if it contains T (Date Format to add time)
-    // return type: string
-    getHTMLDateTitleAttribute(row) {
-        if (typeof row !== 'undefined') {
-            if (row.hasOwnProperty('Date')) {
-                return 'title="' + row['Date'].split('T')[0] + '"';
-            } else {
-                console.warn('DetailPage.getHTMLDateTitleAttribute(row) row had no [Date] value. Row = ' + JSON.toString(row));
-                return '';
-            }
-        }
-    }
-
-    // --=== END Render Table & Mobile Card Functions ===-- //
 
     // ============================ //
     // --- Render View Functions -- //

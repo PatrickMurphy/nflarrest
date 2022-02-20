@@ -70,19 +70,24 @@ class ArrestCard extends Module {
         this.Dimension_Crime = this.dimensions['Crime'];
     }
     
-    getHTML(col1,col2,detail_column){
+    getHTML(col1,col2,detail_column,detail_column2){
         var col1 = col1 || this.dimensions['Crime'];
         var col2 = col2 || this.dimensions['Team'];
         var detail_column = detail_column || {};
+        var detail_column_bottom_right = detail_column2 || {};
         var data_row = this.getData();
         
         var card_show_name_css_val = this.options.showName ? ' style="display:inline-block; visibility:visible;"' : '';
         var card_date_val = this.options.momentDate ? moment(data_row['Date'], "YYYY-MM-DD").fromNow() : data_row['DaysSince'] + ' days ago';
         var col2_color_css_val = (col2.useColor2 ? 'style="color:#' + data_row[col2.color2] + ';"' : '');
         var card_standalone_css_class_val = this.options.standalone ? " standalone_card" : '';
+        var bottom_right_item_val = '<a href="' +detail_column_bottom_right.url + '#' + data_row[detail_column_bottom_right.data_column] + '">' + data_row[detail_column_bottom_right.display] + "</a>";
         
         var card = ['<div class="card arrest_card ' + card_standalone_css_class_val + '">'];
 		card.push('<span class="date_item" title="' + data_row['Date'] + '">' + card_date_val + '</span>');  // span: col, class, title
+		if(detail_column_bottom_right.hasOwnProperty('data_column') > 0){
+            card.push('<span class="bottom_right_item">' + bottom_right_item_val + '</span>');
+        }
 		card.push('<span class="name_item"'+card_show_name_css_val+'><a href="Player.html#' + data_row['Name'] + '">' + data_row['Name'] + '</a> </span>');  // span: col, class, css, link, title
 		card.push("<br />"); // linebreak
 		card.push('<span class="crime_item" style="background-color:#' + data_row[col1.color] + '">');

@@ -2,7 +2,7 @@ class DataTable extends Module {
     // construct object
     constructor(parent, data, options) {
         super('DataTable', parent, data, (options || {
-            targetElement: '#arrest_table'
+            targetElement: 'arrest_table'
         }));
 
         this.renderRowFn = undefined;
@@ -114,7 +114,7 @@ class DataTable extends Module {
             }
             
             if (self.parent.arrest_view_mode == 0) {
-                $(self.getOptions()['targetElement']).html(items.join(""));
+                $('#'+self.getOption('targetElement')).html(items.join(""));
             } else if (self.parent.arrest_view_mode == 1) {
                 $('#arrest_cards').html(items.join(""));
             }
@@ -128,15 +128,16 @@ class DataTable extends Module {
             
             // update incident count title
             var incidentSelector = '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
-            $(incidentSelector).html(data.length + ' Incidents:');
+            var h4Prefix = this.getOption('TitlePrefix') || '';
+            $(incidentSelector).html(h4Prefix + data.length + ' Incidents:');
 
             // if add html elements for each display mode
-            if (self.parent.arrest_view_mode == 0) {
-                $(incidentSelector).after('<table id="'+self.getOptions()['targetElement']+'"></table>');
-                $(self.getOptions()['targetElement']).after('<div id="pagination-control"></div>');
-            } else if (self.parent.arrest_view_mode == 1) {
+            if (self.parent.arrest_view_mode == 1) {
                 $(incidentSelector).after('<div id="arrest_cards"></div>');
                 $('#arrest_cards').after('<div id="pagination-control"></div>');
+            } else {
+                $(incidentSelector).after('<table id="'+self.getOption('targetElement')+'"></table>');
+                $('#'+self.getOption('targetElement')).after('<div id="pagination-control"></div>');
             }
             
             $('#pagination-control').pagination({

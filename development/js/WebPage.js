@@ -15,6 +15,32 @@ class WebPage {
 		this.LoadingBar = new LoadingBarManager();
         this.pageTitle = pageTitle || 'Default';
         
+        this.arrest_view_mode = 0; // 0 = table, 1 = card (Mobile Default)
+		// if mobile use cards
+		if (this.Utilities.mobileCheck()){
+			this.arrest_view_mode = 1;
+            moment.locale('en', {
+                relativeTime : {
+                    future: "in %s",
+                    past:   "%s ago",
+                    s  : 'a few secs',
+                    ss : '%d secs',
+                    m:  "a min",
+                    mm: "%d mins",
+                    h:  "an hr",
+                    hh: "%d hrs",
+                    d:  "a day",
+                    dd: "%d day",
+                    w:  "a wk",
+                    ww: "%d wks",
+                    M:  "a mth",
+                    MM: "%d mths",
+                    y:  "a yr",
+                    yy: "%d yrs"
+                }
+            });
+        }
+        
         // if default hide loading bar parameter is set/true, hide by default
         if(hideLoadingBar){
             this.LoadingBar.hideLoading();
@@ -114,6 +140,20 @@ class WebPage {
             var moduleIDs = Object.keys(this.Modules_HashMap);
             for(var i = 0; i < moduleIDs.length; i++){
                 this.Modules_HashMap[moduleIDs[i]].renderView();
+            }
+        }
+    }
+    
+    // function to return the tooltip attribute html for date display elements
+    // expects [row] parameter, a js object that contains a date property formatted as a string, if it contains T (Date Format to add time)
+    // return type: string
+    getHTMLDateTitleAttribute(row) {
+        if (typeof row !== 'undefined') {
+            if (row.hasOwnProperty('Date')) {
+                return 'title="' + row['Date'].split('T')[0] + '"';
+            } else {
+                console.warn('DetailPage.getHTMLDateTitleAttribute(row) row had no [Date] value. Row = ' + JSON.toString(row));
+                return '';
             }
         }
     }

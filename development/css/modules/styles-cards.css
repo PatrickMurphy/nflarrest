@@ -31,6 +31,14 @@
     left: 5px
 }
 
+.bottom_right_item {
+    font-weight: 700;
+    color: #a9a9a9;
+    position: absolute;
+    bottom: 2px;
+    right: 5px
+}
+
 .crime_item a,
 .team_item a,
 .name_item a {
