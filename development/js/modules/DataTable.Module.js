@@ -202,7 +202,7 @@ class DataTable extends Module {
             var return_text = '<tr>';
             return_text += '<th class="one column">Date:</th>';
             return_text += '<th class="one column">Team:</th>';
-            return_text += '<th class="two columns">Name:</th>';
+            return_text += '<th class="two columns">Player:</th>';
             return_text += '<th class="one column">Crime:</th>';
             return_text += '<th class="four columns">Description:</th>';
             return_text += '<th class="three columns">Outcome:</th>';

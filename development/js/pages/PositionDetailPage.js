@@ -18,7 +18,7 @@ class PositionDetailPage extends DetailPage {
         var tbl = this.getModule(this.DataTable_ModuleID);
         tbl.setRenderRowHeaderFn(() => {
             return '<tr><th class="one column">Date:</th>'
-            + '<th class="two columns">Name:</th>'
+            + '<th class="two columns">Player:</th>'
             + '<th class="two columns">Crime:</th>'
             + '<th class="one column">Team:</th>'
             + '<th class="six columns">Description:</th>'

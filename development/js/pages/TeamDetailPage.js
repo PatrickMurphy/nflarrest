@@ -17,13 +17,20 @@ class TeamDetailPage extends DetailPage {
         
         var tbl = this.getModule(this.DataTable_ModuleID);
         tbl.setRenderRowHeaderFn(() => {
-            return '<tr><th class="one column">Date:</th><th class="two columns">Name:</th><th class="one column">Crime:</th><th class="four columns">Description:</th><th class="four columns">Outcome:</th></tr>';});
+            return '<tr><th class="one column">Date:</th><th class="two columns">Player:</th><th class="one column">Crime:</th><th class="four columns">Description:</th><th class="four columns">Outcome:</th></tr>';});
         tbl.setRenderRowFn((row) => {
             if(typeof row !== 'undefined'){
-                return '<tr><td class="one column" ' + this.getHTMLDateTitleAttribute(row) + '>' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td><td class="two columns">' +
-                    '<a href="Player.html#' + row['Name'] + '">' + row['Name'] + '</a></td>' +
-                    '<td class="one column"><a href="Crime.html#' + row['Category'] + '">' + row['Category'] + '</a>' +
-                    '</td><td class="four columns">' + row['Description'] + '</td><td class="four columns">' + row['Outcome'] + '</td></tr>';
+                return '<tr>' 
+                        + '<td class="one column" ' + this.getHTMLDateTitleAttribute(row) + '>' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>'
+                        + '<td class="two columns">' 
+                            + '<a href="Player.html#' + row['Name'] + '">' + row['Name'] + '</a>'
+                        + '</td>'
+                        + '<td class="one column">'
+                            + '<a href="Crime.html#' + row['Category'] + '">' + row['Category'] + '</a>'
+                        + '</td>'
+                        + '<td class="four columns">' + row['Description'] + '</td>';
+                        + '<td class="four columns">' + row['Outcome'] + '</td>'
+                    + '</tr>';
             }else{ 
                 console.warn('Module DataTable: undefined row rendered');
                 return '';
