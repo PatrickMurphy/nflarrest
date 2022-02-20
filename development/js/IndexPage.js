@@ -36,16 +36,17 @@ class IndexPage extends WebPage {
         
         var tbl = this.getModule(this.DataTable_ModuleID);
         tbl.setRenderRowHeaderFn(() => {
-            return '<tr><th class="one column">Date:</th><th class="two columns">Player:</th><th class="one column">Crime:</th><th class="one column">Team:</th><th class="four columns">Description:</th><th class="three columns">Outcome:</th></tr>';
+            return '<tr><th class="two columns">Date:</th><th class="two columns">Player:</th><th class="two column">Crime:</th><th class="two columns">Team:</th><th class="four columns">Description:</th>/tr>'; //<th class="three columns">Outcome:</th><
         });
         tbl.setRenderRowFn((row) => {
             if (typeof row !== 'undefined') {
-                return '<tr><td class="one column" ' + this.getHTMLDateTitleAttribute(row) + '>' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>' +
+                return '<tr><td class="two columns" ' + this.getHTMLDateTitleAttribute(row) + '>' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>' +
                     '<td class="two columns"><a href="Player.html#' + row['Name'] + '">'+row['Name']+'</a></td>' +
-                    '<td class="one columns"><a href="Crime.html#' + row['Category'] + '">' + row['Category'] + '</a></td>' +
-                    '<td class="one column"><a href="Team.html#' + row['Team'] + '"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -' + (row['Team_logo_id'] * 20) + 'px;background-size:100%;"></span> ' + row['Team'] + '</a></td>' +
-                    '<td class="four columns">' + row['Description'] + '</td>' +
-                    '<td class="three columns">' + row['Outcome'] + '</td></tr>';
+                    '<td class="two columns"><a href="Crime.html#' + row['Category'] + '">' + row['Category'] + '</a></td>' +
+                    '<td class="two columns"><a href="Team.html#' + row['Team'] + '"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -' + (row['Team_logo_id'] * 20) + 'px;background-size:100%;"></span> ' + row['Team'] + '</a></td>' +
+                    '<td class="four columns">' + row['Description'] + '</td>'
+                    // + '<td class="three columns">' + row['Outcome'] + '</td>'
+                    +'</tr>';
             } else {
                 console.warn('Module DataTable: undefined row rendered');
                 return '';
