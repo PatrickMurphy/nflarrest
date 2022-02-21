@@ -114,13 +114,10 @@ class IndexPage extends WebPage {
             //console.log('ERROR: MainChart Not Defined');
         }
     }
-    RenderTeamLinksReset(){
+    RenderTeamLinks(self,data){
         $('#bottomTeamLinks').html('<h4>Teams</h4>');
         $('#bottomTeamLinks').append('<div id="bottomTeamLinksNFC" class="row"><div id="division_NFC_West" class="three columns"><h5>NFC West</h5></div><div id="division_NFC_North" class="three columns"><h5>NFC North</h5></div><div id="division_NFC_South" class="three columns"><h5>NFC South</h5></div><div id="division_NFC_East" class="three columns"><h5>NFC East</h5></div></div>');
         $('#bottomTeamLinks').append('<div id="bottomTeamLinksAFC" class="row"><div id="division_AFC_West" class="three columns"><h5>AFC West</h5></div><div id="division_AFC_North" class="three columns"><h5>AFC North</h5></div><div id="division_AFC_South" class="three columns"><h5>AFC South</h5></div><div id="division_AFC_East" class="three columns"><h5>AFC East</h5></div></div>');
-    }
-    RenderTeamLinks(data){
-        this.RenderTeamLinksReset();
         $.each(data, (key, val) => {
             //var teamlink = this.getPageLink("team", val.Team);
             var page = "team";
