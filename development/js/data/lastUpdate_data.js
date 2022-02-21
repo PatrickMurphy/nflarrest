@@ -1,1 +1,1 @@
-var lastUpdate = "2/21/2022, 6:41:59 AM"; var lastVersion = "2.23.26";
+var lastUpdate = "2/21/2022, 6:42:57 AM"; var lastVersion = "2.23.27";
