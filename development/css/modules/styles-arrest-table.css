@@ -1,10 +1,10 @@
-#arrest_table td {
+#arrest_table tr td {
 	height: 75px;
     padding-left: 2px;
     padding-right -2px;
 }
 
-#arrest_table td, #arrest_table th { /**/
+#arrest_table tr td, #arrest_table tr th {
     border-left: 1px solid rgba(0, 0, 0, 0.1);
 }
 
