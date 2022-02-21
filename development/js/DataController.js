@@ -137,7 +137,12 @@ class DataController {
             }
 		}
         
-        team_items.sort(function(a,b){
+        for(var k = Object.keys(team_items).length - 1; k >= 0; k--){
+            var obj = team_items[Object.keys(team_items)[k]];
+            result.push(obj);
+        }
+        
+        result.sort(function(a,b){
             if(a.Team_Arrest_Count > b.Team_Arrest_Count){
                 return 1;
             }else if(a.Team_Arrest_Count < b.Team_Arrest_Count){
@@ -148,10 +153,6 @@ class DataController {
             }
         });
         
-        for(var k = Object.keys(team_items).length - 1; k >= 0; k--){
-            var obj = team_items[Object.keys(team_items)[k]];
-            result.push(obj);
-        }
 
 		callback(result);
 	}
