@@ -123,7 +123,7 @@ class IndexPage extends WebPage {
             var value = val.Team;
             var teamlink = (page.charAt(0).toUpperCase() + page.slice(1)) + ".html#" + value;
             var listID = '#division_'+val.Team_Conference+'_'+val.Team_Division; //'#bottomTeamLinks';
-            $(listID).append('<a href="' + teamlink + '"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -' + (val.Team_logo_id * 20) + 'px;background-size:100%;"></span> ' + val.Team_preffered_name + '</a> ');
+            $(listID).append('<a href="' + teamlink + '"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -' + (val.Team_logo_id * 20) + 'px;background-size:100%;"></span> ' + val.Team_preffered_name + ' <b>' + val.Team_Arrest_Count + '</b></a> ');
         });
     }
     
