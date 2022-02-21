@@ -93,10 +93,10 @@ class StackedBarChart extends Chart {
                     if (d[1].value > 0) {
                         // Use default rendering
                         return this.getTooltipContent(d, defaultTitleFormat, defaultValueFormat, color);
-                    }// else {
+                    } else {
                         // no render if value less than equal 0
-                        //return '<div>Show what you want</div>';
-                    //}
+                        return '';
+                    }
                 },  
             },
             color: {
