@@ -28,7 +28,7 @@ class TeamDetailPage extends DetailPage {
                         + '<td class="one column">'
                             + '<a href="Crime.html#' + row['Category'] + '">' + row['Category'] + '</a>'
                         + '</td>'
-                        + '<td class="four columns">' + row['Description'] + '</td>';
+                        + '<td class="four columns">' + row['Description'] + '</td>'
                         + '<td class="four columns">' + row['Outcome'] + '</td>'
                     + '</tr>';
             }else{ 

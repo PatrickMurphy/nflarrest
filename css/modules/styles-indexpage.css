@@ -32,6 +32,14 @@
 	cursor: pointer;
 }
 
+#bottomTeamLinks h5 {
+    margin-bottom: 0px;
+}
+
+#bottomTeamLinksAFC h5 {
+    margin-top:12px;
+}
+
 .donate {
     margin-bottom: 0.05rem !important;
 }

@@ -1,5 +1,11 @@
 #arrest_table td {
 	height: 75px;
+    /*padding-left: 2px;
+    padding-right -2px;*/
+}
+
+#arrest_table tr td {
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 #arrest_table tr td:first-child {
