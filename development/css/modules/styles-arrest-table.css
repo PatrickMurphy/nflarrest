@@ -4,7 +4,7 @@
     padding-right -2px;
 }
 
-#arrest_table tr td {
+#arrest_table td {
     border-left: 1px solid rgba(0, 0, 0, 0.1);
 }
 
