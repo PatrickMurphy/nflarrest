@@ -3,6 +3,7 @@ class DataTable extends Module {
     constructor(parent, data, options) {
         super('DataTable', parent, data, (options || {
             targetElement: 'arrest_table',
+            targetElementMobile: 'arrest_cards',
             TitlePrefix: '',
             RowLimit:15,
             GoogleTrackingCategory: 'DetailPageArrests'
@@ -123,7 +124,7 @@ class DataTable extends Module {
                 $('#'+self.getOption('targetElement')).html(items.join(""));
             } else if (self.view_mobile == 1) {
                 // mobile
-                $('#arrest_cards').html(items.join(""));
+                $('#'+self.getOption('targetElementMobile')).html(items.join(""));
             }
         });
         
@@ -140,8 +141,8 @@ class DataTable extends Module {
 
             // if add html elements for each display mode
             if (self.view_mobile == 1) {
-                $(incidentSelector).after('<div id="arrest_cards"></div>');
-                $('#arrest_cards').after('<div id="pagination-control"></div>');
+                $(incidentSelector).after('<div id="'+self.getOption('targetElementMobile')+'"></div>');
+                $('#'+self.getOption('targetElementMobile')).after('<div id="pagination-control"></div>');
             } else {
                 $(incidentSelector).after('<table id="'+self.getOption('targetElement')+'"></table>');
                 $('#'+self.getOption('targetElement')).after('<div id="pagination-control"></div>');
@@ -163,22 +164,9 @@ class DataTable extends Module {
             // notify check Loading Finished
             self.parent.checkLoadingFinished();
 		});
-		self.parent.data_controller.getArrests(filterFunction, callbackData);
         
-        /*
-        var row,
-            items = [];
-
-        items.push(this.renderRowHeader());
-        var pageData = this.data.slice(this.row_limit * this.current_page);
-
-        for (var rowID in pageData) {
-            row = data[rowID];
-            items.push(this.renderRow(row));
-        }
-
-        // display html content
-        $(this.getOptions()['targetElement']).html(items.join(""));*/
+        // TODO: extract to parent
+		self.parent.data_controller.getArrests(filterFunction, callbackData);
     }
     
     setRenderRowHeaderFn(fn){
