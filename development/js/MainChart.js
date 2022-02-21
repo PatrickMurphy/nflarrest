@@ -122,7 +122,7 @@ class MainChart {
         } else if (this.StyleID == 2) {
             this.parent.data_controller.getOverallChart("SeasonState","Season", "Season", "ASC", callback);
         } else if (this.StyleID == 4) {
-            this.parent.data_controller.getOverallChart("Division","Year", "Year", "ASC", callback);
+            this.parent.data_controller.getOverallChart("Team Code","Division", "Division", "ASC", callback);
         }
     }
     /* ---==== End Chart Methods ====--- */
