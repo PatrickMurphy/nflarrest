@@ -144,9 +144,9 @@ class DataController {
         
         result.sort(function(a,b){
             if(a.Team_Arrest_Count > b.Team_Arrest_Count){
-                return 1;
-            }else if(a.Team_Arrest_Count < b.Team_Arrest_Count){
                 return -1;
+            }else if(a.Team_Arrest_Count < b.Team_Arrest_Count){
+                return 1;
             }else{
                 // equal
                 return 0;
