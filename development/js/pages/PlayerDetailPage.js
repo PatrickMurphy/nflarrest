@@ -31,6 +31,11 @@ class PlayerDetailPage extends DetailPage {
                 return '';
             }
         });
+        
+        tbl.setRenderCardFn((row) => {
+            var c = new ArrestCard(this, row);
+            return c.getHTML(c.Dimension_Team, c.Dimension_Crime, c.Dimension_Position);
+        });
         tbl.renderView();
     }
 

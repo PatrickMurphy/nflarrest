@@ -50,7 +50,7 @@ class ArrestCard extends Module {
             data_column: 'Position',
             color: 'Team_hex_color',
             url: 'Position.html',
-            display: 'Position',
+            display: 'position_name',
             color2: 'Team_hex_alt_color',
             useColor2: true
         };
