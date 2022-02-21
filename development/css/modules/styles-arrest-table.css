@@ -2,10 +2,6 @@
 	height: 75px;
 }
 
-#arrest_table tr {
-    border-radius: 5px;
-}
-
 #arrest_table tr td:first-child {
 	padding-left: 7px;
 }
