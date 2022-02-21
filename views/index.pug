@@ -35,8 +35,9 @@ html(lang="en")
           +TopList('Position', true)
           br.clear
           +TopListControlRow
-          br
+          br.clear
         #bottomTeamLinks
           h4 Teams
+        include PageBlocks/ArrestDetailsContainer.pug
       include PageBlocks/mixins/Body_Footer.pug
       +BodyFooter("Index","Index",true)

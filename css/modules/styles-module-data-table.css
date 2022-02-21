@@ -1,0 +1,11 @@
+#module_data_table td {
+	height: 75px;
+}
+
+#module_data_table tr td:first-child {
+	padding-left: 7px;
+}
+
+#module_data_table tr:nth-child(even) {
+	background-color: rgba(0, 0, 0, 0.08);
+}

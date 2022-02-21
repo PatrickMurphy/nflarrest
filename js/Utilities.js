@@ -63,6 +63,7 @@ class Utilities {
 
 	setupTwitter() {
 		//console.log('twitter setup');
+        var self = this;
 		window.twttr = (function (d, s, id) {
 			var js, fjs = d.getElementsByTagName(s)[0],
 				t = window.twttr || {};
@@ -86,7 +87,7 @@ class Utilities {
 				if (intent_event) {
 					var opt_pagePath = window.location.href;
 					if (intent_event.target && intent_event.target.nodeName == 'IFRAME') {
-						opt_pagePath = extractParamFromUri(intent_event.target.src, 'url');
+						opt_pagePath = self.extractParamFromUri(intent_event.target.src, 'url');
 					}
                     this.googleTracking.sendTrackEvent('twitter', 'tweet');
 				}
@@ -118,7 +119,7 @@ class Utilities {
 		var regex = new RegExp('[\\?&#]' + paramName + '=([^&#]*)');
 		var params = regex.exec(uri);
 		if (params != null) {
-			return decodeURI( unescape(params[1]));
+			return decodeURI(unescape(params[1]));
 		}
 		return null;
 	}
@@ -132,7 +133,7 @@ class Utilities {
 	update_hash(prevPageID) {
 		prevPageID = prevPageID || false;
 		var pathParts = window.location.pathname.split("/");
-        var pageID = window.location.hash || extractParamFromUri(window.location.search, "id") || (pathParts.pop() || pathParts.pop()) || '#!ID Not Set';
+        var pageID = window.location.hash || this.extractParamFromUri(window.location.search, "id") || (pathParts.pop() || pathParts.pop()) || '#!ID Not Set';
 		pageID = decodeURI(pageID);
 		pageID = pageID.replace('#!', '');
 		pageID = pageID.replace('#', '');

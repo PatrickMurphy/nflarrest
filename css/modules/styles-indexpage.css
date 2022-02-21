@@ -4,11 +4,15 @@
 	display: inline-block;
 }
 
-#bottomTeamLinks {
+#bottomTeamLinks, #arrest_details_container {
 	border-top: 1px solid rgba(0, 0, 0, 0.15);
 }
 
-#bottomTeamLinks h4 {
+#arrest_details_container {
+    margin-top: .3em;
+}
+
+#bottomTeamLinks h4, #arrest_details_container h4 {
 	color: #6a6a6a;
 	font-weight: 600;
 	padding: 15px 0 0;

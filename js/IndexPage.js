@@ -6,13 +6,15 @@ class IndexPage extends WebPage {
         
         // load page specific css
         this.StyleManager.loadCSS('css/modules/styles-indexpage.css');
+        this.StyleManager.loadCSS('css/vendor/pagination.css');
         
         // define class member variables
-        this.MeterOrRecent = Math.random() > .5; // use arrest meter or most recent arrest card on page bool
+        this.MeterOrRecent = Math.random() > 0.5; // use arrest meter or most recent arrest card on page bool
         this.detail_page_active = true; // option to use detail page or not, always set to true now that they are active
         
         this.DateRangeControl = new DateRangeControl(this);
         this.data_controller = new DataController(this.DateRangeControl, this);
+        this.DataTable_ModuleID = this.addModule(new DataTable(this,[],{targetElement:'arrest_table',TitlePrefix:'Latest ',RowLimit:5,GoogleTrackingCategory:'IndexPageArrests'}));
         this.MainChart = new MainChart(this);
         this.TopLists = new TopLists(this);
         
@@ -32,11 +34,41 @@ class IndexPage extends WebPage {
             $('#bottomTeamLinks').hide();
         }
         
+        var tbl = this.getModule(this.DataTable_ModuleID);
+        tbl.setRenderRowHeaderFn(() => {
+            return '<tr><th class="two columns">Date:</th>'
+                +'<th class="two columns">Player:</th>'
+                +'<th class="two columns">Crime:</th>'
+                +'<th class="one column">Team:</th>'
+                +'<th class="five columns">Description:</th>'
+                +'</tr>'; //<th class="three columns">Outcome:</th>
+        });
+        tbl.setRenderRowFn((row) => {
+            if (typeof row !== 'undefined') {
+                return '<tr><td class="two columns" ' + this.getHTMLDateTitleAttribute(row) + '>' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>' +
+                    '<td class="two columns"><a href="Player.html#' + row['Name'] + '">'+row['Name']+'</a></td>' +
+                    '<td class="two columns"><a href="Crime.html#' + row['Category'] + '">' + row['Category'] + '</a></td>' +
+                    '<td class="one column"><a href="Team.html#' + row['Team'] + '"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -' + (row['Team_logo_id'] * 20) + 'px;background-size:100%;"></span> ' + row['Team'] + '</a></td>' +
+                    '<td class="five columns">' + row['Description'] + '</td>'
+                    // + '<td class="three columns">' + row['Outcome'] + '</td>'
+                    +'</tr>';
+            } else {
+                console.warn('Module DataTable: undefined row rendered');
+                return '';
+            }
+        });
+        tbl.setRenderCardFn((row) => {
+            var c = new ArrestCard(this, row);
+            return c.getHTML(c.Dimension_Crime, c.Dimension_Team,c.Dimension_Player);
+        });
+        tbl.renderView();
+        
         // on user update date range - change date handler
         $('#dateRangeJquery').on('dateRangeChanged', (e) => {
             this.LoadingBar.showLoading();
             this.MainChart.setupChart();
             this.TopLists.reload();
+            this.renderModules();
         });
     }
     
@@ -128,8 +160,8 @@ class IndexPage extends WebPage {
     
     setupRecentArrestCard(d){
         this.data_controller.getMostRecentArrest((row) => {
-            var card = new ArrestCard(this, row,{showName:true,standalone:true});
-            $('#mostRecentArrestCard').html(card.getHTML());
+            var card = new ArrestCard(this, row,{standalone:true});
+            $('#mostRecentArrestCard').html(card.getHTML(card.Dimension_Crime,card.Dimension_Team,card.Dimension_Player));
         });
         
         // display based on random

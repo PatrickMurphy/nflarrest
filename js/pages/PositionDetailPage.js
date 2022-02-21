@@ -14,6 +14,34 @@ class PositionDetailPage extends DetailPage {
             targetElement: '#crimechart',
             title: 'Crimes'
             }], 'api/v1/position/arrests/');
+        
+        var tbl = this.getModule(this.DataTable_ModuleID);
+        tbl.setRenderRowHeaderFn(() => {
+            return '<tr><th class="one column">Date:</th>'
+            + '<th class="two columns">Player:</th>'
+            + '<th class="two columns">Crime:</th>'
+            + '<th class="one column">Team:</th>'
+            + '<th class="six columns">Description:</th>'
+            + '</tr>';});
+        tbl.setRenderRowFn((row) => {
+            if(typeof row !== 'undefined'){
+                return '<tr><td class="one column" '+this.getHTMLDateTitleAttribute(row)+'>' + moment(row['Date'], "YYYY-MM-DD").fromNow() 
+                        + '</td><td class="two columns"><a href="' + this.getPlayerLink(row['Name']) + '">' + row['Name'] 
+                        + '</a></td><td class="two columns"><a href="' + this.getCrimeLink(row['Category']) + '">' + row['Category'] 
+                        + '</a></td><td class="one column"><a href="' + this.getTeamLink(row['Team']) + '">' + row['Team']
+                        + '</a></td><td class="five columns">' + row['Description'] 
+                        + '</td></tr>';
+            }else{ 
+                console.warn('Module DataTable: undefined row rendered');
+                return '';
+            }
+        });
+        
+        tbl.setRenderCardFn((row) => {
+            var c = new ArrestCard(this, row);
+            return c.getHTML(c.Dimension_Player, c.Dimension_Team, c.Dimension_Crime);
+        });
+        tbl.renderView();
     }
 
     changeTitle() {
@@ -43,32 +71,6 @@ class PositionDetailPage extends DetailPage {
             superChange(data[0].Position_name, self);
         });
     }
-
-    // Override DetailPage method
-    renderArrestRowHeader() {
-        return '<tr><th class="one column">Date:</th>'
-            + '<th class="two columns">Name:</th>'
-            + '<th class="two columns">Crime:</th>'
-            + '<th class="one column">Team:</th>'
-            + '<th class="six columns">Description:</th>'
-            + '</tr>';
-    }
-
-    // Override DetailPage method
-    renderArrestRow(row) {
-        return '<tr><td class="one column" '+this.getHTMLDateTitleAttribute(row)+'>' + moment(row['Date'], "YYYY-MM-DD").fromNow() 
-            + '</td><td class="two columns"><a href="' + this.getPlayerLink(row['Name']) + '">' + row['Name'] 
-            + '</a></td><td class="two columns"><a href="' + this.getCrimeLink(row['Category']) + '">' + row['Category'] 
-            + '</a></td><td class="one column"><a href="' + this.getTeamLink(row['Team']) + '">' + row['Team']
-            + '</a></td><td class="five columns">' + row['Description'] 
-            + '</td></tr>';
-    }
-    
-    renderArrestCard(row) {
-        var c = new ArrestCard(this, row);
-        return c.getHTML(c.Dimension_Player, c.Dimension_Team,c.Dimension_Crime);
-    }
-
 }
 
 $(window).load(function () {
