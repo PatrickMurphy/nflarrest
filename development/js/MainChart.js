@@ -122,7 +122,7 @@ class MainChart {
         } else if (this.StyleID == 2) {
             this.parent.data_controller.getOverallChart("SeasonState","Season", "Season", "ASC", callback);
         } else if (this.StyleID == 4) {
-            this.parent.data_controller.getOverallChart("Crime","Division", "Measure", "ASC", callback);
+            this.parent.data_controller.getOverallChart("Crime","Division", "Division", "ASC", callback);
         }
     }
     /* ---==== End Chart Methods ====--- */
