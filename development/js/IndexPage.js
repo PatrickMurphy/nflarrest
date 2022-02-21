@@ -115,12 +115,15 @@ class IndexPage extends WebPage {
     }
     
     RenderTeamLinks(data){
+        $('#bottomTeamLinks').append('<div id="bottomTeamLinksNFC" class="row"><div id="division_NFC_West" class="three columns"></div><div id="division_NFC_North" class="three columns"></div><div id="division_NFC_South" class="three columns"></div><div id="division_NFC_East" class="three columns"></div></div>');
+        $('#bottomTeamLinks').append('<div id="bottomTeamLinksAFC" class="row"><div id="division_AFC_West" class="three columns"></div><div id="division_AFC_North" class="three columns"></div><div id="division_AFC_South" class="three columns"></div><div id="division_AFC_East" class="three columns"></div></div>');
         $.each(data, (key, val) => {
             //var teamlink = this.getPageLink("team", val.Team);
             var page = "team";
             var value = val.Team;
             var teamlink = (page.charAt(0).toUpperCase() + page.slice(1)) + ".html#" + value;
-            $('#bottomTeamLinks').append('<a href="' + teamlink + '"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -' + (val.Team_logo_id * 20) + 'px;background-size:100%;"></span> ' + val.Team_preffered_name + '</a> ');
+            var listID = 'division_'+val.Team_Conference+'_'+val.Team_Division; //'#bottomTeamLinks';
+            $(listID).append('<a href="' + teamlink + '"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -' + (val.Team_logo_id * 20) + 'px;background-size:100%;"></span> ' + val.Team_preffered_name + '</a> ');
         });
     }
     

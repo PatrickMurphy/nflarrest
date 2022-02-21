@@ -122,7 +122,7 @@ class DataController {
 		
 		for (var i = this.data.length - 1; i >= 0; i--) {
             var row = this.data[i];
-			var item = {'Team': row.Team, 'Team_preffered_name': row.Team_preffered_name, 'Team_logo_id': row.Team_logo_id};
+			var item = {'Team': row.Team, 'Team_preffered_name': row.Team_preffered_name, 'Team_logo_id': row.Team_logo_id, 'Team_Conference': row.Team_Conference, 'Team_Division': row.Team_Division, 'Team_Conference_Division': row.Team_Conference_Division};
 		    if(!map.has(item.Team)){
 		        map.set(item.Team, true);    // set any value to Map
 		        result.push(item);
