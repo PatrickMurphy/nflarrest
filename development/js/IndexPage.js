@@ -69,6 +69,7 @@ class IndexPage extends WebPage {
             this.MainChart.setupChart();
             this.TopLists.reload();
             this.renderModules();
+            this.data_controller.getTeams(this.RenderTeamLinks);
         });
     }
     
