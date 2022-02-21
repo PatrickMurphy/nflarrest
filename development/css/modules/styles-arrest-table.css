@@ -1,16 +1,15 @@
-#arrest_table tr td {
+#arrest_table td {
 	height: 75px;
     padding-left: 2px;
     padding-right -2px;
 }
 
 #arrest_table td {
-    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    border-left: 1px solid rgba(0, 0, 0, 0.4);
 }
 
 #arrest_table tr td:first-child {
 	padding-left: 7px;
-    border-left: none;
 }
 
 #arrest_table tr:nth-child(even) {
