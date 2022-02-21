@@ -2,10 +2,12 @@
 	height: 75px;
 }
 
+#arrest_table tr {
+    border-radius: 5px;
+}
+
 #arrest_table tr td:first-child {
 	padding-left: 7px;
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
 }
 
 #arrest_table tr:nth-child(even) {
