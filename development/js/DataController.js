@@ -117,7 +117,7 @@ class DataController {
     }
 
 	getTeams(callback, filterFn){
-        var filterFunction = filterFn || function(row){return this.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd());};
+        var filterFunction = filterFn || (row) => {return this.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd());};
 		var result = [];
         var team_result_id = {}; // team:intpos
         var team_items = {};
