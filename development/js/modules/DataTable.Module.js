@@ -4,7 +4,8 @@ class DataTable extends Module {
         super('DataTable', parent, data, (options || {
             targetElement: 'arrest_table',
             TitlePrefix: '',
-            RowLimit:15
+            RowLimit:15,
+            GoogleTrackingCategory: 'DetailPageArrests'
         }));
 
         this.renderRowFn = undefined;
@@ -35,6 +36,7 @@ class DataTable extends Module {
     getData(){
         return this.data_all;
     }
+    
     validateDataFormat(newData){
         //return Array.isArray(newData);
         // TODO: Fix
@@ -51,7 +53,7 @@ class DataTable extends Module {
                 return a[columnInt] < b[columnInt];
         });
     }
-
+/*
     // ======= Pagination Methods =======
     setPage(intPage) {
         intPage = intPage || this.current_page;
@@ -70,7 +72,7 @@ class DataTable extends Module {
     previousPage() {
         this.current_page--;
     }
-
+*/
     // ======= View Methods =======
     renderView() {
         var self = this;
@@ -100,24 +102,27 @@ class DataTable extends Module {
             // for each data item display row or card
             var items = [];
             
-            // if arrest view desktop add table header rows
-            if (self.parent.arrest_view_mode == 0) {
+            // if desktop add table header rows
+            if (self.view_mobile == 0) {
                 items.push(self.renderRowHeader());
             }
             
+            // add rows or cards
             for (var rowID in data) {
                 var thisDataIndex = data[rowID];
                 var row = self.data_all[thisDataIndex];
-                if (self.parent.arrest_view_mode == 0) {
+                if (self.view_mobile == 0) {
                     items.push(self.renderRow(row));
-                } else if (self.parent.arrest_view_mode == 1) {
+                } else if (self.view_mobile == 1) {
                     items.push(self.renderCard(row));
                 }
             }
             
-            if (self.parent.arrest_view_mode == 0) {
+            if (self.view_mobile == 0) {
+                // desktop
                 $('#'+self.getOption('targetElement')).html(items.join(""));
-            } else if (self.parent.arrest_view_mode == 1) {
+            } else if (self.view_mobile == 1) {
+                // mobile
                 $('#arrest_cards').html(items.join(""));
             }
         });
@@ -134,7 +139,7 @@ class DataTable extends Module {
             $(incidentSelector).html(h4Prefix + data.length + ' Incidents:');
 
             // if add html elements for each display mode
-            if (self.parent.arrest_view_mode == 1) {
+            if (self.view_mobile == 1) {
                 $(incidentSelector).after('<div id="arrest_cards"></div>');
                 $('#arrest_cards').after('<div id="pagination-control"></div>');
             } else {
@@ -146,14 +151,14 @@ class DataTable extends Module {
                 dataSource: Array.from(self.data_all.keys()),
                 callback: paginationTemplateFunc,
                 afterRender: function() {
-                    self.parent.Utilities.googleTracking.sendTrackEvent('DetailPageArrests', 'Change Page');
+                    self.parent.Utilities.googleTracking.sendTrackEvent(self.getOption('GoogleTrackingCategory'), 'Change Page');
                 },
                 autoHidePrevious: true,
                 autoHideNext: true,
                 showNavigator: true,
                 className: 'paginationjs-theme-yellow paginationjs-big',
-                pageSize: self.parent.arrest_view_mode == 0 ? self.getOption('RowLimit') : 5, // 15 for desktop, 5 mobile
-                pageRange: self.parent.arrest_view_mode == 0 ? 2 : 1
+                pageSize: self.view_mobile == 0 ? self.getOption('RowLimit') : 5, // 15 for desktop, 5 mobile
+                pageRange: self.view_mobile == 0 ? 2 : 1
             });
             // notify check Loading Finished
             self.parent.checkLoadingFinished();
@@ -235,11 +240,12 @@ class DataTable extends Module {
     // function to return the tooltip attribute html for date display elements
     // expects [row] parameter, a js object that contains a date property formatted as a string, if it contains T (Date Format to add time)
     // return type: string
-    getHTMLDateTitleAttribute(row){
-        if(row.hasOwnProperty('Date')){
-            return 'title="'+row['Date'].split('T')[0]+'"';
+    getHTMLDateTitleAttribute(row,datecol){
+        var date_column = datecol || 'Date';
+        if(row.hasOwnProperty(date_column)){
+            return 'title="'+row[date_column].split('T')[0]+'"';
         }else{
-            console.error('DataTable Module > getHTMLDateTitleAttribute: Row did not contain [Date].');
+            console.error('DataTable Module > getHTMLDateTitleAttribute: Row did not contain ['+date_column+'].');
         }
     }
     
