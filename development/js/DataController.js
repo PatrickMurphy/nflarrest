@@ -67,7 +67,7 @@ class DataController {
             var janfirst = new Date(new Date().getFullYear(), 0, 1);
             var today = new Date();
             var daysSinceJanFirst = dateDiffInDays(janfirst,today);
-            this.data[i].YearToDateStatus = (daysSinceJanFirst > r.YearToDate) ? '1. Year To Date' : '2. Future Period';
+            this.data[i].YearToDateStatus = (daysSinceJanFirst > r.YearToDate) ? 'Year To Date' : 'Future Period';
         });
     }
     
@@ -325,7 +325,15 @@ class DataController {
 		});
         
         bar_groups = bar_groups.sort((a, b) => {
-          return stacks_count[b] - stacks_count[a];
+            if(stacks_column == 'YearToDate'){
+                if(a == 'Year To Date'){
+                    return 1;
+                }else{
+                    return -1;
+                }
+            }else{
+                return stacks_count[b] - stacks_count[a];
+            }
         });
 
 
