@@ -32,6 +32,7 @@ class DataController {
     // Function called at end of constructor to process the data upon initialization
     PreProcessData(){
         this.PreProcessData_DaysSince();
+        this.PreProcessData_YearToDate();
         this.PreProcessData_SortOrder();
     }
     
@@ -48,6 +49,25 @@ class DataController {
         // for each arrest calc daysSince
         this.forEach((r,i) => {
             this.data[i].DaysSince = dateDiffInDays(new Date(r.Date),new Date());
+        });
+    }
+    
+    // Sub-Function of PreProcess Data - Add/Update each row in data collection to add [YearToDateStatus], boolean for if this record is within last.
+    PreProcessData_YearToDate(){
+        // a and b are javascript Date objects
+		var dateDiffInDays = function(a, b) {
+		  	// Discard the time and time-zone information
+		  	var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+		  	var utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+			return Math.floor((utc2 - utc1) / (1000 * 60 * 60 * 24));
+		};
+        
+        // for each arrest calc daysSince
+        this.forEach((r,i) => {
+            var janfirst = new Date(new Date().getFullYear(), 0, 1);
+            var today = new Date();
+            var daysSinceJanFirst = dateDiffInDays(janfirst,today);
+            this.data[i].YearToDateStatus = (daysSinceJanFirst > r.YearToDate) ? 'Year To Date' : 'Future Period';
         });
     }
     
