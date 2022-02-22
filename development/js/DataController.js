@@ -246,6 +246,7 @@ class DataController {
 		column_values['Month'] = 'Month';
 		column_values['Day'] = 'Day_of_Week';
 		column_values['DayOrder'] = 'Day_of_Week_int';
+		column_values['YearToDate'] = 'YearToDateStatus';
 		column_values['Team'] = 'Team_preffered_name';
 		column_values['Team Code'] = 'Team';
 		column_values['Conference'] = 'Team_Conference';
