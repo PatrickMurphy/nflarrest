@@ -315,7 +315,7 @@ class DataController {
             bar_order.sort((a, b) => {
 		      return a[bar_order_by_column] - b[bar_order_by_column];
 		    });
-        }else if(bar_order_by_column == 'YearToDateStatus'){
+        }else if(stacks_column == 'YearToDateStatus'){
             bar_order.sort((a, b) => {
                 if(a == 'Year To Date'){
                     return 1;
@@ -335,9 +335,9 @@ class DataController {
         bar_groups = bar_groups.sort((a, b) => {
             if(stacks_column == 'YearToDateStatus'){
                 if(a == 'Year To Date'){
-                    return -1;
-                }else{
                     return 1;
+                }else{
+                    return -1;
                 }
             }else{
                 return stacks_count[b] - stacks_count[a];
