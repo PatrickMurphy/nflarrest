@@ -315,7 +315,7 @@ class DataController {
             bar_order.sort((a, b) => {
 		      return a[bar_order_by_column] - b[bar_order_by_column];
 		    });
-        }else if(stacks_column == 'YearToDateStatus'){
+        }else if(stacks_column == '3YearToDateStatus'){ // TODO: fix or remove
             bar_order.sort((a, b) => {
                 if(a == 'Year To Date'){
                     return 1;
