@@ -29,7 +29,7 @@ class IndexPage extends WebPage {
         
         // display team page links
         if(this.detail_page_active){
-            this.data_controller.getTeams(this.RenderTeamLinks);
+            this.data_controller.getTeams((data)=>{this.RenderTeamLinks(data)});
         }else{
             $('#bottomTeamLinks').hide();
         }
@@ -69,7 +69,7 @@ class IndexPage extends WebPage {
             this.MainChart.setupChart();
             this.TopLists.reload();
             this.renderModules();
-            this.data_controller.getTeams(this.RenderTeamLinks);
+            this.data_controller.getTeams((data)=>{this.RenderTeamLinks(data)});
         });
     }
     
