@@ -325,7 +325,7 @@ class DataController {
 		});
         
         bar_groups = bar_groups.sort((a, b) => {
-            if(stacks_column == 'YearToDate'){
+            if(stacks_column == 'YearToDateStatus'){
                 if(a == 'Year To Date'){
                     return -1;
                 }else{
