@@ -122,7 +122,7 @@ class MainChart {
         if (this.StyleID == 0) {
             this.parent.data_controller.getOverallChart("Crime", "Team Code", "Team Code", "DESC", callback);
         } else if (this.StyleID == 1) {
-            this.parent.data_controller.getOverallChart("YearToDate", "Year", "Year", "ASC", callback);
+            this.parent.data_controller.getOverallChart("YearToDate", "Year", "YearToDate", "ASC", callback);
         } else if (this.StyleID == 3) {
             this.parent.data_controller.getOverallChart("Crime", "Day", "DayOrder", "ASC", callback);
         } else if (this.StyleID == 2) {

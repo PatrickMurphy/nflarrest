@@ -315,6 +315,14 @@ class DataController {
             bar_order.sort((a, b) => {
 		      return a[bar_order_by_column] - b[bar_order_by_column];
 		    });
+        }else if(bar_order_by_column == 'YearToDateStatus'){
+            bar_order.sort((a, b) => {
+                if(a == 'Year To Date'){
+                    return 1;
+                }else{
+                    return -1;
+                }
+            });
         }
         
         // build bar groups
