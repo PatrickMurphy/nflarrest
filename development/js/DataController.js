@@ -126,7 +126,7 @@ class DataController {
 		for (var i = this.data.length - 1; i >= 0; i--) {
             var row = this.data[i];
 			if(filterFunction(row)){
-                var item = {'Team': row.Team, 'Team_preffered_name': row.Team_preffered_name, 'Team_logo_id': row.Team_logo_id, 'Team_Conference': row.Team_Conference, 'Team_Division': row.Team_Division, 'Team_Conference_Division': row.Team_Conference_Division, 'Team_Arrest_Count':1};
+                var item = {'Team': row.Team, 'Team_name': row.Team_name, 'Team_preffered_name': row.Team_preffered_name, 'Team_logo_id': row.Team_logo_id, 'Team_Conference': row.Team_Conference, 'Team_Division': row.Team_Division, 'Team_Conference_Division': row.Team_Conference_Division, 'Team_Arrest_Count':1};
                 if(!map.has(row.Team)){
                     map.set(row.Team, 1);    // set any value to Map
                     team_result_id[row.Team] = result.length;
