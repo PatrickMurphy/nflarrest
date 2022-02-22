@@ -118,6 +118,7 @@ class IndexPage extends WebPage {
         $('#bottomTeamLinks').html('<h4>Teams</h4>');
         $('#bottomTeamLinks').append('<div id="bottomTeamLinksNFC" class="row"><div id="division_NFC_West" class="three columns"><h5>NFC West</h5></div><div id="division_NFC_North" class="three columns"><h5>NFC North</h5></div><div id="division_NFC_South" class="three columns"><h5>NFC South</h5></div><div id="division_NFC_East" class="three columns"><h5>NFC East</h5></div></div>');
         $('#bottomTeamLinks').append('<div id="bottomTeamLinksAFC" class="row"><div id="division_AFC_West" class="three columns"><h5>AFC West</h5></div><div id="division_AFC_North" class="three columns"><h5>AFC North</h5></div><div id="division_AFC_South" class="three columns"><h5>AFC South</h5></div><div id="division_AFC_East" class="three columns"><h5>AFC East</h5></div></div>');
+        var self = this;
         $.each(data, (key, val) => {
             //var teamlink = this.getPageLink("team", val.Team);
             var page = "team";
@@ -125,7 +126,7 @@ class IndexPage extends WebPage {
             var teamlink = (page.charAt(0).toUpperCase() + page.slice(1)) + ".html#" + value;
             var listID = '#division_'+val.Team_Conference+'_'+val.Team_Division; //'#bottomTeamLinks';
             var teamLinkDisplay = val.Team_preffered_name;
-            if(this.arrest_view_mode == 1){
+            if(self.arrest_view_mode == 1){
                 teamLinkDisplay = val.Team + ' ' + val.Team_name;
             }
             $(listID).append('<a href="' + teamlink + '"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -' + (val.Team_logo_id * 20) + 'px;background-size:100%;"></span> ' + teamLinkDisplay + ' <b>' + val.Team_Arrest_Count + '</b></a> ');
