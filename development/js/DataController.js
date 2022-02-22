@@ -67,7 +67,7 @@ class DataController {
             var janfirst = new Date(new Date().getFullYear(), 0, 1);
             var today = new Date();
             var daysSinceJanFirst = dateDiffInDays(janfirst,today);
-            this.data[i].YearToDateStatus = (daysSinceJanFirst > r.YearToDate) ? 'Year To Date' : 'Future Period';
+            this.data[i].YearToDateStatus = (daysSinceJanFirst > r.YearToDate) ? '1. Year To Date' : '2. Future Period';
         });
     }
     
