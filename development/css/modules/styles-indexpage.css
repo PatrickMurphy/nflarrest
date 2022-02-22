@@ -59,4 +59,6 @@
     #bottomTeamLinks h5 {
         display: none;
     }
+    
+    #botomTeamLinks a {width: 45%;}
 }
