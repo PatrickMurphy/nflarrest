@@ -9,7 +9,7 @@ mixin JSIncludeScripts(pageType="Default", pageTitle="Team")
         script(src="js/vendor/pagination.min.js")
         script(src='js/data/ArrestsCacheTable_data_array.js' async='')
         script(src="js/compressed/DetailPage.min.js")
-        script(src="js/pages/" + pageTitle + "DetailPage.js")
+        script(src="js/pages/" + (new String(pageTitle).replace(' ','_')) + "DetailPage.js") 
     else if pageType == "Index"
         script(src='js/vendor/d3.min.js' async='')
         script(src='js/vendor/c3.min.js' async='')
