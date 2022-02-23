@@ -55,4 +55,10 @@
         float: none !important;
         margin-right: auto !important;
     }
+    /* hide team links division name if mobile*/
+    #bottomTeamLinks h5 {
+        display: none;
+    }
+    
+    #bottomTeamLinks a {width: 45%;}
 }

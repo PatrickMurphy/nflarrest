@@ -32,6 +32,7 @@ class DataController {
     // Function called at end of constructor to process the data upon initialization
     PreProcessData(){
         this.PreProcessData_DaysSince();
+        this.PreProcessData_YearToDate();
         this.PreProcessData_SortOrder();
     }
     
@@ -48,6 +49,25 @@ class DataController {
         // for each arrest calc daysSince
         this.forEach((r,i) => {
             this.data[i].DaysSince = dateDiffInDays(new Date(r.Date),new Date());
+        });
+    }
+    
+    // Sub-Function of PreProcess Data - Add/Update each row in data collection to add [YearToDateStatus], boolean for if this record is within last.
+    PreProcessData_YearToDate(){
+        // a and b are javascript Date objects
+		var dateDiffInDays = function(a, b) {
+		  	// Discard the time and time-zone information
+		  	var utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+		  	var utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+			return Math.floor((utc2 - utc1) / (1000 * 60 * 60 * 24));
+		};
+        
+        // for each arrest calc daysSince
+        this.forEach((r,i) => {
+            var janfirst = new Date(new Date().getFullYear(), 0, 1);
+            var today = new Date();
+            var daysSinceJanFirst = dateDiffInDays(janfirst,today);
+            this.data[i].YearToDateStatus = (daysSinceJanFirst > r.YearToDate) ? 'Year To Date' : 'Future Period';
         });
     }
     
@@ -126,7 +146,7 @@ class DataController {
 		for (var i = this.data.length - 1; i >= 0; i--) {
             var row = this.data[i];
 			if(filterFunction(row)){
-                var item = {'Team': row.Team, 'Team_preffered_name': row.Team_preffered_name, 'Team_logo_id': row.Team_logo_id, 'Team_Conference': row.Team_Conference, 'Team_Division': row.Team_Division, 'Team_Conference_Division': row.Team_Conference_Division, 'Team_Arrest_Count':1};
+                var item = {'Team': row.Team, 'Team_name': row.Team_name, 'Team_preffered_name': row.Team_preffered_name, 'Team_logo_id': row.Team_logo_id, 'Team_Conference': row.Team_Conference, 'Team_Division': row.Team_Division, 'Team_Conference_Division': row.Team_Conference_Division, 'Team_Arrest_Count':1};
                 if(!map.has(row.Team)){
                     map.set(row.Team, 1);    // set any value to Map
                     team_result_id[row.Team] = result.length;
@@ -226,6 +246,7 @@ class DataController {
 		column_values['Month'] = 'Month';
 		column_values['Day'] = 'Day_of_Week';
 		column_values['DayOrder'] = 'Day_of_Week_int';
+		column_values['YearToDate'] = 'YearToDateStatus';
 		column_values['Team'] = 'Team_preffered_name';
 		column_values['Team Code'] = 'Team';
 		column_values['Conference'] = 'Team_Conference';
@@ -294,6 +315,14 @@ class DataController {
             bar_order.sort((a, b) => {
 		      return a[bar_order_by_column] - b[bar_order_by_column];
 		    });
+        }else if(stacks_column == '3YearToDateStatus'){ // TODO: fix or remove
+            bar_order.sort((a, b) => {
+                if(a == 'Year To Date'){
+                    return 1;
+                }else{
+                    return -1;
+                }
+            });
         }
         
         // build bar groups
@@ -304,7 +333,15 @@ class DataController {
 		});
         
         bar_groups = bar_groups.sort((a, b) => {
-          return stacks_count[b] - stacks_count[a];
+            if(stacks_column == 'YearToDateStatus'){
+                if(a == 'Year To Date'){
+                    return 1;
+                }else{
+                    return -1;
+                }
+            }else{
+                return stacks_count[b] - stacks_count[a];
+            }
         });
 
 
@@ -354,7 +391,7 @@ class DataController {
 		for (var i = this.data.length - 1; i >= 0; i--) {
 			var row = this.data[i];
 			if(this.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd())){
-				crime_map = this.incrementMap(crime_map, row.Category);
+				crime_map = this.incrementMap(crime_map, row.Category); // TODO CrimeCategory: change this
 				player_map = this.incrementMap(player_map, row.Name);
 				position_map = this.incrementMap(position_map, row.Position);
                 position_name_map[row.Position] = row.Position_name;
@@ -363,7 +400,7 @@ class DataController {
 
 		Object.keys(crime_map).forEach((key) => {
 			var obj = {};
-			obj['Category'] = key;
+			obj['Category'] = key;// TODO CrimeCategory: change this
 			obj['arrest_count'] = crime_map[key];
 			crime_arr.push(obj);
 		});
