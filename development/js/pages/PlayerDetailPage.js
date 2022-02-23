@@ -16,15 +16,15 @@ class PlayerDetailPage extends DetailPage {
             }], 'api/v1/player/arrests/');
         
         var tbl = this.getModule(this.DataTable_ModuleID);
-        tbl.setRenderRowHeaderFn(() => {return '<tr><th class="one column">Date:</th><th class="two columns">Player:</th><th class="one column">Crime Category:</th><th class="one column">Team:</th><th class="four columns">Description:</th><th class="three columns">Outcome:</th></tr>';});
+        tbl.setRenderRowHeaderFn(() => {return '<tr><th class="one column">Date:</th><th class="two columns">Player:</th><th class="two columns">Crime Category:</th><th class="one column">Team:</th><th class="four columns">Description:</th><th class="two columns">Outcome:</th></tr>';});
         tbl.setRenderRowFn((row) => {
             if(typeof row !== 'undefined'){
                 return '<tr><td class="one column" '+this.getHTMLDateTitleAttribute(row)+'>' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>'
                         + '<td class="two columns">' + row['Name'] + '</td>'
-                        + '<td class="one columns"><a href="CrimeCategory.html#' + row['Crime_category'] + '">' + row['Crime_category'] + '</a></td>'
+                        + '<td class="two columns"><a href="CrimeCategory.html#' + row['Crime_category'] + '">' + row['Crime_category'] + '</a></td>'
                         + '<td class="one column"><a href="Team.html#' + row['Team'] + '"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -'+(row['Team_logo_id']*20)+'px;background-size:100%;"></span> ' + row['Team'] + '</a></td>'
                         + '<td class="four columns">' + row['Description'] + '</td>'
-                        + '<td class="three columns">' + row['Outcome'] + '</td>'
+                        + '<td class="two columns">' + row['Outcome'] + '</td>'
                         + '</tr>';
             }else{ 
                 console.warn('Module DataTable: undefined row rendered');
