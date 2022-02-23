@@ -95,8 +95,8 @@ class DataTable extends Module {
 					if(row['Category'] != self.parent.pageID){
 						return false;
 					}
-				} else if (self.parent.pageTitle == 'Crime Category') {
-                    if (row['Crime_category'] != self.pageID) {
+				}else if(self.parent.pageTitle == 'Crime Category') {
+                    if (row['Crime_category'] != self.parent.pageID) {
                         return false;
                     }
                 }
