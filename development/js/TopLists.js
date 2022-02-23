@@ -66,7 +66,7 @@ class TopLists {
                 console.warn('no data returned');
             }
 
-            this.load_list(crimes_list, 'crime', 'top_crime_', '#top_crimes_list', ['Category', 'arrest_count'], replace);
+            this.load_list(crimes_list, 'CrimeCategory', 'top_crime_', '#top_crimes_list', ['Crime_category', 'arrest_count'], replace);
             this.load_list(players_list, 'player', 'top_player_', '#top_players_list', ['Name', 'arrest_count'], replace);
             this.load_list(positions_list, 'position', 'top_pos_', '#top_positions_list', ['Position', 'arrest_count','Position_name'], replace);
 

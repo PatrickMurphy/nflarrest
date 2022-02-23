@@ -391,7 +391,7 @@ class DataController {
 		for (var i = this.data.length - 1; i >= 0; i--) {
 			var row = this.data[i];
 			if(this.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd())){
-				crime_map = this.incrementMap(crime_map, row.Category); // TODO CrimeCategory: change this
+				crime_map = this.incrementMap(crime_map, row.Crime_category); // TODO CrimeCategory: change this
 				player_map = this.incrementMap(player_map, row.Name);
 				position_map = this.incrementMap(position_map, row.Position);
                 position_name_map[row.Position] = row.Position_name;
@@ -400,7 +400,7 @@ class DataController {
 
 		Object.keys(crime_map).forEach((key) => {
 			var obj = {};
-			obj['Category'] = key; // TODO CrimeCategory: change this
+			obj['Crime_category'] = key; // TODO CrimeCategory: change this
 			obj['arrest_count'] = crime_map[key];
 			crime_arr.push(obj);
 		});
