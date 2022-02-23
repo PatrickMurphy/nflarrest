@@ -19,7 +19,7 @@ class PositionDetailPage extends DetailPage {
         tbl.setRenderRowHeaderFn(() => {
             return '<tr><th class="one column">Date:</th>'
             + '<th class="two columns">Player:</th>'
-            + '<th class="two columns">Crime:</th>'
+            + '<th class="two columns">Crime Category:</th>'
             + '<th class="one column">Team:</th>'
             + '<th class="six columns">Description:</th>'
             + '</tr>';});

@@ -17,7 +17,7 @@ class TeamDetailPage extends DetailPage {
         
         var tbl = this.getModule(this.DataTable_ModuleID);
         tbl.setRenderRowHeaderFn(() => {
-            return '<tr><th class="one column">Date:</th><th class="two columns">Player:</th><th class="one column">Crime:</th><th class="four columns">Description:</th><th class="four columns">Outcome:</th></tr>';});
+            return '<tr><th class="one column">Date:</th><th class="two columns">Player:</th><th class="one column">Crime Category:</th><th class="four columns">Description:</th><th class="four columns">Outcome:</th></tr>';});
         tbl.setRenderRowFn((row) => {
             if(typeof row !== 'undefined'){
                 return '<tr>' 

@@ -16,7 +16,7 @@ class PlayerDetailPage extends DetailPage {
             }], 'api/v1/player/arrests/');
         
         var tbl = this.getModule(this.DataTable_ModuleID);
-        tbl.setRenderRowHeaderFn(() => {return '<tr><th class="one column">Date:</th><th class="two columns">Player:</th><th class="one column">Crime:</th><th class="one column">Team:</th><th class="four columns">Description:</th><th class="three columns">Outcome:</th></tr>';});
+        tbl.setRenderRowHeaderFn(() => {return '<tr><th class="one column">Date:</th><th class="two columns">Player:</th><th class="one column">Crime Category:</th><th class="one column">Team:</th><th class="four columns">Description:</th><th class="three columns">Outcome:</th></tr>';});
         tbl.setRenderRowFn((row) => {
             if(typeof row !== 'undefined'){
                 return '<tr><td class="one column" '+this.getHTMLDateTitleAttribute(row)+'>' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>'
