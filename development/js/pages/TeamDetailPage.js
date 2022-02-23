@@ -17,7 +17,7 @@ class TeamDetailPage extends DetailPage {
         
         var tbl = this.getModule(this.DataTable_ModuleID);
         tbl.setRenderRowHeaderFn(() => {
-            return '<tr><th class="one column">Date:</th><th class="two columns">Player:</th><th class="one column">Crime Category:</th><th class="four columns">Description:</th><th class="four columns">Outcome:</th></tr>';});
+            return '<tr><th class="one column">Date:</th><th class="two columns">Player:</th><th class="two columns">Crime Category:</th><th class="four columns">Description:</th><th class="three columns">Outcome:</th></tr>';});
         tbl.setRenderRowFn((row) => {
             if(typeof row !== 'undefined'){
                 return '<tr>' 
@@ -25,11 +25,11 @@ class TeamDetailPage extends DetailPage {
                         + '<td class="two columns">' 
                             + '<a href="Player.html#' + row['Name'] + '">' + row['Name'] + '</a>'
                         + '</td>'
-                        + '<td class="one column">'
+                        + '<td class="two columns">'
                             + '<a href="CrimeCategory.html#' + row['Crime_category'] + '">' + row['Crime_category'] + '</a>'
                         + '</td>'
                         + '<td class="four columns">' + row['Description'] + '</td>'
-                        + '<td class="four columns">' + row['Outcome'] + '</td>'
+                        + '<td class="three columns">' + row['Outcome'] + '</td>'
                     + '</tr>';
             }else{ 
                 console.warn('Module DataTable: undefined row rendered');
