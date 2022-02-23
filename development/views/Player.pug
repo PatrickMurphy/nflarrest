@@ -1,7 +1,0 @@
-extends layouts/detailPage-layout.pug
-
-block top_charts
-    include PageBlocks/mixins/TopChart.pug
-    +TopChart("Common Crimes", "crimeschart")
-    +TopChartEmpty
-    +TopChart("Teams Arrested Under", "teamchart")
