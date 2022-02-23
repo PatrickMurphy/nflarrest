@@ -1,10 +1,10 @@
-mixin TopList(listTitle="Position", noBorder = false)
+mixin TopList(listTitle="Position", noBorder = false, pluralSuffix = "s", singularSuffix = "")
   .four.columns.top-list(class={ 'no-border': noBorder == true})
-    h3 Top #{listTitle}s
+    h3 Top #{listTitle + pluralSuffix}
     span.list-heading
-      | #{listTitle}:
+      | #{listTitle + singularSuffix}:
       span # Arrests
-    ol(id="top_"+ listTitle.toLowerCase() + "s_list")
+    ol(id="top_"+ listTitle.toLowerCase() + singularSuffix + "s_list")
     
 mixin TopListControlRow
     .row.control-row
