@@ -38,7 +38,7 @@ class IndexPage extends WebPage {
         tbl.setRenderRowHeaderFn(() => {
             return '<tr><th class="two columns">Date:</th>'
                 +'<th class="two columns">Player:</th>'
-                +'<th class="two columns">Crime:</th>'
+                +'<th class="two columns">Crime Category:</th>'
                 +'<th class="one column">Team:</th>'
                 +'<th class="five columns">Description:</th>'
                 +'</tr>'; //<th class="three columns">Outcome:</th>
