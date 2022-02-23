@@ -47,7 +47,7 @@ class IndexPage extends WebPage {
             if (typeof row !== 'undefined') {
                 return '<tr><td class="two columns" ' + this.getHTMLDateTitleAttribute(row) + '>' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>' +
                     '<td class="two columns"><a href="Player.html#' + row['Name'] + '">'+row['Name']+'</a></td>' +
-                    '<td class="two columns"><a href="Crime.html#' + row['Category'] + '">' + row['Category'] + '</a></td>' +
+                    '<td class="two columns"><a href="CrimeCategory.html#' + row['Crime_category'] + '">' + row['Crime_category'] + '</a></td>' +
                     '<td class="one column"><a href="Team.html#' + row['Team'] + '"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -' + (row['Team_logo_id'] * 20) + 'px;background-size:100%;"></span> ' + row['Team'] + '</a></td>' +
                     '<td class="five columns">' + row['Description'] + '</td>'
                     // + '<td class="three columns">' + row['Outcome'] + '</td>'
@@ -59,7 +59,7 @@ class IndexPage extends WebPage {
         });
         tbl.setRenderCardFn((row) => {
             var c = new ArrestCard(this, row);
-            return c.getHTML(c.Dimension_Crime, c.Dimension_Team,c.Dimension_Player);
+            return c.getHTML(c.Dimension_Crime_Category, c.Dimension_Team,c.Dimension_Player);
         });
         tbl.renderView();
         
@@ -169,7 +169,7 @@ class IndexPage extends WebPage {
     setupRecentArrestCard(d){
         this.data_controller.getMostRecentArrest((row) => {
             var card = new ArrestCard(this, row,{standalone:true});
-            $('#mostRecentArrestCard').html(card.getHTML(card.Dimension_Crime,card.Dimension_Team,card.Dimension_Player));
+            $('#mostRecentArrestCard').html(card.getHTML(card.Dimension_Crime_Category,card.Dimension_Team,card.Dimension_Player));
         });
         
         // display based on random

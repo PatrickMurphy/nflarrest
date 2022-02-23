@@ -26,7 +26,7 @@ class TeamDetailPage extends DetailPage {
                             + '<a href="Player.html#' + row['Name'] + '">' + row['Name'] + '</a>'
                         + '</td>'
                         + '<td class="one column">'
-                            + '<a href="Crime.html#' + row['Category'] + '">' + row['Category'] + '</a>'
+                            + '<a href="CrimeCategory.html#' + row['Crime_category'] + '">' + row['Crime_category'] + '</a>'
                         + '</td>'
                         + '<td class="four columns">' + row['Description'] + '</td>'
                         + '<td class="four columns">' + row['Outcome'] + '</td>'
@@ -39,7 +39,7 @@ class TeamDetailPage extends DetailPage {
         
         tbl.setRenderCardFn((row) => {
             var c = new ArrestCard(this, row);
-            return c.getHTML(c.Dimension_Crime, c.Dimension_Player, c.Dimension_Position);
+            return c.getHTML(c.Dimension_Crime_Category, c.Dimension_Player, c.Dimension_Position);
         });
         tbl.renderView();
     }

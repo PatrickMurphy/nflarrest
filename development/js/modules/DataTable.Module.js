@@ -225,7 +225,7 @@ class DataTable extends Module {
             return_text += '<td class="one column" '+this.getHTMLDateTitleAttribute(row)+'>' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>';
             return_text += '<td class="one column">' + row['Team'] + '</td>';
             return_text += '<td class="two columns"><a href="Player.html#' + row['Name'] + '">' + row['Name'] + '</a></td>';
-            return_text += '<td class="one column"><a href="Crime.html#' + row['Category'] + '">' + row['Category'] + '</a></td>';
+            return_text += '<td class="one column"><a href="CrimeCategory.html#' + row['Crime_category'] + '">' + row['Crime_category'] + '</a></td>';
             return_text += '<td class="four columns">' + row['Description'] + '</td>';
             return_text += '<td class="three columns">' + row['Outcome'] + '</td>';
             return_text += '</tr>';

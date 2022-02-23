@@ -164,6 +164,10 @@ class WebPage {
     }
 
 	getCrimeLink(EntityValue){
+		return this.getDetailPageLink('CrimeCategory', EntityValue);
+	}
+    
+    getCrimeSubCategoryLink(EntityValue){
 		return this.getDetailPageLink('Crime', EntityValue);
 	}
 

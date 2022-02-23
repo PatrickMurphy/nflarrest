@@ -27,7 +27,7 @@ class PositionDetailPage extends DetailPage {
             if(typeof row !== 'undefined'){
                 return '<tr><td class="one column" '+this.getHTMLDateTitleAttribute(row)+'>' + moment(row['Date'], "YYYY-MM-DD").fromNow() 
                         + '</td><td class="two columns"><a href="' + this.getPlayerLink(row['Name']) + '">' + row['Name'] 
-                        + '</a></td><td class="two columns"><a href="' + this.getCrimeLink(row['Category']) + '">' + row['Category'] 
+                        + '</a></td><td class="two columns"><a href="' + this.getCrimeLink(row['Crime_category']) + '">' + row['Crime_category'] 
                         + '</a></td><td class="one column"><a href="' + this.getTeamLink(row['Team']) + '">' + row['Team']
                         + '</a></td><td class="five columns">' + row['Description'] 
                         + '</td></tr>';
@@ -39,7 +39,7 @@ class PositionDetailPage extends DetailPage {
         
         tbl.setRenderCardFn((row) => {
             var c = new ArrestCard(this, row);
-            return c.getHTML(c.Dimension_Player, c.Dimension_Team, c.Dimension_Crime);
+            return c.getHTML(c.Dimension_Player, c.Dimension_Team, c.Dimension_Crime_Category);
         });
         tbl.renderView();
     }
