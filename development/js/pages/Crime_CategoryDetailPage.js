@@ -23,16 +23,16 @@ class CrimeCategoryDetailPage extends DetailPage {
         
         //this.DataTable_ModuleID = this.addModule(new DataTable(this));
         var tbl = this.getModule(this.DataTable_ModuleID);
-        tbl.setRenderRowHeaderFn(() => {return '<tr><th class="one column">Date:</th>' 
+        tbl.setRenderRowHeaderFn(() => {return '<tr><th class="two columns">Date:</th>' 
                                             + '<th class="two columns">Player:</th>'
-                                            + '<th class="three columns">Crime Sub-Category:</th>'
+                                            + '<th class="two columns">Crime Sub-Category:</th>'
                                             + '<th class="one column">Team:</th>'
                                             + '<th class="five columns">Description:</th></tr>';});
         tbl.setRenderRowFn((row) => {
             if(typeof row !== 'undefined'){
-                return '<tr><td class="one column" '+this.getHTMLDateTitleAttribute(row)+'>' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>' //'+this.getHTMLDateTitleAttribute(row)+'
+                return '<tr><td class="two columns" '+this.getHTMLDateTitleAttribute(row)+'>' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>' //'+this.getHTMLDateTitleAttribute(row)+'
                     + '<td class="two columns"><a href="' + this.getPlayerLink(row['Name']) + '">' + row['Name'] + '</a></td>' // getDimensionLink methods from webpage.js 
-                    + '<td class="three columns"><a href="' + this.getCrimeSubCategoryLink(row['Category']) + '">' + row['Category'] + '</a></td>'
+                    + '<td class="two columns"><a href="' + this.getCrimeSubCategoryLink(row['Category']) + '">' + row['Category'] + '</a></td>'
                     + '<td class="one column"><a href="' + this.getTeamLink(row['Team']) + '">'
                         + '<span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;'
                             +'background:url(\'images/NFLTeamLogos.png\') 0px -'+(row['Team_logo_id']*20)+'px;background-size:100% !important;"></span>'
