@@ -129,6 +129,10 @@ class DetailPage extends WebPage {
                 if (row['Category'] != self.pageID) {
                     return false;
                 }
+            } else if (self.pageTitle == 'Crime Category' && param == 'Category'){ 
+                if (row['Crime_category'] != self.pageID || (row['Category'] == self.pageID && row['Crime_category'] == self.pageID)){
+                    return false;
+                }
             } else if (self.pageTitle == 'Crime Category') {
                 if (row['Crime_category'] != self.pageID) {
                     return false;

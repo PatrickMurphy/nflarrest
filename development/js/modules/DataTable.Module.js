@@ -95,7 +95,12 @@ class DataTable extends Module {
 					if(row['Category'] != self.parent.pageID){
 						return false;
 					}
-				}
+				} else if (self.pageTitle == 'Crime Category') {
+                    if (row['Crime_category'] != self.pageID) {
+                        return false;
+                    }
+                }
+            
 				return true;
 			});
         
@@ -167,6 +172,10 @@ class DataTable extends Module {
         
         // TODO: extract to parent
 		self.parent.data_controller.getArrests(filterFunction, callbackData);
+    }
+    
+    setDataFilterFn(fn){
+        this.displayDataFilterFn = fn;
     }
     
     setRenderRowHeaderFn(fn){

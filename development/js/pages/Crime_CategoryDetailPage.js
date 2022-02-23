@@ -12,7 +12,7 @@ class CrimeCategoryDetailPage extends DetailPage {
             url: 'api/v1/crime/topPositions/',
             field: 'Category',
             targetElement: '#crimechart',
-            title: 'Crimes'
+            title: 'Sub Crimes'
             }, {
             type: 'donut',
             url: 'api/v1/crime/topPlayers/',
