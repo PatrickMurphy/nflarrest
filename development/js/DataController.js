@@ -400,7 +400,7 @@ class DataController {
 
 		Object.keys(crime_map).forEach((key) => {
 			var obj = {};
-			obj['Category'] = key;// TODO CrimeCategory: change this
+			obj['Category'] = key; // TODO CrimeCategory: change this
 			obj['arrest_count'] = crime_map[key];
 			crime_arr.push(obj);
 		});

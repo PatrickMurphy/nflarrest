@@ -62,12 +62,21 @@ class ArrestCard extends Module {
             url: 'Crime.html',
             display: 'Category'
         };
+        this.dimensions['CrimeCategory'] = {
+            dimension_id: 4,
+            dimension_name: 'Crime Category',
+            data_column: 'Crime_category',
+            color: 'Crime_category_color',
+            url: 'CrimeCategory.html',
+            display: 'Crime_category'
+        };
         
         // shortcuts
         this.Dimension_Team = this.dimensions['Team'];
         this.Dimension_Player = this.dimensions['Player'];
         this.Dimension_Position = this.dimensions['Position'];
         this.Dimension_Crime = this.dimensions['Crime'];
+        this.Dimension_Crime_Category = this.dimensions['CrimeCategory'];
     }
     
     getHTML(col1,col2,detail_column2,detail_column){
