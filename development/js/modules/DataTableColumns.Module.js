@@ -71,7 +71,7 @@ class DataTableColumns extends Module {
             return_text += '<'+colElementType + this.renderColumnAttributes(optCol) + '>'; // start th tag
             // TODO: add custom display option to append cols etc
             if(displayTypeRowBool){
-                return_text += row[optCol.column_data]; // row
+                return_text += optCol.hasOwnProperty('column_display_fn') ? optCol.column_display_fn(row) : row[optCol.column_data]; // row
             }else{
                 return_text += optCol.column_title; // header
             }
