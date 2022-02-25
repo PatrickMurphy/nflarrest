@@ -28,7 +28,7 @@ class DataTable extends Module {
         this.displayDataCallbackFn = undefined;
         
         if(this.getOptionExists('columns')){
-            this.DataTableColumns = new DataTable(this,this.getOption('columns'),{columns: this.getOption('columns')});
+            this.DataTableColumns = new DataTableColumns(this,this.getOption('columns'),{columns: this.getOption('columns')});
         }else{
             this.DataTableColumns = undefined;
         }
