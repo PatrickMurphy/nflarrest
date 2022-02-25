@@ -79,7 +79,7 @@ class IndexPage extends WebPage {
         }
         
         var tbl = this.getModule(this.DataTable_ModuleID);
-        tbl.setRenderRowHeaderFn(() => {
+        /*tbl.setRenderRowHeaderFn(() => {
             return '<tr><th class="two columns">Date:</th>'
                 +'<th class="two columns">Player:</th>'
                 +'<th class="two columns">Crime Category:</th>'
@@ -100,7 +100,7 @@ class IndexPage extends WebPage {
                 console.warn('Module DataTable: undefined row rendered');
                 return '';
             }
-        });
+        });*/
         tbl.setRenderCardFn((row) => {
             var c = new ArrestCard(this, row);
             return c.getHTML(c.Dimension_Crime_Category, c.Dimension_Team,c.Dimension_Player);
