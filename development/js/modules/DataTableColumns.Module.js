@@ -34,7 +34,7 @@ class DataTableColumns extends Module {
                 var tmpInt = parseInt(optCol['column_width']);
                 if(tmpInt > 0 && tmpInt <= 12){
                     return_text += this.convertIntToWord(tmpInt);
-                    return_text += 'column';
+                    return_text += ' column';
                     if(tmpInt > 1){
                         return_text += 's'; // add pluaral
                     }
