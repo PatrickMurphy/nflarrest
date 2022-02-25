@@ -8,6 +8,17 @@ class DataTable extends Module {
             RowLimit:15,
             GoogleTrackingCategory: 'DetailPageArrests'
         }));
+        /* ===== - Options columns template
+            {columns: [
+                {
+                    column_id: 0,
+                    column_title: 'Column Name',
+                    column_data: 'col',
+                    column_classes: '',
+                    column_width: 2
+                }
+            ]}
+        */
 
         this.renderRowFn = undefined;
         this.renderRowHeaderFn = undefined;
@@ -15,6 +26,12 @@ class DataTable extends Module {
         this.displayDataFilterFn = undefined;
         this.displayPaginationTemplateFn = undefined;
         this.displayDataCallbackFn = undefined;
+        
+        if(this.getOptionExists('columns')){
+            this.DataTableColumns = new DataTable(this,this.getOption('columns'),{columns: this.getOption('columns')});
+        }else{
+            this.DataTableColumns = undefined;
+        }
         
         this.data_all = data;
 
@@ -185,10 +202,114 @@ class DataTable extends Module {
     setRenderRowFn(fn){
         this.renderRowFn = fn;
     }
+    
     setRenderCardFn(fn){
         this.renderCardFn = fn;
     }
+    /*
+    renderColumnAttributes(optCol){
+        return this.renderColumnAttributeClass(optCol);    
+    }
 
+    renderColumnAttributeClass(optCol){
+        var return_text = "";
+        if(optCol.hasOwnProperty('column_width') || optCol.hasOwnProperty('column_classes')){
+            return_text += ' class="'; // start class attribute
+            if(optCol.hasOwnProperty('column_width')){
+                var tmpInt = parseInt(optCol['column_width']);
+                if(tmpInt > 0 && tmpInt <= 12){
+                    // TODO: move to util class
+                    var tmpIntToWords = (n) => {
+                        var nums = "zero one two three four five six seven eight nine ten eleven twelve".split(" ");
+                        if (n <= 12){
+                            return nums[n];
+                        }else{
+                            return nums[12];
+                        }
+                    };
+                    return_text += 'column';
+                    if(tmpInt > 1){
+                        return_text += 's'; // add pluaral
+                    }
+                }else{
+                    // column width did not parse between expected range, default 1 col
+                    return_text += 'one column';   
+                }
+            }else{
+                // if column_width not set, default 1 col
+                return_text += 'one column';
+            }
+
+            // if column_classes set include
+            if(optCol.hasOwnProperty('column_classes')){
+                return_text += ' ' + optCol['column_classes'];
+            }
+            return_text += '"'; // end class attribute
+        }
+        return return_text;
+    }
+    
+    renderColumns(row, displayType){
+        displayType = displayType || 'row';
+        var displayTypeRowBool = displayType == 'row';
+        var colList = this.getOption('columns');
+        var colElementType = displayTypeRowBool ? 'td' : 'th';
+        
+        // start row element
+        var return_text = '<tr>';
+        // for each column element
+        for(var i = 0; i < colList.length; i++){
+            var optCol = colList[i];
+
+            // add column td/th elemnent
+            return_text += '<'+colElementType; // start th tag
+            // if has column width or classes set, create class attribute
+            /*if(optCol.hasOwnProperty('column_width') || optCol.hasOwnProperty('column_classes')){
+                return_text += ' class="'; // start class attribute
+                if(optCol.hasOwnProperty('column_width')){
+                    var tmpInt = parseInt(optCol['column_width']);
+                    if(tmpInt > 0 && tmpInt <= 12){
+                        var tmpIntToWords = (n) => {
+                            var nums = "zero one two three four five six seven eight nine ten eleven twelve".split(" ");
+                            if (n <= 12){
+                                return nums[n];
+                            }else{
+                                return nums[12];
+                            }
+                        };
+                        return_text += 'column';
+                        if(n > 1){
+                            return_text += 's'; // add pluaral
+                        }
+                    }else{
+                        // column width did not parse between expected range, default 1 col
+                        return_text += 'one column';   
+                    }
+                }else{
+                    // if column_width not set, default 1 col
+                    return_text += 'one column';
+                }
+
+                // if column_classes set include
+                if(optCol.hasOwnProperty('column_classes')){
+                    return_text += ' ' + optCol['column_classes'];
+                }
+                return_text += '"'; // end class attribute
+            } * / // broke this comment
+            return_text += this.renderColumnAttributes(optCol);
+            
+            return_text += '>'; // end th tag start
+            if(displayTypeRowBool){
+                return_text += row[optCol.column_data];
+            }else{
+                return_text += optCol.column_title;
+            }
+            return_text += '</'+colElementType+'>';
+        }
+        return_text += '</tr>';
+        return return_text;
+    }
+    */
     renderCard(row){
         if(this.renderCardFn){
             return this.renderCardFn(row);
@@ -201,8 +322,14 @@ class DataTable extends Module {
     // should be overloaded
     renderRowHeader() {
         if(this.renderRowHeaderFn){
+            // if render row header override function set then use that to render table header row
             return this.renderRowHeaderFn();
+        } else if (this.DataTableColumns){
+            // if options columns set then use that to render table header row
+            return this.DataTableColumns.renderRowColumns('header');
         }else{
+            // use default columns otherwise
+            // TODO: Remove this direct reference to arrests, replace with generate column definition from data supplied
             var return_text = '<tr>';
             return_text += '<th class="one column">Date:</th>';
             return_text += '<th class="one column">Team:</th>';
@@ -219,8 +346,14 @@ class DataTable extends Module {
     // should be overloaded
     renderRow(row) {
         if(this.renderRowFn){
+            // if render row override function set then use that to render table row
             return this.renderRowFn(row);
+        } else if (this.DataTableColumns){
+            // if options columns set then use that to render table row
+            return this.DataTableColumns.renderRowColumns(row);
         }else{
+            // use default columns otherwise
+            // TODO: Remove this direct reference to arrests, replace with generate column definition from data supplied
             var return_text = '<tr>';
             return_text += '<td class="one column" '+this.getHTMLDateTitleAttribute(row)+'>' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>';
             return_text += '<td class="one column">' + row['Team'] + '</td>';
