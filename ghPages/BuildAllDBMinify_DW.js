@@ -10,6 +10,7 @@ var mysqldump = require('mysqldump');
 var dbConfig = require('./dbconfig');
 var shell = require('shelljs');
 var BuildPUGViews = require('./BuildPUGViews');
+var BuildFileDiffModule = require('./BuildFileDiffModule');
 
 // --- Setup imported objects --- //
 var git = simple_git('./nflarrest/');
@@ -62,6 +63,9 @@ var runOption_publish_mode_Update = false;
 var runOption_Commit_Message_Flag = false;
 var runOption_Release_Flag = false;
 var runOption_Skip_Questions = false;
+var runOption_Skip_Screenshot = false;
+var runOption_Skip_USAToday = false;
+var runOption_migrate_files_prod = false;
 
 // --- User Input Variables --- //
 var runOption_UserInput_Version = 'x.x.x';
@@ -90,6 +94,9 @@ var mysqldump_path = '../Database/backup/lastGHPagesUpdateDump.sql';
 var cacheUglifyJSFileName1 = "./cacheJSMinifyNamesIndex.json";
 var cacheUglifyJSFileName2 = "./cacheJSMinifyNamesDetailPage.json";
 var JS_filenames_index = ['js/LoadingBarManager.js',
+    'js/modules/Module.Module.js',
+    'js/modules/DataTable.Module.js',
+    'js/modules/DataTableColumns.Module.js',
     'js/modules/ArrestCard.Module.js',
     'js/data/lastUpdate_data.js',
     'js/DataController.js',
@@ -99,6 +106,7 @@ var JS_filenames_index = ['js/LoadingBarManager.js',
     'js/charts/Chart.js',
     'js/IndexPage.js',
     'js/TopLists.js',
+    'js/MainChart.js',
     'js/charts/stackedBarChart.js',
     'js/DateRangeControl.js',
     'js/StyleSheetManager.js'
@@ -117,8 +125,11 @@ var JS_filenames_detail = [
     'js/FiltersControl.js',
     'js/charts/Chart.js',
     'js/charts/DonutChart.js',
-    'js/data/lastUpdate_data.js',
+    'js/modules/Module.Module.js',
+    'js/modules/DataTable.Module.js',
+    'js/modules/DataTableColumns.Module.js',
     'js/modules/ArrestCard.Module.js',
+    'js/data/lastUpdate_data.js',
     'js/DataController.js',
     'js/charts/timeSeriesChart.js',
     'js/DateRangeControl.js',
@@ -144,7 +155,19 @@ var CSS_filenames = ['css/styles-modular.css',
 // any files that are new that have not been added to production environment, these files need to be moved to production before prod release
 var CSS_filenames_development = [];
 
+var Expected_Build_Change_FileList = [
+    'development/js/compressed/DetailPage.min.js',
+    'development/js/compressed/index.min.js',
+    'development/js/data/ReleaseHistory_data.js',
+    'development/js/data/lastUpdate_data.js',
+    'js/compressed/DetailPage.min.js',
+    'js/compressed/index.min.js',
+    'js/data/ReleaseHistory_data.js',
+    'js/data/lastUpdate_data.js'];
+
 var BuildPug = new BuildPUGViews('views/',getEnvPath);
+var BuildFileDiff = new BuildFileDiffModule();
+BuildFileDiff.init();
 
 function main_is_development_env() {
     return runOption_Environment_Details_enum[runOption_Environment].Environment === 'development';
@@ -249,6 +272,20 @@ function getLatestVersion(mysql2, callback) {
     });
 };
 
+function getVersionString(r){
+    if (main_is_development_env()) {
+            if (runOption_Release_Flag) {
+                r.version_revision = r.version_revision + 1;
+            } else {
+                r.version_revision = r.version_revision + 1;
+            }
+        } else {
+            r.version_minor = r.version_minor + 1;
+            r.version_revision = 0;
+        }
+    return versionObjToString(r);
+}
+
 function versionObjToString(versionObj) {
     return versionObj.version_major + '.' + versionObj.version_minor + '.' + versionObj.version_revision;
 }
@@ -282,9 +319,9 @@ function insertBuildRelease(mysql, desc, version) {
     var reldate = new Date();
     var build_release_version = version || runOption_UserInput_Version;
     var build_release_type_id = 1;
-
+    // 1 = Prod Publish, 2=Dev Release, 3 = dev publish, 4 = Prod Release, 5 = Development Local Build (no publish or commit)
     if (main_is_development_env()) {
-        build_release_type_id = runOption_Release_Flag ? 2 : 3;
+        build_release_type_id = (runOption_publish_Flag ? (runOption_Release_Flag ? 2 : 3) : 5);
     }
 
     var release = {
@@ -305,15 +342,23 @@ function insertBuildRelease(mysql, desc, version) {
         insertBuildReleaseDetail(mysql, results2.insertId, runOption_Release_Detail_Types_enum.FileChangeCount, runVariables_GitStatus_Files.length);
         insertBuildReleaseDetail(mysql, results2.insertId, runOption_Release_Detail_Types_enum.ArrestCount, runVariables_ArrestCount);
         for (var i = 0; i < runVariables_GitStatus_Files.length; i++) {
-            insertBuildReleaseDetail(mysql, results2.insertId, runOption_Release_Detail_Types_enum.FileChangedPath, runVariables_GitStatus_Files[i].path);
+            if(Expected_Build_Change_FileList.indexOf(runVariables_GitStatus_Files[i].path) < 0){
+                // if not in expected file list add detail
+                insertBuildReleaseDetail(mysql, results2.insertId, runOption_Release_Detail_Types_enum.FileChangedPath, runVariables_GitStatus_Files[i].path);
+            }
         }
-
-        insertBuildReleaseDetailCommit(mysql, results2.insertId);
+        
+        if(build_release_type_id != 5){
+            insertBuildReleaseDetailCommit(mysql, results2.insertId);
+        }else{
+            mysql.end();
+        }
     });
 }
 
 // insert a release detail to sql, given release id, detail type and a value
-function insertBuildReleaseDetail(mysql, releaseID, detailType, val) {
+function insertBuildReleaseDetail(mysql, releaseID, detailType, val, callback) {
+    var afterFn = callback || function(){};
     var release = {
         build_release_id: releaseID,
         build_release_detail_type_id: detailType,
@@ -326,14 +371,14 @@ function insertBuildReleaseDetail(mysql, releaseID, detailType, val) {
             console.log(error2);
         }
         console.log("Success::     MYSQL INSERT Build " + runOption_Release_Detail_Types_Names_enum[detailType - 1] + " Release Detail::  InsertID: " + results2.insertId);
-
+        afterFn();
     });
 }
 
 // get the most recent commit and insert into db
 function insertBuildReleaseDetailCommit(mysql, build_release_id) {
     git.revparse(['HEAD'], function (err, mostRecentCommitHash) {
-        insertBuildReleaseDetail(mysql, build_release_id, runOption_Release_Detail_Types_enum.CommitHash, mostRecentCommitHash);
+        insertBuildReleaseDetail(mysql, build_release_id, runOption_Release_Detail_Types_enum.CommitHash, mostRecentCommitHash, ()=>{mysql.end();});
     });
 }
 
@@ -510,11 +555,31 @@ function readCacheJSMinifyNames(filename, firstRun) {
 
 
 // ------- Publish (GIT) Functions ------- //
-function checkPublish(mysql) {
+async function checkPublish(mysql) {
+    var useEnvironmentPath = true;
+    await getGitFileStatus(useEnvironmentPath); // use environment specific path to limit file changes to dev when  
+    
     if (runOption_publish_Flag) {
         promptConfirmPublish(mysql);
     } else {
-        console.log("GIT:          Not Publishing (tip: add arg 'publish' to publish)");
+        var addAllPath = '.';
+        if (runOption_Environment == runOption_Environment_Names_enum.indexOf("development")) {
+            addAllPath += runOption_Environment_Details_enum[runOption_Environment].path;
+            git.add(addAllPath, function (p1, p2, p3) {
+                console.log('GIT File Add: all changes local build');
+                var datenow = new Date();
+                var theMsg = runOption_Commit_Message_Flag ? runOption_UserInput_Commit_MSG : "Local Build";
+                var hours = datenow.getHours() > 9 ? datenow.getHours() : "0" + datenow.getHours();
+                var mins = datenow.getMinutes() > 9 ? datenow.getMinutes() : "0" + datenow.getMinutes();
+                var date = datenow.toLocaleDateString('en-US');
+                var env = runOption_Environment_Details_enum[runOption_Environment].Environment;
+                var msg = `BUILD ${env} Local ${runOption_UserInput_Version}: ${theMsg} || ${date} ${hours}:${mins}`;
+                git.commit(msg, function () {
+                    insertBuildRelease(mysql, msg, runOption_UserInput_Version);
+                });
+                console.log("GIT:          Not Publishing (tip: add arg 'publish' to publish)");
+            });
+        }
     }
 }
 
@@ -553,6 +618,8 @@ function read_input_commit_msg() {
         var answer2 = readlinesync.question("GIT:          Commit Message: ");
         if (answer2 === "no" || answer2 === 'quit') {
             console.log("GIT:          Not Publishing");
+            return "No Commit Message, ABORT publish.";
+            // TODO: Test if saying no or quit needs a mysql end after it or not
         } else {
             console.log("GIT:          Commit Message set to: " + answer2);
             return answer2;
@@ -562,7 +629,6 @@ function read_input_commit_msg() {
 
 async function promptConfirmPublish(mysql) {
     var useEnvironmentPath = true;
-    await getGitFileStatus(useEnvironmentPath); // use environment specific path to limit file changes to dev when  
 
     runOption_UserInput_Version = read_input_version();
 
@@ -577,6 +643,7 @@ async function promptConfirmPublish(mysql) {
         publishGHPages(mysql);
     } else { // said no to publish
         console.log("GIT:          Not Publishing");
+        mysql.end();
     }
 }
 
@@ -632,6 +699,7 @@ function publishGHPages(mysql) {
 }
 
 function ifFileChangedAdd(filePath, arr) {
+    arr = arr || [];
     var isChangedRes = gitStatus_Files_Contains(runOption_Environment_Details_enum[runOption_Environment].path.substring(1) + filePath);
     if (isChangedRes >= 0) {
         return arr.push(runVariables_GitStatus_Files[isChangedRes]);
@@ -700,7 +768,10 @@ process.argv.forEach(function (val, index, array) {
         console.log('Run Option Set: Publish Flag = True');
         runOption_publish_Flag = true;
     }
-
+    if (val === "migrate") {
+        console.log('Run Option Set: Migrate Files Prod = True');
+        runOption_migrate_files_prod = true;
+    }
     if (val === "release") {
         console.log('Run Option Set: Release Flag = True');
         console.log('Run Option Set: Commit Message Flag = True');
@@ -710,6 +781,14 @@ process.argv.forEach(function (val, index, array) {
     if (val === "skip") {
         console.log('Run Option Set: Skip = True');
         runOption_Skip_Questions = true;
+    }
+    if (val === "skip-ss" || val == "skip-screenshot") {
+        console.log('Run Option Set: Skip ScreenShot = True');
+        runOption_Skip_Screenshot = true;
+    }
+    if (val === "skip-usatoday" || val == "skip-usa") {
+        console.log('Run Option Set: Skip USA Today Check = True');
+        runOption_Skip_USAToday = true;
     }
     if (val === "only-js") {
         console.log('Run Option Set: Minfiy Only JS = True');
@@ -818,12 +897,38 @@ function main_mysql_dump_db(mysql_connection, callback) {
 
 // if release set display file diff between prod and dev folders
 function main_runNode_BuildFileDiff(mysql_connection, callback) {
-    if (runOption_Release_Flag) {
-        console.log('Files Modified in Development, not reflected in Production: ');
-        runNode("BuildFileDiff.js", function () {
+    console.log('Files Modified in Development, not reflected in Production: ');
+    /*runNode("BuildFileDiff.js", function () {
+        callback();
+    }, nodeCB);*/
+    
+    if(runOption_migrate_files_prod){
+        BuildFileDiff.moveFiles(BuildFileDiff.getChanges(), true, callback);
+    }else{
+        BuildFileDiff.displayFileChanges(BuildFileDiff.getChanges(), callback);
+    }
+}
+
+// if release set display file diff between prod and dev folders
+function main_runNode_USADiff(mysql_connection, callback) {
+    console.log('DB Diff from USA Today: ');
+        if(!runOption_Skip_USAToday){
+        runNode("latestUSATodayArrest.js", function () {
             callback();
         }, nodeCB);
-    } else {
+    }else{
+        callback();
+    }
+}
+
+// screen shot
+function main_runNode_ScreenshotDev(mysql_connection, callback) {
+    if(!runOption_Skip_Screenshot){
+        console.log('Screenshot Changes: ');
+        runNode("screenshotDev.js", function () {
+            callback();
+        }, nodeCB);
+    }else{
         callback();
     }
 }
@@ -834,6 +939,7 @@ function main() {
     console.log('Begin Main ----------------------');
     console.log("ENVIRONMENT:    " + runOption_Environment_Details_enum[runOption_Environment].Environment);
 
+    // =========== SETUP MYSQL =======================
     var mysql_connection = mysql.createConnection({
         host: mysql_user_options.host,
         user: mysql_user_options.user,
@@ -846,27 +952,25 @@ function main() {
     mysql_connection.on('error', function (err) {
         console.log("[mysql error]", err);
     });
+    // =========== END SETUP MYSQL ===================
     
+    // =========== BUILD PUG =========================
     BuildPug.exportPUGViews();
+    // =========== END BUILD PUG =====================
 
+    
     getLatestVersion(mysql_connection, function (r) {
-        if (main_is_development_env()) {
-            if (runOption_Release_Flag) {
-                r.version_revision = r.version_revision + 1;
-            } else {
-                r.version_revision = r.version_revision + 1;
-            }
-        } else {
-            r.version_minor = r.version_minor + 1;
-            r.version_revision = 0;
-        }
-        runOption_UserInput_Version = versionObjToString(r);
+        runOption_UserInput_Version = getVersionString(r);
         main_mysql_stored_procs(mysql_connection, function () {
             main_mysql_cache_data(mysql_connection, function () {
                 main_minify_files(mysql_connection, function () {
                     main_mysql_dump_db(mysql_connection, function () {
                         main_runNode_BuildFileDiff(mysql_connection, function () {
-                            checkPublish(mysql_connection);
+                            main_runNode_USADiff(mysql_connection, function () {
+                                main_runNode_ScreenshotDev(mysql_connection, function () {
+                                    checkPublish(mysql_connection);
+                                });
+                            });
                         });
                     });
                 });
