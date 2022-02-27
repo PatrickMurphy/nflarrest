@@ -147,14 +147,17 @@ class WebPage {
     // function to return the tooltip attribute html for date display elements
     // expects [row] parameter, a js object that contains a date property formatted as a string, if it contains T (Date Format to add time)
     // return type: string
-    getHTMLDateTitleAttribute(row) {
+    getHTMLDateTitleAttribute(row,datecol) {
         if (typeof row !== 'undefined') {
-            if (row.hasOwnProperty('Date')) {
-                return 'title="' + row['Date'].split('T')[0] + '"';
+            var date_column = datecol || 'Date';
+            if(row.hasOwnProperty(date_column)) {
+                return 'title="' + row[date_column].split('T')[0] + '"';
             } else {
-                console.warn('DetailPage.getHTMLDateTitleAttribute(row) row had no [Date] value. Row = ' + JSON.toString(row));
+                console.error('WebPage > getHTMLDateTitleAttribute: Row did not contain ['+date_column+'].');
                 return '';
             }
+        } else {
+            return '';
         }
     }
     

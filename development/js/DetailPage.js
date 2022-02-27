@@ -79,10 +79,11 @@ class DetailPage extends WebPage {
     // optional [s] parameter that defines the instance of the page
     // no return
     // TODO: Rename from changeTitle to setPageTitle
-    changeTitle(newTitle, thisRef) {
+    changeTitle(newTitle, thisRef, titleHTMLAppend) {
         var self = thisRef || this;
+        titleHTMLAppend = titleHTMLAppend || '';
         document.title = "NFL Arrest | " + newTitle + " | List of Player Arrests";
-        $('#pageTitle').html(self.pageTitle + ": " + newTitle);
+        $('#pageTitle').html(self.pageTitle + ": " + newTitle + titleHTMLAppend);
     }
 
     // function that iterates through each chart elemet and resizes it
