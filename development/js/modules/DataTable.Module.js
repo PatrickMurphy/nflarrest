@@ -131,8 +131,10 @@ class DataTable extends Module {
             console.log('setup container elements desktop ', this.view_mobile, incidentSelector,this.getOption('targetElement'));
             // add table
             $(incidentSelector).after('<table id="'+this.getOption('targetElement')+'"></table>');
+            console.log($(incidentSelector).html());
             // add pagination control
             $('#'+this.getOption('targetElement')).after('<div id="pagination-control"></div>');
+            console.log($(incidentSelector).html());
         }
     }
     

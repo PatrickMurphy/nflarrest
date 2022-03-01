@@ -20,7 +20,7 @@ class DetailPage extends WebPage {
 
         this.DateRangeControl = new DateRangeControl(this); // pass this as parent arg
         this.data_controller = new DataController(this.DateRangeControl, this);
-        this.DataTable_ModuleID = this.addModule(new DataTable(this, [], false));
+        this.DataTable_ModuleID = this.addModule(new DataTable(this));
 
         //this.setupFilters();
 
