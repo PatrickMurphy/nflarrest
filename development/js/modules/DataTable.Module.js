@@ -124,7 +124,7 @@ class DataTable extends Module {
     setupPagination(data){
         $('#pagination-control').pagination({
             dataSource: Array.from(this.getData().keys()),
-            callback: this.displayPaginationTemplateFn,
+            callback: this.displayPaginationTemplateFn || this.defaultFunctions.displayPaginationTemplateFn,
             afterRender: () => {
                 this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page');
             },
