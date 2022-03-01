@@ -90,7 +90,7 @@ class IndexPage extends WebPage {
             // update incident count title
             tbl.setContainerTitle(data);
             
-            var incidentSelector = this.getOption('targetElementTitleIncidentCount') || '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
+            var incidentSelector = tbl.getOption('targetElementTitleIncidentCount') || '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
             // if add html elements for each display mode
             if (tbl.view_mobile == 1) {
                 $(incidentSelector).after('<div id="'+tbl.getOption('targetElementMobile')+'"></div>');
