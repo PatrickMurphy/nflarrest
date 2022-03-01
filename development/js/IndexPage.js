@@ -86,10 +86,7 @@ class IndexPage extends WebPage {
             return c.getHTML(c.Dimension_Crime_Category, c.Dimension_Team,c.Dimension_Player);
         });
         tbl.setDataCallbackFn((data) => {
-            tbl.setData(data);
-            tbl.setContainerTitle(data);
-            tbl.setContainerElements(data);
-            tbl.setupPagination(data);
+            tbl.setupContainerElements(data);
             // notify check Loading Finished
             tbl.parent.checkLoadingFinished();
 		});

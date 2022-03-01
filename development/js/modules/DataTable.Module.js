@@ -21,6 +21,8 @@ class DataTable extends Module {
         this.displayPaginationTemplateFn = undefined;
         this.displayDataCallbackFn = undefined;
         
+        this.setupDefaultFunctions();
+        
         // if the device is mobile use mobile view style (true), else desktop (false)
         this.view_mobile = this.parent.Utilities.mobileCheck() ? true : false;
         
@@ -34,7 +36,69 @@ class DataTable extends Module {
         this.renderView();
     }
     
-    setContainerTitle(data){
+    setupDefaultFunctions(){
+        var self = this;
+        this.defaultFunctions = {};
+        this.defaultFunctions.displayDataFilterFn = ((row) => {
+				if(self.parent.pageTitle == 'Team'){
+					if(row['Team'] != self.parent.pageID){
+						return false;
+					}
+				}else if(self.parent.pageTitle == 'Position'){
+					if(row['Position'] != self.parent.pageID){
+						return false;
+					}
+				}else if(self.parent.pageTitle == 'Player'){
+					if(row['Name'] != self.parent.pageID){
+						return false;
+					}
+				}else if(self.parent.pageTitle == 'Crime'){
+					if(row['Category'] != self.parent.pageID){
+						return false;
+					}
+				}else if(self.parent.pageTitle == 'Crime Category') {
+                    if (row['Crime_category'] != self.parent.pageID) {
+                        return false;
+                    }
+                }
+            
+				return true;
+			});
+        this.defaultFunctions.displayPaginationTemplateFn = ((data, pagination) => {
+            // for each data item display row or card
+            var items = [];
+            
+            // if desktop add table header rows
+            if (self.view_mobile == 0) {
+                items.push(self.renderRowHeader());
+            }
+            
+            // add rows or cards
+            for (var rowID in data) {
+                var thisDataIndex = data[rowID];
+                var row = self.getData()[thisDataIndex];
+                if (self.view_mobile == 0) {
+                    items.push(self.renderRow(row));
+                } else if (self.view_mobile == 1) {
+                    items.push(self.renderCard(row));
+                }
+            }
+            
+            if (self.view_mobile == 0) {
+                // desktop
+                $('#'+self.getOption('targetElement')).html(items.join(""));
+            } else if (self.view_mobile == 1) {
+                // mobile
+                $('#'+self.getOption('targetElementMobile')).html(items.join(""));
+            }
+        });
+        this.defaultFunctions.displayDataCallbackFn = ((data) => {
+            self.setupContainerElements(data);
+            self.parent.checkLoadingFinished();
+		});
+    }
+    
+    setupContainerTitle(data){
         // update incident count title
         var tableContainer = this.getOption('targetElementTableContainer') || '#arrest_details_container';
         var incidentSelector = this.getOption('targetElementTitleIncidentCount') || '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
@@ -45,7 +109,7 @@ class DataTable extends Module {
         $(incidentSelector).html(h4Prefix + data.length + ' Incidents:');
     }
     
-    setContainerElements(data){
+    setupContainerElements(data){
         var incidentSelector = this.getOption('targetElementTitleIncidentCount') || '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
         // if add html elements for each display mode
         if (this.view_mobile == 1) {
@@ -94,72 +158,21 @@ class DataTable extends Module {
     renderView() {
         var self = this;
         
-        var filterFunction = self.displayDataFilterFn || ((row) => {
-				if(self.parent.pageTitle == 'Team'){
-					if(row['Team'] != self.parent.pageID){
-						return false;
-					}
-				}else if(self.parent.pageTitle == 'Position'){
-					if(row['Position'] != self.parent.pageID){
-						return false;
-					}
-				}else if(self.parent.pageTitle == 'Player'){
-					if(row['Name'] != self.parent.pageID){
-						return false;
-					}
-				}else if(self.parent.pageTitle == 'Crime'){
-					if(row['Category'] != self.parent.pageID){
-						return false;
-					}
-				}else if(self.parent.pageTitle == 'Crime Category') {
-                    if (row['Crime_category'] != self.parent.pageID) {
-                        return false;
-                    }
-                }
-            
-				return true;
-			});
+        var filterFunction = self.displayDataFilterFn || self.defaultFunctions.displayDataFilterFn;
         
-        var paginationTemplateFunc = self.displayPaginationTemplateFn || ((data, pagination) => {
-            // for each data item display row or card
-            var items = [];
-            
-            // if desktop add table header rows
-            if (self.view_mobile == 0) {
-                items.push(self.renderRowHeader());
-            }
-            
-            // add rows or cards
-            for (var rowID in data) {
-                var thisDataIndex = data[rowID];
-                var row = self.getData()[thisDataIndex];
-                if (self.view_mobile == 0) {
-                    items.push(self.renderRow(row));
-                } else if (self.view_mobile == 1) {
-                    items.push(self.renderCard(row));
-                }
-            }
-            
-            if (self.view_mobile == 0) {
-                // desktop
-                $('#'+self.getOption('targetElement')).html(items.join(""));
-            } else if (self.view_mobile == 1) {
-                // mobile
-                $('#'+self.getOption('targetElementMobile')).html(items.join(""));
-            }
-        });
+        var paginationTemplateFunc = self.displayPaginationTemplateFn || self.defaultFunctions.displayPaginationTemplateFn;
         
-        var callbackData = self.displayDataCallbackFn || ((data) => {
+        var callbackData = self.displayDataCallbackFn || self.defaultFunctions.displayDataCallbackFn;
+        
+        var runTimeCallback = (data) => {
             self.setData(data);
-            self.setContainerTitle(data);
-            self.setContainerElements(data);
+            self.setupContainerTitle(data);
+            callbackData(data);
             self.setupPagination(data);
-            // notify check Loading Finished
-            self.parent.checkLoadingFinished();
-		});
+        };
         
         // TODO: extract to parent
-		self.parent.data_controller.getArrests(filterFunction, callbackData);
+		self.parent.data_controller.getArrests(filterFunction, runTimeCallback);
     }
     
     renderCard(row){
