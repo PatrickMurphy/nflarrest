@@ -4,6 +4,8 @@ class DataTable extends Module {
         super('DataTable', parent, data, (options || {
             targetElement: 'arrest_table',
             targetElementMobile: 'arrest_cards',
+            targetElementTableContainer: 'arrest_details_container',
+            targetElementTitleIncidentCount: 'arrest_details_incident_count',
             TitlePrefix: '',
             RowLimit:15,
             GoogleTrackingCategory: 'DetailPageArrests'
@@ -30,6 +32,33 @@ class DataTable extends Module {
         
         // render view first time
         this.renderView();
+    }
+    
+    setContainerTitle(){
+        // update incident count title
+        var tableContainer = this.getOption('targetElementTableContainer') || '#arrest_details_container';
+        var incidentSelector = this.getOption('targetElementTitleIncidentCount') || '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
+        var h4Prefix = this.getOption('TitlePrefix') || '';
+        
+        //reset html of arrest details container
+        $(tableContainer).html('<h4 id="arrest_details_incident_count" style="text-align:left;"># Incidents:</h4>');
+        $(incidentSelector).html(h4Prefix + data.length + ' Incidents:');
+    }
+    
+    setupPagination(){
+        $('#pagination-control').pagination({
+            dataSource: Array.from(this.getData().keys()),
+            callback: this.displayPaginationTemplateFn,
+            afterRender: () => {
+                this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page');
+            },
+            autoHidePrevious: true,
+            autoHideNext: true,
+            showNavigator: true,
+            className: 'paginationjs-theme-yellow paginationjs-big',
+            pageSize: this.view_mobile == 0 ? this.getOption('RowLimit') : 5, // 15 for desktop, 5 mobile
+            pageRange: this.view_mobile == 0 ? 2 : 1
+        });
     }
     
     validateDataFormat(newData){
@@ -116,16 +145,11 @@ class DataTable extends Module {
         });
         
         var callbackData = self.displayDataCallbackFn || ((data) => {
-            self.setData(data);  // setData(data)
+            self.setData(data);
+            this.setContainerTitle();
             
-            //reset html of arrest details container
-            $('#arrest_details_container').html('<h4 id="arrest_details_incident_count" style="text-align:left;"># Incidents:</h4>');
             
-            // update incident count title
-            var incidentSelector = '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
-            var h4Prefix = this.getOption('TitlePrefix') || '';
-            $(incidentSelector).html(h4Prefix + data.length + ' Incidents:');
-
+            var incidentSelector = this.getOption('targetElementTitleIncidentCount') || '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
             // if add html elements for each display mode
             if (self.view_mobile == 1) {
                 $(incidentSelector).after('<div id="'+self.getOption('targetElementMobile')+'"></div>');
@@ -135,7 +159,7 @@ class DataTable extends Module {
                 $('#'+self.getOption('targetElement')).after('<div id="pagination-control"></div>');
             }
             
-            $('#pagination-control').pagination({
+            /*$('#pagination-control').pagination({
                 dataSource: Array.from(self.getData().keys()),
                 callback: paginationTemplateFunc,
                 afterRender: function() {
@@ -147,7 +171,8 @@ class DataTable extends Module {
                 className: 'paginationjs-theme-yellow paginationjs-big',
                 pageSize: self.view_mobile == 0 ? self.getOption('RowLimit') : 5, // 15 for desktop, 5 mobile
                 pageRange: self.view_mobile == 0 ? 2 : 1
-            });
+            });*/
+            self.setupPagination();
             // notify check Loading Finished
             self.parent.checkLoadingFinished();
 		});
@@ -228,6 +253,10 @@ class DataTable extends Module {
     
     setRenderCardFn(fn){
         this.renderCardFn = fn;
+    }
+    
+    setDataCallbackFn(fn){
+        this.displayDataCallbackFn = fn;
     }
     
 }

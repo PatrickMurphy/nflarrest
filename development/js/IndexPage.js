@@ -58,6 +58,7 @@ class IndexPage extends WebPage {
                     column_data: 'Description',
                     column_width: 5
                 }];
+        
         this.DataTable_ModuleID = this.addModule(new DataTable(this,[],{targetElement:'arrest_table',TitlePrefix:'Latest ', columns:data_table_cols, RowLimit:5,GoogleTrackingCategory:'IndexPageArrests'}));
         this.MainChart = new MainChart(this);
         this.TopLists = new TopLists(this);
@@ -79,35 +80,44 @@ class IndexPage extends WebPage {
         }
         
         var tbl = this.getModule(this.DataTable_ModuleID);
-        /*tbl.setRenderRowHeaderFn(() => {
-            return '<tr><th class="two columns">Date:</th>'
-                +'<th class="two columns">Player:</th>'
-                +'<th class="two columns">Crime Category:</th>'
-                +'<th class="one column">Team:</th>'
-                +'<th class="five columns">Description:</th>'
-                +'</tr>'; //<th class="three columns">Outcome:</th>
-        });
-        tbl.setRenderRowFn((row) => {
-            if (typeof row !== 'undefined') {
-                return '<tr><td class="two columns" ' + this.getHTMLDateTitleAttribute(row) + '>' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>' +
-                    '<td class="two columns"><a href="Player.html#' + row['Name'] + '">'+row['Name']+'</a></td>' +
-                    '<td class="two columns"><a href="CrimeCategory.html#' + row['Crime_category'] + '">' + row['Crime_category'] + '</a></td>' +
-                    '<td class="one column"><a href="Team.html#' + row['Team'] + '"><span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;background:url(\'images/NFLTeamLogos.png\') 0px -' + (row['Team_logo_id'] * 20) + 'px;background-size:100%;"></span> ' + row['Team'] + '</a></td>' +
-                    '<td class="five columns">' + row['Description'] + '</td>'
-                    // + '<td class="three columns">' + row['Outcome'] + '</td>'
-                    +'</tr>';
-            } else {
-                console.warn('Module DataTable: undefined row rendered');
-                return '';
-            }
-        });*/
+
         tbl.setRenderCardFn((row) => {
             var c = new ArrestCard(this, row);
             return c.getHTML(c.Dimension_Crime_Category, c.Dimension_Team,c.Dimension_Player);
         });
+        tbl.setDataCallbackFn((data) => {
+            tbl.setData(data);  // setData(data)
+            // update incident count title
+            var tableContainer = '#arrest_details_container';
+            var incidentSelector = '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
+            var h4Prefix = this.getOption('TitlePrefix') || '';
+            
+            //reset html of arrest details container
+            $(tableContainer).html('<h4 id="arrest_details_incident_count" style="text-align:left;"># Incidents:</h4>');
+            // update h4 element content
+            $(incidentSelector).html(h4Prefix + data.length + ' Incidents:');
+
+            // if add html elements for each display mode
+            if (tbl.view_mobile == 1) {
+                $(incidentSelector).after('<div id="'+tbl.getOption('targetElementMobile')+'"></div>');
+                $('#'+tbl.getOption('targetElementMobile')).after('<div id="pagination-control"></div>');
+            } else {
+                $(incidentSelector).after('<table id="'+tbl.getOption('targetElement')+'"></table>');
+                $('#'+tbl.getOption('targetElement')).after('<div id="pagination-control"></div>');
+            }
+            
+            tbl.setupPagination();
+            
+            // notify check Loading Finished
+            tbl.parent.checkLoadingFinished();
+		});
         tbl.renderView();
         
+        // EFFECTIVELY The Render view function for page
         // on user update date range - change date handler
+        
+        // TODO use this instead
+        /*$('#dateRangeJquery').on('dateRangeChanged', (e) => {this.renderView();};*/
         $('#dateRangeJquery').on('dateRangeChanged', (e) => {
             this.LoadingBar.showLoading();
             this.MainChart.setupChart();
@@ -115,6 +125,14 @@ class IndexPage extends WebPage {
             this.renderModules();
             this.data_controller.getTeams((data)=>{this.RenderTeamLinks(data)});
         });
+    }
+    
+    renderView(){
+        this.LoadingBar.showLoading();
+        this.MainChart.setupChart();
+        this.TopLists.reload();
+        this.renderModules();
+        this.data_controller.getTeams((data)=>{this.RenderTeamLinks(data)});
     }
     
     evaluateHash(){

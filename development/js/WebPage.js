@@ -92,7 +92,7 @@ class WebPage {
         filters_options['presets'][page_dimension][page_dimension] = this.pageID;
         this.FilterControl = new FiltersControl(filters_options);
         
-        $(this.FilterControl.options.dialog_element).on('FilterDialogChanged', this.renderView);
+        $(this.FilterControl.options.dialog_element).on('FilterDialogChanged', () => {this.renderView();});
     }
     
     // ================ Modules ================ //
