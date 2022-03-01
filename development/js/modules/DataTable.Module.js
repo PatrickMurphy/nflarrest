@@ -101,6 +101,7 @@ class DataTable extends Module {
     
     // setupContainerTitle function resets the html of the table container and adds a title
     setupContainerTitle(data){
+        console.log('setup container title');
         var tableContainer = this.getOption('targetElementTableContainer') || '#arrest_details_container';
         var incidentSelector = this.getOption('targetElementTitleIncidentCount') || '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
         var h4Prefix = this.getOption('TitlePrefix') || '';
@@ -114,6 +115,7 @@ class DataTable extends Module {
     //      -- It also adds the pagination control element after the previous. 
     //      -- the container HTML is reset each render to just the h4 element as contents
     setupContainerElements(data){
+        console.log('setup container elements');
         var incidentSelector = this.getOption('targetElementTitleIncidentCount') || '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
         // if add html elements for each display mode
         if (this.view_mobile == 1) {
