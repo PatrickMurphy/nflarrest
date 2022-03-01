@@ -85,11 +85,6 @@ class IndexPage extends WebPage {
             var c = new ArrestCard(this, row);
             return c.getHTML(c.Dimension_Crime_Category, c.Dimension_Team,c.Dimension_Player);
         });
-        tbl.setDataCallbackFn((data) => {
-            tbl.setupContainerElements(data);
-            // notify check Loading Finished
-            tbl.parent.checkLoadingFinished();
-		});
         tbl.renderView();
 
         $('#dateRangeJquery').on('dateRangeChanged', (e) => {this.renderView();});
