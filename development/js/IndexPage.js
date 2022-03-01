@@ -86,17 +86,11 @@ class IndexPage extends WebPage {
             return c.getHTML(c.Dimension_Crime_Category, c.Dimension_Team,c.Dimension_Player);
         });
         tbl.setDataCallbackFn((data) => {
-            tbl.setData(data);  // setData(data)
+            tbl.setData(data);
             // update incident count title
-            var tableContainer = '#arrest_details_container';
-            var incidentSelector = '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
-            var h4Prefix = this.getOption('TitlePrefix') || '';
+            tbl.setContainerTitle(data);
             
-            //reset html of arrest details container
-            $(tableContainer).html('<h4 id="arrest_details_incident_count" style="text-align:left;"># Incidents:</h4>');
-            // update h4 element content
-            $(incidentSelector).html(h4Prefix + data.length + ' Incidents:');
-
+            var incidentSelector = this.getOption('targetElementTitleIncidentCount') || '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
             // if add html elements for each display mode
             if (tbl.view_mobile == 1) {
                 $(incidentSelector).after('<div id="'+tbl.getOption('targetElementMobile')+'"></div>');

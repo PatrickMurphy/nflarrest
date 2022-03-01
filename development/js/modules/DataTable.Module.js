@@ -34,7 +34,7 @@ class DataTable extends Module {
         this.renderView();
     }
     
-    setContainerTitle(){
+    setContainerTitle(data){
         // update incident count title
         var tableContainer = this.getOption('targetElementTableContainer') || '#arrest_details_container';
         var incidentSelector = this.getOption('targetElementTitleIncidentCount') || '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
@@ -146,8 +146,7 @@ class DataTable extends Module {
         
         var callbackData = self.displayDataCallbackFn || ((data) => {
             self.setData(data);
-            this.setContainerTitle();
-            
+            this.setContainerTitle(data);
             
             var incidentSelector = this.getOption('targetElementTitleIncidentCount') || '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
             // if add html elements for each display mode
