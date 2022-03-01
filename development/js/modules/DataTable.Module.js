@@ -110,7 +110,7 @@ class DataTable extends Module {
         $(tableContainer).html('<h4 id="arrest_details_incident_count" style="text-align:left;"># Incidents:</h4>');
         $(incidentSelector).html(h4Prefix + data.length + ' Incidents:');
         
-        console.log($(tableContainer).html());
+        //console.log($(tableContainer).html());
     }
     
     // setupContainerElements Function adds the table element or card container to the table container after the h4 heading. 
