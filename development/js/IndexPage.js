@@ -87,12 +87,9 @@ class IndexPage extends WebPage {
         });
         tbl.setDataCallbackFn((data) => {
             tbl.setData(data);
-            // update incident count title
             tbl.setContainerTitle(data);
-            tbl.setModuleContents();
-            
-            tbl.setupPagination();
-            
+            tbl.setContainerElements(data);
+            tbl.setupPagination(data);
             // notify check Loading Finished
             tbl.parent.checkLoadingFinished();
 		});
