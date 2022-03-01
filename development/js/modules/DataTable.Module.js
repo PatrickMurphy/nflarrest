@@ -109,6 +109,8 @@ class DataTable extends Module {
         // add empty h4 element as only element in container
         $(tableContainer).html('<h4 id="arrest_details_incident_count" style="text-align:left;"># Incidents:</h4>');
         $(incidentSelector).html(h4Prefix + data.length + ' Incidents:');
+        
+        console.log('setup container title end',tableContainer,incidentSelector,h4Prefix);
         console.log($(tableContainer).contents());
     }
     
@@ -119,13 +121,13 @@ class DataTable extends Module {
         var incidentSelector = this.getOption('targetElementTitleIncidentCount') || '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
         // if add html elements for each display mode
         if (this.view_mobile) {
-            console.log('setup container elements', this.view_mobile, incidentSelector);
+            console.log('setup container elements mobile', this.view_mobile, incidentSelector, data);
             // add arrest cards container
             $(incidentSelector).after('<div id="'+this.getOption('targetElementMobile')+'"></div>');
             // add pagination control
             $('#'+this.getOption('targetElementMobile')).after('<div id="pagination-control"></div>');
         } else {
-            console.log('setup container elements', this.view_mobile, incidentSelector);
+            console.log('setup container elements desktop ', this.view_mobile, incidentSelector, data);
             // add table
             $(incidentSelector).after('<table id="'+this.getOption('targetElement')+'"></table>');
             // add pagination control
