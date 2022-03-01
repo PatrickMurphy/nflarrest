@@ -176,7 +176,7 @@ class DataTable extends Module {
             var callbackData = self.displayDataCallbackFn || self.defaultFunctions.displayDataCallbackFn;
             var callbackRuntimeNow = (data) => {
                 callbackData(data);
-                self.setupPagination(data);
+                //self.setupPagination(data);
             };
             
             callbackRuntimeNow(data);
