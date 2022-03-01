@@ -45,6 +45,18 @@ class DataTable extends Module {
         $(incidentSelector).html(h4Prefix + data.length + ' Incidents:');
     }
     
+    setContainerElements(){
+        var incidentSelector = this.getOption('targetElementTitleIncidentCount') || '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
+        // if add html elements for each display mode
+        if (this.view_mobile == 1) {
+            $(incidentSelector).after('<div id="'+this.getOption('targetElementMobile')+'"></div>');
+            $('#'+this.getOption('targetElementMobile')).after('<div id="pagination-control"></div>');
+        } else {
+            $(incidentSelector).after('<table id="'+this.getOption('targetElement')+'"></table>');
+            $('#'+this.getOption('targetElement')).after('<div id="pagination-control"></div>');
+        }
+    }
+    
     setupPagination(){
         $('#pagination-control').pagination({
             dataSource: Array.from(this.getData().keys()),

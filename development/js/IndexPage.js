@@ -89,16 +89,7 @@ class IndexPage extends WebPage {
             tbl.setData(data);
             // update incident count title
             tbl.setContainerTitle(data);
-            
-            var incidentSelector = tbl.getOption('targetElementTitleIncidentCount') || '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
-            // if add html elements for each display mode
-            if (tbl.view_mobile == 1) {
-                $(incidentSelector).after('<div id="'+tbl.getOption('targetElementMobile')+'"></div>');
-                $('#'+tbl.getOption('targetElementMobile')).after('<div id="pagination-control"></div>');
-            } else {
-                $(incidentSelector).after('<table id="'+tbl.getOption('targetElement')+'"></table>');
-                $('#'+tbl.getOption('targetElement')).after('<div id="pagination-control"></div>');
-            }
+            tbl.setModuleContents();
             
             tbl.setupPagination();
             
