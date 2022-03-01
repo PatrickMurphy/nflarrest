@@ -91,19 +91,8 @@ class IndexPage extends WebPage {
             tbl.parent.checkLoadingFinished();
 		});
         tbl.renderView();
-        
-        // EFFECTIVELY The Render view function for page
-        // on user update date range - change date handler
-        
-        // TODO use this instead
-        /*$('#dateRangeJquery').on('dateRangeChanged', (e) => {this.renderView();};*/
-        $('#dateRangeJquery').on('dateRangeChanged', (e) => {
-            this.LoadingBar.showLoading();
-            this.MainChart.setupChart();
-            this.TopLists.reload();
-            this.renderModules();
-            this.data_controller.getTeams((data)=>{this.RenderTeamLinks(data)});
-        });
+
+        $('#dateRangeJquery').on('dateRangeChanged', (e) => {this.renderView();});
     }
     
     renderView(){
@@ -111,7 +100,8 @@ class IndexPage extends WebPage {
         this.MainChart.setupChart();
         this.TopLists.reload();
         this.renderModules();
-        this.data_controller.getTeams((data)=>{this.RenderTeamLinks(data)});
+        var getTeamsCallbackFn = (data) => {this.RenderTeamLinks(data);};
+        this.data_controller.getTeams(getTeamsCallbackFn);
     }
     
     evaluateHash(){
