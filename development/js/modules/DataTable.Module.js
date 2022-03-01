@@ -170,13 +170,16 @@ class DataTable extends Module {
         
         var paginationTemplateFunc = self.displayPaginationTemplateFn || self.defaultFunctions.displayPaginationTemplateFn;
         
-        var callbackData = self.displayDataCallbackFn || self.defaultFunctions.displayDataCallbackFn;
-        
         var runTimeCallback = (data) => {
             self.setData(data);
             self.setupContainerTitle(data);
-            callbackData(data);
-            self.setupPagination(data);
+            var callbackData = self.displayDataCallbackFn || self.defaultFunctions.displayDataCallbackFn;
+            var callbackRuntimeNow = (data) => {
+                callbackData(data);
+                self.setupPagination(data);
+            };
+            
+            callbackRuntimeNow(data);
         };
         
         // TODO: extract to parent
