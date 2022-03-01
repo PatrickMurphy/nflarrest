@@ -45,7 +45,7 @@ class DataTable extends Module {
         $(incidentSelector).html(h4Prefix + data.length + ' Incidents:');
     }
     
-    setContainerElements(){
+    setContainerElements(data){
         var incidentSelector = this.getOption('targetElementTitleIncidentCount') || '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
         // if add html elements for each display mode
         if (this.view_mobile == 1) {
@@ -57,7 +57,7 @@ class DataTable extends Module {
         }
     }
     
-    setupPagination(){
+    setupPagination(data){
         $('#pagination-control').pagination({
             dataSource: Array.from(this.getData().keys()),
             callback: this.displayPaginationTemplateFn,
@@ -88,13 +88,6 @@ class DataTable extends Module {
             else
                 return a[columnInt] < b[columnInt];
         });
-    }
-    
-    setColumns(cols){
-        if(this.getOptionExists('columns') || cols){
-            var colsVal = cols || this.getOption('columns');
-            this.DataTableColumns = new DataTableColumns(this, colsVal, {columns: colsVal});
-        }
     }
     
     // ======= View Methods =======
@@ -158,32 +151,9 @@ class DataTable extends Module {
         
         var callbackData = self.displayDataCallbackFn || ((data) => {
             self.setData(data);
-            this.setContainerTitle(data);
-            
-            var incidentSelector = this.getOption('targetElementTitleIncidentCount') || '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
-            // if add html elements for each display mode
-            if (self.view_mobile == 1) {
-                $(incidentSelector).after('<div id="'+self.getOption('targetElementMobile')+'"></div>');
-                $('#'+self.getOption('targetElementMobile')).after('<div id="pagination-control"></div>');
-            } else {
-                $(incidentSelector).after('<table id="'+self.getOption('targetElement')+'"></table>');
-                $('#'+self.getOption('targetElement')).after('<div id="pagination-control"></div>');
-            }
-            
-            /*$('#pagination-control').pagination({
-                dataSource: Array.from(self.getData().keys()),
-                callback: paginationTemplateFunc,
-                afterRender: function() {
-                    self.parent.Utilities.googleTracking.sendTrackEvent(self.getOption('GoogleTrackingCategory'), 'Change Page');
-                },
-                autoHidePrevious: true,
-                autoHideNext: true,
-                showNavigator: true,
-                className: 'paginationjs-theme-yellow paginationjs-big',
-                pageSize: self.view_mobile == 0 ? self.getOption('RowLimit') : 5, // 15 for desktop, 5 mobile
-                pageRange: self.view_mobile == 0 ? 2 : 1
-            });*/
-            self.setupPagination();
+            self.setContainerTitle(data);
+            self.setContainerElements(data);
+            self.setupPagination(data);
             // notify check Loading Finished
             self.parent.checkLoadingFinished();
 		});
@@ -268,6 +238,13 @@ class DataTable extends Module {
     
     setDataCallbackFn(fn){
         this.displayDataCallbackFn = fn;
+    }
+    
+    setColumns(cols){
+        if(this.getOptionExists('columns') || cols){
+            var colsVal = cols || this.getOption('columns');
+            this.DataTableColumns = new DataTableColumns(this, colsVal, {columns: colsVal});
+        }
     }
     
 }
