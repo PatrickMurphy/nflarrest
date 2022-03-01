@@ -98,25 +98,33 @@ class DataTable extends Module {
 		});
     }
     
+    
+    // setupContainerTitle function resets the html of the table container and adds a title
     setupContainerTitle(data){
-        // update incident count title
         var tableContainer = this.getOption('targetElementTableContainer') || '#arrest_details_container';
         var incidentSelector = this.getOption('targetElementTitleIncidentCount') || '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
         var h4Prefix = this.getOption('TitlePrefix') || '';
         
-        //reset html of arrest details container
+        // add empty h4 element as only element in container
         $(tableContainer).html('<h4 id="arrest_details_incident_count" style="text-align:left;"># Incidents:</h4>');
         $(incidentSelector).html(h4Prefix + data.length + ' Incidents:');
     }
     
+    // setupContainerElements Function adds the table element or card container to the table container after the h4 heading. 
+    //      -- It also adds the pagination control element after the previous. 
+    //      -- the container HTML is reset each render to just the h4 element as contents
     setupContainerElements(data){
         var incidentSelector = this.getOption('targetElementTitleIncidentCount') || '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
         // if add html elements for each display mode
         if (this.view_mobile == 1) {
+            // add arrest cards container
             $(incidentSelector).after('<div id="'+this.getOption('targetElementMobile')+'"></div>');
+            // add pagination control
             $('#'+this.getOption('targetElementMobile')).after('<div id="pagination-control"></div>');
         } else {
+            // add table
             $(incidentSelector).after('<table id="'+this.getOption('targetElement')+'"></table>');
+            // add pagination control
             $('#'+this.getOption('targetElement')).after('<div id="pagination-control"></div>');
         }
     }
