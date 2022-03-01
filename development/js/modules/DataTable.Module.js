@@ -95,6 +95,7 @@ class DataTable extends Module {
         this.defaultFunctions.displayDataCallbackFn = ((data) => {
             self.setupContainerElements(data);
             self.parent.checkLoadingFinished();
+            console.log('run default displayDataCallbackFn');
 		});
     }
     
@@ -107,7 +108,7 @@ class DataTable extends Module {
         var h4Prefix = this.getOption('TitlePrefix') || '';
         
         // add empty h4 element as only element in container
-        $(tableContainer).html('<h4 id="arrest_details_incident_count" style="text-align:left;"># Incidents:</h4>');
+        $(tableContainer).html('<h4 id="'+incidentSelector+'" style="text-align:left;"># Incidents:</h4>');
         $(incidentSelector).html(h4Prefix + data.length + ' Incidents:');
         
         console.log('setup container title end',tableContainer,incidentSelector,h4Prefix);
@@ -121,13 +122,13 @@ class DataTable extends Module {
         var incidentSelector = this.getOption('targetElementTitleIncidentCount') || '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
         // if add html elements for each display mode
         if (this.view_mobile) {
-            console.log('setup container elements mobile', this.view_mobile, incidentSelector, data);
+            console.log('setup container elements mobile', this.view_mobile, incidentSelector);
             // add arrest cards container
             $(incidentSelector).after('<div id="'+this.getOption('targetElementMobile')+'"></div>');
             // add pagination control
             $('#'+this.getOption('targetElementMobile')).after('<div id="pagination-control"></div>');
         } else {
-            console.log('setup container elements desktop ', this.view_mobile, incidentSelector, data);
+            console.log('setup container elements desktop ', this.view_mobile, incidentSelector,this.getOption('targetElement'));
             // add table
             $(incidentSelector).after('<table id="'+this.getOption('targetElement')+'"></table>');
             // add pagination control
