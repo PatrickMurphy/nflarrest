@@ -69,7 +69,7 @@ class DataTable extends Module {
             var items = [];
             
             // if desktop add table header rows
-            if (self.view_mobile == 0) {
+            if (!self.view_mobile) {
                 items.push(self.renderRowHeader());
             }
             
@@ -77,20 +77,20 @@ class DataTable extends Module {
             for (var rowID in data) {
                 var thisDataIndex = data[rowID];
                 var row = self.getData()[thisDataIndex];
-                if (self.view_mobile == 0) {
-                    items.push(self.renderRow(row));
-                } else if (self.view_mobile == 1) {
+                if (self.view_mobile) {
                     items.push(self.renderCard(row));
+                } else {
+                    items.push(self.renderRow(row));
                 }
             }
             
-            if (self.view_mobile == 0) {
-                // desktop
-                $('#'+self.getOption('targetElement')).html(items.join(""));
-            } else if (self.view_mobile == 1) {
+            if (self.view_mobile) {
                 // mobile
                 $('#'+self.getOption('targetElementMobile')).html(items.join(""));
-            }
+            }else{
+                // desktop
+                $('#'+self.getOption('targetElement')).html(items.join(""));
+            } 
         });
         this.defaultFunctions.displayDataCallbackFn = ((data) => {
             self.setupContainerElements(data);
@@ -109,6 +109,8 @@ class DataTable extends Module {
         // add empty h4 element as only element in container
         $(tableContainer).html('<h4 id="arrest_details_incident_count" style="text-align:left;"># Incidents:</h4>');
         $(incidentSelector).html(h4Prefix + data.length + ' Incidents:');
+        
+        console.log($(tableContainer).html());
     }
     
     // setupContainerElements Function adds the table element or card container to the table container after the h4 heading. 
@@ -117,7 +119,7 @@ class DataTable extends Module {
     setupContainerElements(data){
         var incidentSelector = this.getOption('targetElementTitleIncidentCount') || '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
         // if add html elements for each display mode
-        if (this.view_mobile == 1) {
+        if (this.view_mobile) {
             console.log('setup container elements', this.view_mobile, incidentSelector);
             // add arrest cards container
             $(incidentSelector).after('<div id="'+this.getOption('targetElementMobile')+'"></div>');
@@ -143,8 +145,8 @@ class DataTable extends Module {
             autoHideNext: true,
             showNavigator: true,
             className: 'paginationjs-theme-yellow paginationjs-big',
-            pageSize: this.view_mobile == 0 ? this.getOption('RowLimit') : 5, // 15 for desktop, 5 mobile
-            pageRange: this.view_mobile == 0 ? 2 : 1
+            pageSize: this.view_mobile ? 5 : this.getOption('RowLimit'), // 15 for desktop, 5 mobile
+            pageRange: this.view_mobile ? 1 : 2
         });
     }
     
