@@ -115,15 +115,16 @@ class DataTable extends Module {
     //      -- It also adds the pagination control element after the previous. 
     //      -- the container HTML is reset each render to just the h4 element as contents
     setupContainerElements(data){
-        console.log('setup container elements');
         var incidentSelector = this.getOption('targetElementTitleIncidentCount') || '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
         // if add html elements for each display mode
         if (this.view_mobile == 1) {
+            console.log('setup container elements', this.view_mobile, incidentSelector);
             // add arrest cards container
             $(incidentSelector).after('<div id="'+this.getOption('targetElementMobile')+'"></div>');
             // add pagination control
             $('#'+this.getOption('targetElementMobile')).after('<div id="pagination-control"></div>');
         } else {
+            console.log('setup container elements', this.view_mobile, incidentSelector);
             // add table
             $(incidentSelector).after('<table id="'+this.getOption('targetElement')+'"></table>');
             // add pagination control
