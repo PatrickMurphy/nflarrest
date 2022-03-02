@@ -10,9 +10,9 @@ class TeamDetailPage extends DetailPage {
             }, {
             type: 'donut',
             url: 'api/v1/team/topCrimes/',
-            field: 'Category',
+            field: 'Crime_category',
             targetElement: '#crimechart',
-            title: 'Crimes'
+            title: 'Crime Categories'
             }], 'api/v1/team/arrests/');
         
         var tbl = this.getModule(this.DataTable_ModuleID);

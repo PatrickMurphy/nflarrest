@@ -149,13 +149,16 @@ class DetailPage extends WebPage {
             var index, i = 0;
             var otherArray = ['Other', 0];
             for (index in data) {
-                if (++i < 12) {
+                i = i++;
+                if (i < 12) {
                     theData.push([data[index][param], data[index]['arrest_count']]);
                 } else {
                     otherArray[1] = parseInt(otherArray[1]) + parseInt(data[index]['arrest_count']);
                 }
             }
-            theData.push(otherArray);
+            if(i>12){
+                theData.push(otherArray);
+            }
             self.checkLoadingFinished();
             callback(theData, chartID);
         };
