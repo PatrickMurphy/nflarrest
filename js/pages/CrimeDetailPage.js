@@ -26,7 +26,7 @@ class CrimeDetailPage extends DetailPage {
         tbl.setRenderRowHeaderFn(() => {return '<tr><th class="one column">Date:</th><th class="two columns">Player:</th><th class="one column">Team:</th><th class="four columns">Description:</th><th class="four columns">Outcome:</th></tr>';});
         tbl.setRenderRowFn((row) => {
             if(typeof row !== 'undefined'){
-                return '<tr><td class="one column" '+this.getHTMLDateTitleAttribute(row)+'>' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>' //'+this.getHTMLDateTitleAttribute(row)+'
+                return '<tr><td class="one column" '+this.getHTMLDateTitleAttribute(row)+'>' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>'
                     + '<td class="two columns"><a href="' + this.getPlayerLink(row['Name']) + '">' + row['Name'] + '</a></td>' // getDimensionLink methods from webpage.js 
                     + '<td class="one column"><a href="' + this.getTeamLink(row['Team']) + '">'
                         + '<span style="display:inline-block;width:20px;height:20px;vertical-align: text-bottom;'

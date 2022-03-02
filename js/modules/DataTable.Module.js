@@ -4,81 +4,42 @@ class DataTable extends Module {
         super('DataTable', parent, data, (options || {
             targetElement: 'arrest_table',
             targetElementMobile: 'arrest_cards',
+            targetElementTableContainer: 'arrest_details_container',
+            targetElementTitleIncidentCount: 'arrest_details_incident_count',
             TitlePrefix: '',
             RowLimit:15,
             GoogleTrackingCategory: 'DetailPageArrests'
         }));
 
+        // optional render functions set undefined until set at runtime
         this.renderRowFn = undefined;
         this.renderRowHeaderFn = undefined;
         this.renderCardFn = undefined;
+        
+        // display functions
         this.displayDataFilterFn = undefined;
         this.displayPaginationTemplateFn = undefined;
         this.displayDataCallbackFn = undefined;
         
-        this.data_all = data;
-
-        this.current_page = 0;
-        this.row_limit = 15;
-
-        // default to desktop view
-        this.view_mobile = false;
-
-        // if the device is mobile use mobile view style
-        if (this.parent.Utilities.mobileCheck()) {
-            this.view_mobile = true;
+        this.setupDefaultFunctions();
+        
+        // if the device is mobile use mobile view style (true), else desktop (false)
+        this.view_mobile = this.parent.Utilities.mobileCheck() ? true : false;
+        
+        this.DataTableColumns = undefined;
+        
+        if(this.getOptionExists('columns')){
+            this.DataTableColumns = new DataTableColumns(this, this.getOption('columns'), {columns: this.getOption('columns')});
         }
-
+        
         // render view first time
         this.renderView();
     }
     
-    // TODO move to main module or datadrivenmodule class
-    getData(){
-        return this.data_all;
-    }
-    
-    validateDataFormat(newData){
-        //return Array.isArray(newData);
-        // TODO: Fix
-        return true;
-    }
-
-    // ======= Sortinfg Methods =======
-    sortData(columnInt, directionFlag) {
-        // use Array.sort() fucntion
-        this.data.sort(function (a, b) {
-            if (directionFlag)
-                return a[columnInt] > b[columnInt];
-            else
-                return a[columnInt] < b[columnInt];
-        });
-    }
-/*
-    // ======= Pagination Methods =======
-    setPage(intPage) {
-        intPage = intPage || this.current_page;
-        this.current_page = intPage;
-    }
-
-    setRowLimit(intRowLimit) {
-        intRowLimit = intRowLimit || 15;
-        this.row_limit = intRowLimit;
-    }
-
-    nextPage() {
-        this.current_page++;
-    }
-
-    previousPage() {
-        this.current_page--;
-    }
-*/
-    // ======= View Methods =======
-    renderView() {
+    setupDefaultFunctions(){
         var self = this;
-        
-        var filterFunction = self.displayDataFilterFn || ((row) => {
+        this.defaultFunctions = {};
+        this.defaultFunctions.displayDataFilterFn = ((row) => {
 				if(self.parent.pageTitle == 'Team'){
 					if(row['Team'] != self.parent.pageID){
 						return false;
@@ -103,92 +64,127 @@ class DataTable extends Module {
             
 				return true;
 			});
-        
-        var paginationTemplateFunc = self.displayPaginationTemplateFn || ((data, pagination) => {
+        this.defaultFunctions.displayPaginationTemplateFn = ((data, pagination) => {
             // for each data item display row or card
             var items = [];
             
             // if desktop add table header rows
-            if (self.view_mobile == 0) {
+            if (!self.view_mobile) {
                 items.push(self.renderRowHeader());
             }
             
             // add rows or cards
             for (var rowID in data) {
                 var thisDataIndex = data[rowID];
-                var row = self.data_all[thisDataIndex];
-                if (self.view_mobile == 0) {
-                    items.push(self.renderRow(row));
-                } else if (self.view_mobile == 1) {
+                var row = self.getData()[thisDataIndex];
+                if (self.view_mobile) {
                     items.push(self.renderCard(row));
+                } else {
+                    items.push(self.renderRow(row));
                 }
             }
             
-            if (self.view_mobile == 0) {
-                // desktop
-                $('#'+self.getOption('targetElement')).html(items.join(""));
-            } else if (self.view_mobile == 1) {
+            if (self.view_mobile) {
                 // mobile
                 $('#'+self.getOption('targetElementMobile')).html(items.join(""));
-            }
+            }else{
+                // desktop
+                $('#'+self.getOption('targetElement')).html(items.join(""));
+            } 
         });
-        
-        var callbackData = self.displayDataCallbackFn || ((data) => {
-            self.data_all = data;
-            
-            //reset html of arrest details container
-            $('#arrest_details_container').html('<h4 id="arrest_details_incident_count" style="text-align:left;"># Incidents:</h4>');
-            
-            // update incident count title
-            var incidentSelector = '#arrest_details_incident_count'; //'body > div.container > section > div > h4'
-            var h4Prefix = this.getOption('TitlePrefix') || '';
-            $(incidentSelector).html(h4Prefix + data.length + ' Incidents:');
-
-            // if add html elements for each display mode
-            if (self.view_mobile == 1) {
-                $(incidentSelector).after('<div id="'+self.getOption('targetElementMobile')+'"></div>');
-                $('#'+self.getOption('targetElementMobile')).after('<div id="pagination-control"></div>');
-            } else {
-                $(incidentSelector).after('<table id="'+self.getOption('targetElement')+'"></table>');
-                $('#'+self.getOption('targetElement')).after('<div id="pagination-control"></div>');
-            }
-            
-            $('#pagination-control').pagination({
-                dataSource: Array.from(self.data_all.keys()),
-                callback: paginationTemplateFunc,
-                afterRender: function() {
-                    self.parent.Utilities.googleTracking.sendTrackEvent(self.getOption('GoogleTrackingCategory'), 'Change Page');
-                },
-                autoHidePrevious: true,
-                autoHideNext: true,
-                showNavigator: true,
-                className: 'paginationjs-theme-yellow paginationjs-big',
-                pageSize: self.view_mobile == 0 ? self.getOption('RowLimit') : 5, // 15 for desktop, 5 mobile
-                pageRange: self.view_mobile == 0 ? 2 : 1
-            });
-            // notify check Loading Finished
+        this.defaultFunctions.displayDataCallbackFn = ((data) => {
+            self.setupContainerElements(data);
             self.parent.checkLoadingFinished();
 		});
+    }
+    
+    
+    // setupContainerTitle function resets the html of the table container and adds a title
+    setupContainerTitle(data){
+        var tableContainer = this.getOption('targetElementTableContainer') || 'arrest_details_container';
+        var incidentSelector = this.getOption('targetElementTitleIncidentCount') || 'arrest_details_incident_count'; //'body > div.container > section > div > h4'
+        var h4Prefix = this.getOption('TitlePrefix') || '';
         
-        // TODO: extract to parent
-		self.parent.data_controller.getArrests(filterFunction, callbackData);
+        // add empty h4 element as only element in container
+        $('#'+tableContainer).html('<h4 id="'+incidentSelector+'" style="text-align:left;"># Incidents:</h4>');
+        $('#'+incidentSelector).html(h4Prefix + data.length + ' Incidents:');
     }
     
-    setDataFilterFn(fn){
-        this.displayDataFilterFn = fn;
+    // setupContainerElements Function adds the table element or card container to the table container after the h4 heading. 
+    //      -- It also adds the pagination control element after the previous. 
+    //      -- the container HTML is reset each render to just the h4 element as contents
+    setupContainerElements(data){
+        var incidentSelector = this.getOption('targetElementTitleIncidentCount') || 'arrest_details_incident_count'; //'body > div.container > section > div > h4'
+        // if add html elements for each display mode
+        if (this.view_mobile) {
+            // add arrest cards container
+            $('#'+incidentSelector).after('<div id="'+this.getOption('targetElementMobile')+'"></div>');
+            // add pagination control
+            $('#'+this.getOption('targetElementMobile')).after('<div id="pagination-control"></div>');
+        } else {
+            // add table
+            $('#'+incidentSelector).after('<table id="'+this.getOption('targetElement')+'"></table>');
+            // add pagination control
+            $('#'+this.getOption('targetElement')).after('<div id="pagination-control"></div>');
+        }
     }
     
-    setRenderRowHeaderFn(fn){
-        this.renderRowHeaderFn = fn;
+    setupPagination(data){
+        $('#pagination-control').pagination({
+            dataSource: Array.from(this.getData().keys()),
+            callback: this.displayPaginationTemplateFn || this.defaultFunctions.displayPaginationTemplateFn,
+            afterRender: () => {
+                this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page');
+            },
+            autoHidePrevious: true,
+            autoHideNext: true,
+            showNavigator: true,
+            className: 'paginationjs-theme-yellow paginationjs-big',
+            pageSize: this.view_mobile ? 5 : this.getOption('RowLimit'), // 15 for desktop, 5 mobile
+            pageRange: this.view_mobile ? 1 : 2
+        });
     }
     
-    setRenderRowFn(fn){
-        this.renderRowFn = fn;
-    }
-    setRenderCardFn(fn){
-        this.renderCardFn = fn;
+    validateDataFormat(newData){
+        //return Array.isArray(newData);
+        // TODO: Fix
+        return true;
     }
 
+    // ======= Sorting Methods =======
+    sortData(columnInt, directionFlag) {
+        // use Array.sort() fucntion
+        this.data.sort(function (a, b) {
+            if (directionFlag)
+                return a[columnInt] > b[columnInt];
+            else
+                return a[columnInt] < b[columnInt];
+        });
+    }
+    
+    // ======= View Methods =======
+    renderView() {
+        var self = this;
+        
+        var filterFunction = self.displayDataFilterFn || self.defaultFunctions.displayDataFilterFn;
+        
+        var paginationTemplateFunc = self.displayPaginationTemplateFn || self.defaultFunctions.displayPaginationTemplateFn;
+        
+        var runTimeCallback = (data) => {
+            self.setData(data);
+            self.setupContainerTitle(data);
+            var callbackData = self.displayDataCallbackFn || self.defaultFunctions.displayDataCallbackFn;
+            var callbackRuntimeNow = (data) => {
+                callbackData(data);
+            };
+            callbackRuntimeNow(data);
+            self.setupPagination(data);
+        };
+        
+        // TODO: extract to parent
+		self.parent.data_controller.getArrests(filterFunction, runTimeCallback);
+    }
+    
     renderCard(row){
         if(this.renderCardFn){
             return this.renderCardFn(row);
@@ -201,8 +197,14 @@ class DataTable extends Module {
     // should be overloaded
     renderRowHeader() {
         if(this.renderRowHeaderFn){
+            // if render row header override function set then use that to render table header row
             return this.renderRowHeaderFn();
+        } else if (this.DataTableColumns){
+            // if options columns set then use that to render table header row
+            return this.DataTableColumns.renderRowColumns('header');
         }else{
+            // use default columns otherwise
+            // TODO: Remove this direct reference to arrests, replace with generate column definition from data supplied
             var return_text = '<tr>';
             return_text += '<th class="one column">Date:</th>';
             return_text += '<th class="one column">Team:</th>';
@@ -219,10 +221,16 @@ class DataTable extends Module {
     // should be overloaded
     renderRow(row) {
         if(this.renderRowFn){
+            // if render row override function set then use that to render table row
             return this.renderRowFn(row);
+        } else if (this.DataTableColumns){
+            // if options columns set then use that to render table row
+            return this.DataTableColumns.renderRowColumns(row);
         }else{
+            // use default columns otherwise
+            // TODO: Remove this direct reference to arrests, replace with generate column definition from data supplied
             var return_text = '<tr>';
-            return_text += '<td class="one column" '+this.getHTMLDateTitleAttribute(row)+'>' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>';
+            return_text += '<td class="one column" '+this.parent.getHTMLDateTitleAttribute(row)+'>' + moment(row['Date'], "YYYY-MM-DD").fromNow() + '</td>';
             return_text += '<td class="one column">' + row['Team'] + '</td>';
             return_text += '<td class="two columns"><a href="Player.html#' + row['Name'] + '">' + row['Name'] + '</a></td>';
             return_text += '<td class="one column"><a href="CrimeCategory.html#' + row['Crime_category'] + '">' + row['Crime_category'] + '</a></td>';
@@ -234,15 +242,31 @@ class DataTable extends Module {
         }
     }
     
-    // function to return the tooltip attribute html for date display elements
-    // expects [row] parameter, a js object that contains a date property formatted as a string, if it contains T (Date Format to add time)
-    // return type: string
-    getHTMLDateTitleAttribute(row,datecol){
-        var date_column = datecol || 'Date';
-        if(row.hasOwnProperty(date_column)){
-            return 'title="'+row[date_column].split('T')[0]+'"';
-        }else{
-            console.error('DataTable Module > getHTMLDateTitleAttribute: Row did not contain ['+date_column+'].');
+    // ========== Getter & Setter Methods ===========
+    setDataFilterFn(fn){
+        this.displayDataFilterFn = fn;
+    }
+    
+    setRenderRowHeaderFn(fn){
+        this.renderRowHeaderFn = fn;
+    }
+    
+    setRenderRowFn(fn){
+        this.renderRowFn = fn;
+    }
+    
+    setRenderCardFn(fn){
+        this.renderCardFn = fn;
+    }
+    
+    setDataCallbackFn(fn){
+        this.displayDataCallbackFn = fn;
+    }
+    
+    setColumns(cols){
+        if(this.getOptionExists('columns') || cols){
+            var colsVal = cols || this.getOption('columns');
+            this.DataTableColumns = new DataTableColumns(this, colsVal, {columns: colsVal});
         }
     }
     

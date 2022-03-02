@@ -56,8 +56,16 @@ class Module {
         return this.options;
     }
     
-    getOption(optKey){
-        return this.options[optKey];
+    getOption(optKey,optSubKey){
+        var returnVal = this.options[optKey];
+        if(optSubKey){
+            returnVal = returnVal[optSubKey];
+        }
+        return returnVal;
+    }
+    
+    getOptionExists(optKey){
+        return this.getOptions().hasOwnProperty(optKey);
     }
     
     // result functions ==========================================================================
