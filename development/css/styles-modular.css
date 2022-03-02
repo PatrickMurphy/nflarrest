@@ -133,6 +133,7 @@ header h1 span {
     background: -webkit-linear-gradient(top, #0066cc 50%, #ffcc00 50%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    border: 1px solid #0066cc;
 }
 
 /* End Header */
