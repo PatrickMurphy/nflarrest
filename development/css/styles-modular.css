@@ -123,9 +123,16 @@ header h1 {
 	font-weight: 500;
 	line-height: 80px
 }
-
+/*
 header h1 span {
 	color: rgb(255, 118, 0);
+}
+*/
+/* UKRAINE Flag temp */
+header h1 span {
+    background: -webkit-linear-gradient(top, #0066cc 50%, #ffcc00 50%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 /* End Header */
