@@ -18,6 +18,11 @@ mixin JSIncludeScripts(pageType="Default", pageTitle="Team")
         script(src='js/data/ArrestsCacheTable_data_array.js' async='')
         script(src='js/compressed/index.min.js' async='')
     else if pageType == "Default"
+        script(src="js/Utilities.js")
+        script(src="js/GoogleAnalyticsManager.js")
         script(src="js/StyleSheetManager.js")
+        script(src="js/LoadingBarManager.js")
+        script(src="js/data/lastUpdate_data.js")
+        script(src="js/WebPage.js")
         script(src="js/pages/DefaultPage.js")
         

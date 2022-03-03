@@ -148,14 +148,17 @@ class DetailPage extends WebPage {
             var theData = [];
             var index, i = 0;
             var otherArray = ['Other', 0];
+            var categoryLimit = 12;
             for (index in data) {
-                if (++i < 12) {
+                if (++i < categoryLimit) {
                     theData.push([data[index][param], data[index]['arrest_count']]);
                 } else {
                     otherArray[1] = parseInt(otherArray[1]) + parseInt(data[index]['arrest_count']);
                 }
             }
-            theData.push(otherArray);
+            if(data.length >= categoryLimit){
+                theData.push(otherArray);
+            }
             self.checkLoadingFinished();
             callback(theData, chartID);
         };
