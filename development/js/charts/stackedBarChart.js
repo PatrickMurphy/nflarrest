@@ -90,8 +90,8 @@ class StackedBarChart extends Chart {
             },
             tooltip: {
                 contents: function (d, defaultTitleFormat, defaultValueFormat, color) {
-                    console.log(d);
-                    return d.map(dd => dd.value <= 0 ? null : this.getTooltipContent(d, defaultTitleFormat, defaultValueFormat, color));
+                    //console.log(d);
+                    return d.map(dd => {console.log(dd); dd.value <= 0 ? null : this.getTooltipContent(d, defaultTitleFormat, defaultValueFormat, color)});
                 },  
             },
             color: {
