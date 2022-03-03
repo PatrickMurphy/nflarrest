@@ -91,13 +91,7 @@ class StackedBarChart extends Chart {
             tooltip: {
                 contents: function (d, defaultTitleFormat, defaultValueFormat, color) {
                     console.log(d);
-                    if (d[1].value > 0) {
-                        // Use default rendering
-                        return this.getTooltipContent(d, defaultTitleFormat, defaultValueFormat, color);
-                    } else {
-                        // no render if value less than equal 0
-                        return '';
-                    }
+                    return d.map(dd => dd.value <= 0 ? null : this.getTooltipContent(d, defaultTitleFormat, defaultValueFormat, color));
                 },  
             },
             color: {
