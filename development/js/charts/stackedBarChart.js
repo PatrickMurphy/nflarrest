@@ -90,6 +90,7 @@ class StackedBarChart extends Chart {
             },
             tooltip: {
                 contents: function (d, defaultTitleFormat, defaultValueFormat, color) {
+                    console.log(d);
                     if (d[1].value > 0) {
                         // Use default rendering
                         return this.getTooltipContent(d, defaultTitleFormat, defaultValueFormat, color);
