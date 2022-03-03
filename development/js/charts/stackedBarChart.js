@@ -114,7 +114,7 @@ class StackedBarChart extends Chart {
                     }
                       // Regular tooltip
                       if (!text) {
-                        title = sanitise(titleFormat ? titleFormat(d[i].x, d[i].index) : d[i].x)
+                        title = titleFormat ? titleFormat(d[i].x, d[i].index) : d[i].x;
                         text =
                           "<table class='" +
                           $$.CLASS.tooltip +
@@ -124,17 +124,15 @@ class StackedBarChart extends Chart {
                             : '')
                       }
 
-                      value = sanitise(
-                        valueFormat(d[i].value, d[i].ratio, d[i].id, d[i].index, d)
-                      )
+                      value = valueFormat(d[i].value, d[i].ratio, d[i].id, d[i].index, d)
                       if (value !== undefined) {
                         // Skip elements when their name is set to null
                         if (d[i].name === null) {
                           continue
                         }
 
-                        name = sanitise(nameFormat(d[i].name, d[i].ratio, d[i].id, d[i].index))
-                        bgcolor = $$.levelColor ? $$.levelColor(d[i].value) : color(d[i].id)
+                        name = nameFormat(d[i].name, d[i].ratio, d[i].id, d[i].index);
+                        bgcolor = color(d[i].id);
                       }
                     
 
