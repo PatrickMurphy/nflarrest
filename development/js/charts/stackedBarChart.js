@@ -106,34 +106,12 @@ class StackedBarChart extends Chart {
                     name,
                     bgcolor
 
-                  var valueFormat = config.tooltip_format_value
-                  if (!valueFormat) {
-                    valueFormat = $$.isTargetNormalized(d.id)
-                      ? (v, ratio) => `${(ratio * 100).toFixed(2)}%`
-                      : defaultValueFormat
-                  }
-
-                  var tooltipSortFunction = this.getTooltipSortFunction()
-                  if (tooltipSortFunction) {
-                    d.sort(tooltipSortFunction)
-                  }
+                 
 
                   for (i = 0; i < d.length; i++) {
                     if (!(d[i] && (d[i].value || d[i].value === 0))) {
                       continue
                     }
-
-                    if ($$.isStanfordGraphType()) {
-                      // Custom tooltip for stanford plots
-                      if (!text) {
-                        title = $$.getStanfordTooltipTitle(d[i])
-                        text = "<table class='" + $$.CLASS.tooltip + "'>" + title
-                      }
-
-                      bgcolor = $$.getStanfordPointColor(d[i])
-                      name = sanitise(config.data_epochs) // Epochs key name
-                      value = d[i].epochs
-                    } else {
                       // Regular tooltip
                       if (!text) {
                         title = sanitise(titleFormat ? titleFormat(d[i].x, d[i].index) : d[i].x)
@@ -158,7 +136,7 @@ class StackedBarChart extends Chart {
                         name = sanitise(nameFormat(d[i].name, d[i].ratio, d[i].id, d[i].index))
                         bgcolor = $$.levelColor ? $$.levelColor(d[i].value) : color(d[i].id)
                       }
-                    }
+                    
 
                     if (value !== undefined) {
                       text +=
