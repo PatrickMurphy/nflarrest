@@ -112,6 +112,9 @@ class StackedBarChart extends Chart {
                     if (!(d[i] && (d[i].value || d[i].value === 0))) {
                       continue
                     }
+                    if(d[i].value == '0' || d[i].value == 0){
+                        continue;
+                    }
                       // Regular tooltip
                       if (!text) {
                         title = titleFormat ? titleFormat(d[i].x, d[i].index) : d[i].x;
