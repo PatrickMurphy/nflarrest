@@ -91,7 +91,94 @@ class StackedBarChart extends Chart {
             tooltip: {
                 contents: function (d, defaultTitleFormat, defaultValueFormat, color) {
                     //console.log(d);
-                    return d.map(dd => {console.log(dd); dd['value'] > 0 ? this.getTooltipContent(dd, defaultTitleFormat, defaultValueFormat, color) : null});
+                    var $$ = this,
+                    config = $$.config,
+                    titleFormat = config.tooltip_format_title || defaultTitleFormat,
+                    nameFormat =
+                      config.tooltip_format_name ||
+                      function(name) {
+                        return name
+                      },
+                    text,
+                    i,
+                    title,
+                    value,
+                    name,
+                    bgcolor
+
+                  var valueFormat = config.tooltip_format_value
+                  if (!valueFormat) {
+                    valueFormat = $$.isTargetNormalized(d.id)
+                      ? (v, ratio) => `${(ratio * 100).toFixed(2)}%`
+                      : defaultValueFormat
+                  }
+
+                  var tooltipSortFunction = this.getTooltipSortFunction()
+                  if (tooltipSortFunction) {
+                    d.sort(tooltipSortFunction)
+                  }
+
+                  for (i = 0; i < d.length; i++) {
+                    if (!(d[i] && (d[i].value || d[i].value === 0))) {
+                      continue
+                    }
+
+                    if ($$.isStanfordGraphType()) {
+                      // Custom tooltip for stanford plots
+                      if (!text) {
+                        title = $$.getStanfordTooltipTitle(d[i])
+                        text = "<table class='" + $$.CLASS.tooltip + "'>" + title
+                      }
+
+                      bgcolor = $$.getStanfordPointColor(d[i])
+                      name = sanitise(config.data_epochs) // Epochs key name
+                      value = d[i].epochs
+                    } else {
+                      // Regular tooltip
+                      if (!text) {
+                        title = sanitise(titleFormat ? titleFormat(d[i].x, d[i].index) : d[i].x)
+                        text =
+                          "<table class='" +
+                          $$.CLASS.tooltip +
+                          "'>" +
+                          (title || title === 0
+                            ? "<tr><th colspan='2'>" + title + '</th></tr>'
+                            : '')
+                      }
+
+                      value = sanitise(
+                        valueFormat(d[i].value, d[i].ratio, d[i].id, d[i].index, d)
+                      )
+                      if (value !== undefined) {
+                        // Skip elements when their name is set to null
+                        if (d[i].name === null) {
+                          continue
+                        }
+
+                        name = sanitise(nameFormat(d[i].name, d[i].ratio, d[i].id, d[i].index))
+                        bgcolor = $$.levelColor ? $$.levelColor(d[i].value) : color(d[i].id)
+                      }
+                    }
+
+                    if (value !== undefined) {
+                      text +=
+                        "<tr class='" +
+                        $$.CLASS.tooltipName +
+                        '-' +
+                        $$.getTargetSelectorSuffix(d[i].id) +
+                        "'>"
+                      text +=
+                        "<td class='name'><span style='background-color:" +
+                        bgcolor +
+                        "'></span>" +
+                        name +
+                        '</td>'
+                      text += "<td class='value'>" + value + '</td>'
+                      text += '</tr>'
+                    }
+                  }
+                  return text + '</table>'
+                    //return d.map(dd => {console.log(dd); dd['value'] > 0 ? this.getTooltipContent(d, defaultTitleFormat, defaultValueFormat, color) : null});
                 },  
             },
             color: {
