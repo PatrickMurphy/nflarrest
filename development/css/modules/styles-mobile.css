@@ -58,31 +58,6 @@
 	.kpi-description-x-small {
 		font-size: x-small;
 	}
-	/* Newsletter  
-	----------------
-	*/
-	#newsletterDisplayBtn {
-		display: block;
-		margin: 10px auto;
-	}
-	#newsletterContainer {
-		display: none;
-	}
-	#newsletterContainer span {
-		font-size: .75em;
-	}
-	#newsletterContainer h5 {
-		margin-bottom: 0px;
-	}
-	#newsletterForm input {
-		height: 25px;
-	}
-	#newsletterForm input[type="submit"] {
-		line-height: 0px;
-	}
-	#newsletterForm input[type="email"] {
-		width: 80%;
-	}
 	/* Arrest-Meter 
 	------------------ */
 	#arrest-meter {

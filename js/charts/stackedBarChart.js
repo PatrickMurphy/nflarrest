@@ -90,13 +90,84 @@ class StackedBarChart extends Chart {
             },
             tooltip: {
                 contents: function (d, defaultTitleFormat, defaultValueFormat, color) {
-                    if (d[1].value > 0) {
-                        // Use default rendering
-                        return this.getTooltipContent(d, defaultTitleFormat, defaultValueFormat, color);
-                    } else {
-                        // no render if value less than equal 0
-                        return '';
+                    //console.log(d);
+                    var $$ = this,
+                    config = $$.config,
+                    titleFormat = config.tooltip_format_title || defaultTitleFormat,
+                    nameFormat =
+                      config.tooltip_format_name ||
+                      function(name) {
+                        return name
+                      },
+                    text,
+                    i,
+                    title,
+                    value,
+                    name,
+                    bgcolor
+
+                  d = d.sort(function(a,b){
+                      if(a.value >= b.value){
+                          if (a.value == b.value){
+                            return 0;
+                          }else{
+                            return -1;
+                          }
+                      }else{
+                          return 1;
+                      }
+                  });
+
+                  for (i = 0; i < d.length; i++) {
+                    if (!(d[i] && (d[i].value || d[i].value === 0))) {
+                      continue
                     }
+                    if(d[i].value == '0' || d[i].value == 0){
+                        continue;
+                    }
+                      // Regular tooltip
+                      if (!text) {
+                        title = titleFormat ? titleFormat(d[i].x, d[i].index) : d[i].x;
+                        text =
+                          "<table class='" +
+                          $$.CLASS.tooltip +
+                          "'>" +
+                          (title || title === 0
+                            ? "<tr><th colspan='2'>" + title + '</th></tr>'
+                            : '')
+                      }
+
+                      value = defaultValueFormat(d[i].value, d[i].ratio, d[i].id, d[i].index, d)
+                      if (value !== undefined) {
+                        // Skip elements when their name is set to null
+                        if (d[i].name === null) {
+                          continue
+                        }
+
+                        name = nameFormat(d[i].name, d[i].ratio, d[i].id, d[i].index);
+                        bgcolor = color(d[i].id);
+                      }
+                    
+
+                    if (value !== undefined) {
+                      text +=
+                        "<tr class='" +
+                        $$.CLASS.tooltipName +
+                        '-' +
+                        $$.getTargetSelectorSuffix(d[i].id) +
+                        "'>"
+                      text +=
+                        "<td class='name'><span style='background-color:" +
+                        bgcolor +
+                        "'></span>" +
+                        name +
+                        '</td>'
+                      text += "<td class='value'>" + value + '</td>'
+                      text += '</tr>'
+                    }
+                  }
+                  return text + '</table>'
+                    //return d.map(dd => {console.log(dd); dd['value'] > 0 ? this.getTooltipContent(d, defaultTitleFormat, defaultValueFormat, color) : null});
                 },  
             },
             color: {
