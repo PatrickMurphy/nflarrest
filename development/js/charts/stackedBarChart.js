@@ -106,7 +106,17 @@ class StackedBarChart extends Chart {
                     name,
                     bgcolor
 
-                 
+                  d = d.sort(function(a,b){
+                      if(a.value >= b.value){
+                          if (a.value == b.value){
+                            return 0;
+                          }else{
+                            return -1;
+                          }
+                      }else{
+                          return 1;
+                      }
+                  });
 
                   for (i = 0; i < d.length; i++) {
                     if (!(d[i] && (d[i].value || d[i].value === 0))) {
