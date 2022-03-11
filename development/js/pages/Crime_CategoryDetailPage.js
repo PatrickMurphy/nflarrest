@@ -50,7 +50,7 @@ class CrimeCategoryDetailPage extends DetailPage {
             var c = new ArrestCard(this, row);
             return c.getHTML(c.Dimension_Team, c.Dimension_Player, c.Dimension_Crime);
         });
-        tbl.renderView();
+        //tbl.renderView();
     }
 
     changeTitle() {
