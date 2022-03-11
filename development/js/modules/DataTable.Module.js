@@ -140,7 +140,7 @@ class DataTable extends Module {
             callback: this.displayPaginationTemplateFn || this.defaultFunctions.displayPaginationTemplateFn,
             afterPaging: () => {
                 if(this.getOption('afterInit')) {
-                    console.log('data table after paging: send event ');
+                    //console.log('data table after paging: send event ');
                     this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page');
                 }
             },

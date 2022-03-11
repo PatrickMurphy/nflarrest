@@ -98,7 +98,6 @@ class IndexPage extends WebPage {
         tbl.renderView();
 */
         $('#dateRangeJquery').on('dateRangeChanged', (e) => {
-            console.log('DateRangeChanged');
             this.renderView();
         });
     }
