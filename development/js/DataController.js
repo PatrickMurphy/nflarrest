@@ -439,7 +439,7 @@ class DataController {
         var arrests = [];
 		this.forEach((row) => {
 			if(this.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd())){
-				if(filterFn(row)){
+				if(filterFunction(row)){
 					arrests.push(row);
 				}
 			}
