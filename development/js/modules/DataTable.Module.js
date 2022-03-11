@@ -15,6 +15,8 @@ class DataTable extends Module {
             this.setRenderCardFn(this.getOption('renderCardFn'));
         }
         
+        this.setOption('afterInit',false);
+        
         // optional render functions set undefined until set at runtime
         this.renderRowFn = undefined;
         this.renderRowHeaderFn = undefined;
@@ -137,10 +139,13 @@ class DataTable extends Module {
             dataSource: Array.from(this.getData().keys()),
             callback: this.displayPaginationTemplateFn || this.defaultFunctions.displayPaginationTemplateFn,
             afterPaging: () => {
-                //if(p1) {
-                console.log('data table after paging: send event ');
-                this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page');
-                //}
+                if(this.getOption('afterInit')) {
+                    console.log('data table after paging: send event ');
+                    this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page');
+                }
+            },
+            afterInit(){
+                this.setOption('afterInit',true);
             },
             autoHidePrevious: true,
             autoHideNext: true,

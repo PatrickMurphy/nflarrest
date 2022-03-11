@@ -52,6 +52,10 @@ class Module {
         this.options = newOptions;
     }
     
+    setOption(optionKey, val){
+        this.options[optionKey] = val;
+    }
+    
     getOptions(){
         return this.options;
     }
