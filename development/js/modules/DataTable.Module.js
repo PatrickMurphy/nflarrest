@@ -133,8 +133,10 @@ class DataTable extends Module {
         $('#pagination-control').pagination({
             dataSource: Array.from(this.getData().keys()),
             callback: this.displayPaginationTemplateFn || this.defaultFunctions.displayPaginationTemplateFn,
-            afterRender: () => {
-                this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page');
+            afterRender: (notTriggeredByInit) => {
+                if(notTriggeredByInit){ // if not on initialization
+                    this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page');
+                }
             },
             autoHidePrevious: true,
             autoHideNext: true,
