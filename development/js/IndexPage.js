@@ -100,14 +100,16 @@ class IndexPage extends WebPage {
     
     renderView(){
         this.LoadingBar.showLoading();
-        this.MainChart.setupChart();
-        this.TopLists.reload();
-        this.renderModules();
-        var getTeamsCallbackFn = (data) => {this.RenderTeamLinks(data);};
-        this.data_controller.getTeams(getTeamsCallbackFn);
         this.data_controller.getFilteredDataCount((data_count)=>{
-            if(data_count == 0){
+            console.log("Record Count: "+data_count);
+            if(data_count <= 0){
                 alert('No Data Returned with current Filter Selection.');
+            }else{
+                this.MainChart.setupChart();
+                this.TopLists.reload();
+                this.renderModules();
+                var getTeamsCallbackFn = (data) => {this.RenderTeamLinks(data);};
+                this.data_controller.getTeams(getTeamsCallbackFn);
             }
         });
     }
