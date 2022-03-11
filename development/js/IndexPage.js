@@ -105,6 +105,11 @@ class IndexPage extends WebPage {
         this.renderModules();
         var getTeamsCallbackFn = (data) => {this.RenderTeamLinks(data);};
         this.data_controller.getTeams(getTeamsCallbackFn);
+        this.data_controller.getFilteredDataCount((data_count)=>{
+            if(data_count == 0){
+                alert('No Data Returned with current Filter Selection.');
+            }
+        });
     }
     
     evaluateHash(){
