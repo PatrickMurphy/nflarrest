@@ -144,6 +144,16 @@ class WebPage {
         }
     }
     
+    afterRenderModules(isInit){
+        isInit = isInit === true ? true : false;
+        if(this.getModuleCount() > 0){
+            var moduleIDs = Object.keys(this.Modules_HashMap);
+            for(var i = 0; i < moduleIDs.length; i++){
+                this.Modules_HashMap[moduleIDs[i]].setIsInit(isInit);
+            }
+        }
+    }
+    
     // function to return the tooltip attribute html for date display elements
     // expects [row] parameter, a js object that contains a date property formatted as a string, if it contains T (Date Format to add time)
     // return type: string

@@ -10,8 +10,6 @@ class DataTable extends Module {
             RowLimit:15,
             GoogleTrackingCategory: 'DetailPageArrests'
         }));
-        
-        this.isInit = true;
 
         // optional render functions set undefined until set at runtime
         this.renderRowFn = undefined;
@@ -175,8 +173,8 @@ class DataTable extends Module {
     renderView(isInit) {
         var self = this;
         isInit = isInit === true ? true : false;
-        if(isInit === true){
-            this.isInit = isInit;
+        if(isInit){
+            this.setIsInit(isInit);
         }
         
         var filterFunction = self.displayDataFilterFn || self.defaultFunctions.displayDataFilterFn;

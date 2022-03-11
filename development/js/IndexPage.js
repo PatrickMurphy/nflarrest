@@ -97,8 +97,8 @@ class IndexPage extends WebPage {
         this.renderModules();
         var getTeamsCallbackFn = (data) => {this.RenderTeamLinks(data);};
         this.data_controller.getTeams(getTeamsCallbackFn);
-        // comment out?
-        this.getModule(this.DataTable_ModuleID).isInit = false;
+        // at end of render set modules isinit false
+        this.afterRenderModules(false);
     }
     
     evaluateHash(){
