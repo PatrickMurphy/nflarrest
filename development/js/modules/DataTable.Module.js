@@ -144,8 +144,6 @@ class DataTable extends Module {
                     console.log('send event');
                     this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page');
                 }
-                // this is happening before callback?
-                this.isInit = false;
             },
             autoHidePrevious: true,
             autoHideNext: true,
