@@ -35,7 +35,7 @@ class DataTable extends Module {
         }
         
         // render view first time
-        this.renderView();
+        this.renderView(true);
     }
     
     setupDefaultFunctions(){
@@ -131,8 +131,11 @@ class DataTable extends Module {
         }
     }
     
-    setupPagination(data){
-        console.log('setup pagination');
+    setupPagination(data,isInitOpt){
+        if(isInitOpt === true){
+            this.isInit = isInitOpt;
+        }
+        console.log('setup pagination ' + this.isInit);
         $('#pagination-control').pagination({
             dataSource: Array.from(this.getData().keys()),
             callback: this.displayPaginationTemplateFn || this.defaultFunctions.displayPaginationTemplateFn,
@@ -169,8 +172,12 @@ class DataTable extends Module {
     }
     
     // ======= View Methods =======
-    renderView() {
+    renderView(isInit) {
         var self = this;
+        isInit = isInit === true ? true : false;
+        if(isInit === true){
+            this.isInit = isInit;
+        }
         
         var filterFunction = self.displayDataFilterFn || self.defaultFunctions.displayDataFilterFn;
         
@@ -184,7 +191,7 @@ class DataTable extends Module {
                 callbackData(data);
             };
             callbackRuntimeNow(data);
-            self.setupPagination(data);
+            self.setupPagination(data,isInit);
         };
         
         // TODO: extract to parent
