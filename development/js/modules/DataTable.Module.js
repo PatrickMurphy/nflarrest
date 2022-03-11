@@ -136,11 +136,11 @@ class DataTable extends Module {
         $('#pagination-control').pagination({
             dataSource: Array.from(this.getData().keys()),
             callback: this.displayPaginationTemplateFn || this.defaultFunctions.displayPaginationTemplateFn,
-            afterRender: (p1) => {
-                if(p1) {
-                    console.log('data table after render: send event');
-                    this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page');
-                }
+            afterPaging: () => {
+                //if(p1) {
+                console.log('data table after paging: send event ');
+                this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page');
+                //}
             },
             autoHidePrevious: true,
             autoHideNext: true,
