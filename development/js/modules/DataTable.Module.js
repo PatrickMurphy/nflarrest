@@ -11,12 +11,6 @@ class DataTable extends Module {
             GoogleTrackingCategory: 'DetailPageArrests'
         }));
 
-        if(this.getOptionExists('renderCardFn')){
-            this.setRenderCardFn(this.getOption('renderCardFn'));
-        }
-        
-        this.setOption('afterInit',false);
-        
         // optional render functions set undefined until set at runtime
         this.renderRowFn = undefined;
         this.renderRowHeaderFn = undefined;
@@ -28,17 +22,31 @@ class DataTable extends Module {
         this.displayDataCallbackFn = undefined;
         
         this.setupDefaultFunctions();
+        
+        // set default is init val
+        this.setOption('afterInit',false);
+        
+        // set functions if set in options
+        if(this.getOptionExists('renderRowHeaderFn')){
+            this.setRenderRowHeaderFn(this.getOption('renderRowHeaderFn'));
+        }
+        if(this.getOptionExists('renderRowFn')){
+            this.setRenderRowFn(this.getOption('renderRowFn'));
+        }
+        if(this.getOptionExists('renderCardFn')){
+            this.setRenderCardFn(this.getOption('renderCardFn'));
+        }
+        
         // if the device is mobile use mobile view style (true), else desktop (false)
         this.view_mobile = this.parent.Utilities.mobileCheck() ? true : false;
         
         this.DataTableColumns = undefined;
-        
         if(this.getOptionExists('columns')){
             this.DataTableColumns = new DataTableColumns(this, this.getOption('columns'), {columns: this.getOption('columns')});
         }
         
         // render view first time
-        this.renderView(true);
+        this.renderView();
     }
     
     setupDefaultFunctions(){
