@@ -104,7 +104,7 @@ class IndexPage extends WebPage {
             console.log("Record Count: "+data_count);
             if(data_count <= 0){
                 alert('No Data Returned with current Filter Selection.');
-                this.DateRangeControl.resetTime();
+                this.DateRangeControl.setDefaultDate();
             }
             
             this.MainChart.setupChart();
