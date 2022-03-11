@@ -13,7 +13,7 @@ class TeamDetailPage extends DetailPage {
             field: 'Crime_category',
             targetElement: '#crimechart',
             title: 'Crime Categories'
-            }], 'api/v1/team/arrests/');
+            }],{}, 'api/v1/team/arrests/');
         
         var tbl = this.getModule(this.DataTable_ModuleID);
         tbl.setRenderRowHeaderFn(() => {
