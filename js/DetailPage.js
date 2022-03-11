@@ -1,6 +1,6 @@
 class DetailPage extends WebPage {
     // TODO: Remove arrestsUrl parameter
-    constructor(pageTitle, chartOptions, arrestsUrl) {
+    constructor(pageTitle, chartOptions, tableOptions, arrestsUrl) {
         super(pageTitle);
         this.arrestsUrl = arrestsUrl; // TODO: Remove this variable and all refrences // example value: api/team/arrests.php?id=
         this.data_controller; // todo remove this line?
@@ -20,7 +20,11 @@ class DetailPage extends WebPage {
 
         this.DateRangeControl = new DateRangeControl(this); // pass this as parent arg
         this.data_controller = new DataController(this.DateRangeControl, this);
-        this.DataTable_ModuleID = this.addModule(new DataTable(this));
+        if(Object.keys(tableOptions) > 0){
+            this.DataTable_ModuleID = this.addModule(new DataTable(this,[],tableOptions));
+        }else{
+            this.DataTable_ModuleID = this.addModule(new DataTable(this));
+        }
 
         //this.setupFilters();
 

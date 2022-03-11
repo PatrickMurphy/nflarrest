@@ -13,7 +13,7 @@ class PlayerDetailPage extends DetailPage {
             field: 'Category',
             targetElement: '#crimeschart',
             title: 'Crimes'
-            }], 'api/v1/player/arrests/');
+            }],{}, 'api/v1/player/arrests/');
         
         var tbl = this.getModule(this.DataTable_ModuleID);
         tbl.setRenderRowHeaderFn(() => {return '<tr><th class="one column">Date:</th><th class="two columns">Player:</th><th class="two columns">Crime Category:</th><th class="one column">Team:</th><th class="four columns">Description:</th><th class="two columns">Outcome:</th></tr>';});

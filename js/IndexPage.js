@@ -58,8 +58,18 @@ class IndexPage extends WebPage {
                     column_data: 'Description',
                     column_width: 5
                 }];
+        var dataTableOptions = {targetElement:'arrest_table',
+                                TitlePrefix:'Latest ', 
+                                columns:data_table_cols, 
+                                RowLimit:5,
+                                GoogleTrackingCategory:'IndexPageArrests'
+                               };
         
-        this.DataTable_ModuleID = this.addModule(new DataTable(this,[],{targetElement:'arrest_table',TitlePrefix:'Latest ', columns:data_table_cols, RowLimit:5,GoogleTrackingCategory:'IndexPageArrests'}));
+        dataTableOptions['RenderCardFn'] = (row) => {
+            var c = new ArrestCard(this, row);
+            return c.getHTML(c.Dimension_Crime_Category, c.Dimension_Team,c.Dimension_Player);
+        };
+        this.DataTable_ModuleID = this.addModule(new DataTable(this,[],dataTableOptions));
         this.MainChart = new MainChart(this);
         this.TopLists = new TopLists(this);
         
@@ -78,7 +88,7 @@ class IndexPage extends WebPage {
         }else{
             $('#bottomTeamLinks').hide();
         }
-        
+        /*
         var tbl = this.getModule(this.DataTable_ModuleID);
 
         tbl.setRenderCardFn((row) => {
@@ -86,8 +96,10 @@ class IndexPage extends WebPage {
             return c.getHTML(c.Dimension_Crime_Category, c.Dimension_Team,c.Dimension_Player);
         });
         tbl.renderView();
-
-        $('#dateRangeJquery').on('dateRangeChanged', (e) => {this.renderView();});
+*/
+        $('#dateRangeJquery').on('dateRangeChanged', (e) => {
+            this.renderView();
+        });
     }
     
     renderView(){

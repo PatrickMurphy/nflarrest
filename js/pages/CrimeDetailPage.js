@@ -19,7 +19,7 @@ class CrimeDetailPage extends DetailPage {
             field: 'Position',
             targetElement: '#poschart',
             title: 'Crimes'
-            }], 'api/v1/crime/arrests/');
+            }],{}, 'api/v1/crime/arrests/');
         
         //this.DataTable_ModuleID = this.addModule(new DataTable(this));
         var tbl = this.getModule(this.DataTable_ModuleID);

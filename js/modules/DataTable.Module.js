@@ -23,11 +23,24 @@ class DataTable extends Module {
         
         this.setupDefaultFunctions();
         
+        // set default is init val
+        this.setOption('afterInit',false);
+        
+        // set functions if set in options
+        if(this.getOptionExists('renderRowHeaderFn')){
+            this.setRenderRowHeaderFn(this.getOption('renderRowHeaderFn'));
+        }
+        if(this.getOptionExists('renderRowFn')){
+            this.setRenderRowFn(this.getOption('renderRowFn'));
+        }
+        if(this.getOptionExists('renderCardFn')){
+            this.setRenderCardFn(this.getOption('renderCardFn'));
+        }
+        
         // if the device is mobile use mobile view style (true), else desktop (false)
         this.view_mobile = this.parent.Utilities.mobileCheck() ? true : false;
         
         this.DataTableColumns = undefined;
-        
         if(this.getOptionExists('columns')){
             this.DataTableColumns = new DataTableColumns(this, this.getOption('columns'), {columns: this.getOption('columns')});
         }
@@ -133,8 +146,29 @@ class DataTable extends Module {
         $('#pagination-control').pagination({
             dataSource: Array.from(this.getData().keys()),
             callback: this.displayPaginationTemplateFn || this.defaultFunctions.displayPaginationTemplateFn,
-            afterRender: () => {
-                this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page');
+            /*afterPaging: () => {
+                if(this.getOption('afterInit')) {
+                    //console.log('data table after paging: send event ');
+                    this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page');
+                }
+            },*/
+            afterPreviousOnClick:()=>{
+                this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page : Previous Button');
+            },
+            afterPageOnClick:()=>{
+                this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page : Page Button');
+            },
+            afterNextOnClick:()=>{
+                this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page : Next Button');
+            },
+            afterGoInputOnEnter:()=>{
+                this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page : Go Input On Enter');
+            },
+            afterGoInputOnClick:()=>{
+                this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page : Go Input On Click');
+            },
+            afterInit: ()=>{
+                this.setOption('afterInit',true);
             },
             autoHidePrevious: true,
             autoHideNext: true,
@@ -163,8 +197,12 @@ class DataTable extends Module {
     }
     
     // ======= View Methods =======
-    renderView() {
+    renderView() { // isInit
         var self = this;
+        //isInit = isInit === true ? true : false;
+        //if(isInit){
+        //    this.setIsInit(true);
+        //}
         
         var filterFunction = self.displayDataFilterFn || self.defaultFunctions.displayDataFilterFn;
         
@@ -178,7 +216,7 @@ class DataTable extends Module {
                 callbackData(data);
             };
             callbackRuntimeNow(data);
-            self.setupPagination(data);
+            self.setupPagination(data); //,isInit
         };
         
         // TODO: extract to parent

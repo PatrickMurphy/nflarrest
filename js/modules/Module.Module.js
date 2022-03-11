@@ -9,7 +9,7 @@ class Module {
     renderView(){
         console.warn("Default Module renderView Function called.");
     }
-    
+
     setModuleID(newModuleID){
         this.moduleID = newModuleID;
     }
@@ -50,6 +50,10 @@ class Module {
     
     setOptions(newOptions){
         this.options = newOptions;
+    }
+    
+    setOption(optionKey, val){
+        this.options[optionKey] = val;
     }
     
     getOptions(){

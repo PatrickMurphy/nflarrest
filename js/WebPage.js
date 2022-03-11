@@ -143,7 +143,6 @@ class WebPage {
             }
         }
     }
-    
     // function to return the tooltip attribute html for date display elements
     // expects [row] parameter, a js object that contains a date property formatted as a string, if it contains T (Date Format to add time)
     // return type: string

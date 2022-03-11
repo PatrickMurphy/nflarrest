@@ -19,7 +19,7 @@ class CrimeCategoryDetailPage extends DetailPage {
             field: 'Name',
             targetElement: '#playerchart',
             title: 'Players'
-            }], 'api/v1/crime/arrests/');
+            }],{}, 'api/v1/crime/arrests/');
         
         //this.DataTable_ModuleID = this.addModule(new DataTable(this));
         var tbl = this.getModule(this.DataTable_ModuleID);
