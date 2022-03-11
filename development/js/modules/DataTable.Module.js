@@ -10,6 +10,8 @@ class DataTable extends Module {
             RowLimit:15,
             GoogleTrackingCategory: 'DetailPageArrests'
         }));
+        
+        this.isInit = true;
 
         // optional render functions set undefined until set at runtime
         this.renderRowFn = undefined;
@@ -133,10 +135,11 @@ class DataTable extends Module {
         $('#pagination-control').pagination({
             dataSource: Array.from(this.getData().keys()),
             callback: this.displayPaginationTemplateFn || this.defaultFunctions.displayPaginationTemplateFn,
-            afterRender: (notTriggeredByInit) => {
-                if(notTriggeredByInit){ // if not on initialization
+            afterRender: () => {
+                if(this.isInit){ // if not on initialization
                     this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page');
                 }
+                this.isInit = false;
             },
             autoHidePrevious: true,
             autoHideNext: true,
