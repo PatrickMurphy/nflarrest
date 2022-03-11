@@ -132,6 +132,7 @@ class DataTable extends Module {
     }
     
     setupPagination(data){
+        console.log('setup pagination');
         $('#pagination-control').pagination({
             dataSource: Array.from(this.getData().keys()),
             callback: this.displayPaginationTemplateFn || this.defaultFunctions.displayPaginationTemplateFn,
