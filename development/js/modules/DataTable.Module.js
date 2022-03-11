@@ -131,14 +131,14 @@ class DataTable extends Module {
     
     setupPagination(data,isInitOpt){
         if(isInitOpt === true){
-            this.isInit = isInitOpt;
+            this.setIsInit(isInitOpt);
         }
-        console.log('setup pagination ' + this.isInit);
+        console.log('setup pagination ' + this.getIsInit());
         $('#pagination-control').pagination({
             dataSource: Array.from(this.getData().keys()),
             callback: this.displayPaginationTemplateFn || this.defaultFunctions.displayPaginationTemplateFn,
             afterRender: () => {
-                if(this.isInit !== true){ // if not on initialization
+                if(this.getIsInit() !== true){ // if not on initialization
                     console.log('send event');
                     this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page');
                 }
