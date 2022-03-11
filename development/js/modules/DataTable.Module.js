@@ -146,11 +146,26 @@ class DataTable extends Module {
         $('#pagination-control').pagination({
             dataSource: Array.from(this.getData().keys()),
             callback: this.displayPaginationTemplateFn || this.defaultFunctions.displayPaginationTemplateFn,
-            afterPaging: () => {
+            /*afterPaging: () => {
                 if(this.getOption('afterInit')) {
                     //console.log('data table after paging: send event ');
                     this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page');
                 }
+            },*/
+            afterPreviousOnClick:()=>{
+                this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page : Previous Button');
+            },
+            afterPageOnClick:()=>{
+                this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page : Page Button');
+            },
+            afterNextOnClick:()=>{
+                this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page : Next Button');
+            },
+            afterGoInputOnEnter:()=>{
+                this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page : Go Input On Enter');
+            },
+            afterGoInputOnClick:()=>{
+                this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page : Go Input On Click');
             },
             afterInit: ()=>{
                 this.setOption('afterInit',true);
