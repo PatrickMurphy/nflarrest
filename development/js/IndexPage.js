@@ -85,7 +85,7 @@ class IndexPage extends WebPage {
             var c = new ArrestCard(this, row);
             return c.getHTML(c.Dimension_Crime_Category, c.Dimension_Team,c.Dimension_Player);
         });
-        tbl.renderView(true);
+        tbl.renderView();
 
         $('#dateRangeJquery').on('dateRangeChanged', (e) => {this.renderView();});
     }
@@ -97,8 +97,6 @@ class IndexPage extends WebPage {
         this.renderModules();
         var getTeamsCallbackFn = (data) => {this.RenderTeamLinks(data);};
         this.data_controller.getTeams(getTeamsCallbackFn);
-        // at end of render set modules isinit false
-        this.afterRenderModules(false);
     }
     
     evaluateHash(){

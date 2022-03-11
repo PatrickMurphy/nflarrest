@@ -1,6 +1,5 @@
 class Module {
     constructor(moduleID, parent, data, options){
-        this.setIsInit(true);
         this.setModuleID(moduleID);
         this.setParent(parent);
         this.setData(data);
@@ -10,15 +9,7 @@ class Module {
     renderView(){
         console.warn("Default Module renderView Function called.");
     }
-    
-    setIsInit(bool){
-        this.isInit = bool === true ? true : false;
-    }
-    
-    getIsInit(){
-        return this.isInit;
-    }
-    
+
     setModuleID(newModuleID){
         this.moduleID = newModuleID;
     }

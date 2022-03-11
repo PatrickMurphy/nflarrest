@@ -129,24 +129,20 @@ class DataTable extends Module {
         }
     }
     
-    setupPagination(data,isInitOpt){
-        if(isInitOpt === true){
+    setupPagination(data){ //,isInitOpt
+        /*if(isInitOpt === true){
             this.setIsInit(true);
             console.log('data table after render: set is init true');
-        }
-        console.log('setup pagination ' + this.getIsInit());
+        }*/
+        console.log('setup pagination');
         $('#pagination-control').pagination({
             dataSource: Array.from(this.getData().keys()),
             callback: this.displayPaginationTemplateFn || this.defaultFunctions.displayPaginationTemplateFn,
             afterRender: (p1) => {
-                console.log('data table after render: fire');
                 console.log('data table after render param 1:' + p1);
-                if(!this.getIsInit()){ // if not on initialization
+                if(p1) {
                     console.log('data table after render: send event');
                     this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page');
-                }else{
-                    console.log('data table after render: set is init false');
-                    this.setIsInit(false);
                 }
             },
             autoHidePrevious: true,
@@ -176,12 +172,12 @@ class DataTable extends Module {
     }
     
     // ======= View Methods =======
-    renderView(isInit) {
+    renderView() { // isInit
         var self = this;
-        isInit = isInit === true ? true : false;
-        if(isInit){
-            this.setIsInit(isInit);
-        }
+        //isInit = isInit === true ? true : false;
+        //if(isInit){
+        //    this.setIsInit(true);
+        //}
         
         var filterFunction = self.displayDataFilterFn || self.defaultFunctions.displayDataFilterFn;
         
@@ -195,7 +191,7 @@ class DataTable extends Module {
                 callbackData(data);
             };
             callbackRuntimeNow(data);
-            self.setupPagination(data,isInit);
+            self.setupPagination(data); //,isInit
         };
         
         // TODO: extract to parent
