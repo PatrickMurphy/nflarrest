@@ -11,6 +11,10 @@ class DataTable extends Module {
             GoogleTrackingCategory: 'DetailPageArrests'
         }));
 
+        if(this.getOptionExists('renderCardFn')){
+            this.setRenderCardFn(this.getOption('renderCardFn'));
+        }
+        
         // optional render functions set undefined until set at runtime
         this.renderRowFn = undefined;
         this.renderRowHeaderFn = undefined;
@@ -22,7 +26,6 @@ class DataTable extends Module {
         this.displayDataCallbackFn = undefined;
         
         this.setupDefaultFunctions();
-        
         // if the device is mobile use mobile view style (true), else desktop (false)
         this.view_mobile = this.parent.Utilities.mobileCheck() ? true : false;
         
@@ -129,17 +132,11 @@ class DataTable extends Module {
         }
     }
     
-    setupPagination(data){ //,isInitOpt
-        /*if(isInitOpt === true){
-            this.setIsInit(true);
-            console.log('data table after render: set is init true');
-        }*/
-        console.log('setup pagination');
+    setupPagination(data){
         $('#pagination-control').pagination({
             dataSource: Array.from(this.getData().keys()),
             callback: this.displayPaginationTemplateFn || this.defaultFunctions.displayPaginationTemplateFn,
             afterRender: (p1) => {
-                console.log('data table after render param 1:' + p1);
                 if(p1) {
                     console.log('data table after render: send event');
                     this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page');
