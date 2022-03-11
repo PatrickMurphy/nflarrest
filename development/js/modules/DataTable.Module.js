@@ -132,6 +132,7 @@ class DataTable extends Module {
     setupPagination(data,isInitOpt){
         if(isInitOpt === true){
             this.setIsInit(true);
+            console.log('data table after render: set is init true');
         }
         console.log('setup pagination ' + this.getIsInit());
         $('#pagination-control').pagination({
