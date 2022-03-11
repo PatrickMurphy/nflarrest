@@ -14,6 +14,7 @@ class IndexPage extends WebPage {
         
         this.DateRangeControl = new DateRangeControl(this);
         this.data_controller = new DataController(this.DateRangeControl, this);
+        
         var data_table_cols = [{
                     column_id: 0,
                     column_title: 'Date:',
@@ -60,18 +61,18 @@ class IndexPage extends WebPage {
                 }];
         var dataTableOptions = {targetElement:'arrest_table',
                                 TitlePrefix:'Latest ', 
-                                columns:data_table_cols, 
                                 RowLimit:5,
-                                GoogleTrackingCategory:'IndexPageArrests'
+                                GoogleTrackingCategory:'IndexPageArrests',
+                                columns:data_table_cols, 
+                                RenderCardFn:(row) =>   {
+                                                            var c = new ArrestCard(this, row);
+                                                            return c.getHTML(c.Dimension_Crime_Category, c.Dimension_Team,c.Dimension_Player);
+                                                        }
                                };
         
-        dataTableOptions['RenderCardFn'] = (row) => {
-            var c = new ArrestCard(this, row);
-            return c.getHTML(c.Dimension_Crime_Category, c.Dimension_Team,c.Dimension_Player);
-        };
-        this.DataTable_ModuleID = this.addModule(new DataTable(this,[],dataTableOptions));
-        this.MainChart = new MainChart(this);
-        this.TopLists = new TopLists(this);
+        this.DataTable_ModuleID = this.addModule(new DataTable(this,[],dataTableOptions)); // todo: extract load data logic from data table and passed as param2 to decouple
+        this.MainChart = new MainChart(this); // todo: refactor charts as modules Chart.module.js
+        this.TopLists = new TopLists(this); // todo: refactor lists as modules ListChart.module.js
         
         // if hash set, set chart type
         this.evaluateHash();
@@ -82,21 +83,16 @@ class IndexPage extends WebPage {
         // add jquery load more lists button handler // TODO: Move to top lists class
         $('#loadMoreLists').click(this.TopLists.jQuery_Handler);
         
-        // display team page links
+        // display team page links if this.detail_page_active option set to true
         if(this.detail_page_active){
+            // use data controller to get data and display
             this.data_controller.getTeams((data)=>{this.RenderTeamLinks(data)});
         }else{
+            // hide bottom team links if disabled
             $('#bottomTeamLinks').hide();
         }
-        /*
-        var tbl = this.getModule(this.DataTable_ModuleID);
 
-        tbl.setRenderCardFn((row) => {
-            var c = new ArrestCard(this, row);
-            return c.getHTML(c.Dimension_Crime_Category, c.Dimension_Team,c.Dimension_Player);
-        });
-        tbl.renderView();
-*/
+        // on filters (date range) change, re render view
         $('#dateRangeJquery').on('dateRangeChanged', (e) => {
             this.renderView();
         });
