@@ -74,8 +74,7 @@ class CrimeCategoryDetailPage extends DetailPage {
                                                             var c = new ArrestCard(this, row);
                                                             return c.getHTML(c.Dimension_Crime_Category, c.Dimension_Team,c.Dimension_Player);
                                                         }
-                                }
-                               , 'api/v1/crime/arrests/');
+                                });
         
         /*
         //this.DataTable_ModuleID = this.addModule(new DataTable(this));
