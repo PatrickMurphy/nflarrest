@@ -144,7 +144,7 @@ class DataTable extends Module {
                     this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page');
                 }
             },
-            afterInit(){
+            afterInit: ()=>{
                 this.setOption('afterInit',true);
             },
             autoHidePrevious: true,
