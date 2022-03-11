@@ -2,12 +2,14 @@ class DetailPage extends WebPage {
     // TODO: Remove arrestsUrl parameter
     constructor(pageTitle, chartOptions, tableOptions, arrestsUrl) {
         super(pageTitle);
-        this.arrestsUrl = arrestsUrl; // TODO: Remove this variable and all refrences // example value: api/team/arrests.php?id=
+        this.arrestsUrl = arrestsUrl || 'empty url'; // TODO: Remove this variable and all refrences // example value: api/team/arrests.php?id=
+        tableOptions = tableOptions === undefined ? false : tableOptions;
         this.data_controller; // todo remove this line?
 
         this.pageID = this.Utilities.update_hash(); // get hash value ex: SEA for team.html
         this.pageTitle = pageTitle; // Team
         this.chartOptions = chartOptions; // [{url:'',field:'',targetElement:'',title:''}]
+        this.tableOptions = tableOptions;
         
         this.callbackReturns = 0;
 
@@ -20,7 +22,7 @@ class DetailPage extends WebPage {
 
         this.DateRangeControl = new DateRangeControl(this); // pass this as parent arg
         this.data_controller = new DataController(this.DateRangeControl, this);
-        if(Object.keys(tableOptions) > 0){
+        if(tableOptions){
             this.DataTable_ModuleID = this.addModule(new DataTable(this,[],tableOptions));
         }else{
             this.DataTable_ModuleID = this.addModule(new DataTable(this));

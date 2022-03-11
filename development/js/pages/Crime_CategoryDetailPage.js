@@ -48,7 +48,7 @@ class CrimeCategoryDetailPage extends DetailPage {
                                 },
                                 {
                                     column_id: 2,
-                                    column_title: 'Crime:',
+                                    column_title: 'Crime Sub-Category:',
                                     column_data: 'Category',
                                     column_display_fn: (row) => {
                                         return '<a href="Crime.html#' + row['Category'] + '">'+row['Category']+'</a>';
