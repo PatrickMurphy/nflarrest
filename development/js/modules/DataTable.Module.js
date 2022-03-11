@@ -140,12 +140,12 @@ class DataTable extends Module {
             dataSource: Array.from(this.getData().keys()),
             callback: this.displayPaginationTemplateFn || this.defaultFunctions.displayPaginationTemplateFn,
             afterRender: () => {
-                if(this.isInit){ // if not on initialization
+                if(this.isInit !== true){ // if not on initialization
                     console.log('send event');
                     this.parent.Utilities.googleTracking.sendTrackEvent(this.getOption('GoogleTrackingCategory'), 'Change Page');
                 }
                 // this is happening before callback?
-                //this.isInit = false;
+                this.isInit = false;
             },
             autoHidePrevious: true,
             autoHideNext: true,
