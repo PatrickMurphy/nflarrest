@@ -120,7 +120,7 @@ class DataController {
 	}
     
     getMostRecentArrest(callback){
-        var returnRow;
+        var returnRow = {};
         var minDaysSince = 999999999;
         
 		this.forEach((row) => {
