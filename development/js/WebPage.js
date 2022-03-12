@@ -13,7 +13,9 @@ class WebPage {
 		this.Utilities = new Utilities();
 		this.StyleManager = new StyleSheetManager();
 		this.LoadingBar = new LoadingBarManager();
+        
         this.pageTitle = pageTitle || 'Default';
+        this.option_HideLoadingBar = hideLoadingBar === true ? true : false;
         
         this.arrest_view_mode = 0; // 0 = table, 1 = card (Mobile Default)
 		// if mobile use cards
@@ -42,7 +44,7 @@ class WebPage {
         }
         
         // if default hide loading bar parameter is set/true, hide by default
-        if(hideLoadingBar){
+        if(this.option_HideLoadingBar){
             this.LoadingBar.hideLoading();
         }
         

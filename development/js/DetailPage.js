@@ -1,10 +1,10 @@
-class DetailPage extends WebPage {
+class DetailPage extends DataDrivenWebPage {
     // TODO: Remove arrestsUrl parameter
     constructor(pageTitle, chartOptions, tableOptions, arrestsUrl) {
         super(pageTitle);
         this.arrestsUrl = arrestsUrl || 'empty url'; // TODO: Remove this variable and all refrences // example value: api/team/arrests.php?id=
         tableOptions = tableOptions === undefined ? false : tableOptions;
-        this.data_controller; // todo remove this line?
+        //this.data_controller; // todo remove this line?
 
         this.pageID = this.Utilities.update_hash(); // get hash value ex: SEA for team.html
         this.pageTitle = pageTitle; // Team
@@ -20,8 +20,8 @@ class DetailPage extends WebPage {
         this.StyleManager.loadCSS('css/modules/styles-detailpage.css');
         this.StyleManager.loadCSS('css/vendor/pagination.css');
 
-        this.DateRangeControl = new DateRangeControl(this); // pass this as parent arg
-        this.data_controller = new DataController(this.DateRangeControl, this);
+        //this.DateRangeControl = new DateRangeControl(this); // pass this as parent arg
+        //this.data_controller = new DataController(this.DateRangeControl, this);
         if(tableOptions){
             this.DataTable_ModuleID = this.addModule(new DataTable(this,[],tableOptions));
         }else{
@@ -30,9 +30,9 @@ class DetailPage extends WebPage {
 
         //this.setupFilters();
 
-        $('#dateRangeJquery').on('dateRangeChanged', () => {
-            this.renderView(this)
-        });
+        //$('#dateRangeJquery').on('dateRangeChanged', () => {
+        //    this.renderView(this)
+        //});
 
         $(window).on('hashchange', () => {
             this.renderView(this)

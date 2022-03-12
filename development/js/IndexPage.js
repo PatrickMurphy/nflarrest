@@ -1,6 +1,6 @@
 var IndexPageInstance;
 
-class IndexPage extends WebPage {
+class IndexPage extends DataDrivenWebPage {
     constructor() {
         super('Index');
         
@@ -12,8 +12,8 @@ class IndexPage extends WebPage {
         this.MeterOrRecent = Math.random() > 0.5; // use arrest meter or most recent arrest card on page bool
         this.detail_page_active = true; // option to use detail page or not, always set to true now that they are active
         
-        this.DateRangeControl = new DateRangeControl(this);
-        this.data_controller = new DataController(this.DateRangeControl, this);
+        //this.DateRangeControl = new DateRangeControl(this);
+        //this.data_controller = new DataController(this.DateRangeControl, this);
         
         var data_table_cols = [{
                     column_id: 0,
@@ -93,9 +93,9 @@ class IndexPage extends WebPage {
         }
 
         // on filters (date range) change, re render view
-        $('#dateRangeJquery').on('dateRangeChanged', (e) => {
-            this.renderView();
-        });
+        //$('#dateRangeJquery').on('dateRangeChanged', (e) => {
+        //    this.renderView();
+        //});
     }
     
     renderView(){
@@ -104,7 +104,7 @@ class IndexPage extends WebPage {
             console.log("Record Count: "+data_count);
             if(data_count <= 0){
                 alert('No Data Returned with current Filter Selection.');
-                this.DateRangeControl.setDefaultDate();
+                this.DateRangeControl.setDates();
             }
             
             this.MainChart.setupChart();
