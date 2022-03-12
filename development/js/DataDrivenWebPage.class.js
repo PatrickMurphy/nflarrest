@@ -7,7 +7,7 @@ class DataDrivenWebPage extends WebPage {
         
         // on filters (date range) change, re render view
         $('#dateRangeJquery').on('dateRangeChanged', (e) => {
-            this.renderView();
+            this.renderView(this);
         });
     }
     
@@ -22,5 +22,16 @@ class DataDrivenWebPage extends WebPage {
     }
     setDataController(DataController_Class){
         this.data_controller = DataController_Class;
+    }
+    
+    renderView(){
+        this.data_controller.getFilteredDataCount((data_count)=>{
+            console.log("Record Count: "+data_count);
+            if(data_count <= 0){
+                alert('No Data Returned with current Filter Selection.');
+                this.DateRangeControl.setDates(); // reset dates
+                // continue after reset dates
+            }
+        });
     }
 }

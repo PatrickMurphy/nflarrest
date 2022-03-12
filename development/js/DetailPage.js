@@ -61,6 +61,7 @@ class DetailPage extends DataDrivenWebPage {
 
     // TODO: change name to a new convention of action, not return functions
     renderView(self) {
+        super.renderView();
         self.LoadingBar.showLoading();
         self.pageID = this.Utilities.update_hash(self.pageID);
         self.changeTitle();

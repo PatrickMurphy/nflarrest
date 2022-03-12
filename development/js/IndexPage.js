@@ -99,20 +99,13 @@ class IndexPage extends DataDrivenWebPage {
     }
     
     renderView(){
+        super.renderView();
         this.LoadingBar.showLoading();
-        this.data_controller.getFilteredDataCount((data_count)=>{
-            console.log("Record Count: "+data_count);
-            if(data_count <= 0){
-                alert('No Data Returned with current Filter Selection.');
-                this.DateRangeControl.setDates();
-            }
-            
-            this.MainChart.setupChart();
-            this.TopLists.reload();
-            this.renderModules();
-            var getTeamsCallbackFn = (data) => {this.RenderTeamLinks(data);};
-            this.data_controller.getTeams(getTeamsCallbackFn);
-        });
+        this.MainChart.setupChart();
+        this.TopLists.reload();
+        this.renderModules();
+        var getTeamsCallbackFn = (data) => {this.RenderTeamLinks(data);};
+        this.data_controller.getTeams(getTeamsCallbackFn);
     }
     
     evaluateHash(){
