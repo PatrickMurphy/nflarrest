@@ -68,7 +68,9 @@ class PositionDetailPage extends DetailPage {
 
             return true;
         }, (data) => {
-            superChange(data[0].Position_name, self);
+            if(data.length > 0){
+                superChange(data[0].Position_name, self);
+            }
         });
     }
 }
