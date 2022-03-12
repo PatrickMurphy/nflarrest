@@ -28,8 +28,8 @@ class DataDrivenWebPage extends WebPage {
         this.data_controller.getFilteredDataCount((data_count)=>{
             console.log("Record Count: "+data_count);
             if(data_count <= 0){
-                alert('No Data Returned with current Filter Selection.');
                 this.DateRangeControl.setDates(); // reset dates
+                alert('No Data Returned with current Filter Selection.');
                 // continue after reset dates
             }
         });
