@@ -203,9 +203,10 @@ class IndexPage extends DataDrivenWebPage {
     
     setupRecentArrestCard(d){
         this.data_controller.getMostRecentArrest((row) => {
-            console.log(row);
-            var card = new ArrestCard(this, row,{standalone:true});
-            $('#mostRecentArrestCard').html(card.getHTML(card.Dimension_Crime_Category,card.Dimension_Team,card.Dimension_Player));
+            if(row !== undefined){
+                var card = new ArrestCard(this, row,{standalone:true});
+                $('#mostRecentArrestCard').html(card.getHTML(card.Dimension_Crime_Category,card.Dimension_Team,card.Dimension_Player));
+            }
         });
         
         // display based on random
