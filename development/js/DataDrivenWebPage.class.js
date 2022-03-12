@@ -25,10 +25,11 @@ class DataDrivenWebPage extends WebPage {
     }
     
     renderView(){
-        this.data_controller.getFilteredDataCount((data_count)=>{
+        this.getDataController().getFilteredDataCount((data_count)=>{
             console.log("Record Count: "+data_count);
             if(data_count <= 0){
                 this.DateRangeControl.setDefaultDate(); // reset dates
+                console.log(this.DateRangeControl.start_date,this.DateRangeControl.end_date);
                 console.log('No Data Returned with current Filter Selection.');
                 // continue after reset dates
             }
