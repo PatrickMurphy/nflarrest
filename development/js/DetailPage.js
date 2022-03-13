@@ -96,10 +96,10 @@ class DetailPage extends DataDrivenWebPage {
         self.changeTitle(); // todo: convert to module or move to webpage.js
         self.setupCharts(); // todo: move to data driven webpage
         self.resizeCharts(); // todo: move to data driven webpage
-        self.hideChartsIfRowCountZero();
+        self.hideChartsIfRowCountLow();
     }
     
-    hideChartsIfRowCountZero(){
+    hideChartsIfRowCountLow(){
         this.hideCharts(()=>{
             var show_chart_arrest_limit = (this.arrest_view_mode == 0 ? 3 : 6);
             var arrest_count = this.getModule(this.DataTable_ModuleID).getData().length; // todo: use data controller count
