@@ -100,10 +100,9 @@ class IndexPage extends DataDrivenWebPage {
     
     renderView(){
         super.renderView(); // call super render view to display any errors etc
-        this.LoadingBar.showLoading();
         this.MainChart.setupChart();
         this.TopLists.reload();
-        this.renderModules();
+        //this.renderModules();
         var getTeamsCallbackFn = (data) => {this.RenderTeamLinks(data);};
         this.data_controller.getTeams(getTeamsCallbackFn);
     }

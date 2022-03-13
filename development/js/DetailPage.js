@@ -92,11 +92,10 @@ class DetailPage extends DataDrivenWebPage {
     // TODO: change name to a new convention of action, not return functions
     renderView(self) {
         super.renderView();
-        self.LoadingBar.showLoading();
         self.pageID = this.Utilities.update_hash(self.pageID);
         self.changeTitle();
         self.setupCharts();
-        self.renderModules();
+        //self.renderModules();
         self.resizeCharts();
         var show_chart_arrest_limit = (self.arrest_view_mode == 0 ? 3 : 6);
         var arrest_count = self.getModule(self.DataTable_ModuleID).getData().length;
