@@ -99,7 +99,7 @@ class IndexPage extends DataDrivenWebPage {
     }
     
     renderView(){
-        super.renderView();
+        super.renderView(this.FilterFunction);
         this.LoadingBar.showLoading();
         this.MainChart.setupChart();
         this.TopLists.reload();
