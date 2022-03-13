@@ -20,19 +20,18 @@ class DataDrivenWebPage extends WebPage {
     getDataController(){
         return this.data_controller;
     }
+    
     setDataController(DataController_Class){
         this.data_controller = DataController_Class;
     }
     
-    renderView(){
+    renderView(filterFn){
         this.getDataController().getFilteredDataCount((data_count)=>{
             console.log("Record Count: "+data_count);
             if(data_count <= 0){
-                this.DateRangeControl.setDefaultDate(); // reset dates
-                //console.log(this.DateRangeControl.start_date,this.DateRangeControl.end_date);
-                console.log('No Data Returned with current Filter Selection.');
-                // continue after reset dates
+                this.DateRangeControl.setDates(moment('2000-01-01'),moment()); // reset dates
+                console.log('No Data Returned with current Filter Selection. Dates set to default.');
             }
-        });
+        }, filterFn);
     }
 }

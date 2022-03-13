@@ -171,6 +171,7 @@ class IndexPage extends DataDrivenWebPage {
     setupArrestOMeter(d){
         var animate = true;
         this.data_controller.getArrestMeter(function (data) {
+            // todo: if no data change values
             var daysSince = data['current']['daysSince'],
                 recordAlltime = data['alltime']['record'],
                 recordAvg = data['alltime']['average'],

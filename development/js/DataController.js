@@ -112,6 +112,8 @@ class DataController {
 	}
 
 	dateLimit(row, start_date, end_date){
+        start_date = start_date || this.start_date;
+        end_date = end_date || this.end_date;
 		return(new Date(row.Date) >= new Date(start_date) && new Date(row.Date) <= new Date(end_date));
 	}
 

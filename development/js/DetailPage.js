@@ -17,6 +17,33 @@ class DetailPage extends DataDrivenWebPage {
         this.data_row_count = 0;
         
         var self = this;
+        
+        this.FilterFunction = (row) => {
+            if (self.pageTitle == 'Team') {
+                if (row['Team'] != self.pageID) {
+                    return false;
+                }
+            } else if (self.pageTitle == 'Position') {
+                if (row['Position'] != self.pageID) {
+                    return false;
+                }
+            } else if (self.pageTitle == 'Player') {
+                if (row['Name'] != self.pageID) {
+                    return false;
+                }
+            } else if (self.pageTitle == 'Crime') {
+                if (row['Category'] != self.pageID) {
+                    return false;
+                }
+            } else if (self.pageTitle == 'Crime Category') {
+                if (row['Crime_category'] != self.pageID) {
+                    return false;
+                }
+            }
+
+            return true;
+        };
+        
         this.StyleManager.loadCSS('css/modules/styles-detailpage.css');
         this.StyleManager.loadCSS('css/vendor/pagination.css');
 
@@ -61,7 +88,7 @@ class DetailPage extends DataDrivenWebPage {
 
     // TODO: change name to a new convention of action, not return functions
     renderView(self) {
-        super.renderView();
+        super.renderView(this.FilterFunction);
         self.LoadingBar.showLoading();
         self.pageID = this.Utilities.update_hash(self.pageID);
         self.changeTitle();
@@ -120,7 +147,7 @@ class DetailPage extends DataDrivenWebPage {
     getDonutData(url, param, chartID, callback) {
         var self = this;
 
-        var filterFunction = (row) => {
+        /*var filterFunction = (row) => {
             if (self.pageTitle == 'Team') {
                 if (row['Team'] != self.pageID) {
                     return false;
@@ -137,10 +164,6 @@ class DetailPage extends DataDrivenWebPage {
                 if (row['Category'] != self.pageID) {
                     return false;
                 }
-            /*} else if (self.pageTitle == 'Crime Category' && param == 'Category'){ 
-                if (row['Crime_category'] != self.pageID || (row['Category'] == self.pageID && row['Crime_category'] == self.pageID)){
-                    return false;
-                }*/
             } else if (self.pageTitle == 'Crime Category') {
                 if (row['Crime_category'] != self.pageID) {
                     return false;
@@ -148,7 +171,7 @@ class DetailPage extends DataDrivenWebPage {
             }
 
             return true;
-        };
+        };*/
 
         var callbackFunc = (data) => {
             self.data_row_count += data.length;
@@ -170,7 +193,7 @@ class DetailPage extends DataDrivenWebPage {
             callback(theData, chartID);
         };
 
-        self.data_controller.getDonutChart(param, filterFunction, callbackFunc);
+        self.data_controller.getDonutChart(param, this.FilterFunction, callbackFunc);
     }
     // --=== End Render View Functions ===-- // 
 }
