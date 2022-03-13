@@ -30,6 +30,10 @@ class DataDrivenWebPage extends WebPage {
             console.log("Record Count: "+data_count);
             if(data_count <= 0){
                 this.DateRangeControl.setDates(moment('2000-01-01'),moment()); // reset dates
+                if ($('#error-dialog').length === 0) {
+                    $('body').append('<div id="error-dialog" title="Date Range Error"><strong>Warning!</strong> No Data Returned with current Filter Selection. Dates set to default.</div>');
+                }
+                $("#error-dialog").dialog();
                 console.log('No Data Returned with current Filter Selection. Dates set to default.');
             }
         }, filterFn);
