@@ -19,7 +19,7 @@ class DetailPage extends DataDrivenWebPage {
         var self = this;
         
         this.FilterFunction = (row) => {
-            if(!this.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd())){
+            if(!this.data_controller.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd())){
                 return false;
             }
             if (self.pageTitle == 'Team') {
