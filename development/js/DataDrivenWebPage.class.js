@@ -48,6 +48,6 @@ class DataDrivenWebPage extends WebPage {
     renderView(){
         this.checkForZeroRecords();
         this.LoadingBar.showLoading();
-        this.renderModules();
+        super.renderView(); // render modules
     }
 }

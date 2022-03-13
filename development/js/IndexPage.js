@@ -100,11 +100,9 @@ class IndexPage extends DataDrivenWebPage {
     
     renderView(){
         super.renderView(); // call super render view to display any errors etc
-        this.MainChart.setupChart();
-        this.TopLists.reload();
-        //this.renderModules();
-        var getTeamsCallbackFn = (data) => {this.RenderTeamLinks(data);};
-        this.data_controller.getTeams(getTeamsCallbackFn);
+        this.MainChart.setupChart(); // todo: common setup charts function
+        this.TopLists.reload(); // todo: convert to module
+        this.data_controller.getTeams((data) => {this.RenderTeamLinks(data);}); // todo: convert to module
     }
     
     evaluateHash(){

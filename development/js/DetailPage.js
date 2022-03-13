@@ -93,14 +93,23 @@ class DetailPage extends DataDrivenWebPage {
     renderView(self) {
         super.renderView();
         self.pageID = this.Utilities.update_hash(self.pageID);
-        self.changeTitle();
-        self.setupCharts();
-        //self.renderModules();
-        self.resizeCharts();
-        var show_chart_arrest_limit = (self.arrest_view_mode == 0 ? 3 : 6);
-        var arrest_count = self.getModule(self.DataTable_ModuleID).getData().length;
-        if (arrest_count <= show_chart_arrest_limit) {
-            $('aside').hide();
+        self.changeTitle(); // todo: convert to module or move to webpage.js
+        self.setupCharts(); // todo: move to data driven webpage
+        self.resizeCharts(); // todo: move to data driven webpage
+        self.hideChartsIfRowCountZero();
+    }
+    
+    hideChartsIfRowCountZero(){
+        this.hideCharts(()=>{
+            var show_chart_arrest_limit = (this.arrest_view_mode == 0 ? 3 : 6);
+            var arrest_count = this.getModule(this.DataTable_ModuleID).getData().length; // todo: use data controller count
+            return arrest_count <= show_chart_arrest_limit;
+        },'aside');
+    }
+    
+    hideCharts(boolFn,cssSelector){
+        if (boolFn()) {
+            $(cssSelector).hide();
         } //else {
             //$('aside').show(); // TODO: Fix display after being hidden
         //}
@@ -148,32 +157,6 @@ class DetailPage extends DataDrivenWebPage {
     // getDonutData retrieves data for a donut/pie chart. called within setupCharts()
     getDonutData(url, param, chartID, callback) {
         var self = this;
-
-        /*var filterFunction = (row) => {
-            if (self.pageTitle == 'Team') {
-                if (row['Team'] != self.pageID) {
-                    return false;
-                }
-            } else if (self.pageTitle == 'Position') {
-                if (row['Position'] != self.pageID) {
-                    return false;
-                }
-            } else if (self.pageTitle == 'Player') {
-                if (row['Name'] != self.pageID) {
-                    return false;
-                }
-            } else if (self.pageTitle == 'Crime') {
-                if (row['Category'] != self.pageID) {
-                    return false;
-                }
-            } else if (self.pageTitle == 'Crime Category') {
-                if (row['Crime_category'] != self.pageID) {
-                    return false;
-                }
-            }
-
-            return true;
-        };*/
 
         var callbackFunc = (data) => {
             self.data_row_count += data.length;

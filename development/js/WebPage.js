@@ -57,8 +57,7 @@ class WebPage {
 	}
     
     renderView(){
-        // override
-        console.warn('Default WebPage.js renderView() function called, should be overriden within a subclass');
+        this.renderModules();
     }
     
     RenderUpdateDate(){
