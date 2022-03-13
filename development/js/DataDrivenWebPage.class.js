@@ -34,6 +34,7 @@ class DataDrivenWebPage extends WebPage {
                     $('body').append('<div id="error-dialog" title="Date Range Error"><strong>Warning!</strong> No Data Returned with current Filter Selection. Dates set to default.</div>');
                 }
                 $("#error-dialog").dialog({modal: true});
+                this.DateRangeControl.setupDateRangePicker();
                 console.log('No Data Returned with current Filter Selection. Dates set to default.');
             }
         }, filterFn);

@@ -13,7 +13,7 @@ class DateRangeControl {
     
     setupDateRangePicker(presets){
         // initialize jquery date range picker
-        var presets = [{
+        var presets = presets || [{
             text: 'Last 3 Months',
             dateStart: () => moment().subtract('months', 3),
             dateEnd: () => moment()
