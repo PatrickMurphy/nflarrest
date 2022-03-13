@@ -32,12 +32,15 @@ class DataDrivenWebPage extends WebPage {
         this.data_controller = DataController_Class;
     }
     
-    renderView(filterFn){
-        this.getDataController().getFilteredDataCount((data_count)=>{
+    renderView(){
+        // check to make sure filters return at least one row, else display dialog and reset date
+        var callbackFn = (data_count)=>{
             if(data_count <= 0){
                 this.DateRangeControl.setDates(moment('2000-01-01'), moment()); // reset dates
-                this.displayDialogBox('error-dialog', '<strong>Warning!</strong> No Data Returned with current Filter Selection. Dates set to default.', 'Date Range Error');
+                this.DateRangeControl.renderView();
+                this.displayDialogBox('error-dialog', '<strong>Warning!</strong> No Data Returned with current Filter Selection. Date Filter Set to default.', 'Date Range Error');
             }
-        }, filterFn);
+        };
+        this.getDataController().getFilteredDataCount(callbackFn, this.FilterFunction);
     }
 }
