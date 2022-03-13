@@ -19,10 +19,27 @@ class CrimeDetailPage extends DetailPage {
             field: 'Position',
             targetElement: '#poschart',
             title: 'Crimes'
-            }],undefined);
+            }],{ targetElement: 'arrest_table',
+                                targetElementMobile: 'arrest_cards',
+                                targetElementTableContainer: 'arrest_details_container',
+                                targetElementTitleIncidentCount: 'arrest_details_incident_count',
+                                TitlePrefix: '',
+                                RowLimit:15,
+                                GoogleTrackingCategory: 'DetailPageArrests',
+                                columns:[DATA_MODEL_DISPLAY_COLUMNS.getColumn('Date',1),
+                                        DATA_MODEL_DISPLAY_COLUMNS.Name,
+                                        DATA_MODEL_DISPLAY_COLUMNS.Team,
+                                        DATA_MODEL_DISPLAY_COLUMNS.getColumn('Description',4),
+                                        DATA_MODEL_DISPLAY_COLUMNS.Outcome
+                                ], 
+                                RenderCardFn:(row) =>   {
+                                                            var c = new ArrestCard(this, row);
+                                                            return c.getHTML(c.Dimension_Team, c.Dimension_Player,c.Dimension_Position);
+                                                        }
+                                });
         
         //this.DataTable_ModuleID = this.addModule(new DataTable(this));
-        var tbl = this.getModule(this.DataTable_ModuleID);
+        /*var tbl = this.getModule(this.DataTable_ModuleID);
         tbl.setRenderRowHeaderFn(() => {return '<tr><th class="one column">Date:</th><th class="two columns">Player:</th><th class="one column">Team:</th><th class="four columns">Description:</th><th class="four columns">Outcome:</th></tr>';});
         tbl.setRenderRowFn((row) => {
             if(typeof row !== 'undefined'){
@@ -44,7 +61,7 @@ class CrimeDetailPage extends DetailPage {
             var c = new ArrestCard(this, row);
             return c.getHTML(c.Dimension_Team, c.Dimension_Player, c.Dimension_Position);
         });
-        tbl.renderView();
+        tbl.renderView();*/
     }
 
     changeTitle() {

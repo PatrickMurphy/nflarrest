@@ -56,4 +56,12 @@ var DATA_MODEL_DISPLAY_COLUMNS = {
             return '<a href="CrimeCategory.html#' + row['Crime_category'] + '">' + row['Crime_category'] + '</a>';
         },
         column_width: 2
-    }};
+    },
+    getColumn: (column, width)=>{
+        var tmp_col = DATA_MODEL_DISPLAY_COLUMNS[column];
+        if(width !== undefined){
+            tmp_col.column_width = width;
+        }
+        return tmp_col;
+    }
+};
