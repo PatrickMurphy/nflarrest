@@ -36,27 +36,7 @@ class PositionDetailPage extends DetailPage {
     changeTitle() {
         var superChange = super.changeTitle;
         var self = this;
-        self.data_controller.getArrests((row) => {
-            if(self.pageTitle == 'Team'){
-                if(row['Team'] != self.pageID){
-                    return false;
-                }
-            }else if(self.pageTitle == 'Position'){
-                if(row['Position'] != self.pageID){
-                    return false;
-                }
-            }else if(self.pageTitle == 'Player'){
-                if(row['Name'] != self.pageID){
-                    return false;
-                }
-            }else if(self.pageTitle == 'Crime'){
-                if(row['Category'] != self.pageID){
-                    return false;
-                }
-            }
-
-            return true;
-        }, (data) => {
+        self.data_controller.getArrests(this.FilterFunction, (data) => {
             if(data.length > 0){
                 superChange(data[0].Position_name, self);
             }
