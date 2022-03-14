@@ -197,5 +197,6 @@ class WebPage {
             $('body').append('<div id="'+dialog_id+'" title="'+dialog_title+'">'+dialog_msg+'</div>');
         }
         $("#"+dialog_id).dialog(dialog_options);
+        this.Utilities.googleTracking.sendTrackEvent('PageDialogOpen', dialog_title);
     }
 }
