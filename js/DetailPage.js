@@ -1,13 +1,15 @@
-class DetailPage extends WebPage {
+class DetailPage extends DataDrivenWebPage {
     // TODO: Remove arrestsUrl parameter
     constructor(pageTitle, chartOptions, tableOptions, arrestsUrl) {
         super(pageTitle);
-        this.arrestsUrl = arrestsUrl; // TODO: Remove this variable and all refrences // example value: api/team/arrests.php?id=
-        this.data_controller; // todo remove this line?
+        this.arrestsUrl = arrestsUrl || 'empty url'; // TODO: Remove this variable and all refrences // example value: api/team/arrests.php?id=
+        tableOptions = tableOptions === undefined ? false : tableOptions;
+        //this.data_controller; // todo remove this line?
 
         this.pageID = this.Utilities.update_hash(); // get hash value ex: SEA for team.html
         this.pageTitle = pageTitle; // Team
         this.chartOptions = chartOptions; // [{url:'',field:'',targetElement:'',title:''}]
+        this.tableOptions = tableOptions;
         
         this.callbackReturns = 0;
 
@@ -15,12 +17,42 @@ class DetailPage extends WebPage {
         this.data_row_count = 0;
         
         var self = this;
+        
+        this.FilterFunction = (row) => {
+            if(!this.data_controller.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd())){
+                return false;
+            }
+            if (self.pageTitle == 'Team') {
+                if (row['Team'] != self.pageID) {
+                    return false;
+                }
+            } else if (self.pageTitle == 'Position') {
+                if (row['Position'] != self.pageID) {
+                    return false;
+                }
+            } else if (self.pageTitle == 'Player') {
+                if (row['Name'] != self.pageID) {
+                    return false;
+                }
+            } else if (self.pageTitle == 'Crime') {
+                if (row['Category'] != self.pageID) {
+                    return false;
+                }
+            } else if (self.pageTitle == 'Crime Category') {
+                if (row['Crime_category'] != self.pageID) {
+                    return false;
+                }
+            }
+
+            return true;
+        };
+        
         this.StyleManager.loadCSS('css/modules/styles-detailpage.css');
         this.StyleManager.loadCSS('css/vendor/pagination.css');
 
-        this.DateRangeControl = new DateRangeControl(this); // pass this as parent arg
-        this.data_controller = new DataController(this.DateRangeControl, this);
-        if(Object.keys(tableOptions) > 0){
+        //this.DateRangeControl = new DateRangeControl(this); // pass this as parent arg
+        //this.data_controller = new DataController(this.DateRangeControl, this);
+        if(tableOptions){
             this.DataTable_ModuleID = this.addModule(new DataTable(this,[],tableOptions));
         }else{
             this.DataTable_ModuleID = this.addModule(new DataTable(this));
@@ -28,9 +60,9 @@ class DetailPage extends WebPage {
 
         //this.setupFilters();
 
-        $('#dateRangeJquery').on('dateRangeChanged', () => {
-            this.renderView(this)
-        });
+        //$('#dateRangeJquery').on('dateRangeChanged', () => {
+        //    this.renderView(this)
+        //});
 
         $(window).on('hashchange', () => {
             this.renderView(this)
@@ -59,16 +91,25 @@ class DetailPage extends WebPage {
 
     // TODO: change name to a new convention of action, not return functions
     renderView(self) {
-        self.LoadingBar.showLoading();
+        super.renderView();
         self.pageID = this.Utilities.update_hash(self.pageID);
-        self.changeTitle();
-        self.setupCharts();
-        self.renderModules();
-        self.resizeCharts();
-        var show_chart_arrest_limit = (self.arrest_view_mode == 0 ? 3 : 6);
-        var arrest_count = self.getModule(self.DataTable_ModuleID).getData().length;
-        if (arrest_count <= show_chart_arrest_limit) {
-            $('aside').hide();
+        self.changeTitle(); // todo: convert to module or move to webpage.js
+        self.setupCharts(); // todo: move to data driven webpage
+        self.resizeCharts(); // todo: move to data driven webpage
+        self.hideChartsIfRowCountLow();
+    }
+    
+    hideChartsIfRowCountLow(){
+        this.hideCharts(()=>{
+            var show_chart_arrest_limit = (this.arrest_view_mode == 0 ? 3 : 6);
+            var arrest_count = this.getModule(this.DataTable_ModuleID).getData().length; // todo: use data controller count
+            return arrest_count <= show_chart_arrest_limit;
+        },'aside');
+    }
+    
+    hideCharts(boolFn,cssSelector){
+        if (boolFn()) {
+            $(cssSelector).hide();
         } //else {
             //$('aside').show(); // TODO: Fix display after being hidden
         //}
@@ -117,36 +158,6 @@ class DetailPage extends WebPage {
     getDonutData(url, param, chartID, callback) {
         var self = this;
 
-        var filterFunction = (row) => {
-            if (self.pageTitle == 'Team') {
-                if (row['Team'] != self.pageID) {
-                    return false;
-                }
-            } else if (self.pageTitle == 'Position') {
-                if (row['Position'] != self.pageID) {
-                    return false;
-                }
-            } else if (self.pageTitle == 'Player') {
-                if (row['Name'] != self.pageID) {
-                    return false;
-                }
-            } else if (self.pageTitle == 'Crime') {
-                if (row['Category'] != self.pageID) {
-                    return false;
-                }
-            /*} else if (self.pageTitle == 'Crime Category' && param == 'Category'){ 
-                if (row['Crime_category'] != self.pageID || (row['Category'] == self.pageID && row['Crime_category'] == self.pageID)){
-                    return false;
-                }*/
-            } else if (self.pageTitle == 'Crime Category') {
-                if (row['Crime_category'] != self.pageID) {
-                    return false;
-                }
-            }
-
-            return true;
-        };
-
         var callbackFunc = (data) => {
             self.data_row_count += data.length;
             var theData = [];
@@ -167,7 +178,7 @@ class DetailPage extends WebPage {
             callback(theData, chartID);
         };
 
-        self.data_controller.getDonutChart(param, filterFunction, callbackFunc);
+        self.data_controller.getDonutChart(param, this.FilterFunction, callbackFunc);
     }
     // --=== End Render View Functions ===-- // 
 }

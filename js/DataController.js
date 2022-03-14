@@ -112,6 +112,8 @@ class DataController {
 	}
 
 	dateLimit(row, start_date, end_date){
+        start_date = start_date || this.start_date;
+        end_date = end_date || this.end_date;
 		return(new Date(row.Date) >= new Date(start_date) && new Date(row.Date) <= new Date(end_date));
 	}
 
@@ -434,6 +436,21 @@ class DataController {
 		callback(result);
 	}
 
+    getFilteredDataCount(callback, filterFn){
+        var filterFunction = filterFn || (row) => {return this.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd());};
+        var arrests = [];
+		this.forEach((row) => {
+			if(this.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd())){
+				if(filterFunction(row)){
+					arrests.push(row);
+				}
+			}
+		},() => {
+			// finished
+			callback(arrests.length);
+		});
+    }
+    // todo rename
 	getArrests(filterFunc, callback){
 		var arrests = [];
 		this.forEach((row) => {

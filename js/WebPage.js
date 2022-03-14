@@ -13,7 +13,9 @@ class WebPage {
 		this.Utilities = new Utilities();
 		this.StyleManager = new StyleSheetManager();
 		this.LoadingBar = new LoadingBarManager();
+        
         this.pageTitle = pageTitle || 'Default';
+        this.option_HideLoadingBar = hideLoadingBar === true ? true : false;
         
         this.arrest_view_mode = 0; // 0 = table, 1 = card (Mobile Default)
 		// if mobile use cards
@@ -42,7 +44,7 @@ class WebPage {
         }
         
         // if default hide loading bar parameter is set/true, hide by default
-        if(hideLoadingBar){
+        if(this.option_HideLoadingBar){
             this.LoadingBar.hideLoading();
         }
         
@@ -55,8 +57,7 @@ class WebPage {
 	}
     
     renderView(){
-        // override
-        console.warn('Default WebPage.js renderView() function called, should be overriden within a subclass');
+        this.renderModules();
     }
     
     RenderUpdateDate(){
@@ -184,4 +185,18 @@ class WebPage {
 	getPositionLink(EntityValue){
 		return this.getDetailPageLink('Position', EntityValue);
 	}
+    
+    displayDialogBox(elementID, dialog_msg, dialog_title, dialog_options){
+        var dialog_id = elementID || 'error-dialog';
+        var dialog_msg = dialog_msg || 'Error! No Message found.';
+        var dialog_title = dialog_title || 'Error';
+        var dialog_options = dialog_options || {modal: true};
+        
+        // if page does not already contain the dialog object, add it to end of body
+        if ($('#'+dialog_id).length === 0) {
+            $('body').append('<div id="'+dialog_id+'" title="'+dialog_title+'">'+dialog_msg+'</div>');
+        }
+        $("#"+dialog_id).dialog(dialog_options);
+        this.Utilities.googleTracking.sendTrackEvent('PageDialogOpen', dialog_title);
+    }
 }

@@ -13,7 +13,7 @@ class DateRangeControl {
     
     setupDateRangePicker(presets){
         // initialize jquery date range picker
-        var presets = [{
+        var presets = presets || [{
             text: 'Last 3 Months',
             dateStart: () => moment().subtract('months', 3),
             dateEnd: () => moment()
@@ -46,7 +46,7 @@ class DateRangeControl {
         });
     }
     
-    setupDateRangePickerEvents() {
+    renderView(){
         this.setDefaultDate();
         var rng = {
             start: moment(this.start_date).toDate(),
@@ -54,6 +54,10 @@ class DateRangeControl {
         };
         
         $("#dateRangeJquery").daterangepicker("setRange", rng);
+    }
+    
+    setupDateRangePickerEvents() {
+        this.renderView();
         $('#dateRangeJquery').on('change', () => {this.changeDateRange(this)});
         $("#dateRangeJquery").on('open', () => this.parent.Utilities.googleTracking.sendTrackEvent('DateRange', 'OpenDialog'));
     }
@@ -77,8 +81,8 @@ class DateRangeControl {
     
     setDefaultDate() {
         var todayDate = moment().format('YYYY-MM-DD');
-        this.start_date = this.getCookie('start_date') || '2000-01-01';
-        this.end_date = this.getCookie('end_date') || todayDate;
+        this.start_date = this.start_date || this.getCookie('start_date') || '2000-01-01';
+        this.end_date = this.end_date || this.getCookie('end_date') || todayDate;
     }
 
     getToday() {
