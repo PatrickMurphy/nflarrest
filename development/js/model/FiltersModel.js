@@ -7,7 +7,7 @@ class FiltersModel {
 				names: ['start_date', 'end_date'],
 				library: 'NFLArrest',
 				description: 'The NFL Date Range Controller Module, contains two values',
-				default_val: ['2000-01-01', dateRangeController.getToday()],
+				default_val: ['2000-01-01', moment().format('YYYY-MM-DD')],
 				getValue: function (FCObj, item) {
 					var arr = [];
 					arr.push(FCObj.dateRangeNFL.start_date);
