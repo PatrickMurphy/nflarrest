@@ -123,8 +123,8 @@ class FiltersControl extends ModuleContainer {
 
 	// load the html contents of the dialog
 	loadDialogContents() {
-		loadCSS('css/modules/styles-filters.css');
-		loadCSS('css/vendor/chosen.min.css');
+		this.parent.StyleManager.loadCSS('css/modules/styles-filters.css');
+		this.parent.StyleManager.loadCSS('css/vendor/chosen.min.css');
 
 		var self = this;
 		$(self.options.dialog_element_container).html(self.getHTML());
