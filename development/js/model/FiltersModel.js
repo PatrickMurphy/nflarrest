@@ -79,71 +79,85 @@ class FiltersModel {
 			daterange: {
 				element: '#filter-daterange-input',
 				type: this.filter_types.date_range_controller,
+                title:'Date Range',
 				name: ['start_date', 'end_date']
 			},
 			month: {
 				element: '#filter-month-input',
 				type: this.filter_types.select,
+                title: 'Month',
 				name: 'month[]'
 			},
 			dayofweek: {
 				element: '#filter-dayofweek-input-mon, #filter-dayofweek-input-tues, #filter-dayofweek-input-wed, #filter-dayofweek-input-thur, #filter-dayofweek-input-fri, #filter-dayofweek-input-sat, #filter-dayofweek-input-sun',
 				type: this.filter_types.checkbox_group,
+                title: 'Day Of Week',
 				name: 'dayofweek',
 			},
 			yeartodate: {
 				element: '#filter-yeartodate-input',
 				type: this.filter_types.checkbox,
+                title: 'Year To Date',
 				name: 'yeartodate'
 			},
 			season: {
 				element: '#filter-season-input',
 				type: this.filter_types.select,
+                title: 'Season',
 				name: 'season[]'
 			},
 			season_status: {
 				element: '#filter-seasonStatusOn-input, #filter-seasonStatusOff-input',
 				type: this.filter_types.checkbox_group,
+                title: 'Season Status',
 				name: 'season_status'
 			},
 			team: {
 				element: '#filter-team-input',
 				type: this.filter_types.select,
+                title: 'Team',
 				name: 'team[]'
 			},
 			conference: {
 				element: '#filter-conference-AFC-input, #filter-conference-NFC-input',
 				type: this.filter_types.checkbox_group,
+                title: 'Conference',
 				name: 'conference'
 			},
 			division: {
 				element: '#filter-division-input',
 				type: this.filter_types.select,
+                title: 'Division',
 				name: 'division[]'
 			},
 			crimeCategory: {
 				element: '#filter-crime-category-input',
 				type: this.filter_types.select,
+                title: 'Crime Category',
 				name: 'crimeCategory[]'
 			},
 			crime: {
 				element: '#filter-crime-input',
 				type: this.filter_types.select,
+                title: 'Crime',
 				name: 'crime[]'
 			},
 			position: {
 				element: '#filter-position-input',
 				type: this.filter_types.select,
+                title: 'Position',
 				name: 'position[]'
 			},
 			position_type: {
 				element: '#filter-position-type-input-o, #filter-position-type-input-d, #filter-position-type-input-s',
 				type: this.filter_types.checkbox_group,
+                title: 'Position Type',
 				name: 'position_type'
 			},
 			player: {
 				element: '#filter-player-input',
 				type: this.filter_types.select,
+                title: 'Player',
 				name: 'player[]'
 			}
 		};
