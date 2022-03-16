@@ -10,7 +10,7 @@ class ModuleContainer extends Module {
     }
     
     setSubModules(arr_modules){
-        this.sub_modules = modules;
+        this.sub_modules = arr_modules;
         return this.sub_modules;
     }
     
