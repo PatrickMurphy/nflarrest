@@ -23,10 +23,10 @@ class DataFilterSection extends ModuleContainer {
     
     getHTML(){
         var items = this.getSubModulesHTML();
-        var activeFilterCount = `<span>0/${this.getGetOptions().items.length}</span>`;
-        var return_html = `<div id="${this.getGetOptions().element.substring(1)}" class="filter-section">
+        var activeFilterCount = `<span>0/${this.getOptions().items.length}</span>`;
+        var return_html = `<div id="${this.getOptions().element.substring(1)}" class="filter-section">
                                 <div class="filter-section-title">
-                                    ${this.getGetOptions().title}
+                                    ${this.getOptions().title}
                                     ${activeFilterCount}
                                 </div>
                                 <div class="filter-section-content">
