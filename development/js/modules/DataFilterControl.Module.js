@@ -127,6 +127,9 @@ class FiltersControl extends ModuleContainer {
 		this.parent.StyleManager.loadCSS('css/vendor/chosen.min.css');
 
 		var self = this;
+        if ($(self.options.dialog_element_container).length === 0) {
+            $('body').append('<div id="'+self.options.dialog_element_container+'"></div>');
+        }
 		$(self.options.dialog_element_container).html(self.getHTML());
         self.setupView();
         self.renderView();
