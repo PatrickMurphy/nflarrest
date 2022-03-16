@@ -12,6 +12,7 @@ class DataDrivenWebPage extends WebPage {
         this.data_controller = new DataController(this.DateRangeControl, this);
         
         this.setupEvents();
+        this.setupFilters();
     }
     
     setupFilters(){
