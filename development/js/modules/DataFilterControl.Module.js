@@ -1,35 +1,20 @@
-class FiltersControl {
-	constructor(options) {
+class FiltersControl extends ModuleContainer {
+	constructor(parent,data,options) {
 		// setup options
-		this.options = options || {};
-		this.options.hidden_panels = options.hidden_panels || [];
-		this.options.presets = options.presets || {};
-		this.options.date_range_object = options.date_range_object || {};
-
-		this.options.dialog_element_container = options.dialog_element_container || '#filter-dialog-container';
-		this.options.dialog_element = options.dialog_element || '#filter-dialog';
-		this.options.dialog_content_url = options.dialog_content_url || 'templates/FiltersTemplateCache.html';
+        super('filters-control',parent,data,options);
 
 		// load model and date range object
 		this.filters_model = new FiltersModel();
-		this.dateRangeNFL = this.options.date_range_object;
+
+		this.addSubModule(new DialogWindowColumn(this,[],{element:'filter-time-period-column', wordColumnWidth: 'six', sections:[this.filters_model.filter_sections.date,this.filters_model.filter_sections.season]}));
+        this.addSubModule(new DialogWindowColumn(this,[],{element:'filter-attribute-column', wordColumnWidth: 'six', sections:[this.filters_model.filter_sections.team,this.filters_model.filter_sections.crime,this.filters_model.filter_sections.position,this.filters_model.filter_sections.player]}));
+        
+        this.DateRangeFilterInstance = this.options.date_range_object;
 		this.first_open = true;
 
-		var self = this;
-
-		$('#filters-open-button').click(function () {
-			self.show();
-		});
-
-		$('#filter-dialog-container').click(function (e) {
-			// if clicked outside of dialog window
-			if (e.target.id == 'filter-dialog-container') {
-				self.hide();
-			}
-		});
-
 		// setup dialog control
-		this.hide();
+		this.setupEvents();
+		this.hide(); // hide on init
 	}
 
 	on(evt, handle) {
@@ -48,20 +33,120 @@ class FiltersControl {
 	hide() {
 		$(this.options.dialog_element_container).hide();
 	}
+    
+    // overrides module function
+    setOptions(options){
+        this.options = options || {};
+        // if objs and arrays not set, set as empty
+		this.options.hidden_panels = options.hidden_panels || [];
+		this.options.presets = options.presets || {};
+		this.options.date_range_object = options.date_range_object || {};
 
-	// load the html contents of the dialog
-	loadDialogContents() {
+        // if ui elements not set, set
+		this.options.dialog_element_container = options.dialog_element_container || '#filter-dialog-container';
+		this.options.dialog_element = options.dialog_element || '#filter-dialog';
+		this.options.dialog_content_url = options.dialog_content_url || 'templates/FiltersTemplateCache.html';
+    }
+    
+	// view update after setting changed
+    // overrides module function
+	renderView() {
 		var self = this;
-		loadCSS('css/modules/styles-filters.css');
-		loadCSS('css/vendor/chosen.min.css');
-
-		$(self.options.dialog_element_container).load(self.options.dialog_content_url, function () {
-			//console.log("Load was performed.");
-			self.setupView();
-			self.renderView();
+		this.countActiveFilters();
+        
+        // hide all panels that should be hidden
+		for (var key in self.options.hidden_panels) {
+            var panel = self.options.hidden_panels[key];
+			switch (panel) {
+				case 'team':
+				case 'crime':
+				case 'position':
+				case 'player':
+					$(self.filters_model.filter_sections[panel]['element']).hide();
+					break;
+			}
+		}
+        
+        // render daterange input
+		$('#filter-daterange-input').html(self.DateRangeFilterInstance.getStart() + '-' + self.DateRangeFilterInstance.getEnd());
+		// render section active filter counts
+        $('#filter-date-section .filter-section-title span').html(this.filters_model.filter_sections.date.active_count + '/4');
+		$('#filter-season-section .filter-section-title span').html(this.filters_model.filter_sections.season.active_count + '/2');
+		$('#filter-team-section .filter-section-title span').html(this.filters_model.filter_sections.team.active_count + '/3');
+		$('#filter-crime-section .filter-section-title span').html(this.filters_model.filter_sections.crime.active_count + '/2');
+		$('#filter-position-section .filter-section-title span').html(this.filters_model.filter_sections.position.active_count + '/2');
+		$('#filter-player-section .filter-section-title span').html(this.filters_model.filter_sections.player.active_count + '/1');
+	}
+    
+    getHTML(){
+        return this.getFiltersHTML();
+    }
+    
+    getFiltersHTML(){
+        var filterTitle = this.getOption('filterTitle') || 'Data Filters';
+        
+        var titleRow = `<div class="row">
+                            <div class="ten columns">
+                                <h4>${filterTitle}</h4>
+                            </div>
+                            <button id="filters-close-button" class="one columns">X</button>
+                        </div>`;
+        
+        var filtersButtonRow = `<div class="row">
+                                    <div class="twelve columns" id="filters-button-row">
+                                        <button id="filters-apply-button" class="button-primary">Apply</button>
+                                        <button id="filters-clear-button">Clear</button>
+                                        <button id="filters-cancel-button">Cancel</button>
+                                    </div>
+                                </div>`;
+        
+        
+        
+        return `<div id="filter-dialog">
+                    ${titleRow}
+                    <div class="row">
+                        ${this.getSubModulesHTML()}
+                    </div>
+                    ${filtersButtonrow}
+                </div>`;
+    }
+    
+	// construct the view the first time (initialize)
+	setupView() {
+		var self = this;
+		this.setupFilterPresets();
+		this.setupUIEvents();
+		this.setupFilterInput(function (evt, act) {
+			self.onFilterChanged(self, evt, act);
 		});
 	}
 
+	// load the html contents of the dialog
+	loadDialogContents() {
+		loadCSS('css/modules/styles-filters.css');
+		loadCSS('css/vendor/chosen.min.css');
+
+		var self = this;
+		$(self.options.dialog_element_container).html(self.getHTML());
+        self.setupView();
+        self.renderView();
+	}
+    
+    setupEvents(){
+        var self = this;
+
+		$('#filters-open-button').click(()=>{
+			self.show();
+		});
+
+		$('#filter-dialog-container').click((e)=>{
+			// if clicked outside of dialog window
+			if (e.target.id == 'filter-dialog-container') {
+				self.hide();
+			}
+		});
+    }
+    
 	// add hidden panels for sections effected by presets
 	setupFilterPresets() {
 		for (var option_key in this.options.presets) {
@@ -116,7 +201,7 @@ class FiltersControl {
 	}
 
 	// setup the UI Elements that are interactive, but not direct inputs
-	setupUserInterface() {
+	setupUIEvents() {
 		var self = this;
 		// allow toggle of hidden content filter sections
 		$('.filter-section-title').click(function () {
@@ -194,42 +279,10 @@ class FiltersControl {
 		self.renderView();
 	}
 
-	// construct the view the first time (initialize)
-	setupView() {
-		var self = this;
-		this.setupFilterPresets();
-		this.setupUserInterface();
-		this.setupFilterInput(function (evt, act) {
-			self.onFilterChanged(self, evt, act);
-		});
-	}
-
-	// view update after setting changed
-	renderView() {
-		var self = this;
-		this.countActiveFilters();
-		for (var key in self.options.hidden_panels) {
-			switch (self.options.hidden_panels[key]) {
-				case 'team':
-				case 'crime':
-				case 'position':
-				case 'player':
-					$(self.filters_model.filter_sections[self.options.hidden_panels[key]]['element']).hide();
-					break;
-			}
-		}
-		$('#filter-daterange-input').html(self.dateRangeNFL.getStart() + '-' + self.dateRangeNFL.getEnd());
-		$('#filter-date-section .filter-section-title span').html(this.filters_model.filter_sections.date.active_count + '/4');
-		$('#filter-season-section .filter-section-title span').html(this.filters_model.filter_sections.season.active_count + '/2');
-		$('#filter-team-section .filter-section-title span').html(this.filters_model.filter_sections.team.active_count + '/3');
-		$('#filter-crime-section .filter-section-title span').html(this.filters_model.filter_sections.crime.active_count + '/2');
-		$('#filter-position-section .filter-section-title span').html(this.filters_model.filter_sections.position.active_count + '/2');
-		$('#filter-player-section .filter-section-title span').html(this.filters_model.filter_sections.player.active_count + '/1');
-	}
-
 	// count by section the number of filters not set to default
 	countActiveFilters() {
 		var self = this;
+        // for each filter section
 		for (var key in this.filters_model.filter_sections) {
 			// skip loop if the property is from prototype
 			if (!this.filters_model.filter_sections.hasOwnProperty(key)) continue;
@@ -257,6 +310,7 @@ class FiltersControl {
 	getFilterValues() {
 		var self = this;
 		var value_ret = {};
+        // foreach filter section
 		for (var section_key in this.filters_model.filter_sections) {
 			// skip loop if the property is from prototype
 			if (!this.filters_model.filter_sections.hasOwnProperty(section_key)) continue;
@@ -291,6 +345,10 @@ class FiltersControl {
 		}
 		return value_ret;
 	}
+        
+    getFilterFunction(){
+        return (row)=>{};
+    }
 
 	// get the string to append to the api URL
 	getQueryString() {
@@ -314,4 +372,14 @@ class FiltersControl {
 
 		return querystring_return.join('&');
 	}
+    
+    /*forEachFilterSection(foreachCallback){
+        for (var section_key in this.filters_model.filter_sections) {
+			// skip loop if the property is from prototype
+			if (!this.filters_model.filter_sections.hasOwnProperty(section_key)) continue;
+			var section = this.filters_model.filter_sections[section_key];
+			var items = section['items'];
+            foreachCallback(section,items);
+        }
+    }*/
 }

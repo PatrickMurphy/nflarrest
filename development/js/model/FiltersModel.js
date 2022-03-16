@@ -148,6 +148,7 @@ class FiltersModel {
 			}
 		};
 
+        // filter sections, contains filter items of filter type
 		this.filter_sections = {
 			date: {
 				title: 'Date Filters',
