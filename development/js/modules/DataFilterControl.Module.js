@@ -107,7 +107,7 @@ class FiltersControl extends ModuleContainer {
                     <div class="row">
                         ${this.getSubModulesHTML()}
                     </div>
-                    ${filtersButtonrow}
+                    ${filtersButtonRow}
                 </div>`;
     }
     
