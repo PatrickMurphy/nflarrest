@@ -9,9 +9,9 @@ class DialogWindowColumn extends ModuleContainer {
     }
     
     setOptions(options){
-        this.options.element = options.element || id || 'filter-column-untitled';
-        //this.options.contents = options.contents || contents || '<span><b>Error:</b> No Data Filter Column Contents supplied</span>';
-        this.options.wordColumnWidth = options.wordColumnWidth || wordColumnWidth || 'six';
+        this.options.element = options.element || 'filter-column-untitled';
+        //this.options.contents = options.contents || '<span><b>Error:</b> No Data Filter Column Contents supplied</span>';
+        this.options.wordColumnWidth = options.wordColumnWidth ||  'six';
     }
     
     setupSubModules(sections){
