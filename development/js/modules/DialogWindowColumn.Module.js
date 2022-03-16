@@ -9,6 +9,7 @@ class DialogWindowColumn extends ModuleContainer {
     }
     
     setOptions(options){
+        this.options = options || {};
         this.options.element = options.element || 'filter-column-untitled';
         //this.options.contents = options.contents || '<span><b>Error:</b> No Data Filter Column Contents supplied</span>';
         this.options.wordColumnWidth = options.wordColumnWidth ||  'six';
