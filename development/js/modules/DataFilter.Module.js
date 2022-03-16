@@ -57,7 +57,7 @@ class DataFilter extends Module {
         var filter_placeholder = this.getOption('InputPlaceHolder') || 'Choose...';
         var filter_element = this.getOption('element') || 'filters-UndefinedElement-input';
         
-        var HTMLReturn += `<select `;
+        var HTMLReturn = `<select `;
         // if multi select enabled add multiple to select element
         if(this.getOption('multiple_select_enabled')){
             HTMLReturn += `multiple class="filter-chosen-multi" `;
@@ -77,7 +77,7 @@ class DataFilter extends Module {
     
     getCheckBoxGroupHTML(){
         var filter_data = this.getOption('filter_data_options') || [];
-        return_data += `<div class="filter-radio-group">`;
+        var return_data = `<div class="filter-radio-group">`;
         if(filter_data.length > 0){
             for(var i = 0; i < filter_data.length; i++){
                 return_data += this.getCheckBoxHTML(filter_data[i]);
@@ -92,7 +92,7 @@ class DataFilter extends Module {
     
     getCheckBoxSingleHTML(){
         var filter_data = this.getOption('filter_data_options') || [];
-        var return_data += `<div class="filter-radio-group">`;
+        var return_data = `<div class="filter-radio-group">`;
         if(filter_data.length >= 1){
             return_data += this.getCheckBoxHTML(filter_data[0]); // should always only have one element, but only select first
             if (filter_data.length > 1) {
