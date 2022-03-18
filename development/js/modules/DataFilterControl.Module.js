@@ -120,7 +120,7 @@ class FiltersControl extends ModuleContainer {
 		var self = this;
 		this.setupFilterPresets();
 		this.setupUIEvents();
-        $(document).on('click','.delete_button',()=>{
+        $(document).on('click','.dataFiltersControl',()=>{
             self.show();
         });
 		this.setupFilterInput(function (evt, act) {
