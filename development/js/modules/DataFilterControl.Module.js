@@ -48,6 +48,10 @@ class FiltersControl extends ModuleContainer {
 		this.options.dialog_content_url = options.dialog_content_url || 'templates/FiltersTemplateCache.html';
     }
     
+    renderDataFilterOptions(){
+        
+    }
+    
 	// view update after setting changed
     // overrides module function
 	renderView() {
