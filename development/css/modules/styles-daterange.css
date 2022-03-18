@@ -9,6 +9,11 @@
     font-weight: bold;
     margin-right: 15px;
 }
+.dataFiltersControl .ActiveFilterCount {
+    background: #f5f5f5;
+    padding:1px;
+    border-radius: 2px;
+}
 
 .dateRangeControl button:hover, .dataFiltersControl button:hover {
     color: rgba(255, 118, 0, 0.54);
@@ -25,7 +30,6 @@
 .dateRangeControl .title, .dataFiltersControl .title {
     font-weight: bold;
 }
-
 
 .dateRangeEditor {
     position: absolute;
