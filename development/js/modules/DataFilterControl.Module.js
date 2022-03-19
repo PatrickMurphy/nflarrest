@@ -145,10 +145,9 @@ class FiltersControl extends ModuleContainer {
     
     setupEvents(){
         var self = this;
-        $('.dataFiltersControl').click(()=>{
-            //console.log('fire click');
-            self.show();
-        });
+    //    $('.dataFiltersControl').click(()=>{
+    //      self.show();
+    //    });
 		$('#filters-open-button').click(()=>{
 			self.show();
 		});
