@@ -145,7 +145,10 @@ class FiltersControl extends ModuleContainer {
     
     setupEvents(){
         var self = this;
-
+        $('.dataFiltersControl').click(()=>{
+            //console.log('fire click');
+            self.show();
+        });
 		$('#filters-open-button').click(()=>{
 			self.show();
 		});
@@ -214,11 +217,6 @@ class FiltersControl extends ModuleContainer {
 	// setup the UI Elements that are interactive, but not direct inputs
 	setupUIEvents() {
 		var self = this;
-        console.log('fire ui events');
-        $('.dataFiltersControl').click(()=>{
-            console.log('fire click');
-            self.show();
-        });
 		// allow toggle of hidden content filter sections
 		$('.filter-section-title').click(function () {
 			$(this).parent().children().eq(1).toggle();
