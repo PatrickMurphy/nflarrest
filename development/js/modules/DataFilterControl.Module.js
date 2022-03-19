@@ -214,7 +214,9 @@ class FiltersControl extends ModuleContainer {
 	// setup the UI Elements that are interactive, but not direct inputs
 	setupUIEvents() {
 		var self = this;
+        console.log('fire ui events');
         $('.dataFiltersControl').click(()=>{
+            console.log('fire click');
             self.show();
         });
 		// allow toggle of hidden content filter sections
