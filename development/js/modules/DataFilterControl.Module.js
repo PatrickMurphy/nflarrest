@@ -1,4 +1,4 @@
-class FiltersControl extends ModuleContainer {
+class FiltersControl extends DialogModuleContainer {
     constructor(parent, data, options) {
         // setup options
         super('filters-control', parent, data, options);
