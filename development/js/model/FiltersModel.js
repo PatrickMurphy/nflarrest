@@ -58,7 +58,16 @@ class FiltersModel {
 						}
 					});
 					return group_count > 0;
-				}
+				},
+                compare: function (FCObj, item, filterValue, rowValue) {
+                    var group_count = 0;
+					$(item.element).map(function (item2, el) {
+						if (!$(el).prop('checked')) {
+							group_count++;
+						}
+					});
+                    return filterValue === rowValue;
+                }
 			},
 			checkbox: {
 				name: 'checkbox',
@@ -70,7 +79,10 @@ class FiltersModel {
 				},
 				isActive: function (FCObj, item) {
 					return $(item.element).prop('checked') != item['type']['default_val'];
-				}
+				},
+                compare: function (FCObj, item, filterValue, rowValue) {
+                    return filterValue === rowValue;
+                }
 			}
 		};
 

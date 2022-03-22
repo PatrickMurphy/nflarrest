@@ -4,6 +4,8 @@ class ModuleContainer extends Module {
         this.setSubModules([]);
     }
     
+    // add on, hide, show
+    
     addSubModule(module){
         // todo if type of module
         return this.sub_modules.push(module);
