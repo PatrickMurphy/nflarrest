@@ -56,7 +56,7 @@ class FiltersControl extends DialogModuleContainer {
 
     // overrides module function
     setOptions(options) {
-        super.setOptions(options);
+        this.options = options || {};
         // if objs and arrays not set, set as empty
         this.options.hidden_panels = options.hidden_panels || [];
         this.options.presets = options.presets || {};
