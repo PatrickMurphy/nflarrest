@@ -28,7 +28,7 @@ class FiltersControl extends DialogModuleContainer {
     }
 
     show() {
-        $(this.getOption('dialog_element_container')).show();
+        super.show();
         if (this.first_open) {
             this.loadDialogContents();
             this.first_open = false;
@@ -98,7 +98,6 @@ class FiltersControl extends DialogModuleContainer {
                     break;
             }
         }
-        
         this.renderActiveFilters();
     }
 

@@ -128,6 +128,7 @@ class FiltersModel {
 				element: '#filter-team-input',
 				type: this.filter_types.select,
                 title: 'Team',
+                filter_data_options: DATA_MODEL_VWARRESTSWEB_TEAM_VALUES_ARRAY,
 				name: 'team[]'
 			},
 			conference: {
@@ -152,6 +153,7 @@ class FiltersModel {
 				element: '#filter-crime-input',
 				type: this.filter_types.select,
                 title: 'Crime',
+                filter_data_options: DATA_MODEL_VWARRESTSWEB_CATEGORY_VALUES_ARRAY,
 				name: 'crime[]'
 			},
 			position: {

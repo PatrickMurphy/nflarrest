@@ -3,7 +3,9 @@ class DialogModuleContainer extends ModuleContainer {
         super(module_id,parent,data,options);
     }
     
-    // add show
+    show(){
+        $(this.getOption('dialog_element_container')).show();
+    }
     
     on(evt, handle, HTMLElement) {
         HTMLElement = HTMLElement || this.getOption('dialog_element');
