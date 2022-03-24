@@ -20,7 +20,7 @@ class DialogModuleContainer extends ModuleContainer {
     
     // overrides module function
     setOptions(options){
-        super.setOptons(options);
+        super.setOptions(options);
         // if ui elements not set, set
 		this.options.dialog_element_container = options.dialog_element_container || '#module-dialog-container';
 		this.options.dialog_element = options.dialog_element || '#module-dialog';
