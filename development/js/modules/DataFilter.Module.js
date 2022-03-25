@@ -26,7 +26,9 @@ class DataFilter extends Module {
         var filter_data = this.getOption('filter_data_options') || [];
         var filter_placeholder = this.getOption('InputPlaceHolder') || 'Choose...';
         var filter_element = this.getOption('element') || 'filters-UndefinedElement-input';
-        
+        if(filter_element.charAt(0) === '#'){
+            filter_element = filter_element.substring(1);
+        }
         // set empty
         var ControlGroupHTML = '';
         
@@ -56,6 +58,9 @@ class DataFilter extends Module {
         var filter_type = this.getOption('type') || {};
         var filter_placeholder = this.getOption('InputPlaceHolder') || 'Choose...';
         var filter_element = this.getOption('element') || 'filters-UndefinedElement-input';
+        if(filter_element.charAt(0) === '#'){
+            filter_element = filter_element.substring(1);
+        }
         
         var HTMLReturn = `<select `;
         // if multi select enabled add multiple to select element
@@ -109,7 +114,9 @@ class DataFilter extends Module {
     /* --- HTML Gen Sub Functions (no need for filter_data) --- */
     getFilterDateRangeHTML(){
         var filter_element = this.getOption('element') || 'filters-UndefinedElement-input';
-        
+        if(filter_element.charAt(0) === '#'){
+            filter_element = filter_element.substring(1);
+        }
         return `<div class=" dateRangeControl">
             <span class="title">Date Range:</span>
             <button id="${filter_element}" name="dateRangeJquery"></button>
