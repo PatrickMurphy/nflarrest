@@ -1,4 +1,4 @@
-#filter-dialog-container {
+#filter-dialog-container, #module-dialog-container {
 	position: fixed;
 	top: 0px;
 	width: 100%;
@@ -7,7 +7,7 @@
 	overflow-y: auto;
 }
 
-#filter-dialog {
+#filter-dialog, #module-dialog {
 	margin: auto;
 	margin-top: 2%;
 	width: 96%;
