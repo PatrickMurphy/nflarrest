@@ -117,8 +117,8 @@ class DataFilter extends Module {
     }
     
     getSelectOptionHTML(options) {
-        var optHtml =   `<option value="${options.value}">
-                            ${options.displayValue}
+        var optHtml =   `<option value="${options.COLUMN_VALUE}">
+                            ${options.COLUMN_DISPLAY_VALUE}
                         </option>`;
         return optHtml;
     }
@@ -133,8 +133,8 @@ class DataFilter extends Module {
             options.element = options.element.substring(1);
         }
         
-        return `<label for="${options.element}">${options.title}</label>
-                <input type="checkbox" name="${options.element}" id="${options.element}">`;
+        return `<label for="${options.column_value}">${options.COLUMN_DISPLAY_VALUE}</label>
+                <input type="checkbox" name="${options.column_value}" id="${options.column_value}">`;
     }
     
     getIncludeButtonHTML() {
