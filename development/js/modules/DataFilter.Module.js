@@ -9,7 +9,7 @@ class DataFilter extends Module {
         this.options.type = options.type || {name:'undefined'};
         this.options.name = options.name || 'untitledInput';
         this.options.required = options.required || false;
-        this.options.multiple_select_enabled = options.multiple_select_enabled || false;
+        this.options.multiple_select_enabled = options.multiple_select_enabled || true;
     }
     
     getHTML(){
