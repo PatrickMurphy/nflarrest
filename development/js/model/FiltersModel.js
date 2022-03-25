@@ -116,12 +116,14 @@ class FiltersModel {
 				element: '#filter-season-input',
 				type: this.filter_types.select,
                 title: 'Season',
+                filter_data_options: DATA_MODEL_VWARRESTSWEB_SEASON_VALUES_ARRAY,
 				name: 'season[]'
 			},
 			season_status: {
 				element: '#filter-seasonStatusOn-input, #filter-seasonStatusOff-input',
 				type: this.filter_types.checkbox_group,
                 title: 'Season Status',
+                filter_data_options: DATA_MODEL_VWARRESTSWEB_ARRESTSEASONSTATE_VALUES_ARRAY,
 				name: 'season_status'
 			},
 			team: {
@@ -147,6 +149,7 @@ class FiltersModel {
 				element: '#filter-crime-category-input',
 				type: this.filter_types.select,
                 title: 'Crime Category',
+                filter_data_options: DATA_MODEL_VWARRESTSWEB_CRIME_CATEGORY_VALUES_ARRAY,
 				name: 'crimeCategory[]'
 			},
 			crime: {
@@ -160,6 +163,7 @@ class FiltersModel {
 				element: '#filter-position-input',
 				type: this.filter_types.select,
                 title: 'Position',
+                filter_data_options: DATA_MODEL_VWARRESTSWEB_POSITION_VALUES_ARRAY,
 				name: 'position[]'
 			},
 			position_type: {
