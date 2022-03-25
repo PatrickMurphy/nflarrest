@@ -3,7 +3,7 @@ class FiltersControl extends DialogModuleContainer {
         // setup options
         super('filters-control', parent, data, options);
         this.parent.StyleManager.loadCSS('css/modules/styles-filters.css');
-        this.parent.StyleManager.loadCSS('css/vendor/chosen.min.css');
+        //this.parent.StyleManager.loadCSS('css/vendor/chosen.min.css');
 
         // load model and date range object
         this.filters_model = new FiltersModel();
@@ -189,16 +189,12 @@ class FiltersControl extends DialogModuleContainer {
     // add UI librarys to input, as well as on change events
     setupFilterInput(onChangeCallback) {
         var self = this;
-        var chosen_multi_settings = {
-            inherit_select_classes: true,
-            hide_results_on_select: false
-        };
         var jquery_checkbox_settings = {
             icon: false
         };
 
         // setup chosen module standard multi selects
-        $('.filter-chosen-multi').chosen(chosen_multi_settings).change(onChangeCallback);
+        $('.filter-chosen-multi').select2().change(onChangeCallback);
 
         // jquery ui checkbox radio buttons
         $('.filter-radio-group input').checkboxradio(jquery_checkbox_settings).change(onChangeCallback);
