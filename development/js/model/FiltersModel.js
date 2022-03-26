@@ -98,6 +98,7 @@ class FiltersModel {
 				element: '#filter-month-input',
 				type: this.filter_types.select,
                 title: 'Month',
+                filter_data_options: DATA_MODEL_FRAMEWORK_MONTHS_VALUES_ARRAY,
 				name: 'month[]'
 			},
 			dayofweek: {
@@ -137,12 +138,14 @@ class FiltersModel {
 				element: '#filter-conference-AFC-input, #filter-conference-NFC-input',
 				type: this.filter_types.checkbox_group,
                 title: 'Conference',
+                filter_data_options: DATA_MODEL_VWARRESTSWEB_TEAM_CONFERENCE_VALUES_ARRAY,
 				name: 'conference'
 			},
 			division: {
 				element: '#filter-division-input',
 				type: this.filter_types.select,
                 title: 'Division',
+                filter_data_options: DATA_MODEL_VWARRESTSWEB_TEAM_CONFERENCE_DIVISION_VALUES_ARRAY,
 				name: 'division[]'
 			},
 			crimeCategory: {
