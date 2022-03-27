@@ -16,7 +16,7 @@ class FiltersControl extends DialogModuleContainer {
         this.addSubModule(new DialogWindowColumn(this, [], {
             element: 'filter-attribute-column',
             wordColumnWidth: 'six',
-            sections: [this.filters_model.filter_sections.team, this.filters_model.filter_sections.crime, this.filters_model.filter_sections.position, this.filters_model.filter_sections.player]
+            sections: [this.filters_model.filter_sections.team, this.filters_model.filter_sections.crime, this.filters_model.filter_sections.position]//, this.filters_model.filter_sections.player]
         }));
 
         this.DateRangeFilterInstance = this.parent.DateRangeControl;
@@ -304,7 +304,7 @@ class FiltersControl extends DialogModuleContainer {
         $('#filter-team-section .filter-section-title span').html(this.filters_model.filter_sections.team.active_count + '/3');
         $('#filter-crime-section .filter-section-title span').html(this.filters_model.filter_sections.crime.active_count + '/2');
         $('#filter-position-section .filter-section-title span').html(this.filters_model.filter_sections.position.active_count + '/2');
-        $('#filter-player-section .filter-section-title span').html(this.filters_model.filter_sections.player.active_count + '/1');
+        //$('#filter-player-section .filter-section-title span').html(this.filters_model.filter_sections.player.active_count + '/1');
     }
 
     // count by section the number of filters not set to default

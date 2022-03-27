@@ -214,13 +214,13 @@ class FiltersModel {
                 title: 'Position Type',
                 filter_data_options: DATA_MODEL_VWARRESTSWEB_POSITION_TYPE_VALUES_ARRAY,
 				name: 'position_type'
-			},
+			}/*,
 			player: {
 				element: '#filter-player-input',
 				type: this.filter_types.select,
                 title: 'Player',
 				name: 'player[]'
-			}
+			}*/
 		};
 
         // filter sections, contains filter items of filter type
@@ -249,12 +249,12 @@ class FiltersModel {
 				title: 'Position Filters',
 				element: '#filter-position-section',
 				items: [this.filter_items.position, this.filter_items.position_type]
-			},
+			}/*,
 			player: {
 				title: 'Player Filters',
 				element: '#filter-player-section',
 				items: [this.filter_items.player]
-			}
+			}*/
 		};
 	}
 }
