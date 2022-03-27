@@ -81,7 +81,7 @@ class DataFilter extends Module {
     
     getInputGroupHTML(forEachItem_Callback){
         var filter_data = this.getOption('filter_data_options') || [];
-        var return_data = `<fieldset class="filter-radio-group">`;
+        var return_data = `<div class="filter-radio-group"><fieldset>`;
         return_data += `<legend>${this.getOption('name')}: </legend>`;
         if(filter_data.length > 0){
             for(var i = 0; i < filter_data.length; i++){
@@ -90,7 +90,7 @@ class DataFilter extends Module {
         } else {
             return_data += `<span><b>Error:</b> No filter_data parameter values exist.</span>`;
         }
-        return_data += `</fieldset>`;
+        return_data += `</fieldset></div>`;
         
         return return_data;
     }
