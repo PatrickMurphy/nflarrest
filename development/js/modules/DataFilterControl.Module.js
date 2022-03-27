@@ -50,10 +50,8 @@ class FiltersControl extends DialogModuleContainer {
         // set element html
         $('#' + ele_ID).html(self.getHTML());
 
-        setTimeout(()=>{
-            self.setupView();
-            self.renderView();
-        },2000);
+        self.setupView();
+        self.renderView();
     }
 
     // overrides module function

@@ -85,8 +85,7 @@ class DataFilter extends Module {
     
     getInputGroupHTML(forEachItem_Callback){
         var filter_data = this.getOption('filter_data_options') || [];
-        var return_data = `<div>`;
-        return_data += `<fieldset class="filter-radio-group">`;
+        var return_data = `<fieldset class="filter-radio-group">`;
         return_data += `<legend>${this.getOption('name')}: </legend>`;
         if(filter_data.length > 0){
             for(var i = 0; i < filter_data.length; i++){
@@ -95,7 +94,7 @@ class DataFilter extends Module {
         } else {
             return_data += `<span><b>Error:</b> No filter_data parameter values exist.</span>`;
         }
-        return_data += `</fieldset></div>`;
+        return_data += `</fieldset>`;
         
         return return_data;
     }
@@ -118,7 +117,7 @@ class DataFilter extends Module {
     
     getCheckBoxSingleHTML(){
         var filter_data = this.getOption('filter_data_options') || [];
-        var return_data = `<div class="filter-radio-group">`;
+        var return_data = `<div class="filter-single-checkbox">`;
         if(filter_data.length >= 1){
             return_data += this.getCheckBoxHTML(filter_data[0]); // should always only have one element, but only select first
             if (filter_data.length > 1) {
@@ -161,8 +160,8 @@ class DataFilter extends Module {
             options.element = options.element.substring(1);
         }
         
-        return `<label for="${options.COLUMN_VALUE}">${options.COLUMN_DISPLAY_VALUE}</label>
-                <input type="checkbox" name="${options.COLUMN_VALUE}" id="${options.COLUMN_VALUE}">`;
+        return `<label for="${this.getOption('name')+options.COLUMN_VALUE}">${options.COLUMN_DISPLAY_VALUE}</label>
+                <input type="checkbox" name="${this.getOption('name')+options.COLUMN_VALUE}" id="${this.getOption('name')+options.COLUMN_VALUE}">`;
     }
     
     getRadioHTML(options){
@@ -176,7 +175,7 @@ class DataFilter extends Module {
         }
         
         return `<label for="${options.COLUMN_VALUE}">${options.COLUMN_DISPLAY_VALUE}</label>
-                <input type="radio" name="${options.COLUMN_NAME}" id="${options.COLUMN_VALUE}">`;
+                <input type="radio" name="${this.getOption('name')}" id="${options.COLUMN_VALUE}">`;
     }
     
     getIncludeButtonHTML() {
