@@ -175,6 +175,7 @@ class FiltersModel {
 				element: '#filter-position-type-input-o, #filter-position-type-input-d, #filter-position-type-input-s',
 				type: this.filter_types.checkbox_group,
                 title: 'Position Type',
+                filter_data_options: DATA_MODEL_VWARRESTSWEB_POSITION_TYPE_VALUES_ARRAY,
 				name: 'position_type'
 			},
 			player: {
