@@ -82,7 +82,7 @@ class DataFilter extends Module {
     
     getCheckBoxGroupHTML(){
         var filter_data = this.getOption('filter_data_options') || [];
-        var return_data = `<div class="filter-radio-group"><fieldset>`;
+        var return_data = `<div><fieldset class="filter-radio-group">`;
         if(filter_data.length > 0){
             for(var i = 0; i < filter_data.length; i++){
                 return_data += this.getCheckBoxHTML(filter_data[i]);
