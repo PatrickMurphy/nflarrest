@@ -45,6 +45,9 @@ class DataFilter extends Module {
         }else if(filter_type.name === 'checkbox-group'){
             ControlGroupHTML += this.getCheckBoxGroupHTML();
         // if filter type checkbox
+        }else if(filter_type.name === 'radio-group'){
+            ControlGroupHTML += this.getRadioGroupHTML();
+        // if filter type checkbox
         }else if(filter_type.name === 'checkbox'){
             ControlGroupHTML += this.getCheckBoxSingleHTML();
         }
@@ -80,14 +83,14 @@ class DataFilter extends Module {
         return HTMLReturn;
     }
     
-    getCheckBoxGroupHTML(){
+    getInputGroupHTML(forEachItem_Callback){
         var filter_data = this.getOption('filter_data_options') || [];
         var return_data = `<div>`;
         return_data += `<fieldset class="filter-radio-group">`;
         return_data += `<legend>${this.getOption('name')}: </legend>`;
         if(filter_data.length > 0){
             for(var i = 0; i < filter_data.length; i++){
-                return_data += this.getCheckBoxHTML(filter_data[i]);
+                return_data += forEachItem_Callback(filter_data[i]);
             }
         } else {
             return_data += `<span><b>Error:</b> No filter_data parameter values exist.</span>`;
@@ -95,6 +98,22 @@ class DataFilter extends Module {
         return_data += `</fieldset></div>`;
         
         return return_data;
+    }
+    
+    getCheckBoxGroupHTML(){
+        return this.getInputGroupHTML(
+            (item) => {
+                return this.getCheckBoxHTML(item);
+            }
+        );
+    }
+    
+    getRadioGroupHTML(){
+       return this.getInputGroupHTML(
+            (item) => {
+                return this.getCheckBoxHTML(item);
+            }
+        );
     }
     
     getCheckBoxSingleHTML(){
@@ -144,6 +163,20 @@ class DataFilter extends Module {
         
         return `<label for="${options.COLUMN_VALUE}">${options.COLUMN_DISPLAY_VALUE}</label>
                 <input type="checkbox" name="${options.COLUMN_VALUE}" id="${options.COLUMN_VALUE}">`;
+    }
+    
+    getRadioHTML(options){
+        options = options || {element: 'filter-UntitledRadio-input', title:'Untitled Radio'};
+        options.element = options.element || 'filter-UntitledRadio-input';
+        options.title = options.title || 'Untitled Radio';
+        
+        // remove hash if exists element
+        if(options.element.charAt(0) === '#'){
+            options.element = options.element.substring(1);
+        }
+        
+        return `<label for="${options.COLUMN_VALUE}">${options.COLUMN_DISPLAY_VALUE}</label>
+                <input type="radio" name="${options.COLUMN_NAME}" id="${options.COLUMN_VALUE}">`;
     }
     
     getIncludeButtonHTML() {

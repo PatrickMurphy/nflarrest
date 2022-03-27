@@ -69,6 +69,43 @@ class FiltersModel {
                     return filterValue === rowValue;
                 }
 			},
+			radio_group: {
+				name: 'radio-group',
+				library: 'JQuery-UI',
+				description: 'a group of discrete options',
+				default_val: 'all',
+				getValue: function (FCObj, item) {
+					var group_settings = [];
+
+					$(item.element).map(function (item2, el) {
+						if (!$(el).prop('checked')) {
+							group_settings.push('1');
+						} else {
+							group_settings.push('0');
+						}
+					});
+
+					return group_settings.join('');
+				},
+				isActive: function (FCObj, item) {
+					var group_count = 0;
+					$(item.element).map(function (item2, el) {
+						if (!$(el).prop('checked')) {
+							group_count++;
+						}
+					});
+					return group_count > 0;
+				},
+                compare: function (FCObj, item, filterValue, rowValue) {
+                    var group_count = 0;
+					$(item.element).map(function (item2, el) {
+						if (!$(el).prop('checked')) {
+							group_count++;
+						}
+					});
+                    return filterValue === rowValue;
+                }
+			},
 			checkbox: {
 				name: 'checkbox',
 				library: 'JQuery-UI',
@@ -110,7 +147,7 @@ class FiltersModel {
 			},
 			yeartodate: {
 				element: '#filter-yeartodate-input',
-				type: this.filter_types.checkbox_group,
+				type: this.filter_types.radio_group,
                 title: 'Year To Date',
                 filter_data_options: DATA_MODEL_FRAMEWORK_NULLABLE_BOOLEAN_VALUES_ARRAY,
 				name: 'yeartodate'
