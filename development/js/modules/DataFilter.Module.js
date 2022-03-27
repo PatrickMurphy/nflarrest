@@ -141,7 +141,7 @@ class DataFilter extends Module {
         }
         
         return `<label for="${options.column_value}">${options.COLUMN_DISPLAY_VALUE}</label>
-                <input type="checkbox" name="${options.column_value}" id="${options.column_value}">`;
+                <input type="checkbox" name="${options.COLUMN_VALUE}" id="${options.COLUMN_VALUE}">`;
     }
     
     getIncludeButtonHTML() {
