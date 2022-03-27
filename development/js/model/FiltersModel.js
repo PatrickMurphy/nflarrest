@@ -110,7 +110,7 @@ class FiltersModel {
 			},
 			yeartodate: {
 				element: '#filter-yeartodate-input',
-				type: this.filter_types.checkbox,
+				type: this.filter_types.checkbox_group,
                 title: 'Year To Date',
                 filter_data_options: DATA_MODEL_FRAMEWORK_NULLABLE_BOOLEAN_VALUES_ARRAY,
 				name: 'yeartodate'
