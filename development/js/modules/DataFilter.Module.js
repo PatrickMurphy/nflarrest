@@ -110,7 +110,7 @@ class DataFilter extends Module {
     getRadioGroupHTML(){
        return this.getInputGroupHTML(
             (item) => {
-                return this.getCheckBoxHTML(item);
+                return this.getRadioHTML(item);
             }
         );
     }
