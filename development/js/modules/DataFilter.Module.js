@@ -26,9 +26,7 @@ class DataFilter extends Module {
         var filter_data = this.getOption('filter_data_options') || [];
         var filter_placeholder = this.getOption('InputPlaceHolder') || 'Choose...';
         var filter_element = this.getOption('element') || 'filters-UndefinedElement-input';
-        if(filter_element.charAt(0) === '#'){
-            filter_element = filter_element.substring(1);
-        }
+        filter_element = this.util_removeHashChar(filter_element);
         // set empty
         var ControlGroupHTML = '';
         
@@ -61,9 +59,7 @@ class DataFilter extends Module {
         var filter_type = this.getOption('type') || {};
         var filter_placeholder = this.getOption('InputPlaceHolder') || 'Choose...';
         var filter_element = this.getOption('element') || 'filters-UndefinedElement-input';
-        if(filter_element.charAt(0) === '#'){
-            filter_element = filter_element.substring(1);
-        }
+        filter_element = this.util_removeHashChar(filter_element);
         
         var HTMLReturn = `<select `;
         // if multi select enabled add multiple to select element
@@ -134,9 +130,7 @@ class DataFilter extends Module {
     /* --- HTML Gen Sub Functions (no need for filter_data) --- */
     getFilterDateRangeHTML(){
         var filter_element = this.getOption('element') || 'filters-UndefinedElement-input';
-        if(filter_element.charAt(0) === '#'){
-            filter_element = filter_element.substring(1);
-        }
+        filter_element = this.util_removeHashChar(filter_element);
         return `<div class=" dateRangeControl">
             <span class="title">Date Range:</span>
             <button id="${filter_element}" name="dateRangeJquery"></button>
@@ -156,9 +150,7 @@ class DataFilter extends Module {
         options.title = options.title || 'Untitled Checkbox';
         
         // remove hash if exists element
-        if(options.element.charAt(0) === '#'){
-            options.element = options.element.substring(1);
-        }
+        options.element = this.util_removeHashChar(options.element);
         
         return `<label for="${this.getOption('name')+options.COLUMN_VALUE}">${options.COLUMN_DISPLAY_VALUE}</label>
                 <input type="checkbox" name="${this.getOption('name')+options.COLUMN_VALUE}" id="${this.getOption('name')+options.COLUMN_VALUE}">`;
@@ -170,12 +162,10 @@ class DataFilter extends Module {
         options.title = options.title || 'Untitled Radio';
         
         // remove hash if exists element
-        if(options.element.charAt(0) === '#'){
-            options.element = options.element.substring(1);
-        }
+        options.element = this.util_removeHashChar(options.element);
         
-        return `<label for="${options.COLUMN_VALUE}">${options.COLUMN_DISPLAY_VALUE}</label>
-                <input type="radio" name="${this.getOption('name')}" id="${options.COLUMN_VALUE}">`;
+        return `<label for="${this.getOption('name')+options.COLUMN_VALUE}">${options.COLUMN_DISPLAY_VALUE}</label>
+                <input type="radio" name="${this.getOption('name')}" id="${this.getOption('name')+options.COLUMN_VALUE}">`;
     }
     
     getIncludeButtonHTML() {
@@ -183,6 +173,15 @@ class DataFilter extends Module {
             return `<button class="filter-type-btn filter-include">Include</button>`;
         }else{
             return '';
+        }
+    }
+    
+    util_removeHashChar(str){
+        // remove hash if exists element
+        if(str.charAt(0) === '#'){
+            return str.substring(1);
+        }else{
+            return str;
         }
     }
 }
