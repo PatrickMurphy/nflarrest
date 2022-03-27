@@ -49,3 +49,60 @@ var DATA_MODEL_FRAMEWORK_MONTHS_VALUES_ARRAY = [
         "COLUMN_DISPLAY_VALUE": "December"
     }
 ];
+var DATA_MODEL_FRAMEWORK_DAY_OF_WEEK_VALUES_ARRAY = [
+    {
+        "COLUMN_NAME": "day_of_week",
+        "COLUMN_VALUE": 1,
+        "COLUMN_DISPLAY_VALUE": "Monday"
+    },{
+        "COLUMN_NAME": "day_of_week",
+        "COLUMN_VALUE": 2,
+        "COLUMN_DISPLAY_VALUE": "Tuesday"
+    },{
+        "COLUMN_NAME": "day_of_week",
+        "COLUMN_VALUE": 3,
+        "COLUMN_DISPLAY_VALUE": "Wednesday"
+    },{
+        "COLUMN_NAME": "day_of_week",
+        "COLUMN_VALUE": 4,
+        "COLUMN_DISPLAY_VALUE": "Thursday"
+    },{
+        "COLUMN_NAME": "day_of_week",
+        "COLUMN_VALUE": 5,
+        "COLUMN_DISPLAY_VALUE": "Friday"
+    },{
+        "COLUMN_NAME": "day_of_week",
+        "COLUMN_VALUE": 6,
+        "COLUMN_DISPLAY_VALUE": "Saturday"
+    },{
+        "COLUMN_NAME": "day_of_week",
+        "COLUMN_VALUE": 7,
+        "COLUMN_DISPLAY_VALUE": "Sunday"
+    }
+];
+var DATA_MODEL_FRAMEWORK_BOOLEAN_VALUES_ARRAY = [
+    {
+        "COLUMN_NAME": "boolean",
+        "COLUMN_VALUE": 0,
+        "COLUMN_DISPLAY_VALUE": "No"
+    },{
+        "COLUMN_NAME": "boolean",
+        "COLUMN_VALUE": 1,
+        "COLUMN_DISPLAY_VALUE": "Yes"
+    }
+];
+var DATA_MODEL_FRAMEWORK_NULLABLE_BOOLEAN_VALUES_ARRAY = [
+    {
+        "COLUMN_NAME": "boolean",
+        "COLUMN_VALUE": 0,
+        "COLUMN_DISPLAY_VALUE": "No"
+    },{
+        "COLUMN_NAME": "boolean",
+        "COLUMN_VALUE": 1,
+        "COLUMN_DISPLAY_VALUE": "Yes"
+    },{
+        "COLUMN_NAME": "boolean",
+        "COLUMN_VALUE": 2,
+        "COLUMN_DISPLAY_VALUE": "Either"
+    }
+];

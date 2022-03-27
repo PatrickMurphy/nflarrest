@@ -105,12 +105,14 @@ class FiltersModel {
 				element: '#filter-dayofweek-input-mon, #filter-dayofweek-input-tues, #filter-dayofweek-input-wed, #filter-dayofweek-input-thur, #filter-dayofweek-input-fri, #filter-dayofweek-input-sat, #filter-dayofweek-input-sun',
 				type: this.filter_types.checkbox_group,
                 title: 'Day Of Week',
+                filter_data_options: DATA_MODEL_FRAMEWORK_DAY_OF_WEEK_VALUES_ARRAY,
 				name: 'dayofweek',
 			},
 			yeartodate: {
 				element: '#filter-yeartodate-input',
 				type: this.filter_types.checkbox,
                 title: 'Year To Date',
+                filter_data_options: DATA_MODEL_FRAMEWORK_NULLABLE_BOOLEAN_VALUES_ARRAY,
 				name: 'yeartodate'
 			},
 			season: {
