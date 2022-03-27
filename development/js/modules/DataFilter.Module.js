@@ -82,7 +82,7 @@ class DataFilter extends Module {
     
     getCheckBoxGroupHTML(){
         var filter_data = this.getOption('filter_data_options') || [];
-        var return_data = `<div class="filter-radio-group">`;
+        var return_data = `<div class="filter-radio-group"><fieldset>`;
         if(filter_data.length > 0){
             for(var i = 0; i < filter_data.length; i++){
                 return_data += this.getCheckBoxHTML(filter_data[i]);
@@ -90,7 +90,7 @@ class DataFilter extends Module {
         } else {
             return_data += `<span><b>Error:</b> No filter_data parameter values exist.</span>`;
         }
-        return_data += `</div>`;
+        return_data += `</fieldset></div>`;
         
         return return_data;
     }
