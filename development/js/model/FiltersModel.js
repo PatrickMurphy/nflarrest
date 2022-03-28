@@ -225,6 +225,7 @@ class FiltersModel {
 
         // filter sections, contains filter items of filter type
 		this.filter_sections = {
+            /*
 			date: {
 				title: 'Date Filters',
 				element: '#filter-date-section',
@@ -244,7 +245,7 @@ class FiltersModel {
 				title: 'Crime Filters',
 				element: '#filter-crime-section',
 				items: [this.filter_items.crimeCategory, this.filter_items.crime]
-			},
+			},*/
 			position: {
 				title: 'Position Filters',
 				element: '#filter-position-section',
