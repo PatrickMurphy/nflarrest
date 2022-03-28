@@ -4,6 +4,7 @@ class StyleSheetManager {
 							//,'//fonts.googleapis.com/css?family=Raleway:400,300,500,600'
 							,'css/vendor/normalize.min.css'
                             ,'css/vendor/select2.min.css'
+                            ,'css/vendor/jquery.multi-select.css'
 							,'css/vendor/skeleton.min.css'
 							,'css/vendor/c3.css'
 							,'css/vendor/jquery-ui.min.css'
