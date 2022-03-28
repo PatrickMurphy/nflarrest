@@ -199,6 +199,10 @@ class FiltersControl extends DialogModuleContainer {
         $('#dateRangeJquery').on('dateRangeChanged', onChangeCallback);
 
       /*  // include exclude filter button toggles
+        */
+    }
+    
+    setupFilterTypeButton(){
         $('.filter-type-btn').click(function () {
             $(this).removeClass('filter-include filter-exclude');
             if ($(this).html() === 'Exclude') {
@@ -208,7 +212,7 @@ class FiltersControl extends DialogModuleContainer {
                 $(this).html('Exclude');
                 $(this).addClass('filter-exclude');
             }
-        });*/
+        });
     }
 
     // setup the UI Elements that are interactive, but not direct inputs
@@ -216,7 +220,7 @@ class FiltersControl extends DialogModuleContainer {
         var self = this;
         // allow toggle of hidden content filter sections
         $('.filter-section-title').click(function () {
-            $(self).parent().children().eq(1).toggle();
+            $(this).parent().children().eq(1).toggle();
         });
         //console.log('add ui event click filter button close');
         $('#filters-close-button').click(function () {
@@ -294,12 +298,12 @@ class FiltersControl extends DialogModuleContainer {
     renderActiveFilters(){
         var self = this;
         // render daterange input
-        //$('#filter-daterange-input').html(self.DateRangeFilterInstance.getStart() + '-' + self.DateRangeFilterInstance.getEnd());
+        $('#filter-daterange-input').html(self.DateRangeFilterInstance.getStart() + '-' + self.DateRangeFilterInstance.getEnd());
         // render section active filter counts
-        //$('#filter-date-section .filter-section-title span').html(this.filters_model.filter_sections.date.active_count + '/4');
-        //$('#filter-season-section .filter-section-title span').html(this.filters_model.filter_sections.season.active_count + '/2');
-        //$('#filter-team-section .filter-section-title span').html(this.filters_model.filter_sections.team.active_count + '/3');
-        //$('#filter-crime-section .filter-section-title span').html(this.filters_model.filter_sections.crime.active_count + '/2');
+        $('#filter-date-section .filter-section-title span').html(this.filters_model.filter_sections.date.active_count + '/4');
+        $('#filter-season-section .filter-section-title span').html(this.filters_model.filter_sections.season.active_count + '/2');
+        $('#filter-team-section .filter-section-title span').html(this.filters_model.filter_sections.team.active_count + '/3');
+        $('#filter-crime-section .filter-section-title span').html(this.filters_model.filter_sections.crime.active_count + '/2');
         $('#filter-position-section .filter-section-title span').html(this.filters_model.filter_sections.position.active_count + '/2');
         //$('#filter-player-section .filter-section-title span').html(this.filters_model.filter_sections.player.active_count + '/1');
     }
