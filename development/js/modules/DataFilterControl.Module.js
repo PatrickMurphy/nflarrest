@@ -221,10 +221,11 @@ class FiltersControl extends DialogModuleContainer {
         var self = this;
         // allow toggle of hidden content filter sections
         $('.filter-section-title').click(function () {
-            $(this).parent().children().eq(1).toggle();
+            $(self).parent().children().eq(1).toggle();
         });
 
         $('#filters-close-button').click(function () {
+            console.log(self.options.dialog_element);
             $(self.options.dialog_element).trigger('FilterDialogClosed');
             self.hide();
         });
