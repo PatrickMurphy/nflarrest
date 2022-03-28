@@ -52,6 +52,7 @@ class FiltersControl extends DialogModuleContainer {
         $('#' + ele_ID).html(self.getHTML());
 
         self.renderView();
+        self.setupView();
     }
 
     // overrides module function
@@ -71,7 +72,7 @@ class FiltersControl extends DialogModuleContainer {
     // overrides module function
     renderView() {
         var self = this;
-        
+        /*
         var ele_ID = self.getOption('dialog_element_container');
         if (ele_ID.charAt(0) === '#') {
             ele_ID = ele_ID.substring(1);
@@ -82,7 +83,7 @@ class FiltersControl extends DialogModuleContainer {
             $('body').append(`<div id="${ele_ID}"></div>`);
         }
         // set element html
-        $('#' + ele_ID).html(self.getHTML());
+        $('#' + ele_ID).html(self.getHTML());*/
         
         this.countActiveFilters();
 
@@ -99,8 +100,6 @@ class FiltersControl extends DialogModuleContainer {
             }
         }
         this.renderActiveFilters();
-        
-        this.setupView();
     }
 
     getHTML() {
