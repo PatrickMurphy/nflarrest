@@ -51,8 +51,8 @@ class FiltersControl extends DialogModuleContainer {
         // set element html
         $('#' + ele_ID).html(self.getHTML());
 
-        self.setupView();
         self.renderView();
+        self.setupView();
     }
 
     // overrides module function
@@ -138,16 +138,11 @@ class FiltersControl extends DialogModuleContainer {
     // construct the view the first time (initialize)
     setupView() {
         var self = this;
-        this.setupFilterPresets();
+        //this.setupFilterPresets();
         this.setupUIEvents();
-        this.initializeFilterHTML();
         this.setupFilterInput(function (evt, act) {
             self.onFilterChanged(self, evt, act);
         });
-    }
-
-    initializeFilterHTML() {
-
     }
 
     setupEvents() {
