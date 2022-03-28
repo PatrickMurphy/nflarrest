@@ -138,7 +138,14 @@ class DataFilter extends Module {
     }
     
     getSelectOptionHTML(options) {
-        var optHtml =   `<option value="${options.COLUMN_VALUE}">
+        // default select all, but allow options to specifiy isSelected: false
+        var selected = 'selected';
+        if(options.hasOwnProperty('isSelected')){
+            if(!options.isSelected){
+                selected = '';
+            }
+        }
+        var optHtml =   `<option value="${options.COLUMN_VALUE}" ${selected}>
                             ${options.COLUMN_DISPLAY_VALUE}
                         </option>`;
         return optHtml;
@@ -149,11 +156,17 @@ class DataFilter extends Module {
         options.element = options.element || 'filter-UntitledCheckbox-input';
         options.title = options.title || 'Untitled Checkbox';
         
+        var selected = 'checked';
+        if(options.hasOwnProperty('isSelected')){
+            if(!options.isSelected){
+                selected = '';
+            }
+        }
         // remove hash if exists element
         options.element = this.util_removeHashChar(options.element);
         
         return `<label for="${this.getOption('name')+options.COLUMN_VALUE}">${options.COLUMN_DISPLAY_VALUE}</label>
-                <input type="checkbox" name="${this.getOption('name')+options.COLUMN_VALUE}" id="${this.getOption('name')+options.COLUMN_VALUE}">`;
+                <input type="checkbox" name="${this.getOption('name')+options.COLUMN_VALUE}" id="${this.getOption('name')+options.COLUMN_VALUE}" ${selected}>`;
     }
     
     getRadioHTML(options){

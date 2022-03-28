@@ -199,9 +199,11 @@ class FiltersControl extends DialogModuleContainer {
         $('#dateRangeJquery').on('dateRangeChanged', onChangeCallback);
 
       /*  // include exclude filter button toggles
+        self.setupFilterTypeButton();
         */
     }
     
+    // disabled for now
     setupFilterTypeButton(){
         $('.filter-type-btn').click(function () {
             $(this).removeClass('filter-include filter-exclude');
