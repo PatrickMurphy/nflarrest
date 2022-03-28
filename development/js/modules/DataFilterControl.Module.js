@@ -223,7 +223,7 @@ class FiltersControl extends DialogModuleContainer {
         $('.filter-section-title').click(function () {
             $(self).parent().children().eq(1).toggle();
         });
-
+        console.log('add ui event click filter button close');
         $('#filters-close-button').click(function () {
             console.log(self.options.dialog_element);
             $(self.options.dialog_element).trigger('FilterDialogClosed');
