@@ -13,7 +13,11 @@ class DataFilter extends Module {
     }
     
     getHTML(){
-        return `<div class="filter-section-item">
+        var filter_section_item_attributes = 'class="filter-section-item"';
+        if(this.getOption('isHidden')){
+            filter_section_item_attributes += ' style="display:none;"';
+        }
+        return `<div ${filter_section_item_attributes}>
                     <span>${this.getOptions().title}</span>
                     <div class="control-group">
                         ${this.getControlGroupHTML()}
@@ -82,7 +86,7 @@ class DataFilter extends Module {
     getInputGroupHTML(forEachItem_Callback){
         var filter_data = this.getOption('filter_data_options') || [];
         var return_data = `<div class="filter-radio-group"><fieldset>`;
-        return_data += `<legend>${this.getOption('name')}: </legend>`;
+        return_data += `<legend>${this.getOption('title')}:</legend>`;
         if(filter_data.length > 0){
             for(var i = 0; i < filter_data.length; i++){
                 return_data += forEachItem_Callback(filter_data[i]);

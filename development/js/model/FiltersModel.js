@@ -136,7 +136,8 @@ class FiltersModel {
 				type: this.filter_types.select,
                 title: 'Month',
                 filter_data_options: DATA_MODEL_FRAMEWORK_MONTHS_VALUES_ARRAY,
-				name: 'month[]'
+				name: 'month[]',
+                isHidden: true // use date range
 			},
 			dayofweek: {
 				element: '#filter-dayofweek-input-mon, #filter-dayofweek-input-tues, #filter-dayofweek-input-wed, #filter-dayofweek-input-thur, #filter-dayofweek-input-fri, #filter-dayofweek-input-sat, #filter-dayofweek-input-sun',
@@ -144,20 +145,23 @@ class FiltersModel {
                 title: 'Day Of Week',
                 filter_data_options: DATA_MODEL_FRAMEWORK_DAY_OF_WEEK_VALUES_ARRAY,
 				name: 'dayofweek',
+                isHidden: true // this is not very useful
 			},
 			yeartodate: {
 				element: '#filter-yeartodate-input',
 				type: this.filter_types.radio_group,
                 title: 'Year To Date',
                 filter_data_options: DATA_MODEL_FRAMEWORK_NULLABLE_BOOLEAN_VALUES_ARRAY,
-				name: 'yeartodate'
+				name: 'yeartodate',
+                isHidden: true // hide until help button explaining what it means
 			},
 			season: {
 				element: '#filter-season-input',
 				type: this.filter_types.select,
                 title: 'Season',
                 filter_data_options: DATA_MODEL_VWARRESTSWEB_SEASON_VALUES_ARRAY,
-				name: 'season[]'
+				name: 'season[]',
+                isHidden: true // use dates
 			},
 			season_status: {
 				element: '#filter-seasonStatusOn-input, #filter-seasonStatusOff-input',
@@ -178,7 +182,8 @@ class FiltersModel {
 				type: this.filter_types.checkbox_group,
                 title: 'Conference',
                 filter_data_options: DATA_MODEL_VWARRESTSWEB_TEAM_CONFERENCE_VALUES_ARRAY,
-				name: 'conference'
+				name: 'conference',
+                isHidden: true // use division
 			},
 			division: {
 				element: '#filter-division-input',
@@ -199,7 +204,8 @@ class FiltersModel {
 				type: this.filter_types.select,
                 title: 'Crime',
                 filter_data_options: DATA_MODEL_VWARRESTSWEB_CATEGORY_VALUES_ARRAY,
-				name: 'crime[]'
+				name: 'crime[]',
+                isHidden: true // to detailed
 			},
 			position: {
 				element: '#filter-position-input',
