@@ -52,7 +52,6 @@ class FiltersControl extends DialogModuleContainer {
         $('#' + ele_ID).html(self.getHTML());
 
         self.renderView();
-        self.setupView();
     }
 
     // overrides module function
@@ -100,6 +99,8 @@ class FiltersControl extends DialogModuleContainer {
             }
         }
         this.renderActiveFilters();
+        
+        this.setupView();
     }
 
     getHTML() {
