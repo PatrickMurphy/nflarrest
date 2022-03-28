@@ -190,7 +190,7 @@ class FiltersControl extends DialogModuleContainer {
         };
 
         // setup chosen module standard multi selects
-        //$('.filter-chosen-multi').select2().change(onChangeCallback);
+        $('.filter-chosen-multi').select2().change(onChangeCallback);
 
         // jquery ui checkbox radio buttons
         $('.filter-radio-group input').checkboxradio(jquery_checkbox_settings).change(onChangeCallback);
