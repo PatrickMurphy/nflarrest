@@ -8,16 +8,16 @@ class FiltersControl extends DialogModuleContainer {
         // load model and date range object
         this.filters_model = new FiltersModel();
 
-       /* this.addSubModule(new DialogWindowColumn(this, [], {
+        this.addSubModule(new DialogWindowColumn(this, [], {
             element: 'filter-time-period-column',
             wordColumnWidth: 'six',
             sections: [this.filters_model.filter_sections.date, this.filters_model.filter_sections.season]
         }));
-        */
+        
         this.addSubModule(new DialogWindowColumn(this, [], {
             element: 'filter-attribute-column',
             wordColumnWidth: 'six',
-            sections: [/*this.filters_model.filter_sections.team, this.filters_model.filter_sections.crime, */this.filters_model.filter_sections.position]//, this.filters_model.filter_sections.player]
+            sections: [this.filters_model.filter_sections.team, this.filters_model.filter_sections.crime, this.filters_model.filter_sections.position]//, this.filters_model.filter_sections.player]
         }));
 
         this.DateRangeFilterInstance = this.parent.DateRangeControl;
@@ -218,9 +218,9 @@ class FiltersControl extends DialogModuleContainer {
         $('.filter-section-title').click(function () {
             $(self).parent().children().eq(1).toggle();
         });
-        console.log('add ui event click filter button close');
+        //console.log('add ui event click filter button close');
         $('#filters-close-button').click(function () {
-            console.log(self.options.dialog_element);
+            //console.log(self.options.dialog_element);
             $(self.options.dialog_element).trigger('FilterDialogClosed');
             self.hide();
         });
