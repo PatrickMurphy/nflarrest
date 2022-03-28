@@ -8,15 +8,16 @@ class FiltersControl extends DialogModuleContainer {
         // load model and date range object
         this.filters_model = new FiltersModel();
 
-        this.addSubModule(new DialogWindowColumn(this, [], {
+       /* this.addSubModule(new DialogWindowColumn(this, [], {
             element: 'filter-time-period-column',
             wordColumnWidth: 'six',
             sections: [this.filters_model.filter_sections.date, this.filters_model.filter_sections.season]
         }));
+        */
         this.addSubModule(new DialogWindowColumn(this, [], {
             element: 'filter-attribute-column',
             wordColumnWidth: 'six',
-            sections: [this.filters_model.filter_sections.team, this.filters_model.filter_sections.crime, this.filters_model.filter_sections.position]//, this.filters_model.filter_sections.player]
+            sections: [/*this.filters_model.filter_sections.team, this.filters_model.filter_sections.crime, */this.filters_model.filter_sections.position]//, this.filters_model.filter_sections.player]
         }));
 
         this.DateRangeFilterInstance = this.parent.DateRangeControl;
