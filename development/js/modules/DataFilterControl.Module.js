@@ -298,12 +298,12 @@ class FiltersControl extends DialogModuleContainer {
     renderActiveFilters(){
         var self = this;
         // render daterange input
-        $('#filter-daterange-input').html(self.DateRangeFilterInstance.getStart() + '-' + self.DateRangeFilterInstance.getEnd());
+        //$('#filter-daterange-input').html(self.DateRangeFilterInstance.getStart() + '-' + self.DateRangeFilterInstance.getEnd());
         // render section active filter counts
-        $('#filter-date-section .filter-section-title span').html(this.filters_model.filter_sections.date.active_count + '/4');
-        $('#filter-season-section .filter-section-title span').html(this.filters_model.filter_sections.season.active_count + '/2');
-        $('#filter-team-section .filter-section-title span').html(this.filters_model.filter_sections.team.active_count + '/3');
-        $('#filter-crime-section .filter-section-title span').html(this.filters_model.filter_sections.crime.active_count + '/2');
+        //$('#filter-date-section .filter-section-title span').html(this.filters_model.filter_sections.date.active_count + '/4');
+        //$('#filter-season-section .filter-section-title span').html(this.filters_model.filter_sections.season.active_count + '/2');
+        //$('#filter-team-section .filter-section-title span').html(this.filters_model.filter_sections.team.active_count + '/3');
+        //$('#filter-crime-section .filter-section-title span').html(this.filters_model.filter_sections.crime.active_count + '/2');
         $('#filter-position-section .filter-section-title span').html(this.filters_model.filter_sections.position.active_count + '/2');
         //$('#filter-player-section .filter-section-title span').html(this.filters_model.filter_sections.player.active_count + '/1');
     }
