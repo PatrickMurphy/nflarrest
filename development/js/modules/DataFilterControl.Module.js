@@ -203,7 +203,7 @@ class FiltersControl extends DialogModuleContainer {
         // setup date range controller
         $('#dateRangeJquery').on('dateRangeChanged', onChangeCallback);
 
-        // include exclude filter button toggles
+      /*  // include exclude filter button toggles
         $('.filter-type-btn').click(function () {
             $(this).removeClass('filter-include filter-exclude');
             if ($(this).html() === 'Exclude') {
@@ -213,7 +213,7 @@ class FiltersControl extends DialogModuleContainer {
                 $(this).html('Exclude');
                 $(this).addClass('filter-exclude');
             }
-        });
+        });*/
     }
 
     // setup the UI Elements that are interactive, but not direct inputs

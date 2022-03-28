@@ -169,11 +169,11 @@ class DataFilter extends Module {
     }
     
     getIncludeButtonHTML() {
-        if(this.getOption('required') !== true){
-            return `<button class="filter-type-btn filter-include">Include</button>`;
-        }else{
+       // if(this.getOption('required') !== true){
+         //   return `<button class="filter-type-btn filter-include">Include</button>`;
+        //}else{
             return '';
-        }
+        //}
     }
     
     util_removeHashChar(str){
