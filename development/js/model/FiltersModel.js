@@ -18,7 +18,14 @@ class FiltersModel {
 					var start_date_bool = FCObj.DateRangeFilterInstance.start_date != item['type']['default_val'][0];
 					var end_date_bool = FCObj.DateRangeFilterInstance.end_date != item['type']['default_val'][1];
 					return start_date_bool || end_date_bool;
-				}
+				},
+                compare: function (FCObj, item, rowValue){
+                    if(new Date(rowValue) >= new Date(FCObj.DateRangeFilterInstance.start_date) && new Date(rowValue) <= new Date(FCObj.DateRangeFilterInstance.end_date)){
+                        return true;
+                    }else{
+                        return false;
+                    }
+                }
 			},
 			select: {
 				name: 'select',
@@ -30,7 +37,10 @@ class FiltersModel {
 				},
 				isActive: function (FCObj, item) {
 					return $(item.element).val() != item['type']['default_val'];
-				}
+				},
+                compare: function (FCObj, item, rowValue){
+                    return $(item.element).val().indexOf(rowValue)>0;
+                }
 			},
 			checkbox_group: {
 				name: 'checkbox-group',
@@ -96,14 +106,14 @@ class FiltersModel {
 					});
 					return group_count > 0;
 				},
-                compare: function (FCObj, item, filterValue, rowValue) {
-                    var group_count = 0;
+                compare: function (FCObj, item, rowValue) {
+                    var is_true = false;
 					$(item.element).map(function (item2, el) {
-						if (!$(el).prop('checked')) {
-							group_count++;
+						if ($(el).prop('checked')) {
+							is_true = $(el).attr('id') == rowValue;
 						}
 					});
-                    return filterValue === rowValue;
+                    return is_true;
                 }
 			},
 			checkbox: {
@@ -117,8 +127,8 @@ class FiltersModel {
 				isActive: function (FCObj, item) {
 					return $(item.element).prop('checked') != item['type']['default_val'];
 				},
-                compare: function (FCObj, item, filterValue, rowValue) {
-                    return filterValue === rowValue;
+                compare: function (FCObj, item, rowValueBool) {
+                    return $(item.element).prop('checked') === rowValueBool;
                 }
 			}
 		};

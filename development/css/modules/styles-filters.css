@@ -14,7 +14,8 @@
 	border: 1px solid #aaa;
 	border-radius: 4px;
 	background-color: #fff;
-	overflow-y: scroll;
+	/*overflow-y: scroll;*/
+    height:90%;
 	max-height: 100%;
 }
 

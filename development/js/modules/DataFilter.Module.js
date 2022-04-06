@@ -79,7 +79,10 @@ class DataFilter extends Module {
         }
         
         HTMLReturn += `</select>`; // todo add options
-
+        
+        var selectedCount = 32;
+        var maxSelectedCount = 32;
+        HTMLReturn += ` <span class="data-filter-selected-count">${selectedCount} of ${maxSelectedCount}</span>`;
         return HTMLReturn;
     }
     
