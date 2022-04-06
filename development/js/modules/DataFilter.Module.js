@@ -25,6 +25,14 @@ class DataFilter extends Module {
                 </div>`;
     }
     
+    renderView(){
+        // todo implement logic to update filter count etc
+        if(filter_type.name === 'select'){
+            // update filter count
+            console.log($(this.options.element).val().length);
+        }
+    }
+    
     getControlGroupHTML(){
         var filter_type = this.getOption('type') || {};
         var filter_data = this.getOption('filter_data_options') || [];
@@ -86,7 +94,7 @@ class DataFilter extends Module {
         
         HTMLReturn += `</select>`; // todo add options
         var maxSelectedCount = filter_data.length;
-        HTMLReturn += ` <span class="data-filter-selected-count">${selectedCount} of ${maxSelectedCount}</span>`;
+        //HTMLReturn += ` <span class="data-filter-selected-count">${selectedCount} of ${maxSelectedCount}</span>`;
         return HTMLReturn;
     }
     
