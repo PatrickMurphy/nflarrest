@@ -74,14 +74,18 @@ class DataFilter extends Module {
         // continue with select html without regard to multi
         HTMLReturn += `data-placeholder="${filter_placeholder}" id="${filter_element}">`;
         
+        var selectedCount = 0;
         for(var i = 0; i < filter_data.length; i++){
-            HTMLReturn += this.getSelectOptionHTML(filter_data[i]);
+            let tmpReturn = this.getSelectOptionHTML(filter_data[i]);
+            HTMLReturn += tmpReturn;
+            
+            if(tmpReturn.indexOf('SELECTED')>-1){
+                selectedCount++;
+            }
         }
         
         HTMLReturn += `</select>`; // todo add options
-        
-        var selectedCount = 32;
-        var maxSelectedCount = 32;
+        var maxSelectedCount = filter_data.length;
         HTMLReturn += ` <span class="data-filter-selected-count">${selectedCount} of ${maxSelectedCount}</span>`;
         return HTMLReturn;
     }
@@ -146,7 +150,7 @@ class DataFilter extends Module {
     
     getSelectOptionHTML(options) {
         // default select all, but allow options to specifiy isSelected: false
-        var selected = 'selected';
+        var selected = 'SELECTED';
         if(options.hasOwnProperty('isSelected')){
             if(!options.isSelected){
                 selected = '';
