@@ -36,10 +36,14 @@ class FiltersModel {
 					return $(item.element).val();
 				},
 				isActive: function (FCObj, item) {
-                    if(item['type']['default_val'] == 'all'){
-				        return $(item.element).val().length != $(item.element + ' option').length;
+                    if(item.isHidden){
+                        return false;
                     }else{
-                        return true;
+                        if(item['type']['default_val'] == 'all'){
+                            return $(item.element).val().length != $(item.element + ' option').length;
+                        }else{
+                            return true;
+                        }
                     }
 				},
                 compare: function (FCObj, item, rowValue){
