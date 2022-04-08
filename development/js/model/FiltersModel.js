@@ -72,7 +72,7 @@ class FiltersModel {
                             $(item.element).map((item2, el) => {
                                 if (!$(el).prop('checked')) {
                                     group_count++;
-                                    console.log('item checked');
+                                    console.log('item checked',item2, el);
                                 }
                             });
                             
@@ -81,8 +81,7 @@ class FiltersModel {
                         });
 
                         Promise.all([promise1]).then((values) => {
-                            console.log('return ', values);
-                          return values;
+                            return values;
                         });
                     }
 				},
