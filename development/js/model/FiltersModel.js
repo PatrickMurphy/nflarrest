@@ -285,7 +285,7 @@ class FiltersModel {
 				name: 'position[]'
 			},
 			position_type: {
-				element: '#filter-position_type-o-input, #filter-position_type-d-input, #filter-position_type-s-input',
+				element: '#filter-position_type-offense-input, #filter-position_type-defense-input, #filter-position_type-special_teams-input',
 				type: this.filter_types.checkbox_group,
                 title: 'Position Type',
                 filter_data_options: DATA_MODEL_VWARRESTSWEB_POSITION_TYPE_VALUES_ARRAY,
