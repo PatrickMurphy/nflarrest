@@ -55,15 +55,16 @@ class FiltersModel {
 					/*RETURN OBJECT*/
                     var group_settings = {};
 
-					$(item.element).map(function (item2, el) {
-						if (!$(el).prop('checked')) {
-							group_settings[el] = true;
-						} else {
-							group_settings[el] = false;
-						}
-					});
+					var element_arr = item['element'].split(', '); // for each element in str list
 
-					return group_settings;
+                    for(var i = 0; i < element_arr.length; i++){
+                        if($(element_arr[i] + ':checked').length>0){
+                            group_settings[element_arr[i]] = true;
+                        }else{
+                            group_settings[element_arr[i]] = false;
+                        }
+                    }
+                    return group_settings;
                     
 					/*RETURN BINARY STRING*/
                     /*
