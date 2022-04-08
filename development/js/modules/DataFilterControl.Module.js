@@ -253,7 +253,9 @@ class FiltersControl extends DialogModuleContainer {
         var tempVals = this.getFilterValues();
         for (var key in tempVals) {
             for (var key2 in tempVals[key]) {
-                setCookieValue(key2, tempVals[key][key2]);
+                // TODO: set cookie value from utils class
+                //setCookieValue(key2, tempVals[key][key2]);
+                console.log(key2, tempVals[key][key2]);
             }
         }
     }
