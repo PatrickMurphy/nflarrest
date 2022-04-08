@@ -174,7 +174,7 @@ class DataFilter extends Module {
         options = options || {element: 'filter-UntitledCheckbox-input', title:'Untitled Checkbox'};
         options.element = options.element || 'filter-UntitledCheckbox-input';
         options.title = options.title || 'Untitled Checkbox';
-        
+         
         var selected = 'checked';
         if(options.hasOwnProperty('isSelected')){
             if(!options.isSelected){
@@ -183,7 +183,7 @@ class DataFilter extends Module {
         }
         // remove hash if exists element
         options.element = this.util_removeHashChar(options.element);
-        var col_val_with_underscores = options.COLUMN_VALUE.replaceAll(' ', '_');
+        var col_val_with_underscores = new String(options.COLUMN_VALUE).replaceAll(' ', '_');
         
         return `<label for="${this.getOption('name')+col_val_with_underscores}">${options.COLUMN_DISPLAY_VALUE}</label>
                 <input type="checkbox" name="${this.getOption('name')+col_val_with_underscores}" id="${this.getOption('name')+col_val_with_underscores}" ${selected}>`;
