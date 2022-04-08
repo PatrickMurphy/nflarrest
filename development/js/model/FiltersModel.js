@@ -65,24 +65,28 @@ class FiltersModel {
 					return group_settings.join('');
 				},
 				isActive: function (FCObj, item) {
-                    if(item['type']['default_val'] == 'all'){
-                        const promise1 = new Promise((resolve, reject) => {
-                            var group_count = 0;
-                            
-                            $(item.element).map((item2, el) => {
-                                if (!$(el).prop('checked')) {
-                                    group_count++;
-                                    console.log('item checked',item2, el);
-                                }
-                            });
-                            
-                            console.log($(item.element));
-                            resolve(group_count <= $(item.element).length);
-                        });
+                    if(!item.isHidden){
+                        return false;
+                    }else{
+                        if(item['type']['default_val'] == 'all'){
+                            const promise1 = new Promise((resolve, reject) => {
+                                var group_count = 0;
 
-                        Promise.all([promise1]).then((values) => {
-                            return values;
-                        });
+                                $(item.element).map((item2, el) => {
+                                    if (!$(el).prop('checked')) {
+                                        group_count++;
+                                        console.log('item checked',item2, el);
+                                    }
+                                });
+
+                                console.log($(item.element));
+                                resolve(group_count <= $(item.element).length);
+                            });
+
+                            Promise.all([promise1]).then((values) => {
+                                return values;
+                            });
+                        }
                     }
 				},
                 compare: function (FCObj, item, filterValue, rowValue) {
@@ -190,7 +194,7 @@ class FiltersModel {
                 isHidden: true // use dates
 			},
 			season_status: {
-				element: '#filter-seasonStatusOn-input, #filter-seasonStatusOff-input',
+				element: '#filter-season_status-in_season-input, #filter-season_status-off_season-input',
 				type: this.filter_types.checkbox_group,
                 title: 'Season Status',
                 filter_data_options: DATA_MODEL_VWARRESTSWEB_ARRESTSEASONSTATE_VALUES_ARRAY,
@@ -204,7 +208,7 @@ class FiltersModel {
 				name: 'team[]'
 			},
 			conference: {
-				element: '#filter-conference-AFC-input, #filter-conference-NFC-input',
+				element: '#filter-Conference-AFC-input, #filter-Conference-NFC-input',
 				type: this.filter_types.checkbox_group,
                 title: 'Conference',
                 filter_data_options: DATA_MODEL_VWARRESTSWEB_TEAM_CONFERENCE_VALUES_ARRAY,
@@ -219,11 +223,11 @@ class FiltersModel {
 				name: 'division[]'
 			},
 			crimeCategory: {
-				element: '#filter-crime-category-input',
+				element: '#filter-crime_category-input',
 				type: this.filter_types.select,
                 title: 'Crime Category',
                 filter_data_options: DATA_MODEL_VWARRESTSWEB_CRIME_CATEGORY_VALUES_ARRAY,
-				name: 'crimeCategory[]'
+				name: 'crime_category[]'
 			},
 			crime: {
 				element: '#filter-crime-input',
@@ -241,7 +245,7 @@ class FiltersModel {
 				name: 'position[]'
 			},
 			position_type: {
-				element: '#filter-position-type-input-o, #filter-position-type-input-d, #filter-position-type-input-s',
+				element: '#filter-position_type-o-input, #filter-position_type-d-input, #filter-position_type-s-input',
 				type: this.filter_types.checkbox_group,
                 title: 'Position Type',
                 filter_data_options: DATA_MODEL_VWARRESTSWEB_POSITION_TYPE_VALUES_ARRAY,

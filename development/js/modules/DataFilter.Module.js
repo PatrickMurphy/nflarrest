@@ -184,9 +184,11 @@ class DataFilter extends Module {
         // remove hash if exists element
         options.element = this.util_removeHashChar(options.element);
         var col_val_with_underscores = new String(options.COLUMN_VALUE).replaceAll(' ', '_');
+        var this_id = "filter-"+this.getOption('name')+"-"+col_val_with_underscores+"-input";
+        var this_name = this.getOption('name')+col_val_with_underscores;
         
-        return `<label for="${this.getOption('name')+col_val_with_underscores}">${options.COLUMN_DISPLAY_VALUE}</label>
-                <input type="checkbox" name="${this.getOption('name')+col_val_with_underscores}" id="${this.getOption('name')+col_val_with_underscores}" ${selected}>`;
+        return `<label for="${this_id}">${options.COLUMN_DISPLAY_VALUE}</label>
+                <input type="checkbox" name="${this_name}" id="${this_id}" ${selected}>`;
     }
     
     getRadioHTML(options){
