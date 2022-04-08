@@ -65,13 +65,24 @@ class FiltersModel {
 					return group_settings.join('');
 				},
 				isActive: function (FCObj, item) {
-					var group_count = 0;
-					$(item.element).map(function (item2, el) {
-						if (!$(el).prop('checked')) {
-							group_count++;
-						}
-					});
-					return group_count > 0;
+                    if(item['type']['default_val'] == 'all'){
+                        var group_count = 0;
+                        const promise1 = new Promise((resolve, reject) => {
+                            var group_count_arr = $(item.element).map((item2, el) => {
+                                if (!$(el).prop('checked')) {
+                                    group_count++;
+                                }
+                                return group_count;
+                            }).get();
+                            
+                            console.log(group_count_arr);
+                            resolve(group_count_arr.length>0);
+                        });
+
+                        Promise.all([promise1]).then((values) => {
+                          return group_count > 0;
+                        });
+                    }
 				},
                 compare: function (FCObj, item, filterValue, rowValue) {
                     var group_count = 0;
