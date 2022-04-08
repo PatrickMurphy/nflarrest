@@ -66,21 +66,23 @@ class FiltersModel {
 				},
 				isActive: function (FCObj, item) {
                     if(item['type']['default_val'] == 'all'){
-                        var group_count = 0;
                         const promise1 = new Promise((resolve, reject) => {
-                            var group_count_arr = $(item.element).map((item2, el) => {
+                            var group_count = 0;
+                            
+                            $(item.element).map((item2, el) => {
                                 if (!$(el).prop('checked')) {
                                     group_count++;
+                                    console.log('item checked');
                                 }
-                                return group_count;
-                            }).get();
+                            });
                             
-                            console.log(group_count_arr);
-                            resolve(group_count_arr.length>0);
+                            console.log($(item.element));
+                            resolve(group_count <= $(item.element).length);
                         });
 
                         Promise.all([promise1]).then((values) => {
-                          return group_count > 0;
+                            console.log('return ', values);
+                          return values;
                         });
                     }
 				},
