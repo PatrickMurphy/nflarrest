@@ -59,27 +59,12 @@ class FiltersModel {
 
                     for(var i = 0; i < element_arr.length; i++){
                         if($(element_arr[i] + ':checked').length>0){
-                            group_settings[element_arr[i]] = true;
+                            group_settings[element_arr[i].substring(1)] = true;
                         }else{
-                            group_settings[element_arr[i]] = false;
+                            group_settings[element_arr[i].substring(1)] = false;
                         }
                     }
                     return group_settings;
-                    
-					/*RETURN BINARY STRING*/
-                    /*
-                    var group_settings = [];
-
-					$(item.element).map(function (item2, el) {
-						if (!$(el).prop('checked')) {
-							group_settings.push('1');
-						} else {
-							group_settings.push('0');
-						}
-					});
-
-					return group_settings.join('');
-                    */
 				},
 				isActive: function (FCObj, item) {
                     if(item.isHidden){
@@ -121,30 +106,16 @@ class FiltersModel {
                     /*RETURN OBJECT*/
                     var group_settings = {};
 
-					$(item.element).map(function (item2, el) {
-						if (!$(el).prop('checked')) {
-							group_settings[el] = true;
-						} else {
-							group_settings[el] = false;
-						}
-					});
+					var element_arr = item['element'].split(', '); // for each element in str list
 
-					return group_settings;
-                    
-					/*RETURN BINARY STRING*/
-                    /*
-                    var group_settings = [];
-
-					$(item.element).map(function (item2, el) {
-						if (!$(el).prop('checked')) {
-							group_settings.push('1');
-						} else {
-							group_settings.push('0');
-						}
-					});
-
-					return group_settings.join('');
-                    */
+                    for(var i = 0; i < element_arr.length; i++){
+                        if($(element_arr[i] + ':checked').length>0){
+                            group_settings[element_arr[i].substring(1)] = true;
+                        }else{
+                            group_settings[element_arr[i].substring(1)] = false;
+                        }
+                    }
+                    return group_settings;
 				},
 				isActive: function (FCObj, item) {
 					if(item.isHidden){
