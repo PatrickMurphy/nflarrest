@@ -31,12 +31,16 @@ class FiltersModel {
 				name: 'select',
 				library: 'Chosen',
 				description: 'multi select field for filters, contains an array of values',
-				default_val: null,
+				default_val: 'all',
 				getValue: function (FCObj, item) {
 					return $(item.element).val();
 				},
 				isActive: function (FCObj, item) {
-					return $(item.element).val() != item['type']['default_val'];
+                    if(item['type']['default_val'] == 'all'){
+				        return $(item.element).val().length != $(item.element + ' option').length;
+                    }else{
+                        return true;
+                    }
 				},
                 compare: function (FCObj, item, rowValue){
                     return $(item.element).val().indexOf(rowValue)>0;
