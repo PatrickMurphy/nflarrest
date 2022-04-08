@@ -65,7 +65,7 @@ class FiltersModel {
 					return group_settings.join('');
 				},
 				isActive: function (FCObj, item) {
-                    if(!item.isHidden){
+                    if(item.isHidden){
                         return false;
                     }else{
                         if(item['type']['default_val'] == 'all'){
