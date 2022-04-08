@@ -183,7 +183,7 @@ class DataFilter extends Module {
         }
         // remove hash if exists element
         options.element = this.util_removeHashChar(options.element);
-        var col_val_with_underscores = new String(options.COLUMN_VALUE).replaceAll(' ', '_');
+        var col_val_with_underscores = new String(options.COLUMN_VALUE).replaceAll(' ', '_').toLowerCase();
         var this_id = "filter-"+this.getOption('name')+"-"+col_val_with_underscores+"-input";
         var this_name = this.getOption('name')+col_val_with_underscores;
         
