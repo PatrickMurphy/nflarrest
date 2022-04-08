@@ -69,7 +69,17 @@ class FiltersModel {
                         return false;
                     }else{
                         if(item['type']['default_val'] == 'all'){
-                            if($(item['element'] + ' input[type="checkbox"]').length > $(item['element'] + ' input[type="checkbox"]:checked').length){
+                            
+                            var element_arr = item['element'].split(', ');
+                            var total_checkboxes = element_arr.length;
+                            var checked_checkboxes = 0;
+                            
+                            for(var i = 0; i < element_arr.length; i++){
+                                if($(element_arr[i] + ':checked').length>0){
+                                    checked_checkboxes++;
+                                }
+                            }
+                            if(total_checkboxes > checked_checkboxes){
                                 return true;
                             }
                             /*const promise1 = new Promise((resolve, reject) => {
