@@ -69,7 +69,10 @@ class FiltersModel {
                         return false;
                     }else{
                         if(item['type']['default_val'] == 'all'){
-                            const promise1 = new Promise((resolve, reject) => {
+                            if($(item['element'] + ' input[type="checkbox"]').length > $(item['element'] + ' input[type="checkbox"]:checked').length){
+                                return true;
+                            }
+                            /*const promise1 = new Promise((resolve, reject) => {
                                 var group_count = 0;
 
                                 $(item.element).map((item2, el) => {
@@ -78,16 +81,16 @@ class FiltersModel {
                                         console.log('item checked',item2, el);
                                     }
                                 });
-
-                                console.log($(item.element));
+                                
                                 resolve(group_count <= $(item.element).length);
                             });
 
                             Promise.all([promise1]).then((values) => {
                                 return values;
-                            });
+                            });*/
                         }
                     }
+                    return false;
 				},
                 compare: function (FCObj, item, filterValue, rowValue) {
                     var group_count = 0;
