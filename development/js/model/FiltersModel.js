@@ -52,7 +52,22 @@ class FiltersModel {
 				description: 'a group of binary options',
 				default_val: 'all',
 				getValue: function (FCObj, item) {
-					var group_settings = [];
+					/*RETURN OBJECT*/
+                    var group_settings = {};
+
+					$(item.element).map(function (item2, el) {
+						if (!$(el).prop('checked')) {
+							group_settings[el] = true;
+						} else {
+							group_settings[el] = false;
+						}
+					});
+
+					return group_settings;
+                    
+					/*RETURN BINARY STRING*/
+                    /*
+                    var group_settings = [];
 
 					$(item.element).map(function (item2, el) {
 						if (!$(el).prop('checked')) {
@@ -63,41 +78,25 @@ class FiltersModel {
 					});
 
 					return group_settings.join('');
+                    */
 				},
 				isActive: function (FCObj, item) {
                     if(item.isHidden){
                         return false;
                     }else{
                         if(item['type']['default_val'] == 'all'){
-                            
-                            var element_arr = item['element'].split(', ');
-                            var total_checkboxes = element_arr.length;
+                            var element_arr = item['element'].split(', '); // for each element in str list
+                            var total_checkboxes = element_arr.length; // total list length equal total checkboxes
                             var checked_checkboxes = 0;
                             
                             for(var i = 0; i < element_arr.length; i++){
                                 if($(element_arr[i] + ':checked').length>0){
-                                    checked_checkboxes++;
+                                    checked_checkboxes++; // if element checked then add to count
                                 }
                             }
                             if(total_checkboxes > checked_checkboxes){
                                 return true;
                             }
-                            /*const promise1 = new Promise((resolve, reject) => {
-                                var group_count = 0;
-
-                                $(item.element).map((item2, el) => {
-                                    if (!$(el).prop('checked')) {
-                                        group_count++;
-                                        console.log('item checked',item2, el);
-                                    }
-                                });
-                                
-                                resolve(group_count <= $(item.element).length);
-                            });
-
-                            Promise.all([promise1]).then((values) => {
-                                return values;
-                            });*/
                         }
                     }
                     return false;
@@ -118,7 +117,22 @@ class FiltersModel {
 				description: 'a group of discrete options',
 				default_val: 'all',
 				getValue: function (FCObj, item) {
-					var group_settings = [];
+                    /*RETURN OBJECT*/
+                    var group_settings = {};
+
+					$(item.element).map(function (item2, el) {
+						if (!$(el).prop('checked')) {
+							group_settings[el] = true;
+						} else {
+							group_settings[el] = false;
+						}
+					});
+
+					return group_settings;
+                    
+					/*RETURN BINARY STRING*/
+                    /*
+                    var group_settings = [];
 
 					$(item.element).map(function (item2, el) {
 						if (!$(el).prop('checked')) {
@@ -129,15 +143,28 @@ class FiltersModel {
 					});
 
 					return group_settings.join('');
+                    */
 				},
 				isActive: function (FCObj, item) {
-					var group_count = 0;
-					$(item.element).map(function (item2, el) {
-						if (!$(el).prop('checked')) {
-							group_count++;
-						}
-					});
-					return group_count > 0;
+					if(item.isHidden){
+                        return false;
+                    }else{
+                        if(item['type']['default_val'] == 'all'){
+                            var element_arr = item['element'].split(', '); // for each element in str list
+                            var total_radios = element_arr.length; // total list length equal total checkboxes
+                            var checked_radios = 0;
+                            
+                            for(var i = 0; i < element_arr.length; i++){
+                                if($(element_arr[i] + ':checked').length>0){
+                                    checked_radios++; // if element checked then add to count
+                                }
+                            }
+                            if(total_radios > checked_radios){
+                                return true;
+                            }
+                        }
+                    }
+                    return false;
 				},
                 compare: function (FCObj, item, rowValue) {
                     var is_true = false;
