@@ -175,7 +175,8 @@ class FiltersModel {
 				element: '#filter-daterange-input',
 				type: this.filter_types.date_range_controller,
                 title:'Date Range',
-				name: ['start_date', 'end_date']
+				name: ['start_date', 'end_date'],
+                isHidden: false
 			},
 			month: {
 				element: '#filter-month-input',
@@ -214,14 +215,16 @@ class FiltersModel {
 				type: this.filter_types.checkbox_group,
                 title: 'Season Status',
                 filter_data_options: DATA_MODEL_VWARRESTSWEB_ARRESTSEASONSTATE_VALUES_ARRAY,
-				name: 'season_status'
+				name: 'season_status',
+                isHidden: false
 			},
 			team: {
 				element: '#filter-team-input',
 				type: this.filter_types.select,
                 title: 'Team',
                 filter_data_options: DATA_MODEL_VWARRESTSWEB_TEAM_VALUES_ARRAY,
-				name: 'team[]'
+				name: 'team[]',
+                isHidden: false
 			},
 			conference: {
 				element: '#filter-Conference-AFC-input, #filter-Conference-NFC-input',
@@ -236,14 +239,16 @@ class FiltersModel {
 				type: this.filter_types.select,
                 title: 'Division',
                 filter_data_options: DATA_MODEL_VWARRESTSWEB_TEAM_CONFERENCE_DIVISION_VALUES_ARRAY,
-				name: 'division[]'
+				name: 'division[]',
+                isHidden: false
 			},
 			crimeCategory: {
 				element: '#filter-crime_category-input',
 				type: this.filter_types.select,
                 title: 'Crime Category',
                 filter_data_options: DATA_MODEL_VWARRESTSWEB_CRIME_CATEGORY_VALUES_ARRAY,
-				name: 'crime_category[]'
+				name: 'crime_category[]',
+                isHidden: false
 			},
 			crime: {
 				element: '#filter-crime-input',
@@ -258,14 +263,16 @@ class FiltersModel {
 				type: this.filter_types.select,
                 title: 'Position',
                 filter_data_options: DATA_MODEL_VWARRESTSWEB_POSITION_VALUES_ARRAY,
-				name: 'position[]'
+				name: 'position[]',
+                isHidden: false
 			},
 			position_type: {
 				element: '#filter-position_type-offense-input, #filter-position_type-defense-input, #filter-position_type-special_teams-input',
 				type: this.filter_types.checkbox_group,
                 title: 'Position Type',
                 filter_data_options: DATA_MODEL_VWARRESTSWEB_POSITION_TYPE_VALUES_ARRAY,
-				name: 'position_type'
+				name: 'position_type',
+                isHidden: false
 			}/*,
 			player: {
 				element: '#filter-player-input',

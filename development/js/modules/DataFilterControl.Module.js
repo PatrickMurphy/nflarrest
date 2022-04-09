@@ -304,11 +304,11 @@ class FiltersControl extends DialogModuleContainer {
         // render daterange input
         $('#filter-daterange-input').html(self.DateRangeFilterInstance.getStart() + '-' + self.DateRangeFilterInstance.getEnd());
         // render section active filter counts
-        $('#filter-date-section .filter-section-title span').html(this.filters_model.filter_sections.date.active_count + '/4');
-        $('#filter-season-section .filter-section-title span').html(this.filters_model.filter_sections.season.active_count + '/2');
-        $('#filter-team-section .filter-section-title span').html(this.filters_model.filter_sections.team.active_count + '/3');
-        $('#filter-crime-section .filter-section-title span').html(this.filters_model.filter_sections.crime.active_count + '/2');
-        $('#filter-position-section .filter-section-title span').html(this.filters_model.filter_sections.position.active_count + '/2');
+        $('#filter-date-section .filter-section-title span').html(this.filters_model.filter_sections.date.active_count + '/' + this.filters_model.filter_sections.date.total_non_hidden_items_count);
+        $('#filter-season-section .filter-section-title span').html(this.filters_model.filter_sections.season.active_count + '/' + this.filters_model.filter_sections.season.total_non_hidden_items_count);
+        $('#filter-team-section .filter-section-title span').html(this.filters_model.filter_sections.team.active_count + '/' + this.filters_model.filter_sections.team.total_non_hidden_items_count);
+        $('#filter-crime-section .filter-section-title span').html(this.filters_model.filter_sections.crime.active_count + '/' + this.filters_model.filter_sections.crime.total_non_hidden_items_count);
+        $('#filter-position-section .filter-section-title span').html(this.filters_model.filter_sections.position.active_count + '/' + this.filters_model.filter_sections.position.total_non_hidden_items_count);
         //$('#filter-player-section .filter-section-title span').html(this.filters_model.filter_sections.player.active_count + '/1');
     }
 
@@ -323,16 +323,20 @@ class FiltersControl extends DialogModuleContainer {
             var section = this.filters_model.filter_sections[key];
 
             section['active_count'] = 0;
+            section['total_non_hidden_items_count'] = 0;
 
             for (var item_key in section['items']) {
                 // skip loop if the property is from prototype
                 if (!section['items'].hasOwnProperty(item_key)) continue;
-
+                
                 var item = section['items'][item_key];
-
-                // section increment count
-                if (item['type'].isActive(self, item)) {
-                    section['active_count']++;
+                
+                if(!item.isHidden){
+                    section['total_non_hidden_items_count']++; // add to total non hidden count
+                    // section increment count
+                    if (item['type'].isActive(self, item)) {
+                        section['active_count']++;
+                    }
                 }
             }
         }
