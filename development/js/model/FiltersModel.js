@@ -273,13 +273,15 @@ class FiltersModel {
                 filter_data_options: DATA_MODEL_VWARRESTSWEB_POSITION_TYPE_VALUES_ARRAY,
 				name: 'position_type',
                 isHidden: false
-			}/*,
+			},
 			player: {
 				element: '#filter-player-input',
 				type: this.filter_types.select,
                 title: 'Player',
-				name: 'player[]'
-			}*/
+                filter_data_options: DATA_MODEL_VWARRESTSWEB_POSITION_TYPE_VALUES_ARRAY, // todo replace
+				name: 'player[]',
+                isHidden: true
+			}
 		};
 
         // filter sections, contains filter items of filter type
