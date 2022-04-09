@@ -24,7 +24,11 @@ class DataFilterSection extends ModuleContainer {
     getHTML(){
         var items = this.getSubModulesHTML();
         var activeFilterCount = `<span>0/${this.getOptions().items.length}</span>`;
-        var return_html = `<div id="${this.getOptions().element.substring(1)}" class="filter-section">
+        var hide_html = '';
+        if(this.getOption('isHidden')){
+            hide_html = ' style="display:none;"';
+        }
+        var return_html = `<div id="${this.getOptions().element.substring(1)}" class="filter-section"${hide_html}>
                                 <div class="filter-section-title">
                                     ${this.getOptions().title}
                                     ${activeFilterCount}

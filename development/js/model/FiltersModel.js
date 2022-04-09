@@ -284,37 +284,42 @@ class FiltersModel {
 
         // filter sections, contains filter items of filter type
 		this.filter_sections = {
-            
 			date: {
 				title: 'Date Filters',
 				element: '#filter-date-section',
-				items: [this.filter_items.daterange, this.filter_items.month, this.filter_items.dayofweek, this.filter_items.yeartodate]
+				items: [this.filter_items.daterange, this.filter_items.month, this.filter_items.dayofweek, this.filter_items.yeartodate],
+                isHidden: true
 			},
 			season: {
 				title: 'Season Filters',
 				element: '#filter-season-section',
-				items: [this.filter_items.season, this.filter_items.season_status]
+				items: [this.filter_items.season, this.filter_items.season_status],
+                isHidden: false
 			},
 			team: {
 				title: 'Team Filters',
 				element: '#filter-team-section',
-				items: [this.filter_items.team, this.filter_items.conference, this.filter_items.division]
+				items: [this.filter_items.team, this.filter_items.conference, this.filter_items.division],
+                isHidden: false
 			},
 			crime: {
 				title: 'Crime Filters',
 				element: '#filter-crime-section',
-				items: [this.filter_items.crimeCategory, this.filter_items.crime]
+				items: [this.filter_items.crimeCategory, this.filter_items.crime],
+                isHidden: false
 			},
 			position: {
 				title: 'Position Filters',
 				element: '#filter-position-section',
-				items: [this.filter_items.position, this.filter_items.position_type]
-			}/*,
+				items: [this.filter_items.position, this.filter_items.position_type],
+                isHidden: false
+			},
 			player: {
 				title: 'Player Filters',
 				element: '#filter-player-section',
-				items: [this.filter_items.player]
-			}*/
+				items: [this.filter_items.player],
+                isHidden: true
+			}
 		};
 	}
 }
