@@ -301,7 +301,7 @@ class FiltersModel {
 			team: {
 				title: 'Team Filters',
 				element: '#filter-team-section',
-				items: [this.filter_items.team, this.filter_items.conference, this.filter_items.division],
+				items: [this.filter_items.division, this.filter_items.team, this.filter_items.conference],
                 isHidden: false
 			},
 			crime: {
@@ -313,7 +313,7 @@ class FiltersModel {
 			position: {
 				title: 'Position Filters',
 				element: '#filter-position-section',
-				items: [this.filter_items.position, this.filter_items.position_type],
+				items: [this.filter_items.position_type, this.filter_items.position],
                 isHidden: false
 			},
 			player: {
