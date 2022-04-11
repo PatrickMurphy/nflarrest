@@ -243,7 +243,7 @@ class FiltersModel {
 				element: '#filter-team-input',
 				type: this.filter_types.select,
                 title: 'Team',
-                filter_data_options_parent_item: this.filter_items.division,
+                filter_data_options_parent_name: 'division[]',
                 filter_data_options: DATA_MODEL_VWARRESTSWEB_TEAM_VALUES_ARRAY,
 				name: 'team[]',
                 isHidden: false
@@ -268,7 +268,7 @@ class FiltersModel {
 				element: '#filter-position-input',
 				type: this.filter_types.select,
                 title: 'Position',
-                filter_data_options_parent_item: this.filter_items.position_type,
+                filter_data_options_parent_name: 'position_type',
                 filter_data_options: DATA_MODEL_VWARRESTSWEB_POSITION_VALUES_ARRAY,
 				name: 'position[]',
                 isHidden: false
