@@ -17,9 +17,10 @@ mixin JSIncludeScripts(pageType="Default", pageTitle="Team")
         script(src='js/vendor/jquery.comiseo.daterangepicker.min.js' async='')
         script(src="js/vendor/pagination.min.js")
         script(src='js/data/ArrestsCacheTable_data_array.js' async='')
+        
+        script(src='js/MainChart.js' async='')
+        script(src='js/charts/stackedBarChart.js' async='')
         script(src='js/compressed/index.min.js' async='')
-        //script(src='js/MainChart.js' async='')
-        //script(src='js/charts/stackedBarChart.js' async='')
     else if pageType == "Default"
         script(src="js/Utilities.js")
         script(src="js/GoogleAnalyticsManager.js")
