@@ -1,3 +1,8 @@
+/*eslint-env es6*/ // Enables es6 error checking for that file
+/*eslint-env jquery*/ // Enables error checking for jquery functions
+/*eslint-env browser*/ // Lets you use document and other standard browser functions
+/*eslint no-console: 0*/ // Lets you use console (for example to log something)
+
 class FiltersModel {
 	constructor() {
 		// the type of filter controls used
@@ -222,6 +227,7 @@ class FiltersModel {
 				element: '#filter-team-input',
 				type: this.filter_types.select,
                 title: 'Team',
+                filter_data_options_parent_item: this.filter_items.division,
                 filter_data_options: DATA_MODEL_VWARRESTSWEB_TEAM_VALUES_ARRAY,
 				name: 'team[]',
                 isHidden: false
@@ -261,7 +267,8 @@ class FiltersModel {
 			position: {
 				element: '#filter-position-input',
 				type: this.filter_types.select,
-                title: 'Position',
+                title: 'Position',,
+                filter_data_options_parent_item: this.filter_items.position_type,
                 filter_data_options: DATA_MODEL_VWARRESTSWEB_POSITION_VALUES_ARRAY,
 				name: 'position[]',
                 isHidden: false

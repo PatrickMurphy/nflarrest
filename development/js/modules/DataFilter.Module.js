@@ -83,7 +83,20 @@ class DataFilter extends Module {
         HTMLReturn += `data-placeholder="${filter_placeholder}" id="${filter_element}">`;
         
         var selectedCount = 0;
+        var lastParentValue = undefined;
+        
         for(var i = 0; i < filter_data.length; i++){
+            if(filter_data[i].hasOwnProperty('COLUMN_PARENT_VALUE') && lastParentValue !== filter_data[i]['COLUMN_PARENT_VALUE']){
+                // set it if not equal
+                if(typeof lastParentValue !== 'undefined'){  
+                    HTMLReturn += '</optgroup>';
+                }
+                
+                lastParentValue = filter_data[i]['COLUMN_PARENT_VALUE'];
+                
+                HTMLReturn += '<optgroup label="'+lastParentValue+'">';
+            }
+            
             let tmpReturn = this.getSelectOptionHTML(filter_data[i]);
             HTMLReturn += tmpReturn;
             
