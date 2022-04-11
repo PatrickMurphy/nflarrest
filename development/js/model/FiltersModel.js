@@ -223,15 +223,6 @@ class FiltersModel {
 				name: 'season_status',
                 isHidden: false
 			},
-			team: {
-				element: '#filter-team-input',
-				type: this.filter_types.select,
-                title: 'Team',
-                filter_data_options_parent_item: this.filter_items.division,
-                filter_data_options: DATA_MODEL_VWARRESTSWEB_TEAM_VALUES_ARRAY,
-				name: 'team[]',
-                isHidden: false
-			},
 			conference: {
 				element: '#filter-Conference-AFC-input, #filter-Conference-NFC-input',
 				type: this.filter_types.checkbox_group,
@@ -246,6 +237,15 @@ class FiltersModel {
                 title: 'Division',
                 filter_data_options: DATA_MODEL_VWARRESTSWEB_TEAM_CONFERENCE_DIVISION_VALUES_ARRAY,
 				name: 'division[]',
+                isHidden: false
+			},
+			team: {
+				element: '#filter-team-input',
+				type: this.filter_types.select,
+                title: 'Team',
+                filter_data_options_parent_item: this.filter_items.division,
+                filter_data_options: DATA_MODEL_VWARRESTSWEB_TEAM_VALUES_ARRAY,
+				name: 'team[]',
                 isHidden: false
 			},
 			crimeCategory: {
