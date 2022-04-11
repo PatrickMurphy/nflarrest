@@ -267,7 +267,7 @@ class FiltersModel {
 			position: {
 				element: '#filter-position-input',
 				type: this.filter_types.select,
-                title: 'Position',,
+                title: 'Position',
                 filter_data_options_parent_item: this.filter_items.position_type,
                 filter_data_options: DATA_MODEL_VWARRESTSWEB_POSITION_VALUES_ARRAY,
 				name: 'position[]',
