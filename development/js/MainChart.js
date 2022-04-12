@@ -89,11 +89,15 @@ class MainChart {
     
     // if chart is set destroy, for using before rendering new chart
     destroyChart(){
-        if(this.parent.charts.length > 0)
-            if(typeof (this.parent.charts[0]) != "undefined") // TODO: Fix assumption that main chart will be element 0 in parent charts collection
-                if((this.parent.charts[0]).hasOwnProperty('stackedChart'))
-                    if (typeof (this.parent.charts[0].stackedChart) != "undefined")
+        if(this.parent.charts.length > 0){
+            if(typeof (this.parent.charts[0]) != "undefined") { // TODO: Fix assumption that main chart will be element 0 in parent charts collection
+                if((this.parent.charts[0]).hasOwnProperty('stackedChart')) {
+                    if (typeof (this.parent.charts[0].stackedChart) != "undefined") {
                         this.parent.charts[0].stackedChart.destroy();
+                    }
+                }
+            }
+        }
     }
     
     setupChart(){
@@ -110,7 +114,7 @@ class MainChart {
             };
             
             // set parent charts object to new Stacked Bar class instance
-            //this.parent.charts[0] = new StackedBarChart(chartSettings,this);
+            this.parent.charts[0] = new StackedBarChart(chartSettings,this);
             this.setReturnStatus(true);
             this.parent.checkLoadingFinished();
         };
@@ -154,5 +158,4 @@ class MainChart {
     getReturnStatus(){
         return this.ReturnStatus;
     }
-    
 }
