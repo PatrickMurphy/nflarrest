@@ -278,7 +278,7 @@ footer a {
 	border-radius: 50%;
 }
 
-
+/* 
 .dataFiltersControl {
-    display:none !important; /*temp hide for release to prod */
-}
+    display:none !important; 
+}*/ /*temp hide for release to prod */
