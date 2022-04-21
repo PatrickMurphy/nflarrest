@@ -7,7 +7,7 @@ class DataFilterSection extends ModuleContainer {
     }
     
     setOptions(options){
-        this.options = {...this.options, ...options};
+        this.options = options || {};
         
         this.options['title'] = options.title || 'Untitled Filter Section';
         this.options['element'] = options.element || '#filter-untitled-section';
