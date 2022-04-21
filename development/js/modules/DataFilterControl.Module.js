@@ -295,6 +295,7 @@ class FiltersControl extends DialogModuleContainer {
         var button_id_name = button_id_end.substring(0, button_id_end.lastIndexOf('-'));
         // todo: got half of the reqs for GA events
         // rename ids based on these rules
+        console.log('DataFilterControlModule: onFilterChanged: button_id: '+button_id+' button_id_end: ' + button_id_end + ' button_id_name: ' + button_id_name );
         //console.log(button_id, button_id_end, button_id_name);
         self.renderView();
     }
