@@ -1,5 +1,5 @@
 
-.dateRangeControl {
+.dateRangeControl, .dataFiltersControl {
     float: right;
     background-color: #e2e2e2;
     padding: calc(1px + 0.3vw);
@@ -9,12 +9,18 @@
     font-weight: bold;
     margin-right: 15px;
 }
+.dataFiltersControl .ActiveFilterCount {
+    background: #f5f5f5;
+    padding:2px;
+    border-radius: 2px;
+    border: 1px solid #bbb;
+}
 
-.dateRangeControl button:hover {
+.dateRangeControl button:hover, .dataFiltersControl button:hover {
     color: rgba(255, 118, 0, 0.54);
 }
 
-.dateRangeControl button {
+.dateRangeControl button, .dataFiltersControl button {
     color: rgb(255, 118, 0);
     background: #f5f5f5 !important;
     font-size: .95em;
@@ -22,10 +28,9 @@
     min-width: 0px !important;
 }
 
-.dateRangeControl .title {
+.dateRangeControl .title, .dataFiltersControl .title {
     font-weight: bold;
 }
-
 
 .dateRangeEditor {
     position: absolute;

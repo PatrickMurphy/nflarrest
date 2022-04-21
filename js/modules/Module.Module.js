@@ -1,5 +1,10 @@
 class Module {
     constructor(moduleID, parent, data, options){
+        this.moduleID = undefined;
+        this.parent = undefined;
+        this.data = undefined;
+        this.options = undefined;
+        
         this.setModuleID(moduleID);
         this.setParent(parent);
         this.setData(data);
@@ -24,15 +29,6 @@ class Module {
     
     getParent(){
         return this.parent;
-    }
-    
-    // function that can be overwritten to provide a boolean 
-    validateDataFormat(data){
-        if(data){
-            return true; // default data is valid
-        }else{
-            return false;
-        }
     }
     
     setData(newData){
@@ -70,6 +66,15 @@ class Module {
     
     getOptionExists(optKey){
         return this.getOptions().hasOwnProperty(optKey);
+    }
+    
+    // function that can be overwritten to provide a boolean 
+    validateDataFormat(data){
+        if(data){
+            return true; // default data is valid
+        }else{
+            return false;
+        }
     }
     
     // result functions ==========================================================================

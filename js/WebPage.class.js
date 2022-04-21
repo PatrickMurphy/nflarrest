@@ -82,20 +82,6 @@ class WebPage {
         this.Utilities.setupTwitter();
     }
     
-    setupFilters(){
-        var page_dimension = this.pageTitle.toLowerCase();
-        var filters_options = {
-            presets: {},
-            date_range_object: this.dateRangeNFL
-        };
-
-        filters_options['presets'][page_dimension] = {};
-        filters_options['presets'][page_dimension][page_dimension] = this.pageID;
-        this.FilterControl = new FiltersControl(filters_options);
-        
-        $(this.FilterControl.options.dialog_element).on('FilterDialogChanged', () => {this.renderView();});
-    }
-    
     // ================ Modules ================ //
     getModuleCount(){
         return Object.keys(this.Modules_HashMap).length;

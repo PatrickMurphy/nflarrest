@@ -19,7 +19,8 @@ class DataController {
     ConvertArrayToObject(row){
         var returnObj = {};
         // TODO: Remove this arrest specific hard coding
-        var columns = ['arrest_stats_id', 'Date', 'Team', 'Team_name', 'Team_preffered_name', 'Team_city', 'Team_logo_id', 'Team_Conference', 'Team_Division', 'Team_Conference_Division', 'Team_hex_color', 'Team_hex_alt_color', 'Name', 'Position', 'Position_name', 'Position_type', 'Encounter', 'Category', 'Crime_category', 'Crime_category_color', 'Description', 'Outcome', 'Season', 'ArrestSeasonState', 'general_category_id', 'legal_level_id', 'resolution_category_id', 'Year', 'Month', 'Day', 'Day_of_Week', 'Day_of_Week_int', 'YearToDate', 'DaysSince', 'DaysToLastArrest', 'DaysToLastCrimeArrest', 'DaysToLastTeamArrest'];
+        var columns = DATA_MODEL_COLUMNS.map(col => col.COLUMN_NAME);
+        //var columns = ['arrest_stats_id', 'Date', 'Team', 'Team_name', 'Team_preffered_name', 'Team_city', 'Team_logo_id', 'Team_Conference', 'Team_Division', 'Team_Conference_Division', 'Team_hex_color', 'Team_hex_alt_color', 'Name', 'Position', 'Position_name', 'Position_type', 'Encounter', 'Category', 'Crime_category', 'Crime_category_color', 'Description', 'Outcome', 'Season', 'ArrestSeasonState', 'general_category_id', 'legal_level_id', 'resolution_category_id', 'Year', 'Month', 'Day', 'Day_of_Week', 'Day_of_Week_int', 'YearToDate', 'DaysSince', 'DaysToLastArrest', 'DaysToLastCrimeArrest', 'DaysToLastTeamArrest'];
         // if columns has as many or more column titles as row has values
         if(columns.length >= row.length){
             for (var i = 0; i < row.length; i++){
@@ -86,11 +87,17 @@ class DataController {
         this.data.sort(compare);
     }
     
+    // todo: update dateLimit to filterFn
 	forEach(rowCallback, finsihedCallback, dateLimit){
         finsihedCallback = finsihedCallback || function(){};
 		dateLimit = dateLimit || true;
 		for (var i = this.data.length - 1; i >= 0; i--) {
 			var row = this.data[i];
+            /*if(filterFn){
+                if(filterFn(row)){
+                    rowCallback(row,i);
+                }
+            }*/
 			if(dateLimit){
 				if(this.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd())){
 					rowCallback(row,i);
@@ -117,10 +124,6 @@ class DataController {
 		return(new Date(row.Date) >= new Date(start_date) && new Date(row.Date) <= new Date(end_date));
 	}
 
-	getActivePlayerArrests(callback){
-		callback(['no data']);
-	}
-    
     getMostRecentArrest(callback){
         var returnRow;
         var minDaysSince = 999999999;
@@ -140,15 +143,32 @@ class DataController {
 
 	getTeams(callback, filterFn){
         var filterFunction = filterFn || (row) => {return this.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd());};
+        
+        
 		var result = [];
         var team_result_id = {}; // team:intpos
         var team_items = {};
 		var map = new Map();
 		
+        // for each this.data item in reverse
 		for (var i = this.data.length - 1; i >= 0; i--) {
             var row = this.data[i];
+            
+            // if fits filter
 			if(filterFunction(row)){
-                var item = {'Team': row.Team, 'Team_name': row.Team_name, 'Team_preffered_name': row.Team_preffered_name, 'Team_logo_id': row.Team_logo_id, 'Team_Conference': row.Team_Conference, 'Team_Division': row.Team_Division, 'Team_Conference_Division': row.Team_Conference_Division, 'Team_Arrest_Count':1};
+                // define row data
+                var item = {
+                                'Team': row.Team
+                                , 'Team_name': row.Team_name
+                                , 'Team_preffered_name': row.Team_preffered_name
+                                , 'Team_logo_id': row.Team_logo_id
+                                , 'Team_Conference': row.Team_Conference
+                                , 'Team_Division': row.Team_Division
+                                , 'Team_Conference_Division': row.Team_Conference_Division
+                                , 'Team_Arrest_Count':1
+                           };
+                
+                // init map item or increment
                 if(!map.has(row.Team)){
                     map.set(row.Team, 1);    // set any value to Map
                     team_result_id[row.Team] = result.length;
@@ -162,11 +182,14 @@ class DataController {
             }//else filtered out
 		}
         
+        // for each team_items value
+        //      add to result push team item object (item defined previously)
         for(var k = Object.keys(team_items).length - 1; k >= 0; k--){
             var obj = team_items[Object.keys(team_items)[k]];
             result.push(obj);
         }
         
+        // sort result by arrest count
         result.sort(function(a,b){
             if(a.Team_Arrest_Count > b.Team_Arrest_Count){
                 return -1;
@@ -215,14 +238,45 @@ class DataController {
 				});
 	}
 
+    getDistinctColumnValues(columnsObj,filterFn){
+        var filterFunction = filterFn || (row) => {return this.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd());};
+        var columnsObj = columnsObj || [];
+        var columnObj = columnsObj[0] || columnsObj || {};
+        var column = columnObj['column_name'] || columnObj || 'null';
+        var column_display = columnObj['column_display_name'] || column;
+        
+        var column_to_column_display_map = {};
+		var return_map = {};
+        
+        // for each data record, that fits filter, add to increment map and display map
+		for (var i = this.data.length - 1; i >= 0; i--) {
+			var row = this.data[i];
+			if(filterFunction(row)){
+				return_map = this.incrementMap(return_map, row[column]);
+                column_to_column_display_map[row[column]] = row[column_display];
+			}
+		}
+
+        // return array list of values
+		var return_arr = [];
+		Object.keys(return_map).forEach((key) => {
+			var obj = {};
+            obj['column'] = column;
+			obj['column_value'] = key;
+            obj['column_display_value'] = column_to_column_display_map[key];
+			obj['record_count'] = return_map[key];
+			return_arr.push(obj);
+		});
+
+		return return_arr;
+    }
+    
 	getDonutChart(column, filterFunc, callback){
 		var sortDESC = function(a, b) {
 		  return b.arrest_count - a.arrest_count;
 		};
 
 		var return_map = {};
-
-		var return_arr = [];
 
 		for (var i = this.data.length - 1; i >= 0; i--) {
 			var row = this.data[i];
@@ -231,6 +285,7 @@ class DataController {
 			}
 		}
 
+		var return_arr = [];
 		Object.keys(return_map).forEach((key) => {
 			var obj = {};
 			obj[column] = key;
@@ -440,11 +495,9 @@ class DataController {
         var filterFunction = filterFn || (row) => {return this.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd());};
         var arrests = [];
 		this.forEach((row) => {
-			if(this.dateLimit(row,this.DateRangeControl.getStart(),this.DateRangeControl.getEnd())){
-				if(filterFunction(row)){
-					arrests.push(row);
-				}
-			}
+			if(filterFunction(row)){
+                arrests.push(row);
+            }
 		},() => {
 			// finished
 			callback(arrests.length);
@@ -463,5 +516,10 @@ class DataController {
 			// finished
 			callback(arrests);
 		});
+	}
+    
+    // not active
+	getActivePlayerArrests(callback){
+		callback(['no data']);
 	}
 };
