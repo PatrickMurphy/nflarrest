@@ -293,9 +293,10 @@ class FiltersControl extends DialogModuleContainer {
         var button_id = event_action.currentTarget.getAttribute('id');
         var button_id_end = button_id.substring(button_id.indexOf('-') + 1, button_id.length);
         var button_id_name = button_id_end.substring(0, button_id_end.lastIndexOf('-'));
+        var button_value = $('#'+button_id).val();
         // todo: got half of the reqs for GA events
         // rename ids based on these rules
-        console.log('DataFilterControlModule: onFilterChanged: button_id: '+button_id+' button_id_end: ' + button_id_end + ' button_id_name: ' + button_id_name + ' selected_value: ' + selected_value );
+        console.log('DataFilterControlModule: onFilterChanged: button_id: '+button_id+' button_id_end: ' + button_id_end + ' button_id_name: ' + button_id_name + ' button_value: ' + button_value );
         //console.log(button_id, button_id_end, button_id_name);
         self.renderView();
     }
