@@ -11,7 +11,7 @@ class FiltersControl extends DialogModuleContainer {
         this.addSubModule(new DialogWindowColumn(this, [], {
             element: 'filter-attribute-column',
             wordColumnWidth: 'six',
-            sections: [this.filters_model.filter_sections.team, this.filters_model.filter_sections.crime]//, this.filters_model.filter_sections.player]
+            sections: [this.filters_model.filter_sections.team, this.filters_model.filter_sections.crime] //, this.filters_model.filter_sections.player]
         }));
 
         this.addSubModule(new DialogWindowColumn(this, [], {
@@ -19,7 +19,7 @@ class FiltersControl extends DialogModuleContainer {
             wordColumnWidth: 'six',
             sections: [this.filters_model.filter_sections.date, this.filters_model.filter_sections.season, this.filters_model.filter_sections.position]
         }));
-        
+
         this.DateRangeFilterInstance = this.parent.DateRangeControl;
         this.first_open = true;
 
@@ -84,7 +84,7 @@ class FiltersControl extends DialogModuleContainer {
         }
         // set element html
         $('#' + ele_ID).html(self.getHTML());*/
-        
+
         this.countActiveFilters();
 
         // hide all panels that should be hidden
@@ -198,13 +198,13 @@ class FiltersControl extends DialogModuleContainer {
         // setup date range controller
         $('#dateRangeJquery').on('dateRangeChanged', onChangeCallback);
 
-      /*  // include exclude filter button toggles
-        self.setupFilterTypeButton();
-        */
+        /*  // include exclude filter button toggles
+          self.setupFilterTypeButton();
+          */
     }
-    
+
     // disabled for now
-    setupFilterTypeButton(){
+    setupFilterTypeButton() {
         $('.filter-type-btn').click(function () {
             $(this).removeClass('filter-include filter-exclude');
             if ($(this).html() === 'Exclude') {
@@ -293,15 +293,16 @@ class FiltersControl extends DialogModuleContainer {
         var button_id = event_action.currentTarget.getAttribute('id');
         var button_id_end = button_id.substring(button_id.indexOf('-') + 1, button_id.length);
         var button_id_name = button_id_end.substring(0, button_id_end.lastIndexOf('-'));
-        var button_value = $('#'+button_id).val();
+        var button_value = $('#' + button_id).val();
+        var button_isChecked = $('#' + button_id).prop("checked");
         // todo: got half of the reqs for GA events
         // rename ids based on these rules
-        console.log('DataFilterControlModule: onFilterChanged: button_id: '+button_id+' button_id_end: ' + button_id_end + ' button_id_name: ' + button_id_name + ' button_value: ' + button_value );
+        console.log('DataFilterControlModule: onFilterChanged: button_id: ' + button_id + ' button_id_end: ' + button_id_end + ' button_id_name: ' + button_id_name + ' button_value: ' + button_value + ' button_isChecked: ' + button_isChecked);
         //console.log(button_id, button_id_end, button_id_name);
         self.renderView();
     }
-    
-    renderActiveFilters(){
+
+    renderActiveFilters() {
         var self = this;
         // render daterange input
         $('#filter-daterange-input').html(self.DateRangeFilterInstance.getStart() + '-' + self.DateRangeFilterInstance.getEnd());
@@ -330,10 +331,10 @@ class FiltersControl extends DialogModuleContainer {
             for (var item_key in section['items']) {
                 // skip loop if the property is from prototype
                 if (!section['items'].hasOwnProperty(item_key)) continue;
-                
+
                 var item = section['items'][item_key];
-                
-                if(!item.isHidden){
+
+                if (!item.isHidden) {
                     section['total_non_hidden_items_count']++; // add to total non hidden count
                     // section increment count
                     if (item['type'].isActive(self, item)) {
