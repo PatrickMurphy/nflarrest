@@ -280,5 +280,5 @@ footer a {
 
 
 .dataFiltersControl {
-    display:none; /*temp hide for release to prod */
+    display:none !important; /*temp hide for release to prod */
 }
